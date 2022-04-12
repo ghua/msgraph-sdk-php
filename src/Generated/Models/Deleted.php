@@ -44,8 +44,9 @@ class Deleted implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getStringValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getStringValue()); },
         ];
     }
 

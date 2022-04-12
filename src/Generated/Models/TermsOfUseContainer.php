@@ -51,9 +51,10 @@ class TermsOfUseContainer extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'agreementAcceptances' => function (self $o, ParseNode $n) { $o->setAgreementAcceptances($n->getCollectionOfObjectValues(AgreementAcceptance::class)); },
-            'agreements' => function (self $o, ParseNode $n) { $o->setAgreements($n->getCollectionOfObjectValues(Agreement::class)); },
+            'agreementAcceptances' => function (ParseNode $n) use ($currentObject) { $currentObject->setAgreementAcceptances($n->getCollectionOfObjectValues(AgreementAcceptance::class)); },
+            'agreements' => function (ParseNode $n) use ($currentObject) { $currentObject->setAgreements($n->getCollectionOfObjectValues(Agreement::class)); },
         ]);
     }
 

@@ -62,14 +62,15 @@ class SharepointIds implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'listId' => function (self $o, ParseNode $n) { $o->setListId($n->getStringValue()); },
-            'listItemId' => function (self $o, ParseNode $n) { $o->setListItemId($n->getStringValue()); },
-            'listItemUniqueId' => function (self $o, ParseNode $n) { $o->setListItemUniqueId($n->getStringValue()); },
-            'siteId' => function (self $o, ParseNode $n) { $o->setSiteId($n->getStringValue()); },
-            'siteUrl' => function (self $o, ParseNode $n) { $o->setSiteUrl($n->getStringValue()); },
-            'tenantId' => function (self $o, ParseNode $n) { $o->setTenantId($n->getStringValue()); },
-            'webId' => function (self $o, ParseNode $n) { $o->setWebId($n->getStringValue()); },
+            'listId' => function (ParseNode $n) use ($currentObject) { $currentObject->setListId($n->getStringValue()); },
+            'listItemId' => function (ParseNode $n) use ($currentObject) { $currentObject->setListItemId($n->getStringValue()); },
+            'listItemUniqueId' => function (ParseNode $n) use ($currentObject) { $currentObject->setListItemUniqueId($n->getStringValue()); },
+            'siteId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSiteId($n->getStringValue()); },
+            'siteUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setSiteUrl($n->getStringValue()); },
+            'tenantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTenantId($n->getStringValue()); },
+            'webId' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebId($n->getStringValue()); },
         ];
     }
 

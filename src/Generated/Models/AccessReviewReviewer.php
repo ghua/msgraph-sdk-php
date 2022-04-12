@@ -55,10 +55,11 @@ class AccessReviewReviewer extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ]);
     }
 

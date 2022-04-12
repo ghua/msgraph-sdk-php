@@ -40,8 +40,9 @@ class ManagedAppConfiguration extends ManagedAppPolicy
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'customSettings' => function (self $o, ParseNode $n) { $o->setCustomSettings($n->getCollectionOfObjectValues(KeyValuePair::class)); },
+            'customSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomSettings($n->getCollectionOfObjectValues(KeyValuePair::class)); },
         ]);
     }
 

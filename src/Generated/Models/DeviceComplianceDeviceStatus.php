@@ -75,14 +75,15 @@ class DeviceComplianceDeviceStatus extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'complianceGracePeriodExpirationDateTime' => function (self $o, ParseNode $n) { $o->setComplianceGracePeriodExpirationDateTime($n->getDateTimeValue()); },
-            'deviceDisplayName' => function (self $o, ParseNode $n) { $o->setDeviceDisplayName($n->getStringValue()); },
-            'deviceModel' => function (self $o, ParseNode $n) { $o->setDeviceModel($n->getStringValue()); },
-            'lastReportedDateTime' => function (self $o, ParseNode $n) { $o->setLastReportedDateTime($n->getDateTimeValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ComplianceStatus::class)); },
-            'userName' => function (self $o, ParseNode $n) { $o->setUserName($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'complianceGracePeriodExpirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setComplianceGracePeriodExpirationDateTime($n->getDateTimeValue()); },
+            'deviceDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceDisplayName($n->getStringValue()); },
+            'deviceModel' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceModel($n->getStringValue()); },
+            'lastReportedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastReportedDateTime($n->getDateTimeValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ComplianceStatus::class)); },
+            'userName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserName($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ]);
     }
 

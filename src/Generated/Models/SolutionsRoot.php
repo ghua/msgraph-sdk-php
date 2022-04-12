@@ -63,9 +63,10 @@ class SolutionsRoot implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'bookingBusinesses' => function (self $o, ParseNode $n) { $o->setBookingBusinesses($n->getCollectionOfObjectValues(BookingBusiness::class)); },
-            'bookingCurrencies' => function (self $o, ParseNode $n) { $o->setBookingCurrencies($n->getCollectionOfObjectValues(BookingCurrency::class)); },
+            'bookingBusinesses' => function (ParseNode $n) use ($currentObject) { $currentObject->setBookingBusinesses($n->getCollectionOfObjectValues(BookingBusiness::class)); },
+            'bookingCurrencies' => function (ParseNode $n) use ($currentObject) { $currentObject->setBookingCurrencies($n->getCollectionOfObjectValues(BookingCurrency::class)); },
         ];
     }
 

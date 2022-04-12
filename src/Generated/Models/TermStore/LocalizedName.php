@@ -47,9 +47,10 @@ class LocalizedName implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'languageTag' => function (self $o, ParseNode $n) { $o->setLanguageTag($n->getStringValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
+            'languageTag' => function (ParseNode $n) use ($currentObject) { $currentObject->setLanguageTag($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
         ];
     }
 

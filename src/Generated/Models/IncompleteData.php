@@ -48,9 +48,10 @@ class IncompleteData implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'missingDataBeforeDateTime' => function (self $o, ParseNode $n) { $o->setMissingDataBeforeDateTime($n->getDateTimeValue()); },
-            'wasThrottled' => function (self $o, ParseNode $n) { $o->setWasThrottled($n->getBooleanValue()); },
+            'missingDataBeforeDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setMissingDataBeforeDateTime($n->getDateTimeValue()); },
+            'wasThrottled' => function (ParseNode $n) use ($currentObject) { $currentObject->setWasThrottled($n->getBooleanValue()); },
         ];
     }
 

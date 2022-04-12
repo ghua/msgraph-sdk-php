@@ -49,11 +49,12 @@ class Authentication extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'fido2Methods' => function (self $o, ParseNode $n) { $o->setFido2Methods($n->getCollectionOfObjectValues(Fido2AuthenticationMethod::class)); },
-            'methods' => function (self $o, ParseNode $n) { $o->setMethods($n->getCollectionOfObjectValues(AuthenticationMethod::class)); },
-            'microsoftAuthenticatorMethods' => function (self $o, ParseNode $n) { $o->setMicrosoftAuthenticatorMethods($n->getCollectionOfObjectValues(MicrosoftAuthenticatorAuthenticationMethod::class)); },
-            'windowsHelloForBusinessMethods' => function (self $o, ParseNode $n) { $o->setWindowsHelloForBusinessMethods($n->getCollectionOfObjectValues(WindowsHelloForBusinessAuthenticationMethod::class)); },
+            'fido2Methods' => function (ParseNode $n) use ($currentObject) { $currentObject->setFido2Methods($n->getCollectionOfObjectValues(Fido2AuthenticationMethod::class)); },
+            'methods' => function (ParseNode $n) use ($currentObject) { $currentObject->setMethods($n->getCollectionOfObjectValues(AuthenticationMethod::class)); },
+            'microsoftAuthenticatorMethods' => function (ParseNode $n) use ($currentObject) { $currentObject->setMicrosoftAuthenticatorMethods($n->getCollectionOfObjectValues(MicrosoftAuthenticatorAuthenticationMethod::class)); },
+            'windowsHelloForBusinessMethods' => function (ParseNode $n) use ($currentObject) { $currentObject->setWindowsHelloForBusinessMethods($n->getCollectionOfObjectValues(WindowsHelloForBusinessAuthenticationMethod::class)); },
         ]);
     }
 

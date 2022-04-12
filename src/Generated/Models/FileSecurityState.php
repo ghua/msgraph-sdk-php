@@ -53,11 +53,12 @@ class FileSecurityState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'fileHash' => function (self $o, ParseNode $n) { $o->setFileHash($n->getObjectValue(FileHash::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'path' => function (self $o, ParseNode $n) { $o->setPath($n->getStringValue()); },
-            'riskScore' => function (self $o, ParseNode $n) { $o->setRiskScore($n->getStringValue()); },
+            'fileHash' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileHash($n->getObjectValue(FileHash::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'path' => function (ParseNode $n) use ($currentObject) { $currentObject->setPath($n->getStringValue()); },
+            'riskScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskScore($n->getStringValue()); },
         ];
     }
 

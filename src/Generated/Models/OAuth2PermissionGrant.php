@@ -60,12 +60,13 @@ class OAuth2PermissionGrant extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'clientId' => function (self $o, ParseNode $n) { $o->setClientId($n->getStringValue()); },
-            'consentType' => function (self $o, ParseNode $n) { $o->setConsentType($n->getStringValue()); },
-            'principalId' => function (self $o, ParseNode $n) { $o->setPrincipalId($n->getStringValue()); },
-            'resourceId' => function (self $o, ParseNode $n) { $o->setResourceId($n->getStringValue()); },
-            'scope' => function (self $o, ParseNode $n) { $o->setScope($n->getStringValue()); },
+            'clientId' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientId($n->getStringValue()); },
+            'consentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setConsentType($n->getStringValue()); },
+            'principalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalId($n->getStringValue()); },
+            'resourceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceId($n->getStringValue()); },
+            'scope' => function (ParseNode $n) use ($currentObject) { $currentObject->setScope($n->getStringValue()); },
         ]);
     }
 

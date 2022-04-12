@@ -63,9 +63,10 @@ class TeamGuestSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowCreateUpdateChannels' => function (self $o, ParseNode $n) { $o->setAllowCreateUpdateChannels($n->getBooleanValue()); },
-            'allowDeleteChannels' => function (self $o, ParseNode $n) { $o->setAllowDeleteChannels($n->getBooleanValue()); },
+            'allowCreateUpdateChannels' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowCreateUpdateChannels($n->getBooleanValue()); },
+            'allowDeleteChannels' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowDeleteChannels($n->getBooleanValue()); },
         ];
     }
 

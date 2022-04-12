@@ -43,9 +43,10 @@ class ManagedAppStatus extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

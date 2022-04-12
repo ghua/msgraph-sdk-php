@@ -128,21 +128,22 @@ class AccessReviewScheduleDefinition extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'additionalNotificationRecipients' => function (self $o, ParseNode $n) { $o->setAdditionalNotificationRecipients($n->getCollectionOfObjectValues(AccessReviewNotificationRecipientItem::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'descriptionForAdmins' => function (self $o, ParseNode $n) { $o->setDescriptionForAdmins($n->getStringValue()); },
-            'descriptionForReviewers' => function (self $o, ParseNode $n) { $o->setDescriptionForReviewers($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'fallbackReviewers' => function (self $o, ParseNode $n) { $o->setFallbackReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
-            'instanceEnumerationScope' => function (self $o, ParseNode $n) { $o->setInstanceEnumerationScope($n->getObjectValue(AccessReviewScope::class)); },
-            'instances' => function (self $o, ParseNode $n) { $o->setInstances($n->getCollectionOfObjectValues(AccessReviewInstance::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'reviewers' => function (self $o, ParseNode $n) { $o->setReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
-            'scope' => function (self $o, ParseNode $n) { $o->setScope($n->getObjectValue(AccessReviewScope::class)); },
-            'settings' => function (self $o, ParseNode $n) { $o->setSettings($n->getObjectValue(AccessReviewScheduleSettings::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
+            'additionalNotificationRecipients' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdditionalNotificationRecipients($n->getCollectionOfObjectValues(AccessReviewNotificationRecipientItem::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'descriptionForAdmins' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescriptionForAdmins($n->getStringValue()); },
+            'descriptionForReviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescriptionForReviewers($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'fallbackReviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setFallbackReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
+            'instanceEnumerationScope' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstanceEnumerationScope($n->getObjectValue(AccessReviewScope::class)); },
+            'instances' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstances($n->getCollectionOfObjectValues(AccessReviewInstance::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'reviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
+            'scope' => function (ParseNode $n) use ($currentObject) { $currentObject->setScope($n->getObjectValue(AccessReviewScope::class)); },
+            'settings' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettings($n->getObjectValue(AccessReviewScheduleSettings::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
         ]);
     }
 

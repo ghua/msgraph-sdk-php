@@ -62,10 +62,11 @@ class WindowsInformationProtectionAppLearningSummary extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'applicationName' => function (self $o, ParseNode $n) { $o->setApplicationName($n->getStringValue()); },
-            'applicationType' => function (self $o, ParseNode $n) { $o->setApplicationType($n->getEnumValue(ApplicationType::class)); },
-            'deviceCount' => function (self $o, ParseNode $n) { $o->setDeviceCount($n->getIntegerValue()); },
+            'applicationName' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplicationName($n->getStringValue()); },
+            'applicationType' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplicationType($n->getEnumValue(ApplicationType::class)); },
+            'deviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceCount($n->getIntegerValue()); },
         ]);
     }
 

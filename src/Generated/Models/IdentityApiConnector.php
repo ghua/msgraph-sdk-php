@@ -54,10 +54,11 @@ class IdentityApiConnector extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'authenticationConfiguration' => function (self $o, ParseNode $n) { $o->setAuthenticationConfiguration($n->getObjectValue(ApiAuthenticationConfigurationBase::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'targetUrl' => function (self $o, ParseNode $n) { $o->setTargetUrl($n->getStringValue()); },
+            'authenticationConfiguration' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthenticationConfiguration($n->getObjectValue(ApiAuthenticationConfigurationBase::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'targetUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetUrl($n->getStringValue()); },
         ]);
     }
 

@@ -44,8 +44,9 @@ class DeleteUserFromSharedAppleDeviceRequestBody implements AdditionalDataHolder
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ];
     }
 

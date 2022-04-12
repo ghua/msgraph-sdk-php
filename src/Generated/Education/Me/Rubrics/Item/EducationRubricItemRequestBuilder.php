@@ -58,7 +58,7 @@ class EducationRubricItemRequestBuilder
     }
 
     /**
-     * Get rubrics from education
+     * When set, the grading rubric attached to the assignment.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -120,7 +120,7 @@ class EducationRubricItemRequestBuilder
     }
 
     /**
-     * Get rubrics from education
+     * When set, the grading rubric attached to the assignment.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options

@@ -88,13 +88,14 @@ class Request extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'approvalId' => function (self $o, ParseNode $n) { $o->setApprovalId($n->getStringValue()); },
-            'completedDateTime' => function (self $o, ParseNode $n) { $o->setCompletedDateTime($n->getDateTimeValue()); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'customData' => function (self $o, ParseNode $n) { $o->setCustomData($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
+            'approvalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setApprovalId($n->getStringValue()); },
+            'completedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedDateTime($n->getDateTimeValue()); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'customData' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomData($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
         ]);
     }
 

@@ -56,9 +56,10 @@ class CreateReplyRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'comment' => function (self $o, ParseNode $n) { $o->setComment($n->getStringValue()); },
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getObjectValue(Message::class)); },
+            'comment' => function (ParseNode $n) use ($currentObject) { $currentObject->setComment($n->getStringValue()); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getObjectValue(Message::class)); },
         ];
     }
 

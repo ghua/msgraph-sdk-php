@@ -47,9 +47,10 @@ class UploadClientCertificateRequestBody implements AdditionalDataHolder, Parsab
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'password' => function (self $o, ParseNode $n) { $o->setPassword($n->getStringValue()); },
-            'pkcs12Value' => function (self $o, ParseNode $n) { $o->setPkcs12Value($n->getStringValue()); },
+            'password' => function (ParseNode $n) use ($currentObject) { $currentObject->setPassword($n->getStringValue()); },
+            'pkcs12Value' => function (ParseNode $n) use ($currentObject) { $currentObject->setPkcs12Value($n->getStringValue()); },
         ];
     }
 

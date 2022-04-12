@@ -80,12 +80,13 @@ class OutlookGeoCoordinates implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'accuracy' => function (self $o, ParseNode $n) { $o->setAccuracy($n->getFloatValue()); },
-            'altitude' => function (self $o, ParseNode $n) { $o->setAltitude($n->getFloatValue()); },
-            'altitudeAccuracy' => function (self $o, ParseNode $n) { $o->setAltitudeAccuracy($n->getFloatValue()); },
-            'latitude' => function (self $o, ParseNode $n) { $o->setLatitude($n->getFloatValue()); },
-            'longitude' => function (self $o, ParseNode $n) { $o->setLongitude($n->getFloatValue()); },
+            'accuracy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccuracy($n->getFloatValue()); },
+            'altitude' => function (ParseNode $n) use ($currentObject) { $currentObject->setAltitude($n->getFloatValue()); },
+            'altitudeAccuracy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAltitudeAccuracy($n->getFloatValue()); },
+            'latitude' => function (ParseNode $n) use ($currentObject) { $currentObject->setLatitude($n->getFloatValue()); },
+            'longitude' => function (ParseNode $n) use ($currentObject) { $currentObject->setLongitude($n->getFloatValue()); },
         ];
     }
 

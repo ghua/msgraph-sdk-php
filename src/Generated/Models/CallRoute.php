@@ -50,10 +50,11 @@ class CallRoute implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'final' => function (self $o, ParseNode $n) { $o->setEscapedFinal($n->getObjectValue(IdentitySet::class)); },
-            'original' => function (self $o, ParseNode $n) { $o->setOriginal($n->getObjectValue(IdentitySet::class)); },
-            'routingType' => function (self $o, ParseNode $n) { $o->setRoutingType($n->getEnumValue(RoutingType::class)); },
+            'final' => function (ParseNode $n) use ($currentObject) { $currentObject->setEscapedFinal($n->getObjectValue(IdentitySet::class)); },
+            'original' => function (ParseNode $n) use ($currentObject) { $currentObject->setOriginal($n->getObjectValue(IdentitySet::class)); },
+            'routingType' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoutingType($n->getEnumValue(RoutingType::class)); },
         ];
     }
 

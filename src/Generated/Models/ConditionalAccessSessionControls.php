@@ -80,12 +80,13 @@ class ConditionalAccessSessionControls implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'applicationEnforcedRestrictions' => function (self $o, ParseNode $n) { $o->setApplicationEnforcedRestrictions($n->getObjectValue(ApplicationEnforcedRestrictionsSessionControl::class)); },
-            'cloudAppSecurity' => function (self $o, ParseNode $n) { $o->setCloudAppSecurity($n->getObjectValue(CloudAppSecuritySessionControl::class)); },
-            'disableResilienceDefaults' => function (self $o, ParseNode $n) { $o->setDisableResilienceDefaults($n->getBooleanValue()); },
-            'persistentBrowser' => function (self $o, ParseNode $n) { $o->setPersistentBrowser($n->getObjectValue(PersistentBrowserSessionControl::class)); },
-            'signInFrequency' => function (self $o, ParseNode $n) { $o->setSignInFrequency($n->getObjectValue(SignInFrequencySessionControl::class)); },
+            'applicationEnforcedRestrictions' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplicationEnforcedRestrictions($n->getObjectValue(ApplicationEnforcedRestrictionsSessionControl::class)); },
+            'cloudAppSecurity' => function (ParseNode $n) use ($currentObject) { $currentObject->setCloudAppSecurity($n->getObjectValue(CloudAppSecuritySessionControl::class)); },
+            'disableResilienceDefaults' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisableResilienceDefaults($n->getBooleanValue()); },
+            'persistentBrowser' => function (ParseNode $n) use ($currentObject) { $currentObject->setPersistentBrowser($n->getObjectValue(PersistentBrowserSessionControl::class)); },
+            'signInFrequency' => function (ParseNode $n) use ($currentObject) { $currentObject->setSignInFrequency($n->getObjectValue(SignInFrequencySessionControl::class)); },
         ];
     }
 

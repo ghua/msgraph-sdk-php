@@ -75,13 +75,14 @@ class AudioConferencing implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'conferenceId' => function (self $o, ParseNode $n) { $o->setConferenceId($n->getStringValue()); },
-            'dialinUrl' => function (self $o, ParseNode $n) { $o->setDialinUrl($n->getStringValue()); },
-            'tollFreeNumber' => function (self $o, ParseNode $n) { $o->setTollFreeNumber($n->getStringValue()); },
-            'tollFreeNumbers' => function (self $o, ParseNode $n) { $o->setTollFreeNumbers($n->getCollectionOfPrimitiveValues()); },
-            'tollNumber' => function (self $o, ParseNode $n) { $o->setTollNumber($n->getStringValue()); },
-            'tollNumbers' => function (self $o, ParseNode $n) { $o->setTollNumbers($n->getCollectionOfPrimitiveValues()); },
+            'conferenceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setConferenceId($n->getStringValue()); },
+            'dialinUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setDialinUrl($n->getStringValue()); },
+            'tollFreeNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setTollFreeNumber($n->getStringValue()); },
+            'tollFreeNumbers' => function (ParseNode $n) use ($currentObject) { $currentObject->setTollFreeNumbers($n->getCollectionOfPrimitiveValues()); },
+            'tollNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setTollNumber($n->getStringValue()); },
+            'tollNumbers' => function (ParseNode $n) use ($currentObject) { $currentObject->setTollNumbers($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

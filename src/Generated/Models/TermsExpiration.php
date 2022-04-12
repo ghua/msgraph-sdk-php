@@ -49,9 +49,10 @@ class TermsExpiration implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'frequency' => function (self $o, ParseNode $n) { $o->setFrequency($n->getDateIntervalValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
+            'frequency' => function (ParseNode $n) use ($currentObject) { $currentObject->setFrequency($n->getDateIntervalValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
         ];
     }
 

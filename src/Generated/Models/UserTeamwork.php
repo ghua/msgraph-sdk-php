@@ -32,8 +32,9 @@ class UserTeamwork extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'installedApps' => function (self $o, ParseNode $n) { $o->setInstalledApps($n->getCollectionOfObjectValues(UserScopeTeamsAppInstallation::class)); },
+            'installedApps' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstalledApps($n->getCollectionOfObjectValues(UserScopeTeamsAppInstallation::class)); },
         ]);
     }
 

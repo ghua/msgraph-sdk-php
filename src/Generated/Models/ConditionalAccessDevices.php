@@ -52,8 +52,9 @@ class ConditionalAccessDevices implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'deviceFilter' => function (self $o, ParseNode $n) { $o->setDeviceFilter($n->getObjectValue(ConditionalAccessFilter::class)); },
+            'deviceFilter' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceFilter($n->getObjectValue(ConditionalAccessFilter::class)); },
         ];
     }
 

@@ -63,9 +63,10 @@ class ImplicitGrantSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'enableAccessTokenIssuance' => function (self $o, ParseNode $n) { $o->setEnableAccessTokenIssuance($n->getBooleanValue()); },
-            'enableIdTokenIssuance' => function (self $o, ParseNode $n) { $o->setEnableIdTokenIssuance($n->getBooleanValue()); },
+            'enableAccessTokenIssuance' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableAccessTokenIssuance($n->getBooleanValue()); },
+            'enableIdTokenIssuance' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableIdTokenIssuance($n->getBooleanValue()); },
         ];
     }
 

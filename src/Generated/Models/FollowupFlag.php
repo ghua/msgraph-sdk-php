@@ -69,11 +69,12 @@ class FollowupFlag implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'completedDateTime' => function (self $o, ParseNode $n) { $o->setCompletedDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'dueDateTime' => function (self $o, ParseNode $n) { $o->setDueDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'flagStatus' => function (self $o, ParseNode $n) { $o->setFlagStatus($n->getEnumValue(FollowupFlagStatus::class)); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'completedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'dueDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setDueDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'flagStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setFlagStatus($n->getEnumValue(FollowupFlagStatus::class)); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
         ];
     }
 

@@ -60,12 +60,13 @@ class ResourceSpecificPermissionGrant extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'clientAppId' => function (self $o, ParseNode $n) { $o->setClientAppId($n->getStringValue()); },
-            'clientId' => function (self $o, ParseNode $n) { $o->setClientId($n->getStringValue()); },
-            'permission' => function (self $o, ParseNode $n) { $o->setPermission($n->getStringValue()); },
-            'permissionType' => function (self $o, ParseNode $n) { $o->setPermissionType($n->getStringValue()); },
-            'resourceAppId' => function (self $o, ParseNode $n) { $o->setResourceAppId($n->getStringValue()); },
+            'clientAppId' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientAppId($n->getStringValue()); },
+            'clientId' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientId($n->getStringValue()); },
+            'permission' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermission($n->getStringValue()); },
+            'permissionType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermissionType($n->getStringValue()); },
+            'resourceAppId' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceAppId($n->getStringValue()); },
         ]);
     }
 

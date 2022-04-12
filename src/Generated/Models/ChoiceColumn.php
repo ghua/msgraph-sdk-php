@@ -74,10 +74,11 @@ class ChoiceColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowTextEntry' => function (self $o, ParseNode $n) { $o->setAllowTextEntry($n->getBooleanValue()); },
-            'choices' => function (self $o, ParseNode $n) { $o->setChoices($n->getCollectionOfPrimitiveValues()); },
-            'displayAs' => function (self $o, ParseNode $n) { $o->setDisplayAs($n->getStringValue()); },
+            'allowTextEntry' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowTextEntry($n->getBooleanValue()); },
+            'choices' => function (ParseNode $n) use ($currentObject) { $currentObject->setChoices($n->getCollectionOfPrimitiveValues()); },
+            'displayAs' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayAs($n->getStringValue()); },
         ];
     }
 

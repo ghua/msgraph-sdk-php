@@ -35,9 +35,10 @@ class WorkbookTableRow extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'index' => function (self $o, ParseNode $n) { $o->setIndex($n->getIntegerValue()); },
-            'values' => function (self $o, ParseNode $n) { $o->setValues($n->getObjectValue(Json::class)); },
+            'index' => function (ParseNode $n) use ($currentObject) { $currentObject->setIndex($n->getIntegerValue()); },
+            'values' => function (ParseNode $n) use ($currentObject) { $currentObject->setValues($n->getObjectValue(Json::class)); },
         ]);
     }
 

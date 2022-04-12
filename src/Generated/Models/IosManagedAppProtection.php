@@ -98,14 +98,15 @@ class IosManagedAppProtection extends TargetedManagedAppProtection
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appDataEncryptionType' => function (self $o, ParseNode $n) { $o->setAppDataEncryptionType($n->getEnumValue(ManagedAppDataEncryptionType::class)); },
-            'apps' => function (self $o, ParseNode $n) { $o->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
-            'customBrowserProtocol' => function (self $o, ParseNode $n) { $o->setCustomBrowserProtocol($n->getStringValue()); },
-            'deployedAppCount' => function (self $o, ParseNode $n) { $o->setDeployedAppCount($n->getIntegerValue()); },
-            'deploymentSummary' => function (self $o, ParseNode $n) { $o->setDeploymentSummary($n->getObjectValue(ManagedAppPolicyDeploymentSummary::class)); },
-            'faceIdBlocked' => function (self $o, ParseNode $n) { $o->setFaceIdBlocked($n->getBooleanValue()); },
-            'minimumRequiredSdkVersion' => function (self $o, ParseNode $n) { $o->setMinimumRequiredSdkVersion($n->getStringValue()); },
+            'appDataEncryptionType' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppDataEncryptionType($n->getEnumValue(ManagedAppDataEncryptionType::class)); },
+            'apps' => function (ParseNode $n) use ($currentObject) { $currentObject->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
+            'customBrowserProtocol' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomBrowserProtocol($n->getStringValue()); },
+            'deployedAppCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeployedAppCount($n->getIntegerValue()); },
+            'deploymentSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeploymentSummary($n->getObjectValue(ManagedAppPolicyDeploymentSummary::class)); },
+            'faceIdBlocked' => function (ParseNode $n) use ($currentObject) { $currentObject->setFaceIdBlocked($n->getBooleanValue()); },
+            'minimumRequiredSdkVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumRequiredSdkVersion($n->getStringValue()); },
         ]);
     }
 

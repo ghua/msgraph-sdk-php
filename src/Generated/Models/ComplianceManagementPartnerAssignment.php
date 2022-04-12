@@ -44,8 +44,9 @@ class ComplianceManagementPartnerAssignment implements AdditionalDataHolder, Par
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'target' => function (self $o, ParseNode $n) { $o->setTarget($n->getObjectValue(DeviceAndAppManagementAssignmentTarget::class)); },
+            'target' => function (ParseNode $n) use ($currentObject) { $currentObject->setTarget($n->getObjectValue(DeviceAndAppManagementAssignmentTarget::class)); },
         ];
     }
 

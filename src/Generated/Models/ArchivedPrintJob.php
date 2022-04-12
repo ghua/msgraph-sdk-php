@@ -117,16 +117,17 @@ class ArchivedPrintJob implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'acquiredByPrinter' => function (self $o, ParseNode $n) { $o->setAcquiredByPrinter($n->getBooleanValue()); },
-            'acquiredDateTime' => function (self $o, ParseNode $n) { $o->setAcquiredDateTime($n->getDateTimeValue()); },
-            'completionDateTime' => function (self $o, ParseNode $n) { $o->setCompletionDateTime($n->getDateTimeValue()); },
-            'copiesPrinted' => function (self $o, ParseNode $n) { $o->setCopiesPrinted($n->getIntegerValue()); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'printerId' => function (self $o, ParseNode $n) { $o->setPrinterId($n->getStringValue()); },
-            'processingState' => function (self $o, ParseNode $n) { $o->setProcessingState($n->getEnumValue(PrintJobProcessingState::class)); },
+            'acquiredByPrinter' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcquiredByPrinter($n->getBooleanValue()); },
+            'acquiredDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcquiredDateTime($n->getDateTimeValue()); },
+            'completionDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletionDateTime($n->getDateTimeValue()); },
+            'copiesPrinted' => function (ParseNode $n) use ($currentObject) { $currentObject->setCopiesPrinted($n->getIntegerValue()); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'printerId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrinterId($n->getStringValue()); },
+            'processingState' => function (ParseNode $n) use ($currentObject) { $currentObject->setProcessingState($n->getEnumValue(PrintJobProcessingState::class)); },
         ];
     }
 

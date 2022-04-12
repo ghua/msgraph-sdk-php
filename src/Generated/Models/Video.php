@@ -119,17 +119,18 @@ class Video implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'audioBitsPerSample' => function (self $o, ParseNode $n) { $o->setAudioBitsPerSample($n->getIntegerValue()); },
-            'audioChannels' => function (self $o, ParseNode $n) { $o->setAudioChannels($n->getIntegerValue()); },
-            'audioFormat' => function (self $o, ParseNode $n) { $o->setAudioFormat($n->getStringValue()); },
-            'audioSamplesPerSecond' => function (self $o, ParseNode $n) { $o->setAudioSamplesPerSecond($n->getIntegerValue()); },
-            'bitrate' => function (self $o, ParseNode $n) { $o->setBitrate($n->getIntegerValue()); },
-            'duration' => function (self $o, ParseNode $n) { $o->setDuration($n->getIntegerValue()); },
-            'fourCC' => function (self $o, ParseNode $n) { $o->setFourCC($n->getStringValue()); },
-            'frameRate' => function (self $o, ParseNode $n) { $o->setFrameRate($n->getFloatValue()); },
-            'height' => function (self $o, ParseNode $n) { $o->setHeight($n->getIntegerValue()); },
-            'width' => function (self $o, ParseNode $n) { $o->setWidth($n->getIntegerValue()); },
+            'audioBitsPerSample' => function (ParseNode $n) use ($currentObject) { $currentObject->setAudioBitsPerSample($n->getIntegerValue()); },
+            'audioChannels' => function (ParseNode $n) use ($currentObject) { $currentObject->setAudioChannels($n->getIntegerValue()); },
+            'audioFormat' => function (ParseNode $n) use ($currentObject) { $currentObject->setAudioFormat($n->getStringValue()); },
+            'audioSamplesPerSecond' => function (ParseNode $n) use ($currentObject) { $currentObject->setAudioSamplesPerSecond($n->getIntegerValue()); },
+            'bitrate' => function (ParseNode $n) use ($currentObject) { $currentObject->setBitrate($n->getIntegerValue()); },
+            'duration' => function (ParseNode $n) use ($currentObject) { $currentObject->setDuration($n->getIntegerValue()); },
+            'fourCC' => function (ParseNode $n) use ($currentObject) { $currentObject->setFourCC($n->getStringValue()); },
+            'frameRate' => function (ParseNode $n) use ($currentObject) { $currentObject->setFrameRate($n->getFloatValue()); },
+            'height' => function (ParseNode $n) use ($currentObject) { $currentObject->setHeight($n->getIntegerValue()); },
+            'width' => function (ParseNode $n) use ($currentObject) { $currentObject->setWidth($n->getIntegerValue()); },
         ];
     }
 

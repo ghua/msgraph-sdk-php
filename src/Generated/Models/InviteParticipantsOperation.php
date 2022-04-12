@@ -32,8 +32,9 @@ class InviteParticipantsOperation extends CommsOperation
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'participants' => function (self $o, ParseNode $n) { $o->setParticipants($n->getCollectionOfObjectValues(InvitationParticipantInfo::class)); },
+            'participants' => function (ParseNode $n) use ($currentObject) { $currentObject->setParticipants($n->getCollectionOfObjectValues(InvitationParticipantInfo::class)); },
         ]);
     }
 

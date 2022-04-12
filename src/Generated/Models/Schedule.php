@@ -94,26 +94,27 @@ class Schedule extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'enabled' => function (self $o, ParseNode $n) { $o->setEnabled($n->getBooleanValue()); },
-            'offerShiftRequests' => function (self $o, ParseNode $n) { $o->setOfferShiftRequests($n->getCollectionOfObjectValues(OfferShiftRequest::class)); },
-            'offerShiftRequestsEnabled' => function (self $o, ParseNode $n) { $o->setOfferShiftRequestsEnabled($n->getBooleanValue()); },
-            'openShiftChangeRequests' => function (self $o, ParseNode $n) { $o->setOpenShiftChangeRequests($n->getCollectionOfObjectValues(OpenShiftChangeRequest::class)); },
-            'openShifts' => function (self $o, ParseNode $n) { $o->setOpenShifts($n->getCollectionOfObjectValues(OpenShift::class)); },
-            'openShiftsEnabled' => function (self $o, ParseNode $n) { $o->setOpenShiftsEnabled($n->getBooleanValue()); },
-            'provisionStatus' => function (self $o, ParseNode $n) { $o->setProvisionStatus($n->getEnumValue(OperationStatus::class)); },
-            'provisionStatusCode' => function (self $o, ParseNode $n) { $o->setProvisionStatusCode($n->getStringValue()); },
-            'schedulingGroups' => function (self $o, ParseNode $n) { $o->setSchedulingGroups($n->getCollectionOfObjectValues(SchedulingGroup::class)); },
-            'shifts' => function (self $o, ParseNode $n) { $o->setShifts($n->getCollectionOfObjectValues(Shift::class)); },
-            'swapShiftsChangeRequests' => function (self $o, ParseNode $n) { $o->setSwapShiftsChangeRequests($n->getCollectionOfObjectValues(SwapShiftsChangeRequest::class)); },
-            'swapShiftsRequestsEnabled' => function (self $o, ParseNode $n) { $o->setSwapShiftsRequestsEnabled($n->getBooleanValue()); },
-            'timeClockEnabled' => function (self $o, ParseNode $n) { $o->setTimeClockEnabled($n->getBooleanValue()); },
-            'timeOffReasons' => function (self $o, ParseNode $n) { $o->setTimeOffReasons($n->getCollectionOfObjectValues(TimeOffReason::class)); },
-            'timeOffRequests' => function (self $o, ParseNode $n) { $o->setTimeOffRequests($n->getCollectionOfObjectValues(TimeOffRequest::class)); },
-            'timeOffRequestsEnabled' => function (self $o, ParseNode $n) { $o->setTimeOffRequestsEnabled($n->getBooleanValue()); },
-            'timesOff' => function (self $o, ParseNode $n) { $o->setTimesOff($n->getCollectionOfObjectValues(TimeOff::class)); },
-            'timeZone' => function (self $o, ParseNode $n) { $o->setTimeZone($n->getStringValue()); },
-            'workforceIntegrationIds' => function (self $o, ParseNode $n) { $o->setWorkforceIntegrationIds($n->getCollectionOfPrimitiveValues()); },
+            'enabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnabled($n->getBooleanValue()); },
+            'offerShiftRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setOfferShiftRequests($n->getCollectionOfObjectValues(OfferShiftRequest::class)); },
+            'offerShiftRequestsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setOfferShiftRequestsEnabled($n->getBooleanValue()); },
+            'openShiftChangeRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setOpenShiftChangeRequests($n->getCollectionOfObjectValues(OpenShiftChangeRequest::class)); },
+            'openShifts' => function (ParseNode $n) use ($currentObject) { $currentObject->setOpenShifts($n->getCollectionOfObjectValues(OpenShift::class)); },
+            'openShiftsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setOpenShiftsEnabled($n->getBooleanValue()); },
+            'provisionStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisionStatus($n->getEnumValue(OperationStatus::class)); },
+            'provisionStatusCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisionStatusCode($n->getStringValue()); },
+            'schedulingGroups' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedulingGroups($n->getCollectionOfObjectValues(SchedulingGroup::class)); },
+            'shifts' => function (ParseNode $n) use ($currentObject) { $currentObject->setShifts($n->getCollectionOfObjectValues(Shift::class)); },
+            'swapShiftsChangeRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setSwapShiftsChangeRequests($n->getCollectionOfObjectValues(SwapShiftsChangeRequest::class)); },
+            'swapShiftsRequestsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setSwapShiftsRequestsEnabled($n->getBooleanValue()); },
+            'timeClockEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeClockEnabled($n->getBooleanValue()); },
+            'timeOffReasons' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeOffReasons($n->getCollectionOfObjectValues(TimeOffReason::class)); },
+            'timeOffRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeOffRequests($n->getCollectionOfObjectValues(TimeOffRequest::class)); },
+            'timeOffRequestsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeOffRequestsEnabled($n->getBooleanValue()); },
+            'timesOff' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimesOff($n->getCollectionOfObjectValues(TimeOff::class)); },
+            'timeZone' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeZone($n->getStringValue()); },
+            'workforceIntegrationIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorkforceIntegrationIds($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

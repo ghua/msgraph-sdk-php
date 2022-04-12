@@ -47,7 +47,7 @@ class AssignmentsRequestBuilder
     }
 
     /**
-     * Assignments that belongs to the user.
+     * Assignments belonging to the user.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -93,7 +93,7 @@ class AssignmentsRequestBuilder
     }
 
     /**
-     * Assignments that belongs to the user.
+     * Assignments belonging to the user.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options

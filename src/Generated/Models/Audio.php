@@ -161,23 +161,24 @@ class Audio implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'album' => function (self $o, ParseNode $n) { $o->setAlbum($n->getStringValue()); },
-            'albumArtist' => function (self $o, ParseNode $n) { $o->setAlbumArtist($n->getStringValue()); },
-            'artist' => function (self $o, ParseNode $n) { $o->setArtist($n->getStringValue()); },
-            'bitrate' => function (self $o, ParseNode $n) { $o->setBitrate($n->getIntegerValue()); },
-            'composers' => function (self $o, ParseNode $n) { $o->setComposers($n->getStringValue()); },
-            'copyright' => function (self $o, ParseNode $n) { $o->setCopyright($n->getStringValue()); },
-            'disc' => function (self $o, ParseNode $n) { $o->setDisc($n->getIntegerValue()); },
-            'discCount' => function (self $o, ParseNode $n) { $o->setDiscCount($n->getIntegerValue()); },
-            'duration' => function (self $o, ParseNode $n) { $o->setDuration($n->getIntegerValue()); },
-            'genre' => function (self $o, ParseNode $n) { $o->setGenre($n->getStringValue()); },
-            'hasDrm' => function (self $o, ParseNode $n) { $o->setHasDrm($n->getBooleanValue()); },
-            'isVariableBitrate' => function (self $o, ParseNode $n) { $o->setIsVariableBitrate($n->getBooleanValue()); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
-            'track' => function (self $o, ParseNode $n) { $o->setTrack($n->getIntegerValue()); },
-            'trackCount' => function (self $o, ParseNode $n) { $o->setTrackCount($n->getIntegerValue()); },
-            'year' => function (self $o, ParseNode $n) { $o->setYear($n->getIntegerValue()); },
+            'album' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlbum($n->getStringValue()); },
+            'albumArtist' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlbumArtist($n->getStringValue()); },
+            'artist' => function (ParseNode $n) use ($currentObject) { $currentObject->setArtist($n->getStringValue()); },
+            'bitrate' => function (ParseNode $n) use ($currentObject) { $currentObject->setBitrate($n->getIntegerValue()); },
+            'composers' => function (ParseNode $n) use ($currentObject) { $currentObject->setComposers($n->getStringValue()); },
+            'copyright' => function (ParseNode $n) use ($currentObject) { $currentObject->setCopyright($n->getStringValue()); },
+            'disc' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisc($n->getIntegerValue()); },
+            'discCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDiscCount($n->getIntegerValue()); },
+            'duration' => function (ParseNode $n) use ($currentObject) { $currentObject->setDuration($n->getIntegerValue()); },
+            'genre' => function (ParseNode $n) use ($currentObject) { $currentObject->setGenre($n->getStringValue()); },
+            'hasDrm' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasDrm($n->getBooleanValue()); },
+            'isVariableBitrate' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsVariableBitrate($n->getBooleanValue()); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
+            'track' => function (ParseNode $n) use ($currentObject) { $currentObject->setTrack($n->getIntegerValue()); },
+            'trackCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setTrackCount($n->getIntegerValue()); },
+            'year' => function (ParseNode $n) use ($currentObject) { $currentObject->setYear($n->getIntegerValue()); },
         ];
     }
 

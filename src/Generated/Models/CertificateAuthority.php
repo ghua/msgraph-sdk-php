@@ -84,13 +84,14 @@ class CertificateAuthority implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'certificate' => function (self $o, ParseNode $n) { $o->setCertificate($n->getBinaryContent()); },
-            'certificateRevocationListUrl' => function (self $o, ParseNode $n) { $o->setCertificateRevocationListUrl($n->getStringValue()); },
-            'deltaCertificateRevocationListUrl' => function (self $o, ParseNode $n) { $o->setDeltaCertificateRevocationListUrl($n->getStringValue()); },
-            'isRootAuthority' => function (self $o, ParseNode $n) { $o->setIsRootAuthority($n->getBooleanValue()); },
-            'issuer' => function (self $o, ParseNode $n) { $o->setIssuer($n->getStringValue()); },
-            'issuerSki' => function (self $o, ParseNode $n) { $o->setIssuerSki($n->getStringValue()); },
+            'certificate' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificate($n->getBinaryContent()); },
+            'certificateRevocationListUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificateRevocationListUrl($n->getStringValue()); },
+            'deltaCertificateRevocationListUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeltaCertificateRevocationListUrl($n->getStringValue()); },
+            'isRootAuthority' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsRootAuthority($n->getBooleanValue()); },
+            'issuer' => function (ParseNode $n) use ($currentObject) { $currentObject->setIssuer($n->getStringValue()); },
+            'issuerSki' => function (ParseNode $n) use ($currentObject) { $currentObject->setIssuerSki($n->getStringValue()); },
         ];
     }
 

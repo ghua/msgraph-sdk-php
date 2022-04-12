@@ -57,11 +57,12 @@ class AppConsentRequest extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appDisplayName' => function (self $o, ParseNode $n) { $o->setAppDisplayName($n->getStringValue()); },
-            'appId' => function (self $o, ParseNode $n) { $o->setAppId($n->getStringValue()); },
-            'pendingScopes' => function (self $o, ParseNode $n) { $o->setPendingScopes($n->getCollectionOfObjectValues(AppConsentRequestScope::class)); },
-            'userConsentRequests' => function (self $o, ParseNode $n) { $o->setUserConsentRequests($n->getCollectionOfObjectValues(UserConsentRequest::class)); },
+            'appDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppDisplayName($n->getStringValue()); },
+            'appId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppId($n->getStringValue()); },
+            'pendingScopes' => function (ParseNode $n) use ($currentObject) { $currentObject->setPendingScopes($n->getCollectionOfObjectValues(AppConsentRequestScope::class)); },
+            'userConsentRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserConsentRequests($n->getCollectionOfObjectValues(UserConsentRequest::class)); },
         ]);
     }
 

@@ -76,12 +76,13 @@ class TargetedManagedAppConfiguration extends ManagedAppConfiguration
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'apps' => function (self $o, ParseNode $n) { $o->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(TargetedManagedAppPolicyAssignment::class)); },
-            'deployedAppCount' => function (self $o, ParseNode $n) { $o->setDeployedAppCount($n->getIntegerValue()); },
-            'deploymentSummary' => function (self $o, ParseNode $n) { $o->setDeploymentSummary($n->getObjectValue(ManagedAppPolicyDeploymentSummary::class)); },
-            'isAssigned' => function (self $o, ParseNode $n) { $o->setIsAssigned($n->getBooleanValue()); },
+            'apps' => function (ParseNode $n) use ($currentObject) { $currentObject->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(TargetedManagedAppPolicyAssignment::class)); },
+            'deployedAppCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeployedAppCount($n->getIntegerValue()); },
+            'deploymentSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeploymentSummary($n->getObjectValue(ManagedAppPolicyDeploymentSummary::class)); },
+            'isAssigned' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAssigned($n->getBooleanValue()); },
         ]);
     }
 

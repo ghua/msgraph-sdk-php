@@ -66,11 +66,12 @@ class EducationAssignmentDefaults extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'addedStudentAction' => function (self $o, ParseNode $n) { $o->setAddedStudentAction($n->getEnumValue(EducationAddedStudentAction::class)); },
-            'addToCalendarAction' => function (self $o, ParseNode $n) { $o->setAddToCalendarAction($n->getEnumValue(EducationAddToCalendarOptions::class)); },
-            'dueTime' => function (self $o, ParseNode $n) { $o->setDueTime($n->getTimeValue()); },
-            'notificationChannelUrl' => function (self $o, ParseNode $n) { $o->setNotificationChannelUrl($n->getStringValue()); },
+            'addedStudentAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddedStudentAction($n->getEnumValue(EducationAddedStudentAction::class)); },
+            'addToCalendarAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddToCalendarAction($n->getEnumValue(EducationAddToCalendarOptions::class)); },
+            'dueTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setDueTime($n->getTimeValue()); },
+            'notificationChannelUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotificationChannelUrl($n->getStringValue()); },
         ]);
     }
 

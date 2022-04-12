@@ -84,14 +84,15 @@ class Session extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'callee' => function (self $o, ParseNode $n) { $o->setCallee($n->getObjectValue(Endpoint::class)); },
-            'caller' => function (self $o, ParseNode $n) { $o->setCaller($n->getObjectValue(Endpoint::class)); },
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'failureInfo' => function (self $o, ParseNode $n) { $o->setFailureInfo($n->getObjectValue(FailureInfo::class)); },
-            'modalities' => function (self $o, ParseNode $n) { $o->setModalities($n->getCollectionOfEnumValues(Modality::class)); },
-            'segments' => function (self $o, ParseNode $n) { $o->setSegments($n->getCollectionOfObjectValues(Segment::class)); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
+            'callee' => function (ParseNode $n) use ($currentObject) { $currentObject->setCallee($n->getObjectValue(Endpoint::class)); },
+            'caller' => function (ParseNode $n) use ($currentObject) { $currentObject->setCaller($n->getObjectValue(Endpoint::class)); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'failureInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setFailureInfo($n->getObjectValue(FailureInfo::class)); },
+            'modalities' => function (ParseNode $n) use ($currentObject) { $currentObject->setModalities($n->getCollectionOfEnumValues(Modality::class)); },
+            'segments' => function (ParseNode $n) use ($currentObject) { $currentObject->setSegments($n->getCollectionOfObjectValues(Segment::class)); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
         ]);
     }
 

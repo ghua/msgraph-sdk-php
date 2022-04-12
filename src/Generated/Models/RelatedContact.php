@@ -80,12 +80,13 @@ class RelatedContact implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'accessConsent' => function (self $o, ParseNode $n) { $o->setAccessConsent($n->getBooleanValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'emailAddress' => function (self $o, ParseNode $n) { $o->setEmailAddress($n->getStringValue()); },
-            'mobilePhone' => function (self $o, ParseNode $n) { $o->setMobilePhone($n->getStringValue()); },
-            'relationship' => function (self $o, ParseNode $n) { $o->setRelationship($n->getEnumValue(ContactRelationship::class)); },
+            'accessConsent' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessConsent($n->getBooleanValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'emailAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmailAddress($n->getStringValue()); },
+            'mobilePhone' => function (ParseNode $n) use ($currentObject) { $currentObject->setMobilePhone($n->getStringValue()); },
+            'relationship' => function (ParseNode $n) use ($currentObject) { $currentObject->setRelationship($n->getEnumValue(ContactRelationship::class)); },
         ];
     }
 

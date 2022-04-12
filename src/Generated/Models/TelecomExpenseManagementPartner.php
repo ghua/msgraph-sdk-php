@@ -69,12 +69,13 @@ class TelecomExpenseManagementPartner extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appAuthorized' => function (self $o, ParseNode $n) { $o->setAppAuthorized($n->getBooleanValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'enabled' => function (self $o, ParseNode $n) { $o->setEnabled($n->getBooleanValue()); },
-            'lastConnectionDateTime' => function (self $o, ParseNode $n) { $o->setLastConnectionDateTime($n->getDateTimeValue()); },
-            'url' => function (self $o, ParseNode $n) { $o->setUrl($n->getStringValue()); },
+            'appAuthorized' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppAuthorized($n->getBooleanValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'enabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnabled($n->getBooleanValue()); },
+            'lastConnectionDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastConnectionDateTime($n->getDateTimeValue()); },
+            'url' => function (ParseNode $n) use ($currentObject) { $currentObject->setUrl($n->getStringValue()); },
         ]);
     }
 

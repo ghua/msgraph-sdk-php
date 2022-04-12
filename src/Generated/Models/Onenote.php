@@ -47,13 +47,14 @@ class Onenote extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'notebooks' => function (self $o, ParseNode $n) { $o->setNotebooks($n->getCollectionOfObjectValues(Notebook::class)); },
-            'operations' => function (self $o, ParseNode $n) { $o->setOperations($n->getCollectionOfObjectValues(OnenoteOperation::class)); },
-            'pages' => function (self $o, ParseNode $n) { $o->setPages($n->getCollectionOfObjectValues(OnenotePage::class)); },
-            'resources' => function (self $o, ParseNode $n) { $o->setResources($n->getCollectionOfObjectValues(OnenoteResource::class)); },
-            'sectionGroups' => function (self $o, ParseNode $n) { $o->setSectionGroups($n->getCollectionOfObjectValues(SectionGroup::class)); },
-            'sections' => function (self $o, ParseNode $n) { $o->setSections($n->getCollectionOfObjectValues(OnenoteSection::class)); },
+            'notebooks' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotebooks($n->getCollectionOfObjectValues(Notebook::class)); },
+            'operations' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperations($n->getCollectionOfObjectValues(OnenoteOperation::class)); },
+            'pages' => function (ParseNode $n) use ($currentObject) { $currentObject->setPages($n->getCollectionOfObjectValues(OnenotePage::class)); },
+            'resources' => function (ParseNode $n) use ($currentObject) { $currentObject->setResources($n->getCollectionOfObjectValues(OnenoteResource::class)); },
+            'sectionGroups' => function (ParseNode $n) use ($currentObject) { $currentObject->setSectionGroups($n->getCollectionOfObjectValues(SectionGroup::class)); },
+            'sections' => function (ParseNode $n) use ($currentObject) { $currentObject->setSections($n->getCollectionOfObjectValues(OnenoteSection::class)); },
         ]);
     }
 

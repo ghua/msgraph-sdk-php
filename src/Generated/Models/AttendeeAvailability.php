@@ -63,9 +63,10 @@ class AttendeeAvailability implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'attendee' => function (self $o, ParseNode $n) { $o->setAttendee($n->getObjectValue(AttendeeBase::class)); },
-            'availability' => function (self $o, ParseNode $n) { $o->setAvailability($n->getEnumValue(FreeBusyStatus::class)); },
+            'attendee' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttendee($n->getObjectValue(AttendeeBase::class)); },
+            'availability' => function (ParseNode $n) use ($currentObject) { $currentObject->setAvailability($n->getEnumValue(FreeBusyStatus::class)); },
         ];
     }
 

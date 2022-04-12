@@ -55,9 +55,10 @@ class RiskUserActivity implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'detail' => function (self $o, ParseNode $n) { $o->setDetail($n->getEnumValue(RiskDetail::class)); },
-            'riskEventTypes' => function (self $o, ParseNode $n) { $o->setRiskEventTypes($n->getCollectionOfPrimitiveValues()); },
+            'detail' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetail($n->getEnumValue(RiskDetail::class)); },
+            'riskEventTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskEventTypes($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

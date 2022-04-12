@@ -101,23 +101,24 @@ class Domain extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'authenticationType' => function (self $o, ParseNode $n) { $o->setAuthenticationType($n->getStringValue()); },
-            'availabilityStatus' => function (self $o, ParseNode $n) { $o->setAvailabilityStatus($n->getStringValue()); },
-            'domainNameReferences' => function (self $o, ParseNode $n) { $o->setDomainNameReferences($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'isAdminManaged' => function (self $o, ParseNode $n) { $o->setIsAdminManaged($n->getBooleanValue()); },
-            'isDefault' => function (self $o, ParseNode $n) { $o->setIsDefault($n->getBooleanValue()); },
-            'isInitial' => function (self $o, ParseNode $n) { $o->setIsInitial($n->getBooleanValue()); },
-            'isRoot' => function (self $o, ParseNode $n) { $o->setIsRoot($n->getBooleanValue()); },
-            'isVerified' => function (self $o, ParseNode $n) { $o->setIsVerified($n->getBooleanValue()); },
-            'manufacturer' => function (self $o, ParseNode $n) { $o->setManufacturer($n->getStringValue()); },
-            'model' => function (self $o, ParseNode $n) { $o->setModel($n->getStringValue()); },
-            'passwordNotificationWindowInDays' => function (self $o, ParseNode $n) { $o->setPasswordNotificationWindowInDays($n->getIntegerValue()); },
-            'passwordValidityPeriodInDays' => function (self $o, ParseNode $n) { $o->setPasswordValidityPeriodInDays($n->getIntegerValue()); },
-            'serviceConfigurationRecords' => function (self $o, ParseNode $n) { $o->setServiceConfigurationRecords($n->getCollectionOfObjectValues(DomainDnsRecord::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getObjectValue(DomainState::class)); },
-            'supportedServices' => function (self $o, ParseNode $n) { $o->setSupportedServices($n->getCollectionOfPrimitiveValues()); },
-            'verificationDnsRecords' => function (self $o, ParseNode $n) { $o->setVerificationDnsRecords($n->getCollectionOfObjectValues(DomainDnsRecord::class)); },
+            'authenticationType' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthenticationType($n->getStringValue()); },
+            'availabilityStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setAvailabilityStatus($n->getStringValue()); },
+            'domainNameReferences' => function (ParseNode $n) use ($currentObject) { $currentObject->setDomainNameReferences($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'isAdminManaged' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAdminManaged($n->getBooleanValue()); },
+            'isDefault' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDefault($n->getBooleanValue()); },
+            'isInitial' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsInitial($n->getBooleanValue()); },
+            'isRoot' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsRoot($n->getBooleanValue()); },
+            'isVerified' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsVerified($n->getBooleanValue()); },
+            'manufacturer' => function (ParseNode $n) use ($currentObject) { $currentObject->setManufacturer($n->getStringValue()); },
+            'model' => function (ParseNode $n) use ($currentObject) { $currentObject->setModel($n->getStringValue()); },
+            'passwordNotificationWindowInDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setPasswordNotificationWindowInDays($n->getIntegerValue()); },
+            'passwordValidityPeriodInDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setPasswordValidityPeriodInDays($n->getIntegerValue()); },
+            'serviceConfigurationRecords' => function (ParseNode $n) use ($currentObject) { $currentObject->setServiceConfigurationRecords($n->getCollectionOfObjectValues(DomainDnsRecord::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getObjectValue(DomainState::class)); },
+            'supportedServices' => function (ParseNode $n) use ($currentObject) { $currentObject->setSupportedServices($n->getCollectionOfPrimitiveValues()); },
+            'verificationDnsRecords' => function (ParseNode $n) use ($currentObject) { $currentObject->setVerificationDnsRecords($n->getCollectionOfObjectValues(DomainDnsRecord::class)); },
         ]);
     }
 

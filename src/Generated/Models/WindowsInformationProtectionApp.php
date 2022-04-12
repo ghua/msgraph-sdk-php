@@ -80,12 +80,13 @@ class WindowsInformationProtectionApp implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'denied' => function (self $o, ParseNode $n) { $o->setDenied($n->getBooleanValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'productName' => function (self $o, ParseNode $n) { $o->setProductName($n->getStringValue()); },
-            'publisherName' => function (self $o, ParseNode $n) { $o->setPublisherName($n->getStringValue()); },
+            'denied' => function (ParseNode $n) use ($currentObject) { $currentObject->setDenied($n->getBooleanValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'productName' => function (ParseNode $n) use ($currentObject) { $currentObject->setProductName($n->getStringValue()); },
+            'publisherName' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublisherName($n->getStringValue()); },
         ];
     }
 

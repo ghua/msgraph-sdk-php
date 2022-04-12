@@ -97,15 +97,16 @@ class WorkbookFilterCriteria implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'color' => function (self $o, ParseNode $n) { $o->setColor($n->getStringValue()); },
-            'criterion1' => function (self $o, ParseNode $n) { $o->setCriterion1($n->getStringValue()); },
-            'criterion2' => function (self $o, ParseNode $n) { $o->setCriterion2($n->getStringValue()); },
-            'dynamicCriteria' => function (self $o, ParseNode $n) { $o->setDynamicCriteria($n->getStringValue()); },
-            'filterOn' => function (self $o, ParseNode $n) { $o->setFilterOn($n->getStringValue()); },
-            'icon' => function (self $o, ParseNode $n) { $o->setIcon($n->getObjectValue(WorkbookIcon::class)); },
-            'operator' => function (self $o, ParseNode $n) { $o->setOperator($n->getStringValue()); },
-            'values' => function (self $o, ParseNode $n) { $o->setValues($n->getObjectValue(Json::class)); },
+            'color' => function (ParseNode $n) use ($currentObject) { $currentObject->setColor($n->getStringValue()); },
+            'criterion1' => function (ParseNode $n) use ($currentObject) { $currentObject->setCriterion1($n->getStringValue()); },
+            'criterion2' => function (ParseNode $n) use ($currentObject) { $currentObject->setCriterion2($n->getStringValue()); },
+            'dynamicCriteria' => function (ParseNode $n) use ($currentObject) { $currentObject->setDynamicCriteria($n->getStringValue()); },
+            'filterOn' => function (ParseNode $n) use ($currentObject) { $currentObject->setFilterOn($n->getStringValue()); },
+            'icon' => function (ParseNode $n) use ($currentObject) { $currentObject->setIcon($n->getObjectValue(WorkbookIcon::class)); },
+            'operator' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperator($n->getStringValue()); },
+            'values' => function (ParseNode $n) use ($currentObject) { $currentObject->setValues($n->getObjectValue(Json::class)); },
         ];
     }
 

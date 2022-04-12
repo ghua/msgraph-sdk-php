@@ -50,11 +50,12 @@ class MeetingAttendanceReport extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'attendanceRecords' => function (self $o, ParseNode $n) { $o->setAttendanceRecords($n->getCollectionOfObjectValues(AttendanceRecord::class)); },
-            'meetingEndDateTime' => function (self $o, ParseNode $n) { $o->setMeetingEndDateTime($n->getDateTimeValue()); },
-            'meetingStartDateTime' => function (self $o, ParseNode $n) { $o->setMeetingStartDateTime($n->getDateTimeValue()); },
-            'totalParticipantCount' => function (self $o, ParseNode $n) { $o->setTotalParticipantCount($n->getIntegerValue()); },
+            'attendanceRecords' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttendanceRecords($n->getCollectionOfObjectValues(AttendanceRecord::class)); },
+            'meetingEndDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setMeetingEndDateTime($n->getDateTimeValue()); },
+            'meetingStartDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setMeetingStartDateTime($n->getDateTimeValue()); },
+            'totalParticipantCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setTotalParticipantCount($n->getIntegerValue()); },
         ]);
     }
 

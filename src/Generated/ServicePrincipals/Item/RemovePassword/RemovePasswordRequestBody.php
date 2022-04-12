@@ -44,8 +44,9 @@ class RemovePasswordRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'keyId' => function (self $o, ParseNode $n) { $o->setKeyId($n->getStringValue()); },
+            'keyId' => function (ParseNode $n) use ($currentObject) { $currentObject->setKeyId($n->getStringValue()); },
         ];
     }
 

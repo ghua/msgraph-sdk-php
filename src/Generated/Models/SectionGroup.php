@@ -47,13 +47,14 @@ class SectionGroup extends OnenoteEntityHierarchyModel
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'parentNotebook' => function (self $o, ParseNode $n) { $o->setParentNotebook($n->getObjectValue(Notebook::class)); },
-            'parentSectionGroup' => function (self $o, ParseNode $n) { $o->setParentSectionGroup($n->getObjectValue(SectionGroup::class)); },
-            'sectionGroups' => function (self $o, ParseNode $n) { $o->setSectionGroups($n->getCollectionOfObjectValues(SectionGroup::class)); },
-            'sectionGroupsUrl' => function (self $o, ParseNode $n) { $o->setSectionGroupsUrl($n->getStringValue()); },
-            'sections' => function (self $o, ParseNode $n) { $o->setSections($n->getCollectionOfObjectValues(OnenoteSection::class)); },
-            'sectionsUrl' => function (self $o, ParseNode $n) { $o->setSectionsUrl($n->getStringValue()); },
+            'parentNotebook' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentNotebook($n->getObjectValue(Notebook::class)); },
+            'parentSectionGroup' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentSectionGroup($n->getObjectValue(SectionGroup::class)); },
+            'sectionGroups' => function (ParseNode $n) use ($currentObject) { $currentObject->setSectionGroups($n->getCollectionOfObjectValues(SectionGroup::class)); },
+            'sectionGroupsUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setSectionGroupsUrl($n->getStringValue()); },
+            'sections' => function (ParseNode $n) use ($currentObject) { $currentObject->setSections($n->getCollectionOfObjectValues(OnenoteSection::class)); },
+            'sectionsUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setSectionsUrl($n->getStringValue()); },
         ]);
     }
 

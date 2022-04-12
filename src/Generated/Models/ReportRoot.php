@@ -57,11 +57,12 @@ class ReportRoot extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'dailyPrintUsageByPrinter' => function (self $o, ParseNode $n) { $o->setDailyPrintUsageByPrinter($n->getCollectionOfObjectValues(PrintUsageByPrinter::class)); },
-            'dailyPrintUsageByUser' => function (self $o, ParseNode $n) { $o->setDailyPrintUsageByUser($n->getCollectionOfObjectValues(PrintUsageByUser::class)); },
-            'monthlyPrintUsageByPrinter' => function (self $o, ParseNode $n) { $o->setMonthlyPrintUsageByPrinter($n->getCollectionOfObjectValues(PrintUsageByPrinter::class)); },
-            'monthlyPrintUsageByUser' => function (self $o, ParseNode $n) { $o->setMonthlyPrintUsageByUser($n->getCollectionOfObjectValues(PrintUsageByUser::class)); },
+            'dailyPrintUsageByPrinter' => function (ParseNode $n) use ($currentObject) { $currentObject->setDailyPrintUsageByPrinter($n->getCollectionOfObjectValues(PrintUsageByPrinter::class)); },
+            'dailyPrintUsageByUser' => function (ParseNode $n) use ($currentObject) { $currentObject->setDailyPrintUsageByUser($n->getCollectionOfObjectValues(PrintUsageByUser::class)); },
+            'monthlyPrintUsageByPrinter' => function (ParseNode $n) use ($currentObject) { $currentObject->setMonthlyPrintUsageByPrinter($n->getCollectionOfObjectValues(PrintUsageByPrinter::class)); },
+            'monthlyPrintUsageByUser' => function (ParseNode $n) use ($currentObject) { $currentObject->setMonthlyPrintUsageByUser($n->getCollectionOfObjectValues(PrintUsageByUser::class)); },
         ]);
     }
 

@@ -52,8 +52,9 @@ class WipeManagedAppRegistrationsByDeviceTagRequestBody implements AdditionalDat
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'deviceTag' => function (self $o, ParseNode $n) { $o->setDeviceTag($n->getStringValue()); },
+            'deviceTag' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceTag($n->getStringValue()); },
         ];
     }
 

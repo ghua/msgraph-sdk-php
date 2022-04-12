@@ -53,12 +53,13 @@ class DeviceConfigurationUserStatus extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'devicesCount' => function (self $o, ParseNode $n) { $o->setDevicesCount($n->getIntegerValue()); },
-            'lastReportedDateTime' => function (self $o, ParseNode $n) { $o->setLastReportedDateTime($n->getDateTimeValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ComplianceStatus::class)); },
-            'userDisplayName' => function (self $o, ParseNode $n) { $o->setUserDisplayName($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'devicesCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDevicesCount($n->getIntegerValue()); },
+            'lastReportedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastReportedDateTime($n->getDateTimeValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ComplianceStatus::class)); },
+            'userDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserDisplayName($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ]);
     }
 

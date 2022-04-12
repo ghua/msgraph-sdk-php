@@ -151,26 +151,27 @@ class SubjectRightsRequest extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignedTo' => function (self $o, ParseNode $n) { $o->setAssignedTo($n->getObjectValue(Identity::class)); },
-            'closedDateTime' => function (self $o, ParseNode $n) { $o->setClosedDateTime($n->getDateTimeValue()); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'dataSubject' => function (self $o, ParseNode $n) { $o->setDataSubject($n->getObjectValue(DataSubject::class)); },
-            'dataSubjectType' => function (self $o, ParseNode $n) { $o->setDataSubjectType($n->getEnumValue(DataSubjectType::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'history' => function (self $o, ParseNode $n) { $o->setHistory($n->getCollectionOfObjectValues(SubjectRightsRequestHistory::class)); },
-            'insight' => function (self $o, ParseNode $n) { $o->setInsight($n->getObjectValue(SubjectRightsRequestDetail::class)); },
-            'internalDueDateTime' => function (self $o, ParseNode $n) { $o->setInternalDueDateTime($n->getDateTimeValue()); },
-            'lastModifiedBy' => function (self $o, ParseNode $n) { $o->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'notes' => function (self $o, ParseNode $n) { $o->setNotes($n->getCollectionOfObjectValues(AuthoredNote::class)); },
-            'regulations' => function (self $o, ParseNode $n) { $o->setRegulations($n->getCollectionOfPrimitiveValues()); },
-            'stages' => function (self $o, ParseNode $n) { $o->setStages($n->getCollectionOfObjectValues(SubjectRightsRequestStageDetail::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(SubjectRightsRequestStatus::class)); },
-            'team' => function (self $o, ParseNode $n) { $o->setTeam($n->getObjectValue(Team::class)); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(SubjectRightsRequestType::class)); },
+            'assignedTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedTo($n->getObjectValue(Identity::class)); },
+            'closedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setClosedDateTime($n->getDateTimeValue()); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'dataSubject' => function (ParseNode $n) use ($currentObject) { $currentObject->setDataSubject($n->getObjectValue(DataSubject::class)); },
+            'dataSubjectType' => function (ParseNode $n) use ($currentObject) { $currentObject->setDataSubjectType($n->getEnumValue(DataSubjectType::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'history' => function (ParseNode $n) use ($currentObject) { $currentObject->setHistory($n->getCollectionOfObjectValues(SubjectRightsRequestHistory::class)); },
+            'insight' => function (ParseNode $n) use ($currentObject) { $currentObject->setInsight($n->getObjectValue(SubjectRightsRequestDetail::class)); },
+            'internalDueDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setInternalDueDateTime($n->getDateTimeValue()); },
+            'lastModifiedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'notes' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotes($n->getCollectionOfObjectValues(AuthoredNote::class)); },
+            'regulations' => function (ParseNode $n) use ($currentObject) { $currentObject->setRegulations($n->getCollectionOfPrimitiveValues()); },
+            'stages' => function (ParseNode $n) use ($currentObject) { $currentObject->setStages($n->getCollectionOfObjectValues(SubjectRightsRequestStageDetail::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(SubjectRightsRequestStatus::class)); },
+            'team' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeam($n->getObjectValue(Team::class)); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(SubjectRightsRequestType::class)); },
         ]);
     }
 

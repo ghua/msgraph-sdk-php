@@ -57,11 +57,12 @@ class TeamsTab extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'configuration' => function (self $o, ParseNode $n) { $o->setConfiguration($n->getObjectValue(TeamsTabConfiguration::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'teamsApp' => function (self $o, ParseNode $n) { $o->setTeamsApp($n->getObjectValue(TeamsApp::class)); },
-            'webUrl' => function (self $o, ParseNode $n) { $o->setWebUrl($n->getStringValue()); },
+            'configuration' => function (ParseNode $n) use ($currentObject) { $currentObject->setConfiguration($n->getObjectValue(TeamsTabConfiguration::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'teamsApp' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeamsApp($n->getObjectValue(TeamsApp::class)); },
+            'webUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebUrl($n->getStringValue()); },
         ]);
     }
 

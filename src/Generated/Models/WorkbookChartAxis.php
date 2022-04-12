@@ -53,15 +53,16 @@ class WorkbookChartAxis extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getObjectValue(WorkbookChartAxisFormat::class)); },
-            'majorGridlines' => function (self $o, ParseNode $n) { $o->setMajorGridlines($n->getObjectValue(WorkbookChartGridlines::class)); },
-            'majorUnit' => function (self $o, ParseNode $n) { $o->setMajorUnit($n->getObjectValue(Json::class)); },
-            'maximum' => function (self $o, ParseNode $n) { $o->setMaximum($n->getObjectValue(Json::class)); },
-            'minimum' => function (self $o, ParseNode $n) { $o->setMinimum($n->getObjectValue(Json::class)); },
-            'minorGridlines' => function (self $o, ParseNode $n) { $o->setMinorGridlines($n->getObjectValue(WorkbookChartGridlines::class)); },
-            'minorUnit' => function (self $o, ParseNode $n) { $o->setMinorUnit($n->getObjectValue(Json::class)); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getObjectValue(WorkbookChartAxisTitle::class)); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getObjectValue(WorkbookChartAxisFormat::class)); },
+            'majorGridlines' => function (ParseNode $n) use ($currentObject) { $currentObject->setMajorGridlines($n->getObjectValue(WorkbookChartGridlines::class)); },
+            'majorUnit' => function (ParseNode $n) use ($currentObject) { $currentObject->setMajorUnit($n->getObjectValue(Json::class)); },
+            'maximum' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaximum($n->getObjectValue(Json::class)); },
+            'minimum' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimum($n->getObjectValue(Json::class)); },
+            'minorGridlines' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinorGridlines($n->getObjectValue(WorkbookChartGridlines::class)); },
+            'minorUnit' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinorUnit($n->getObjectValue(Json::class)); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getObjectValue(WorkbookChartAxisTitle::class)); },
         ]);
     }
 

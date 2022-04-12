@@ -125,20 +125,21 @@ class AgreementAcceptance extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'agreementFileId' => function (self $o, ParseNode $n) { $o->setAgreementFileId($n->getStringValue()); },
-            'agreementId' => function (self $o, ParseNode $n) { $o->setAgreementId($n->getStringValue()); },
-            'deviceDisplayName' => function (self $o, ParseNode $n) { $o->setDeviceDisplayName($n->getStringValue()); },
-            'deviceId' => function (self $o, ParseNode $n) { $o->setDeviceId($n->getStringValue()); },
-            'deviceOSType' => function (self $o, ParseNode $n) { $o->setDeviceOSType($n->getStringValue()); },
-            'deviceOSVersion' => function (self $o, ParseNode $n) { $o->setDeviceOSVersion($n->getStringValue()); },
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'recordedDateTime' => function (self $o, ParseNode $n) { $o->setRecordedDateTime($n->getDateTimeValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(AgreementAcceptanceState::class)); },
-            'userDisplayName' => function (self $o, ParseNode $n) { $o->setUserDisplayName($n->getStringValue()); },
-            'userEmail' => function (self $o, ParseNode $n) { $o->setUserEmail($n->getStringValue()); },
-            'userId' => function (self $o, ParseNode $n) { $o->setUserId($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'agreementFileId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAgreementFileId($n->getStringValue()); },
+            'agreementId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAgreementId($n->getStringValue()); },
+            'deviceDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceDisplayName($n->getStringValue()); },
+            'deviceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceId($n->getStringValue()); },
+            'deviceOSType' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceOSType($n->getStringValue()); },
+            'deviceOSVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceOSVersion($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'recordedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecordedDateTime($n->getDateTimeValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(AgreementAcceptanceState::class)); },
+            'userDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserDisplayName($n->getStringValue()); },
+            'userEmail' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserEmail($n->getStringValue()); },
+            'userId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserId($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ]);
     }
 

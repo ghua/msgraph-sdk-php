@@ -92,17 +92,18 @@ class AccessReviewHistoryDefinition extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'decisions' => function (self $o, ParseNode $n) { $o->setDecisions($n->getCollectionOfEnumValues(AccessReviewHistoryDecisionFilter::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'instances' => function (self $o, ParseNode $n) { $o->setInstances($n->getCollectionOfObjectValues(AccessReviewHistoryInstance::class)); },
-            'reviewHistoryPeriodEndDateTime' => function (self $o, ParseNode $n) { $o->setReviewHistoryPeriodEndDateTime($n->getDateTimeValue()); },
-            'reviewHistoryPeriodStartDateTime' => function (self $o, ParseNode $n) { $o->setReviewHistoryPeriodStartDateTime($n->getDateTimeValue()); },
-            'scheduleSettings' => function (self $o, ParseNode $n) { $o->setScheduleSettings($n->getObjectValue(AccessReviewHistoryScheduleSettings::class)); },
-            'scopes' => function (self $o, ParseNode $n) { $o->setScopes($n->getCollectionOfObjectValues(AccessReviewScope::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(AccessReviewHistoryStatus::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'decisions' => function (ParseNode $n) use ($currentObject) { $currentObject->setDecisions($n->getCollectionOfEnumValues(AccessReviewHistoryDecisionFilter::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'instances' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstances($n->getCollectionOfObjectValues(AccessReviewHistoryInstance::class)); },
+            'reviewHistoryPeriodEndDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewHistoryPeriodEndDateTime($n->getDateTimeValue()); },
+            'reviewHistoryPeriodStartDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewHistoryPeriodStartDateTime($n->getDateTimeValue()); },
+            'scheduleSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduleSettings($n->getObjectValue(AccessReviewHistoryScheduleSettings::class)); },
+            'scopes' => function (ParseNode $n) use ($currentObject) { $currentObject->setScopes($n->getCollectionOfObjectValues(AccessReviewScope::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(AccessReviewHistoryStatus::class)); },
         ]);
     }
 

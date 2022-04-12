@@ -107,13 +107,14 @@ class TeamMemberSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowAddRemoveApps' => function (self $o, ParseNode $n) { $o->setAllowAddRemoveApps($n->getBooleanValue()); },
-            'allowCreatePrivateChannels' => function (self $o, ParseNode $n) { $o->setAllowCreatePrivateChannels($n->getBooleanValue()); },
-            'allowCreateUpdateChannels' => function (self $o, ParseNode $n) { $o->setAllowCreateUpdateChannels($n->getBooleanValue()); },
-            'allowCreateUpdateRemoveConnectors' => function (self $o, ParseNode $n) { $o->setAllowCreateUpdateRemoveConnectors($n->getBooleanValue()); },
-            'allowCreateUpdateRemoveTabs' => function (self $o, ParseNode $n) { $o->setAllowCreateUpdateRemoveTabs($n->getBooleanValue()); },
-            'allowDeleteChannels' => function (self $o, ParseNode $n) { $o->setAllowDeleteChannels($n->getBooleanValue()); },
+            'allowAddRemoveApps' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowAddRemoveApps($n->getBooleanValue()); },
+            'allowCreatePrivateChannels' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowCreatePrivateChannels($n->getBooleanValue()); },
+            'allowCreateUpdateChannels' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowCreateUpdateChannels($n->getBooleanValue()); },
+            'allowCreateUpdateRemoveConnectors' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowCreateUpdateRemoveConnectors($n->getBooleanValue()); },
+            'allowCreateUpdateRemoveTabs' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowCreateUpdateRemoveTabs($n->getBooleanValue()); },
+            'allowDeleteChannels' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowDeleteChannels($n->getBooleanValue()); },
         ];
     }
 

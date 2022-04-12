@@ -48,13 +48,14 @@ class Conversation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'hasAttachments' => function (self $o, ParseNode $n) { $o->setHasAttachments($n->getBooleanValue()); },
-            'lastDeliveredDateTime' => function (self $o, ParseNode $n) { $o->setLastDeliveredDateTime($n->getDateTimeValue()); },
-            'preview' => function (self $o, ParseNode $n) { $o->setPreview($n->getStringValue()); },
-            'threads' => function (self $o, ParseNode $n) { $o->setThreads($n->getCollectionOfObjectValues(ConversationThread::class)); },
-            'topic' => function (self $o, ParseNode $n) { $o->setTopic($n->getStringValue()); },
-            'uniqueSenders' => function (self $o, ParseNode $n) { $o->setUniqueSenders($n->getCollectionOfPrimitiveValues()); },
+            'hasAttachments' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasAttachments($n->getBooleanValue()); },
+            'lastDeliveredDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastDeliveredDateTime($n->getDateTimeValue()); },
+            'preview' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreview($n->getStringValue()); },
+            'threads' => function (ParseNode $n) use ($currentObject) { $currentObject->setThreads($n->getCollectionOfObjectValues(ConversationThread::class)); },
+            'topic' => function (ParseNode $n) use ($currentObject) { $currentObject->setTopic($n->getStringValue()); },
+            'uniqueSenders' => function (ParseNode $n) use ($currentObject) { $currentObject->setUniqueSenders($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

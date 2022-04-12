@@ -118,26 +118,27 @@ class Person extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'birthday' => function (self $o, ParseNode $n) { $o->setBirthday($n->getStringValue()); },
-            'companyName' => function (self $o, ParseNode $n) { $o->setCompanyName($n->getStringValue()); },
-            'department' => function (self $o, ParseNode $n) { $o->setDepartment($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'givenName' => function (self $o, ParseNode $n) { $o->setGivenName($n->getStringValue()); },
-            'imAddress' => function (self $o, ParseNode $n) { $o->setImAddress($n->getStringValue()); },
-            'isFavorite' => function (self $o, ParseNode $n) { $o->setIsFavorite($n->getBooleanValue()); },
-            'jobTitle' => function (self $o, ParseNode $n) { $o->setJobTitle($n->getStringValue()); },
-            'officeLocation' => function (self $o, ParseNode $n) { $o->setOfficeLocation($n->getStringValue()); },
-            'personNotes' => function (self $o, ParseNode $n) { $o->setPersonNotes($n->getStringValue()); },
-            'personType' => function (self $o, ParseNode $n) { $o->setPersonType($n->getObjectValue(PersonType::class)); },
-            'phones' => function (self $o, ParseNode $n) { $o->setPhones($n->getCollectionOfObjectValues(Phone::class)); },
-            'postalAddresses' => function (self $o, ParseNode $n) { $o->setPostalAddresses($n->getCollectionOfObjectValues(Location::class)); },
-            'profession' => function (self $o, ParseNode $n) { $o->setProfession($n->getStringValue()); },
-            'scoredEmailAddresses' => function (self $o, ParseNode $n) { $o->setScoredEmailAddresses($n->getCollectionOfObjectValues(ScoredEmailAddress::class)); },
-            'surname' => function (self $o, ParseNode $n) { $o->setSurname($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
-            'websites' => function (self $o, ParseNode $n) { $o->setWebsites($n->getCollectionOfObjectValues(Website::class)); },
-            'yomiCompany' => function (self $o, ParseNode $n) { $o->setYomiCompany($n->getStringValue()); },
+            'birthday' => function (ParseNode $n) use ($currentObject) { $currentObject->setBirthday($n->getStringValue()); },
+            'companyName' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompanyName($n->getStringValue()); },
+            'department' => function (ParseNode $n) use ($currentObject) { $currentObject->setDepartment($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'givenName' => function (ParseNode $n) use ($currentObject) { $currentObject->setGivenName($n->getStringValue()); },
+            'imAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setImAddress($n->getStringValue()); },
+            'isFavorite' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsFavorite($n->getBooleanValue()); },
+            'jobTitle' => function (ParseNode $n) use ($currentObject) { $currentObject->setJobTitle($n->getStringValue()); },
+            'officeLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setOfficeLocation($n->getStringValue()); },
+            'personNotes' => function (ParseNode $n) use ($currentObject) { $currentObject->setPersonNotes($n->getStringValue()); },
+            'personType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPersonType($n->getObjectValue(PersonType::class)); },
+            'phones' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhones($n->getCollectionOfObjectValues(Phone::class)); },
+            'postalAddresses' => function (ParseNode $n) use ($currentObject) { $currentObject->setPostalAddresses($n->getCollectionOfObjectValues(Location::class)); },
+            'profession' => function (ParseNode $n) use ($currentObject) { $currentObject->setProfession($n->getStringValue()); },
+            'scoredEmailAddresses' => function (ParseNode $n) use ($currentObject) { $currentObject->setScoredEmailAddresses($n->getCollectionOfObjectValues(ScoredEmailAddress::class)); },
+            'surname' => function (ParseNode $n) use ($currentObject) { $currentObject->setSurname($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
+            'websites' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebsites($n->getCollectionOfObjectValues(Website::class)); },
+            'yomiCompany' => function (ParseNode $n) use ($currentObject) { $currentObject->setYomiCompany($n->getStringValue()); },
         ]);
     }
 

@@ -81,16 +81,17 @@ class ComplianceManagementPartner extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'androidEnrollmentAssignments' => function (self $o, ParseNode $n) { $o->setAndroidEnrollmentAssignments($n->getCollectionOfObjectValues(ComplianceManagementPartnerAssignment::class)); },
-            'androidOnboarded' => function (self $o, ParseNode $n) { $o->setAndroidOnboarded($n->getBooleanValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'iosEnrollmentAssignments' => function (self $o, ParseNode $n) { $o->setIosEnrollmentAssignments($n->getCollectionOfObjectValues(ComplianceManagementPartnerAssignment::class)); },
-            'iosOnboarded' => function (self $o, ParseNode $n) { $o->setIosOnboarded($n->getBooleanValue()); },
-            'lastHeartbeatDateTime' => function (self $o, ParseNode $n) { $o->setLastHeartbeatDateTime($n->getDateTimeValue()); },
-            'macOsEnrollmentAssignments' => function (self $o, ParseNode $n) { $o->setMacOsEnrollmentAssignments($n->getCollectionOfObjectValues(ComplianceManagementPartnerAssignment::class)); },
-            'macOsOnboarded' => function (self $o, ParseNode $n) { $o->setMacOsOnboarded($n->getBooleanValue()); },
-            'partnerState' => function (self $o, ParseNode $n) { $o->setPartnerState($n->getEnumValue(DeviceManagementPartnerTenantState::class)); },
+            'androidEnrollmentAssignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAndroidEnrollmentAssignments($n->getCollectionOfObjectValues(ComplianceManagementPartnerAssignment::class)); },
+            'androidOnboarded' => function (ParseNode $n) use ($currentObject) { $currentObject->setAndroidOnboarded($n->getBooleanValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'iosEnrollmentAssignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setIosEnrollmentAssignments($n->getCollectionOfObjectValues(ComplianceManagementPartnerAssignment::class)); },
+            'iosOnboarded' => function (ParseNode $n) use ($currentObject) { $currentObject->setIosOnboarded($n->getBooleanValue()); },
+            'lastHeartbeatDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastHeartbeatDateTime($n->getDateTimeValue()); },
+            'macOsEnrollmentAssignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setMacOsEnrollmentAssignments($n->getCollectionOfObjectValues(ComplianceManagementPartnerAssignment::class)); },
+            'macOsOnboarded' => function (ParseNode $n) use ($currentObject) { $currentObject->setMacOsOnboarded($n->getBooleanValue()); },
+            'partnerState' => function (ParseNode $n) use ($currentObject) { $currentObject->setPartnerState($n->getEnumValue(DeviceManagementPartnerTenantState::class)); },
         ]);
     }
 

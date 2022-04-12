@@ -56,12 +56,13 @@ class CopyNotebookRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'groupId' => function (self $o, ParseNode $n) { $o->setGroupId($n->getStringValue()); },
-            'notebookFolder' => function (self $o, ParseNode $n) { $o->setNotebookFolder($n->getStringValue()); },
-            'renameAs' => function (self $o, ParseNode $n) { $o->setRenameAs($n->getStringValue()); },
-            'siteCollectionId' => function (self $o, ParseNode $n) { $o->setSiteCollectionId($n->getStringValue()); },
-            'siteId' => function (self $o, ParseNode $n) { $o->setSiteId($n->getStringValue()); },
+            'groupId' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupId($n->getStringValue()); },
+            'notebookFolder' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotebookFolder($n->getStringValue()); },
+            'renameAs' => function (ParseNode $n) use ($currentObject) { $currentObject->setRenameAs($n->getStringValue()); },
+            'siteCollectionId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSiteCollectionId($n->getStringValue()); },
+            'siteId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSiteId($n->getStringValue()); },
         ];
     }
 

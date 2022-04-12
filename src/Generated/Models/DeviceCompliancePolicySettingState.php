@@ -101,19 +101,20 @@ class DeviceCompliancePolicySettingState implements AdditionalDataHolder, Parsab
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'currentValue' => function (self $o, ParseNode $n) { $o->setCurrentValue($n->getStringValue()); },
-            'errorCode' => function (self $o, ParseNode $n) { $o->setErrorCode($n->getIntegerValue()); },
-            'errorDescription' => function (self $o, ParseNode $n) { $o->setErrorDescription($n->getStringValue()); },
-            'instanceDisplayName' => function (self $o, ParseNode $n) { $o->setInstanceDisplayName($n->getStringValue()); },
-            'setting' => function (self $o, ParseNode $n) { $o->setSetting($n->getStringValue()); },
-            'settingName' => function (self $o, ParseNode $n) { $o->setSettingName($n->getStringValue()); },
-            'sources' => function (self $o, ParseNode $n) { $o->setSources($n->getCollectionOfObjectValues(SettingSource::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(ComplianceStatus::class)); },
-            'userEmail' => function (self $o, ParseNode $n) { $o->setUserEmail($n->getStringValue()); },
-            'userId' => function (self $o, ParseNode $n) { $o->setUserId($n->getStringValue()); },
-            'userName' => function (self $o, ParseNode $n) { $o->setUserName($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'currentValue' => function (ParseNode $n) use ($currentObject) { $currentObject->setCurrentValue($n->getStringValue()); },
+            'errorCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorCode($n->getIntegerValue()); },
+            'errorDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorDescription($n->getStringValue()); },
+            'instanceDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstanceDisplayName($n->getStringValue()); },
+            'setting' => function (ParseNode $n) use ($currentObject) { $currentObject->setSetting($n->getStringValue()); },
+            'settingName' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettingName($n->getStringValue()); },
+            'sources' => function (ParseNode $n) use ($currentObject) { $currentObject->setSources($n->getCollectionOfObjectValues(SettingSource::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(ComplianceStatus::class)); },
+            'userEmail' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserEmail($n->getStringValue()); },
+            'userId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserId($n->getStringValue()); },
+            'userName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserName($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ];
     }
 

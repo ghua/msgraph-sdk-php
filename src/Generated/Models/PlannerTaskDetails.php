@@ -57,11 +57,12 @@ class PlannerTaskDetails extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'checklist' => function (self $o, ParseNode $n) { $o->setChecklist($n->getObjectValue(PlannerChecklistItems::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'previewType' => function (self $o, ParseNode $n) { $o->setPreviewType($n->getEnumValue(PlannerPreviewType::class)); },
-            'references' => function (self $o, ParseNode $n) { $o->setReferences($n->getObjectValue(PlannerExternalReferences::class)); },
+            'checklist' => function (ParseNode $n) use ($currentObject) { $currentObject->setChecklist($n->getObjectValue(PlannerChecklistItems::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'previewType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreviewType($n->getEnumValue(PlannerPreviewType::class)); },
+            'references' => function (ParseNode $n) use ($currentObject) { $currentObject->setReferences($n->getObjectValue(PlannerExternalReferences::class)); },
         ]);
     }
 

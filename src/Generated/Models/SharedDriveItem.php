@@ -61,15 +61,16 @@ class SharedDriveItem extends BaseItem
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'driveItem' => function (self $o, ParseNode $n) { $o->setDriveItem($n->getObjectValue(DriveItem::class)); },
-            'list' => function (self $o, ParseNode $n) { $o->setEscapedList($n->getObjectValue(EscapedList::class)); },
-            'items' => function (self $o, ParseNode $n) { $o->setItems($n->getCollectionOfObjectValues(DriveItem::class)); },
-            'listItem' => function (self $o, ParseNode $n) { $o->setListItem($n->getObjectValue(ListItem::class)); },
-            'owner' => function (self $o, ParseNode $n) { $o->setOwner($n->getObjectValue(IdentitySet::class)); },
-            'permission' => function (self $o, ParseNode $n) { $o->setPermission($n->getObjectValue(Permission::class)); },
-            'root' => function (self $o, ParseNode $n) { $o->setRoot($n->getObjectValue(DriveItem::class)); },
-            'site' => function (self $o, ParseNode $n) { $o->setSite($n->getObjectValue(Site::class)); },
+            'driveItem' => function (ParseNode $n) use ($currentObject) { $currentObject->setDriveItem($n->getObjectValue(DriveItem::class)); },
+            'list' => function (ParseNode $n) use ($currentObject) { $currentObject->setEscapedList($n->getObjectValue(EscapedList::class)); },
+            'items' => function (ParseNode $n) use ($currentObject) { $currentObject->setItems($n->getCollectionOfObjectValues(DriveItem::class)); },
+            'listItem' => function (ParseNode $n) use ($currentObject) { $currentObject->setListItem($n->getObjectValue(ListItem::class)); },
+            'owner' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwner($n->getObjectValue(IdentitySet::class)); },
+            'permission' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermission($n->getObjectValue(Permission::class)); },
+            'root' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoot($n->getObjectValue(DriveItem::class)); },
+            'site' => function (ParseNode $n) use ($currentObject) { $currentObject->setSite($n->getObjectValue(Site::class)); },
         ]);
     }
 

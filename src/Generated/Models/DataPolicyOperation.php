@@ -56,13 +56,14 @@ class DataPolicyOperation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'completedDateTime' => function (self $o, ParseNode $n) { $o->setCompletedDateTime($n->getDateTimeValue()); },
-            'progress' => function (self $o, ParseNode $n) { $o->setProgress($n->getFloatValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(DataPolicyOperationStatus::class)); },
-            'storageLocation' => function (self $o, ParseNode $n) { $o->setStorageLocation($n->getStringValue()); },
-            'submittedDateTime' => function (self $o, ParseNode $n) { $o->setSubmittedDateTime($n->getDateTimeValue()); },
-            'userId' => function (self $o, ParseNode $n) { $o->setUserId($n->getStringValue()); },
+            'completedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedDateTime($n->getDateTimeValue()); },
+            'progress' => function (ParseNode $n) use ($currentObject) { $currentObject->setProgress($n->getFloatValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(DataPolicyOperationStatus::class)); },
+            'storageLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setStorageLocation($n->getStringValue()); },
+            'submittedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubmittedDateTime($n->getDateTimeValue()); },
+            'userId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserId($n->getStringValue()); },
         ]);
     }
 

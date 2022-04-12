@@ -50,10 +50,11 @@ class FolderView implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'sortBy' => function (self $o, ParseNode $n) { $o->setSortBy($n->getStringValue()); },
-            'sortOrder' => function (self $o, ParseNode $n) { $o->setSortOrder($n->getStringValue()); },
-            'viewType' => function (self $o, ParseNode $n) { $o->setViewType($n->getStringValue()); },
+            'sortBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setSortBy($n->getStringValue()); },
+            'sortOrder' => function (ParseNode $n) use ($currentObject) { $currentObject->setSortOrder($n->getStringValue()); },
+            'viewType' => function (ParseNode $n) use ($currentObject) { $currentObject->setViewType($n->getStringValue()); },
         ];
     }
 

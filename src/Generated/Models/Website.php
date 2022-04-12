@@ -66,10 +66,11 @@ class Website implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'address' => function (self $o, ParseNode $n) { $o->setAddress($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(WebsiteType::class)); },
+            'address' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddress($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(WebsiteType::class)); },
         ];
     }
 

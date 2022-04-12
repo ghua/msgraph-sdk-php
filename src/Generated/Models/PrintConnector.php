@@ -64,13 +64,14 @@ class PrintConnector extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appVersion' => function (self $o, ParseNode $n) { $o->setAppVersion($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'fullyQualifiedDomainName' => function (self $o, ParseNode $n) { $o->setFullyQualifiedDomainName($n->getStringValue()); },
-            'location' => function (self $o, ParseNode $n) { $o->setLocation($n->getObjectValue(PrinterLocation::class)); },
-            'operatingSystem' => function (self $o, ParseNode $n) { $o->setOperatingSystem($n->getStringValue()); },
-            'registeredDateTime' => function (self $o, ParseNode $n) { $o->setRegisteredDateTime($n->getDateTimeValue()); },
+            'appVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppVersion($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'fullyQualifiedDomainName' => function (ParseNode $n) use ($currentObject) { $currentObject->setFullyQualifiedDomainName($n->getStringValue()); },
+            'location' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocation($n->getObjectValue(PrinterLocation::class)); },
+            'operatingSystem' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperatingSystem($n->getStringValue()); },
+            'registeredDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRegisteredDateTime($n->getDateTimeValue()); },
         ]);
     }
 

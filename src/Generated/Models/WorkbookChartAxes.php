@@ -46,10 +46,11 @@ class WorkbookChartAxes extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'categoryAxis' => function (self $o, ParseNode $n) { $o->setCategoryAxis($n->getObjectValue(WorkbookChartAxis::class)); },
-            'seriesAxis' => function (self $o, ParseNode $n) { $o->setSeriesAxis($n->getObjectValue(WorkbookChartAxis::class)); },
-            'valueAxis' => function (self $o, ParseNode $n) { $o->setValueAxis($n->getObjectValue(WorkbookChartAxis::class)); },
+            'categoryAxis' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategoryAxis($n->getObjectValue(WorkbookChartAxis::class)); },
+            'seriesAxis' => function (ParseNode $n) use ($currentObject) { $currentObject->setSeriesAxis($n->getObjectValue(WorkbookChartAxis::class)); },
+            'valueAxis' => function (ParseNode $n) use ($currentObject) { $currentObject->setValueAxis($n->getObjectValue(WorkbookChartAxis::class)); },
         ]);
     }
 

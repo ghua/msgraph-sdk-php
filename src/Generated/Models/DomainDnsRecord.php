@@ -44,12 +44,13 @@ class DomainDnsRecord extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'isOptional' => function (self $o, ParseNode $n) { $o->setIsOptional($n->getBooleanValue()); },
-            'label' => function (self $o, ParseNode $n) { $o->setLabel($n->getStringValue()); },
-            'recordType' => function (self $o, ParseNode $n) { $o->setRecordType($n->getStringValue()); },
-            'supportedService' => function (self $o, ParseNode $n) { $o->setSupportedService($n->getStringValue()); },
-            'ttl' => function (self $o, ParseNode $n) { $o->setTtl($n->getIntegerValue()); },
+            'isOptional' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsOptional($n->getBooleanValue()); },
+            'label' => function (ParseNode $n) use ($currentObject) { $currentObject->setLabel($n->getStringValue()); },
+            'recordType' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecordType($n->getStringValue()); },
+            'supportedService' => function (ParseNode $n) use ($currentObject) { $currentObject->setSupportedService($n->getStringValue()); },
+            'ttl' => function (ParseNode $n) use ($currentObject) { $currentObject->setTtl($n->getIntegerValue()); },
         ]);
     }
 

@@ -49,9 +49,10 @@ class TransferRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'transferee' => function (self $o, ParseNode $n) { $o->setTransferee($n->getObjectValue(ParticipantInfo::class)); },
-            'transferTarget' => function (self $o, ParseNode $n) { $o->setTransferTarget($n->getObjectValue(InvitationParticipantInfo::class)); },
+            'transferee' => function (ParseNode $n) use ($currentObject) { $currentObject->setTransferee($n->getObjectValue(ParticipantInfo::class)); },
+            'transferTarget' => function (ParseNode $n) use ($currentObject) { $currentObject->setTransferTarget($n->getObjectValue(InvitationParticipantInfo::class)); },
         ];
     }
 

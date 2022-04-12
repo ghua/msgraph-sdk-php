@@ -56,9 +56,10 @@ class InviteRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'clientContext' => function (self $o, ParseNode $n) { $o->setClientContext($n->getStringValue()); },
-            'participants' => function (self $o, ParseNode $n) { $o->setParticipants($n->getCollectionOfObjectValues(InvitationParticipantInfo::class)); },
+            'clientContext' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientContext($n->getStringValue()); },
+            'participants' => function (ParseNode $n) use ($currentObject) { $currentObject->setParticipants($n->getCollectionOfObjectValues(InvitationParticipantInfo::class)); },
         ];
     }
 

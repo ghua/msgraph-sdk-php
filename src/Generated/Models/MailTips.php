@@ -125,19 +125,20 @@ class MailTips implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'automaticReplies' => function (self $o, ParseNode $n) { $o->setAutomaticReplies($n->getObjectValue(AutomaticRepliesMailTips::class)); },
-            'customMailTip' => function (self $o, ParseNode $n) { $o->setCustomMailTip($n->getStringValue()); },
-            'deliveryRestricted' => function (self $o, ParseNode $n) { $o->setDeliveryRestricted($n->getBooleanValue()); },
-            'emailAddress' => function (self $o, ParseNode $n) { $o->setEmailAddress($n->getObjectValue(EmailAddress::class)); },
-            'error' => function (self $o, ParseNode $n) { $o->setError($n->getObjectValue(MailTipsError::class)); },
-            'externalMemberCount' => function (self $o, ParseNode $n) { $o->setExternalMemberCount($n->getIntegerValue()); },
-            'isModerated' => function (self $o, ParseNode $n) { $o->setIsModerated($n->getBooleanValue()); },
-            'mailboxFull' => function (self $o, ParseNode $n) { $o->setMailboxFull($n->getBooleanValue()); },
-            'maxMessageSize' => function (self $o, ParseNode $n) { $o->setMaxMessageSize($n->getIntegerValue()); },
-            'recipientScope' => function (self $o, ParseNode $n) { $o->setRecipientScope($n->getEnumValue(RecipientScopeType::class)); },
-            'recipientSuggestions' => function (self $o, ParseNode $n) { $o->setRecipientSuggestions($n->getCollectionOfObjectValues(Recipient::class)); },
-            'totalMemberCount' => function (self $o, ParseNode $n) { $o->setTotalMemberCount($n->getIntegerValue()); },
+            'automaticReplies' => function (ParseNode $n) use ($currentObject) { $currentObject->setAutomaticReplies($n->getObjectValue(AutomaticRepliesMailTips::class)); },
+            'customMailTip' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomMailTip($n->getStringValue()); },
+            'deliveryRestricted' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeliveryRestricted($n->getBooleanValue()); },
+            'emailAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmailAddress($n->getObjectValue(EmailAddress::class)); },
+            'error' => function (ParseNode $n) use ($currentObject) { $currentObject->setError($n->getObjectValue(MailTipsError::class)); },
+            'externalMemberCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalMemberCount($n->getIntegerValue()); },
+            'isModerated' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsModerated($n->getBooleanValue()); },
+            'mailboxFull' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailboxFull($n->getBooleanValue()); },
+            'maxMessageSize' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaxMessageSize($n->getIntegerValue()); },
+            'recipientScope' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipientScope($n->getEnumValue(RecipientScopeType::class)); },
+            'recipientSuggestions' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipientSuggestions($n->getCollectionOfObjectValues(Recipient::class)); },
+            'totalMemberCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setTotalMemberCount($n->getIntegerValue()); },
         ];
     }
 

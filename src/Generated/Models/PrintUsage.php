@@ -58,11 +58,12 @@ class PrintUsage extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'completedBlackAndWhiteJobCount' => function (self $o, ParseNode $n) { $o->setCompletedBlackAndWhiteJobCount($n->getIntegerValue()); },
-            'completedColorJobCount' => function (self $o, ParseNode $n) { $o->setCompletedColorJobCount($n->getIntegerValue()); },
-            'incompleteJobCount' => function (self $o, ParseNode $n) { $o->setIncompleteJobCount($n->getIntegerValue()); },
-            'usageDate' => function (self $o, ParseNode $n) { $o->setUsageDate($n->getDateValue()); },
+            'completedBlackAndWhiteJobCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedBlackAndWhiteJobCount($n->getIntegerValue()); },
+            'completedColorJobCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedColorJobCount($n->getIntegerValue()); },
+            'incompleteJobCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncompleteJobCount($n->getIntegerValue()); },
+            'usageDate' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsageDate($n->getDateValue()); },
         ]);
     }
 

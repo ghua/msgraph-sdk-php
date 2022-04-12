@@ -38,10 +38,11 @@ class WorkbookChartSeries extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getObjectValue(WorkbookChartSeriesFormat::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'points' => function (self $o, ParseNode $n) { $o->setPoints($n->getCollectionOfObjectValues(WorkbookChartPoint::class)); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getObjectValue(WorkbookChartSeriesFormat::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'points' => function (ParseNode $n) use ($currentObject) { $currentObject->setPoints($n->getCollectionOfObjectValues(WorkbookChartPoint::class)); },
         ]);
     }
 

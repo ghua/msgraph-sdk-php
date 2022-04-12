@@ -47,9 +47,10 @@ class RecordingInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'initiator' => function (self $o, ParseNode $n) { $o->setInitiator($n->getObjectValue(IdentitySet::class)); },
-            'recordingStatus' => function (self $o, ParseNode $n) { $o->setRecordingStatus($n->getEnumValue(RecordingStatus::class)); },
+            'initiator' => function (ParseNode $n) use ($currentObject) { $currentObject->setInitiator($n->getObjectValue(IdentitySet::class)); },
+            'recordingStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecordingStatus($n->getEnumValue(RecordingStatus::class)); },
         ];
     }
 

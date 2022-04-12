@@ -41,11 +41,12 @@ class WorkbookChartLegend extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getObjectValue(WorkbookChartLegendFormat::class)); },
-            'overlay' => function (self $o, ParseNode $n) { $o->setOverlay($n->getBooleanValue()); },
-            'position' => function (self $o, ParseNode $n) { $o->setPosition($n->getStringValue()); },
-            'visible' => function (self $o, ParseNode $n) { $o->setVisible($n->getBooleanValue()); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getObjectValue(WorkbookChartLegendFormat::class)); },
+            'overlay' => function (ParseNode $n) use ($currentObject) { $currentObject->setOverlay($n->getBooleanValue()); },
+            'position' => function (ParseNode $n) use ($currentObject) { $currentObject->setPosition($n->getStringValue()); },
+            'visible' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisible($n->getBooleanValue()); },
         ]);
     }
 

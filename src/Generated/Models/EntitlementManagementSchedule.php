@@ -59,10 +59,11 @@ class EntitlementManagementSchedule implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'expiration' => function (self $o, ParseNode $n) { $o->setExpiration($n->getObjectValue(ExpirationPattern::class)); },
-            'recurrence' => function (self $o, ParseNode $n) { $o->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
+            'expiration' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpiration($n->getObjectValue(ExpirationPattern::class)); },
+            'recurrence' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
         ];
     }
 

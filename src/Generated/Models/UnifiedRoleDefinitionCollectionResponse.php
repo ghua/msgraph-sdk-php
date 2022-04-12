@@ -47,9 +47,10 @@ class UnifiedRoleDefinitionCollectionResponse implements AdditionalDataHolder, P
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            '@odata.nextLink' => function (self $o, ParseNode $n) { $o->setNextLink($n->getStringValue()); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getCollectionOfObjectValues(UnifiedRoleDefinition::class)); },
+            '@odata.nextLink' => function (ParseNode $n) use ($currentObject) { $currentObject->setNextLink($n->getStringValue()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getCollectionOfObjectValues(UnifiedRoleDefinition::class)); },
         ];
     }
 

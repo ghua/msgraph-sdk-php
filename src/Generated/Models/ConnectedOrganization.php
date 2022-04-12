@@ -86,15 +86,16 @@ class ConnectedOrganization extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'externalSponsors' => function (self $o, ParseNode $n) { $o->setExternalSponsors($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'identitySources' => function (self $o, ParseNode $n) { $o->setIdentitySources($n->getCollectionOfObjectValues(IdentitySource::class)); },
-            'internalSponsors' => function (self $o, ParseNode $n) { $o->setInternalSponsors($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'modifiedDateTime' => function (self $o, ParseNode $n) { $o->setModifiedDateTime($n->getDateTimeValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(ConnectedOrganizationState::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'externalSponsors' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalSponsors($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'identitySources' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentitySources($n->getCollectionOfObjectValues(IdentitySource::class)); },
+            'internalSponsors' => function (ParseNode $n) use ($currentObject) { $currentObject->setInternalSponsors($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'modifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setModifiedDateTime($n->getDateTimeValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(ConnectedOrganizationState::class)); },
         ]);
     }
 

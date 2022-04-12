@@ -60,12 +60,13 @@ class UserInstallStateSummary extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'deviceStates' => function (self $o, ParseNode $n) { $o->setDeviceStates($n->getCollectionOfObjectValues(DeviceInstallState::class)); },
-            'failedDeviceCount' => function (self $o, ParseNode $n) { $o->setFailedDeviceCount($n->getIntegerValue()); },
-            'installedDeviceCount' => function (self $o, ParseNode $n) { $o->setInstalledDeviceCount($n->getIntegerValue()); },
-            'notInstalledDeviceCount' => function (self $o, ParseNode $n) { $o->setNotInstalledDeviceCount($n->getIntegerValue()); },
-            'userName' => function (self $o, ParseNode $n) { $o->setUserName($n->getStringValue()); },
+            'deviceStates' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceStates($n->getCollectionOfObjectValues(DeviceInstallState::class)); },
+            'failedDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setFailedDeviceCount($n->getIntegerValue()); },
+            'installedDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstalledDeviceCount($n->getIntegerValue()); },
+            'notInstalledDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotInstalledDeviceCount($n->getIntegerValue()); },
+            'userName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserName($n->getStringValue()); },
         ]);
     }
 

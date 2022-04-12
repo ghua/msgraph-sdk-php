@@ -50,10 +50,11 @@ class AlterationResponse implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'originalQueryString' => function (self $o, ParseNode $n) { $o->setOriginalQueryString($n->getStringValue()); },
-            'queryAlteration' => function (self $o, ParseNode $n) { $o->setQueryAlteration($n->getObjectValue(SearchAlteration::class)); },
-            'queryAlterationType' => function (self $o, ParseNode $n) { $o->setQueryAlterationType($n->getEnumValue(SearchAlterationType::class)); },
+            'originalQueryString' => function (ParseNode $n) use ($currentObject) { $currentObject->setOriginalQueryString($n->getStringValue()); },
+            'queryAlteration' => function (ParseNode $n) use ($currentObject) { $currentObject->setQueryAlteration($n->getObjectValue(SearchAlteration::class)); },
+            'queryAlterationType' => function (ParseNode $n) use ($currentObject) { $currentObject->setQueryAlterationType($n->getEnumValue(SearchAlterationType::class)); },
         ];
     }
 

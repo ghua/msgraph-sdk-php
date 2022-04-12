@@ -55,10 +55,11 @@ class ExternalGroup extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'members' => function (self $o, ParseNode $n) { $o->setMembers($n->getCollectionOfObjectValues(Identity::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'members' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembers($n->getCollectionOfObjectValues(Identity::class)); },
         ]);
     }
 

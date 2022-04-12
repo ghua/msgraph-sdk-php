@@ -119,18 +119,19 @@ class DeviceConfiguration extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(DeviceConfigurationAssignment::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'deviceSettingStateSummaries' => function (self $o, ParseNode $n) { $o->setDeviceSettingStateSummaries($n->getCollectionOfObjectValues(SettingStateDeviceSummary::class)); },
-            'deviceStatuses' => function (self $o, ParseNode $n) { $o->setDeviceStatuses($n->getCollectionOfObjectValues(DeviceConfigurationDeviceStatus::class)); },
-            'deviceStatusOverview' => function (self $o, ParseNode $n) { $o->setDeviceStatusOverview($n->getObjectValue(DeviceConfigurationDeviceOverview::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'userStatuses' => function (self $o, ParseNode $n) { $o->setUserStatuses($n->getCollectionOfObjectValues(DeviceConfigurationUserStatus::class)); },
-            'userStatusOverview' => function (self $o, ParseNode $n) { $o->setUserStatusOverview($n->getObjectValue(DeviceConfigurationUserOverview::class)); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getIntegerValue()); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(DeviceConfigurationAssignment::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'deviceSettingStateSummaries' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceSettingStateSummaries($n->getCollectionOfObjectValues(SettingStateDeviceSummary::class)); },
+            'deviceStatuses' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceStatuses($n->getCollectionOfObjectValues(DeviceConfigurationDeviceStatus::class)); },
+            'deviceStatusOverview' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceStatusOverview($n->getObjectValue(DeviceConfigurationDeviceOverview::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'userStatuses' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserStatuses($n->getCollectionOfObjectValues(DeviceConfigurationUserStatus::class)); },
+            'userStatusOverview' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserStatusOverview($n->getObjectValue(DeviceConfigurationUserOverview::class)); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getIntegerValue()); },
         ]);
     }
 

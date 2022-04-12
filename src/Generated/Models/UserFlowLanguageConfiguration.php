@@ -57,11 +57,12 @@ class UserFlowLanguageConfiguration extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'defaultPages' => function (self $o, ParseNode $n) { $o->setDefaultPages($n->getCollectionOfObjectValues(UserFlowLanguagePage::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isEnabled' => function (self $o, ParseNode $n) { $o->setIsEnabled($n->getBooleanValue()); },
-            'overridesPages' => function (self $o, ParseNode $n) { $o->setOverridesPages($n->getCollectionOfObjectValues(UserFlowLanguagePage::class)); },
+            'defaultPages' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultPages($n->getCollectionOfObjectValues(UserFlowLanguagePage::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabled($n->getBooleanValue()); },
+            'overridesPages' => function (ParseNode $n) use ($currentObject) { $currentObject->setOverridesPages($n->getCollectionOfObjectValues(UserFlowLanguagePage::class)); },
         ]);
     }
 

@@ -46,10 +46,11 @@ class TimeOff extends ChangeTrackedEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'draftTimeOff' => function (self $o, ParseNode $n) { $o->setDraftTimeOff($n->getObjectValue(TimeOffItem::class)); },
-            'sharedTimeOff' => function (self $o, ParseNode $n) { $o->setSharedTimeOff($n->getObjectValue(TimeOffItem::class)); },
-            'userId' => function (self $o, ParseNode $n) { $o->setUserId($n->getStringValue()); },
+            'draftTimeOff' => function (ParseNode $n) use ($currentObject) { $currentObject->setDraftTimeOff($n->getObjectValue(TimeOffItem::class)); },
+            'sharedTimeOff' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedTimeOff($n->getObjectValue(TimeOffItem::class)); },
+            'userId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserId($n->getStringValue()); },
         ]);
     }
 

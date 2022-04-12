@@ -47,10 +47,11 @@ class ThreatAssessmentResult extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
-            'resultType' => function (self $o, ParseNode $n) { $o->setResultType($n->getEnumValue(ThreatAssessmentResultType::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
+            'resultType' => function (ParseNode $n) use ($currentObject) { $currentObject->setResultType($n->getEnumValue(ThreatAssessmentResultType::class)); },
         ]);
     }
 

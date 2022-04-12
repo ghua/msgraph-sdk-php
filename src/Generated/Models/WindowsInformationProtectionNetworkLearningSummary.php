@@ -43,9 +43,10 @@ class WindowsInformationProtectionNetworkLearningSummary extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'deviceCount' => function (self $o, ParseNode $n) { $o->setDeviceCount($n->getIntegerValue()); },
-            'url' => function (self $o, ParseNode $n) { $o->setUrl($n->getStringValue()); },
+            'deviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceCount($n->getIntegerValue()); },
+            'url' => function (ParseNode $n) use ($currentObject) { $currentObject->setUrl($n->getStringValue()); },
         ]);
     }
 

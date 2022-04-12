@@ -101,16 +101,17 @@ class MessageSecurityState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'connectingIP' => function (self $o, ParseNode $n) { $o->setConnectingIP($n->getStringValue()); },
-            'deliveryAction' => function (self $o, ParseNode $n) { $o->setDeliveryAction($n->getStringValue()); },
-            'deliveryLocation' => function (self $o, ParseNode $n) { $o->setDeliveryLocation($n->getStringValue()); },
-            'directionality' => function (self $o, ParseNode $n) { $o->setDirectionality($n->getStringValue()); },
-            'internetMessageId' => function (self $o, ParseNode $n) { $o->setInternetMessageId($n->getStringValue()); },
-            'messageFingerprint' => function (self $o, ParseNode $n) { $o->setMessageFingerprint($n->getStringValue()); },
-            'messageReceivedDateTime' => function (self $o, ParseNode $n) { $o->setMessageReceivedDateTime($n->getDateTimeValue()); },
-            'messageSubject' => function (self $o, ParseNode $n) { $o->setMessageSubject($n->getStringValue()); },
-            'networkMessageId' => function (self $o, ParseNode $n) { $o->setNetworkMessageId($n->getStringValue()); },
+            'connectingIP' => function (ParseNode $n) use ($currentObject) { $currentObject->setConnectingIP($n->getStringValue()); },
+            'deliveryAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeliveryAction($n->getStringValue()); },
+            'deliveryLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeliveryLocation($n->getStringValue()); },
+            'directionality' => function (ParseNode $n) use ($currentObject) { $currentObject->setDirectionality($n->getStringValue()); },
+            'internetMessageId' => function (ParseNode $n) use ($currentObject) { $currentObject->setInternetMessageId($n->getStringValue()); },
+            'messageFingerprint' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessageFingerprint($n->getStringValue()); },
+            'messageReceivedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessageReceivedDateTime($n->getDateTimeValue()); },
+            'messageSubject' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessageSubject($n->getStringValue()); },
+            'networkMessageId' => function (ParseNode $n) use ($currentObject) { $currentObject->setNetworkMessageId($n->getStringValue()); },
         ];
     }
 

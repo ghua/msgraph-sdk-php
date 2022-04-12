@@ -80,12 +80,13 @@ class LookupColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowMultipleValues' => function (self $o, ParseNode $n) { $o->setAllowMultipleValues($n->getBooleanValue()); },
-            'allowUnlimitedLength' => function (self $o, ParseNode $n) { $o->setAllowUnlimitedLength($n->getBooleanValue()); },
-            'columnName' => function (self $o, ParseNode $n) { $o->setColumnName($n->getStringValue()); },
-            'listId' => function (self $o, ParseNode $n) { $o->setListId($n->getStringValue()); },
-            'primaryLookupColumnId' => function (self $o, ParseNode $n) { $o->setPrimaryLookupColumnId($n->getStringValue()); },
+            'allowMultipleValues' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowMultipleValues($n->getBooleanValue()); },
+            'allowUnlimitedLength' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowUnlimitedLength($n->getBooleanValue()); },
+            'columnName' => function (ParseNode $n) use ($currentObject) { $currentObject->setColumnName($n->getStringValue()); },
+            'listId' => function (ParseNode $n) use ($currentObject) { $currentObject->setListId($n->getStringValue()); },
+            'primaryLookupColumnId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrimaryLookupColumnId($n->getStringValue()); },
         ];
     }
 

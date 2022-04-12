@@ -74,14 +74,15 @@ class SubscribedSku extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appliesTo' => function (self $o, ParseNode $n) { $o->setAppliesTo($n->getStringValue()); },
-            'capabilityStatus' => function (self $o, ParseNode $n) { $o->setCapabilityStatus($n->getStringValue()); },
-            'consumedUnits' => function (self $o, ParseNode $n) { $o->setConsumedUnits($n->getIntegerValue()); },
-            'prepaidUnits' => function (self $o, ParseNode $n) { $o->setPrepaidUnits($n->getObjectValue(LicenseUnitsDetail::class)); },
-            'servicePlans' => function (self $o, ParseNode $n) { $o->setServicePlans($n->getCollectionOfObjectValues(ServicePlanInfo::class)); },
-            'skuId' => function (self $o, ParseNode $n) { $o->setSkuId($n->getStringValue()); },
-            'skuPartNumber' => function (self $o, ParseNode $n) { $o->setSkuPartNumber($n->getStringValue()); },
+            'appliesTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppliesTo($n->getStringValue()); },
+            'capabilityStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setCapabilityStatus($n->getStringValue()); },
+            'consumedUnits' => function (ParseNode $n) use ($currentObject) { $currentObject->setConsumedUnits($n->getIntegerValue()); },
+            'prepaidUnits' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrepaidUnits($n->getObjectValue(LicenseUnitsDetail::class)); },
+            'servicePlans' => function (ParseNode $n) use ($currentObject) { $currentObject->setServicePlans($n->getCollectionOfObjectValues(ServicePlanInfo::class)); },
+            'skuId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkuId($n->getStringValue()); },
+            'skuPartNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkuPartNumber($n->getStringValue()); },
         ]);
     }
 

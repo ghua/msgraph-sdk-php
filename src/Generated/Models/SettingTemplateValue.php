@@ -69,11 +69,12 @@ class SettingTemplateValue implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'defaultValue' => function (self $o, ParseNode $n) { $o->setDefaultValue($n->getStringValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
+            'defaultValue' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultValue($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
         ];
     }
 

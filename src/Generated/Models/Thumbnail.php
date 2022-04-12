@@ -65,12 +65,13 @@ class Thumbnail implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getBinaryContent()); },
-            'height' => function (self $o, ParseNode $n) { $o->setHeight($n->getIntegerValue()); },
-            'sourceItemId' => function (self $o, ParseNode $n) { $o->setSourceItemId($n->getStringValue()); },
-            'url' => function (self $o, ParseNode $n) { $o->setUrl($n->getStringValue()); },
-            'width' => function (self $o, ParseNode $n) { $o->setWidth($n->getIntegerValue()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getBinaryContent()); },
+            'height' => function (ParseNode $n) use ($currentObject) { $currentObject->setHeight($n->getIntegerValue()); },
+            'sourceItemId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceItemId($n->getStringValue()); },
+            'url' => function (ParseNode $n) use ($currentObject) { $currentObject->setUrl($n->getStringValue()); },
+            'width' => function (ParseNode $n) use ($currentObject) { $currentObject->setWidth($n->getIntegerValue()); },
         ];
     }
 

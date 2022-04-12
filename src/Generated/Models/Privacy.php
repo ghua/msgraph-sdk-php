@@ -44,8 +44,9 @@ class Privacy implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'subjectRightsRequests' => function (self $o, ParseNode $n) { $o->setSubjectRightsRequests($n->getCollectionOfObjectValues(SubjectRightsRequest::class)); },
+            'subjectRightsRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubjectRightsRequests($n->getCollectionOfObjectValues(SubjectRightsRequest::class)); },
         ];
     }
 

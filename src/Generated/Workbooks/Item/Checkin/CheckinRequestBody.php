@@ -63,9 +63,10 @@ class CheckinRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'checkInAs' => function (self $o, ParseNode $n) { $o->setCheckInAs($n->getStringValue()); },
-            'comment' => function (self $o, ParseNode $n) { $o->setComment($n->getStringValue()); },
+            'checkInAs' => function (ParseNode $n) use ($currentObject) { $currentObject->setCheckInAs($n->getStringValue()); },
+            'comment' => function (ParseNode $n) use ($currentObject) { $currentObject->setComment($n->getStringValue()); },
         ];
     }
 

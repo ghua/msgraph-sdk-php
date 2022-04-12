@@ -35,9 +35,10 @@ class ManagedMobileApp extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'mobileAppIdentifier' => function (self $o, ParseNode $n) { $o->setMobileAppIdentifier($n->getObjectValue(MobileAppIdentifier::class)); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'mobileAppIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setMobileAppIdentifier($n->getObjectValue(MobileAppIdentifier::class)); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

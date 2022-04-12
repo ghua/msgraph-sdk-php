@@ -80,16 +80,17 @@ class ServiceHealthIssue extends ServiceAnnouncementBase
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'classification' => function (self $o, ParseNode $n) { $o->setClassification($n->getEnumValue(ServiceHealthClassificationType::class)); },
-            'feature' => function (self $o, ParseNode $n) { $o->setFeature($n->getStringValue()); },
-            'featureGroup' => function (self $o, ParseNode $n) { $o->setFeatureGroup($n->getStringValue()); },
-            'impactDescription' => function (self $o, ParseNode $n) { $o->setImpactDescription($n->getStringValue()); },
-            'isResolved' => function (self $o, ParseNode $n) { $o->setIsResolved($n->getBooleanValue()); },
-            'origin' => function (self $o, ParseNode $n) { $o->setOrigin($n->getEnumValue(ServiceHealthOrigin::class)); },
-            'posts' => function (self $o, ParseNode $n) { $o->setPosts($n->getCollectionOfObjectValues(ServiceHealthIssuePost::class)); },
-            'service' => function (self $o, ParseNode $n) { $o->setService($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ServiceHealthStatus::class)); },
+            'classification' => function (ParseNode $n) use ($currentObject) { $currentObject->setClassification($n->getEnumValue(ServiceHealthClassificationType::class)); },
+            'feature' => function (ParseNode $n) use ($currentObject) { $currentObject->setFeature($n->getStringValue()); },
+            'featureGroup' => function (ParseNode $n) use ($currentObject) { $currentObject->setFeatureGroup($n->getStringValue()); },
+            'impactDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setImpactDescription($n->getStringValue()); },
+            'isResolved' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsResolved($n->getBooleanValue()); },
+            'origin' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrigin($n->getEnumValue(ServiceHealthOrigin::class)); },
+            'posts' => function (ParseNode $n) use ($currentObject) { $currentObject->setPosts($n->getCollectionOfObjectValues(ServiceHealthIssuePost::class)); },
+            'service' => function (ParseNode $n) use ($currentObject) { $currentObject->setService($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ServiceHealthStatus::class)); },
         ]);
     }
 

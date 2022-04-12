@@ -56,16 +56,17 @@ class WorkbookChartDataLabels extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getObjectValue(WorkbookChartDataLabelFormat::class)); },
-            'position' => function (self $o, ParseNode $n) { $o->setPosition($n->getStringValue()); },
-            'separator' => function (self $o, ParseNode $n) { $o->setSeparator($n->getStringValue()); },
-            'showBubbleSize' => function (self $o, ParseNode $n) { $o->setShowBubbleSize($n->getBooleanValue()); },
-            'showCategoryName' => function (self $o, ParseNode $n) { $o->setShowCategoryName($n->getBooleanValue()); },
-            'showLegendKey' => function (self $o, ParseNode $n) { $o->setShowLegendKey($n->getBooleanValue()); },
-            'showPercentage' => function (self $o, ParseNode $n) { $o->setShowPercentage($n->getBooleanValue()); },
-            'showSeriesName' => function (self $o, ParseNode $n) { $o->setShowSeriesName($n->getBooleanValue()); },
-            'showValue' => function (self $o, ParseNode $n) { $o->setShowValue($n->getBooleanValue()); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getObjectValue(WorkbookChartDataLabelFormat::class)); },
+            'position' => function (ParseNode $n) use ($currentObject) { $currentObject->setPosition($n->getStringValue()); },
+            'separator' => function (ParseNode $n) use ($currentObject) { $currentObject->setSeparator($n->getStringValue()); },
+            'showBubbleSize' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowBubbleSize($n->getBooleanValue()); },
+            'showCategoryName' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowCategoryName($n->getBooleanValue()); },
+            'showLegendKey' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowLegendKey($n->getBooleanValue()); },
+            'showPercentage' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowPercentage($n->getBooleanValue()); },
+            'showSeriesName' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowSeriesName($n->getBooleanValue()); },
+            'showValue' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowValue($n->getBooleanValue()); },
         ]);
     }
 

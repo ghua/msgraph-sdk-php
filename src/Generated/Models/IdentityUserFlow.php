@@ -35,9 +35,10 @@ class IdentityUserFlow extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'userFlowType' => function (self $o, ParseNode $n) { $o->setUserFlowType($n->getEnumValue(UserFlowType::class)); },
-            'userFlowTypeVersion' => function (self $o, ParseNode $n) { $o->setUserFlowTypeVersion($n->getFloatValue()); },
+            'userFlowType' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserFlowType($n->getEnumValue(UserFlowType::class)); },
+            'userFlowTypeVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserFlowTypeVersion($n->getFloatValue()); },
         ]);
     }
 

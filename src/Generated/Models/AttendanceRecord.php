@@ -60,12 +60,13 @@ class AttendanceRecord extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'attendanceIntervals' => function (self $o, ParseNode $n) { $o->setAttendanceIntervals($n->getCollectionOfObjectValues(AttendanceInterval::class)); },
-            'emailAddress' => function (self $o, ParseNode $n) { $o->setEmailAddress($n->getStringValue()); },
-            'identity' => function (self $o, ParseNode $n) { $o->setIdentity($n->getObjectValue(Identity::class)); },
-            'role' => function (self $o, ParseNode $n) { $o->setRole($n->getStringValue()); },
-            'totalAttendanceInSeconds' => function (self $o, ParseNode $n) { $o->setTotalAttendanceInSeconds($n->getIntegerValue()); },
+            'attendanceIntervals' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttendanceIntervals($n->getCollectionOfObjectValues(AttendanceInterval::class)); },
+            'emailAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmailAddress($n->getStringValue()); },
+            'identity' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentity($n->getObjectValue(Identity::class)); },
+            'role' => function (ParseNode $n) use ($currentObject) { $currentObject->setRole($n->getStringValue()); },
+            'totalAttendanceInSeconds' => function (ParseNode $n) use ($currentObject) { $currentObject->setTotalAttendanceInSeconds($n->getIntegerValue()); },
         ]);
     }
 

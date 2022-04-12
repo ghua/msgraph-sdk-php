@@ -41,6 +41,7 @@ class SystemFacet implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
         ];
     }

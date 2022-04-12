@@ -32,8 +32,9 @@ class OnenoteEntityBaseModel extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'self' => function (self $o, ParseNode $n) { $o->setEscapedSelf($n->getStringValue()); },
+            'self' => function (ParseNode $n) use ($currentObject) { $currentObject->setEscapedSelf($n->getStringValue()); },
         ]);
     }
 

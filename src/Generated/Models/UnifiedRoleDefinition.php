@@ -72,16 +72,17 @@ class UnifiedRoleDefinition extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'inheritsPermissionsFrom' => function (self $o, ParseNode $n) { $o->setInheritsPermissionsFrom($n->getCollectionOfObjectValues(UnifiedRoleDefinition::class)); },
-            'isBuiltIn' => function (self $o, ParseNode $n) { $o->setIsBuiltIn($n->getBooleanValue()); },
-            'isEnabled' => function (self $o, ParseNode $n) { $o->setIsEnabled($n->getBooleanValue()); },
-            'resourceScopes' => function (self $o, ParseNode $n) { $o->setResourceScopes($n->getCollectionOfPrimitiveValues()); },
-            'rolePermissions' => function (self $o, ParseNode $n) { $o->setRolePermissions($n->getCollectionOfObjectValues(UnifiedRolePermission::class)); },
-            'templateId' => function (self $o, ParseNode $n) { $o->setTemplateId($n->getStringValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'inheritsPermissionsFrom' => function (ParseNode $n) use ($currentObject) { $currentObject->setInheritsPermissionsFrom($n->getCollectionOfObjectValues(UnifiedRoleDefinition::class)); },
+            'isBuiltIn' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsBuiltIn($n->getBooleanValue()); },
+            'isEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabled($n->getBooleanValue()); },
+            'resourceScopes' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceScopes($n->getCollectionOfPrimitiveValues()); },
+            'rolePermissions' => function (ParseNode $n) use ($currentObject) { $currentObject->setRolePermissions($n->getCollectionOfObjectValues(UnifiedRolePermission::class)); },
+            'templateId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTemplateId($n->getStringValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

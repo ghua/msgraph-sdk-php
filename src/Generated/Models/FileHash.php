@@ -47,9 +47,10 @@ class FileHash implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'hashType' => function (self $o, ParseNode $n) { $o->setHashType($n->getEnumValue(FileHashType::class)); },
-            'hashValue' => function (self $o, ParseNode $n) { $o->setHashValue($n->getStringValue()); },
+            'hashType' => function (ParseNode $n) use ($currentObject) { $currentObject->setHashType($n->getEnumValue(FileHashType::class)); },
+            'hashValue' => function (ParseNode $n) use ($currentObject) { $currentObject->setHashValue($n->getStringValue()); },
         ];
     }
 

@@ -55,9 +55,10 @@ class ApplicationServicePrincipal implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'application' => function (self $o, ParseNode $n) { $o->setApplication($n->getObjectValue(Application::class)); },
-            'servicePrincipal' => function (self $o, ParseNode $n) { $o->setServicePrincipal($n->getObjectValue(ServicePrincipal::class)); },
+            'application' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplication($n->getObjectValue(Application::class)); },
+            'servicePrincipal' => function (ParseNode $n) use ($currentObject) { $currentObject->setServicePrincipal($n->getObjectValue(ServicePrincipal::class)); },
         ];
     }
 

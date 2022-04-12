@@ -40,8 +40,9 @@ class UserScopeTeamsAppInstallation extends TeamsAppInstallation
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'chat' => function (self $o, ParseNode $n) { $o->setChat($n->getObjectValue(Chat::class)); },
+            'chat' => function (ParseNode $n) use ($currentObject) { $currentObject->setChat($n->getObjectValue(Chat::class)); },
         ]);
     }
 

@@ -61,11 +61,12 @@ class AuthenticationMethodsRegistrationCampaign implements AdditionalDataHolder,
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'excludeTargets' => function (self $o, ParseNode $n) { $o->setExcludeTargets($n->getCollectionOfObjectValues(ExcludeTarget::class)); },
-            'includeTargets' => function (self $o, ParseNode $n) { $o->setIncludeTargets($n->getCollectionOfObjectValues(AuthenticationMethodsRegistrationCampaignIncludeTarget::class)); },
-            'snoozeDurationInDays' => function (self $o, ParseNode $n) { $o->setSnoozeDurationInDays($n->getIntegerValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(AdvancedConfigState::class)); },
+            'excludeTargets' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludeTargets($n->getCollectionOfObjectValues(ExcludeTarget::class)); },
+            'includeTargets' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeTargets($n->getCollectionOfObjectValues(AuthenticationMethodsRegistrationCampaignIncludeTarget::class)); },
+            'snoozeDurationInDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setSnoozeDurationInDays($n->getIntegerValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(AdvancedConfigState::class)); },
         ];
     }
 

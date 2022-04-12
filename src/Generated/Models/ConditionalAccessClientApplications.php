@@ -55,9 +55,10 @@ class ConditionalAccessClientApplications implements AdditionalDataHolder, Parsa
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'excludeServicePrincipals' => function (self $o, ParseNode $n) { $o->setExcludeServicePrincipals($n->getCollectionOfPrimitiveValues()); },
-            'includeServicePrincipals' => function (self $o, ParseNode $n) { $o->setIncludeServicePrincipals($n->getCollectionOfPrimitiveValues()); },
+            'excludeServicePrincipals' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludeServicePrincipals($n->getCollectionOfPrimitiveValues()); },
+            'includeServicePrincipals' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeServicePrincipals($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

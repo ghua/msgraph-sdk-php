@@ -124,24 +124,25 @@ class PrinterLocation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'altitudeInMeters' => function (self $o, ParseNode $n) { $o->setAltitudeInMeters($n->getIntegerValue()); },
-            'building' => function (self $o, ParseNode $n) { $o->setBuilding($n->getStringValue()); },
-            'city' => function (self $o, ParseNode $n) { $o->setCity($n->getStringValue()); },
-            'countryOrRegion' => function (self $o, ParseNode $n) { $o->setCountryOrRegion($n->getStringValue()); },
-            'floor' => function (self $o, ParseNode $n) { $o->setFloor($n->getStringValue()); },
-            'floorDescription' => function (self $o, ParseNode $n) { $o->setFloorDescription($n->getStringValue()); },
-            'latitude' => function (self $o, ParseNode $n) { $o->setLatitude($n->getFloatValue()); },
-            'longitude' => function (self $o, ParseNode $n) { $o->setLongitude($n->getFloatValue()); },
-            'organization' => function (self $o, ParseNode $n) { $o->setOrganization($n->getCollectionOfPrimitiveValues()); },
-            'postalCode' => function (self $o, ParseNode $n) { $o->setPostalCode($n->getStringValue()); },
-            'roomDescription' => function (self $o, ParseNode $n) { $o->setRoomDescription($n->getStringValue()); },
-            'roomName' => function (self $o, ParseNode $n) { $o->setRoomName($n->getStringValue()); },
-            'site' => function (self $o, ParseNode $n) { $o->setSite($n->getStringValue()); },
-            'stateOrProvince' => function (self $o, ParseNode $n) { $o->setStateOrProvince($n->getStringValue()); },
-            'streetAddress' => function (self $o, ParseNode $n) { $o->setStreetAddress($n->getStringValue()); },
-            'subdivision' => function (self $o, ParseNode $n) { $o->setSubdivision($n->getCollectionOfPrimitiveValues()); },
-            'subunit' => function (self $o, ParseNode $n) { $o->setSubunit($n->getCollectionOfPrimitiveValues()); },
+            'altitudeInMeters' => function (ParseNode $n) use ($currentObject) { $currentObject->setAltitudeInMeters($n->getIntegerValue()); },
+            'building' => function (ParseNode $n) use ($currentObject) { $currentObject->setBuilding($n->getStringValue()); },
+            'city' => function (ParseNode $n) use ($currentObject) { $currentObject->setCity($n->getStringValue()); },
+            'countryOrRegion' => function (ParseNode $n) use ($currentObject) { $currentObject->setCountryOrRegion($n->getStringValue()); },
+            'floor' => function (ParseNode $n) use ($currentObject) { $currentObject->setFloor($n->getStringValue()); },
+            'floorDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setFloorDescription($n->getStringValue()); },
+            'latitude' => function (ParseNode $n) use ($currentObject) { $currentObject->setLatitude($n->getFloatValue()); },
+            'longitude' => function (ParseNode $n) use ($currentObject) { $currentObject->setLongitude($n->getFloatValue()); },
+            'organization' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrganization($n->getCollectionOfPrimitiveValues()); },
+            'postalCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setPostalCode($n->getStringValue()); },
+            'roomDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoomDescription($n->getStringValue()); },
+            'roomName' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoomName($n->getStringValue()); },
+            'site' => function (ParseNode $n) use ($currentObject) { $currentObject->setSite($n->getStringValue()); },
+            'stateOrProvince' => function (ParseNode $n) use ($currentObject) { $currentObject->setStateOrProvince($n->getStringValue()); },
+            'streetAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setStreetAddress($n->getStringValue()); },
+            'subdivision' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubdivision($n->getCollectionOfPrimitiveValues()); },
+            'subunit' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubunit($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

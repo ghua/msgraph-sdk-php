@@ -50,11 +50,12 @@ class RemoteAssistancePartner extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastConnectionDateTime' => function (self $o, ParseNode $n) { $o->setLastConnectionDateTime($n->getDateTimeValue()); },
-            'onboardingStatus' => function (self $o, ParseNode $n) { $o->setOnboardingStatus($n->getEnumValue(RemoteAssistanceOnboardingStatus::class)); },
-            'onboardingUrl' => function (self $o, ParseNode $n) { $o->setOnboardingUrl($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastConnectionDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastConnectionDateTime($n->getDateTimeValue()); },
+            'onboardingStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnboardingStatus($n->getEnumValue(RemoteAssistanceOnboardingStatus::class)); },
+            'onboardingUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnboardingUrl($n->getStringValue()); },
         ]);
     }
 

@@ -95,14 +95,15 @@ class AlertHistoryState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'appId' => function (self $o, ParseNode $n) { $o->setAppId($n->getStringValue()); },
-            'assignedTo' => function (self $o, ParseNode $n) { $o->setAssignedTo($n->getStringValue()); },
-            'comments' => function (self $o, ParseNode $n) { $o->setComments($n->getCollectionOfPrimitiveValues()); },
-            'feedback' => function (self $o, ParseNode $n) { $o->setFeedback($n->getEnumValue(AlertFeedback::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(AlertStatus::class)); },
-            'updatedDateTime' => function (self $o, ParseNode $n) { $o->setUpdatedDateTime($n->getDateTimeValue()); },
-            'user' => function (self $o, ParseNode $n) { $o->setUser($n->getStringValue()); },
+            'appId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppId($n->getStringValue()); },
+            'assignedTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedTo($n->getStringValue()); },
+            'comments' => function (ParseNode $n) use ($currentObject) { $currentObject->setComments($n->getCollectionOfPrimitiveValues()); },
+            'feedback' => function (ParseNode $n) use ($currentObject) { $currentObject->setFeedback($n->getEnumValue(AlertFeedback::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(AlertStatus::class)); },
+            'updatedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setUpdatedDateTime($n->getDateTimeValue()); },
+            'user' => function (ParseNode $n) use ($currentObject) { $currentObject->setUser($n->getStringValue()); },
         ];
     }
 

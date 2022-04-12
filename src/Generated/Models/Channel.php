@@ -95,18 +95,19 @@ class Channel extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'email' => function (self $o, ParseNode $n) { $o->setEmail($n->getStringValue()); },
-            'filesFolder' => function (self $o, ParseNode $n) { $o->setFilesFolder($n->getObjectValue(DriveItem::class)); },
-            'isFavoriteByDefault' => function (self $o, ParseNode $n) { $o->setIsFavoriteByDefault($n->getBooleanValue()); },
-            'members' => function (self $o, ParseNode $n) { $o->setMembers($n->getCollectionOfObjectValues(ConversationMember::class)); },
-            'membershipType' => function (self $o, ParseNode $n) { $o->setMembershipType($n->getEnumValue(ChannelMembershipType::class)); },
-            'messages' => function (self $o, ParseNode $n) { $o->setMessages($n->getCollectionOfObjectValues(ChatMessage::class)); },
-            'tabs' => function (self $o, ParseNode $n) { $o->setTabs($n->getCollectionOfObjectValues(TeamsTab::class)); },
-            'webUrl' => function (self $o, ParseNode $n) { $o->setWebUrl($n->getStringValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'email' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmail($n->getStringValue()); },
+            'filesFolder' => function (ParseNode $n) use ($currentObject) { $currentObject->setFilesFolder($n->getObjectValue(DriveItem::class)); },
+            'isFavoriteByDefault' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsFavoriteByDefault($n->getBooleanValue()); },
+            'members' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembers($n->getCollectionOfObjectValues(ConversationMember::class)); },
+            'membershipType' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembershipType($n->getEnumValue(ChannelMembershipType::class)); },
+            'messages' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessages($n->getCollectionOfObjectValues(ChatMessage::class)); },
+            'tabs' => function (ParseNode $n) use ($currentObject) { $currentObject->setTabs($n->getCollectionOfObjectValues(TeamsTab::class)); },
+            'webUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebUrl($n->getStringValue()); },
         ]);
     }
 

@@ -53,11 +53,12 @@ class AutomaticRepliesMailTips implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
-            'messageLanguage' => function (self $o, ParseNode $n) { $o->setMessageLanguage($n->getObjectValue(LocaleInfo::class)); },
-            'scheduledEndTime' => function (self $o, ParseNode $n) { $o->setScheduledEndTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'scheduledStartTime' => function (self $o, ParseNode $n) { $o->setScheduledStartTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
+            'messageLanguage' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessageLanguage($n->getObjectValue(LocaleInfo::class)); },
+            'scheduledEndTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduledEndTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'scheduledStartTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduledStartTime($n->getObjectValue(DateTimeTimeZone::class)); },
         ];
     }
 

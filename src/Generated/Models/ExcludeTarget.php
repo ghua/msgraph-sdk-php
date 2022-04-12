@@ -47,9 +47,10 @@ class ExcludeTarget implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'targetType' => function (self $o, ParseNode $n) { $o->setTargetType($n->getEnumValue(AuthenticationMethodTargetType::class)); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'targetType' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetType($n->getEnumValue(AuthenticationMethodTargetType::class)); },
         ];
     }
 

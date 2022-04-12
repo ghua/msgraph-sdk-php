@@ -83,14 +83,15 @@ class PlannerPlan extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'buckets' => function (self $o, ParseNode $n) { $o->setBuckets($n->getCollectionOfObjectValues(PlannerBucket::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'details' => function (self $o, ParseNode $n) { $o->setDetails($n->getObjectValue(PlannerPlanDetails::class)); },
-            'owner' => function (self $o, ParseNode $n) { $o->setOwner($n->getStringValue()); },
-            'tasks' => function (self $o, ParseNode $n) { $o->setTasks($n->getCollectionOfObjectValues(PlannerTask::class)); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
+            'buckets' => function (ParseNode $n) use ($currentObject) { $currentObject->setBuckets($n->getCollectionOfObjectValues(PlannerBucket::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'details' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetails($n->getObjectValue(PlannerPlanDetails::class)); },
+            'owner' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwner($n->getStringValue()); },
+            'tasks' => function (ParseNode $n) use ($currentObject) { $currentObject->setTasks($n->getCollectionOfObjectValues(PlannerTask::class)); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
         ]);
     }
 

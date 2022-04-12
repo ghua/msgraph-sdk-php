@@ -32,8 +32,9 @@ class OpenShiftItem extends ShiftItem
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'openSlotCount' => function (self $o, ParseNode $n) { $o->setOpenSlotCount($n->getIntegerValue()); },
+            'openSlotCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setOpenSlotCount($n->getIntegerValue()); },
         ]);
     }
 

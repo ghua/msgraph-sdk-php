@@ -32,8 +32,9 @@ class Bitlocker extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'recoveryKeys' => function (self $o, ParseNode $n) { $o->setRecoveryKeys($n->getCollectionOfObjectValues(BitlockerRecoveryKey::class)); },
+            'recoveryKeys' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecoveryKeys($n->getCollectionOfObjectValues(BitlockerRecoveryKey::class)); },
         ]);
     }
 

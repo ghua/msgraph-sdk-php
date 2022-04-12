@@ -75,13 +75,14 @@ class PhysicalOfficeAddress implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'city' => function (self $o, ParseNode $n) { $o->setCity($n->getStringValue()); },
-            'countryOrRegion' => function (self $o, ParseNode $n) { $o->setCountryOrRegion($n->getStringValue()); },
-            'officeLocation' => function (self $o, ParseNode $n) { $o->setOfficeLocation($n->getStringValue()); },
-            'postalCode' => function (self $o, ParseNode $n) { $o->setPostalCode($n->getStringValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getStringValue()); },
-            'street' => function (self $o, ParseNode $n) { $o->setStreet($n->getStringValue()); },
+            'city' => function (ParseNode $n) use ($currentObject) { $currentObject->setCity($n->getStringValue()); },
+            'countryOrRegion' => function (ParseNode $n) use ($currentObject) { $currentObject->setCountryOrRegion($n->getStringValue()); },
+            'officeLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setOfficeLocation($n->getStringValue()); },
+            'postalCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setPostalCode($n->getStringValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getStringValue()); },
+            'street' => function (ParseNode $n) use ($currentObject) { $currentObject->setStreet($n->getStringValue()); },
         ];
     }
 

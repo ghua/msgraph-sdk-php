@@ -58,7 +58,7 @@ class AssignmentSettingsRequestBuilder
     }
 
     /**
-     * Get assignmentSettings from education
+     * Specifies class-level assignments settings.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -120,7 +120,7 @@ class AssignmentSettingsRequestBuilder
     }
 
     /**
-     * Get assignmentSettings from education
+     * Specifies class-level assignments settings.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options

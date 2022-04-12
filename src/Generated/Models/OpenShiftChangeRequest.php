@@ -32,8 +32,9 @@ class OpenShiftChangeRequest extends ScheduleChangeRequest
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'openShiftId' => function (self $o, ParseNode $n) { $o->setOpenShiftId($n->getStringValue()); },
+            'openShiftId' => function (ParseNode $n) use ($currentObject) { $currentObject->setOpenShiftId($n->getStringValue()); },
         ]);
     }
 

@@ -53,8 +53,9 @@ class Report implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getBinaryContent()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getBinaryContent()); },
         ];
     }
 

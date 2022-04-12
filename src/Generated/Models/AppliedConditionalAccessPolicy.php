@@ -80,12 +80,13 @@ class AppliedConditionalAccessPolicy implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'enforcedGrantControls' => function (self $o, ParseNode $n) { $o->setEnforcedGrantControls($n->getCollectionOfPrimitiveValues()); },
-            'enforcedSessionControls' => function (self $o, ParseNode $n) { $o->setEnforcedSessionControls($n->getCollectionOfPrimitiveValues()); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'result' => function (self $o, ParseNode $n) { $o->setResult($n->getEnumValue(AppliedConditionalAccessPolicyResult::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'enforcedGrantControls' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnforcedGrantControls($n->getCollectionOfPrimitiveValues()); },
+            'enforcedSessionControls' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnforcedSessionControls($n->getCollectionOfPrimitiveValues()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'result' => function (ParseNode $n) use ($currentObject) { $currentObject->setResult($n->getEnumValue(AppliedConditionalAccessPolicyResult::class)); },
         ];
     }
 

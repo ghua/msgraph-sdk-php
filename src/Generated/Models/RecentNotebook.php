@@ -62,11 +62,12 @@ class RecentNotebook implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastAccessedTime' => function (self $o, ParseNode $n) { $o->setLastAccessedTime($n->getDateTimeValue()); },
-            'links' => function (self $o, ParseNode $n) { $o->setLinks($n->getObjectValue(RecentNotebookLinks::class)); },
-            'sourceService' => function (self $o, ParseNode $n) { $o->setSourceService($n->getEnumValue(OnenoteSourceService::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastAccessedTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastAccessedTime($n->getDateTimeValue()); },
+            'links' => function (ParseNode $n) use ($currentObject) { $currentObject->setLinks($n->getObjectValue(RecentNotebookLinks::class)); },
+            'sourceService' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceService($n->getEnumValue(OnenoteSourceService::class)); },
         ];
     }
 

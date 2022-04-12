@@ -53,11 +53,12 @@ class IncomingContext implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'observedParticipantId' => function (self $o, ParseNode $n) { $o->setObservedParticipantId($n->getStringValue()); },
-            'onBehalfOf' => function (self $o, ParseNode $n) { $o->setOnBehalfOf($n->getObjectValue(IdentitySet::class)); },
-            'sourceParticipantId' => function (self $o, ParseNode $n) { $o->setSourceParticipantId($n->getStringValue()); },
-            'transferor' => function (self $o, ParseNode $n) { $o->setTransferor($n->getObjectValue(IdentitySet::class)); },
+            'observedParticipantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setObservedParticipantId($n->getStringValue()); },
+            'onBehalfOf' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnBehalfOf($n->getObjectValue(IdentitySet::class)); },
+            'sourceParticipantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceParticipantId($n->getStringValue()); },
+            'transferor' => function (ParseNode $n) use ($currentObject) { $currentObject->setTransferor($n->getObjectValue(IdentitySet::class)); },
         ];
     }
 

@@ -52,8 +52,9 @@ class Configuration implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'authorizedAppIds' => function (self $o, ParseNode $n) { $o->setAuthorizedAppIds($n->getCollectionOfPrimitiveValues()); },
+            'authorizedAppIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthorizedAppIds($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

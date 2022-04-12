@@ -32,8 +32,9 @@ class SharePointIdentity extends Identity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'loginName' => function (self $o, ParseNode $n) { $o->setLoginName($n->getStringValue()); },
+            'loginName' => function (ParseNode $n) use ($currentObject) { $currentObject->setLoginName($n->getStringValue()); },
         ]);
     }
 

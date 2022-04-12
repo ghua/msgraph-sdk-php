@@ -72,12 +72,13 @@ class MainError implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'code' => function (self $o, ParseNode $n) { $o->setCode($n->getStringValue()); },
-            'details' => function (self $o, ParseNode $n) { $o->setDetails($n->getCollectionOfObjectValues(ErrorDetails::class)); },
-            'innererror' => function (self $o, ParseNode $n) { $o->setInnererror($n->getObjectValue(InnerError::class)); },
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
-            'target' => function (self $o, ParseNode $n) { $o->setTarget($n->getStringValue()); },
+            'code' => function (ParseNode $n) use ($currentObject) { $currentObject->setCode($n->getStringValue()); },
+            'details' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetails($n->getCollectionOfObjectValues(ErrorDetails::class)); },
+            'innererror' => function (ParseNode $n) use ($currentObject) { $currentObject->setInnererror($n->getObjectValue(InnerError::class)); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
+            'target' => function (ParseNode $n) use ($currentObject) { $currentObject->setTarget($n->getStringValue()); },
         ];
     }
 

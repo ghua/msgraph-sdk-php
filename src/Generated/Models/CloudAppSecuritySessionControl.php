@@ -40,8 +40,9 @@ class CloudAppSecuritySessionControl extends ConditionalAccessSessionControl
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'cloudAppSecurityType' => function (self $o, ParseNode $n) { $o->setCloudAppSecurityType($n->getEnumValue(CloudAppSecuritySessionControlType::class)); },
+            'cloudAppSecurityType' => function (ParseNode $n) use ($currentObject) { $currentObject->setCloudAppSecurityType($n->getEnumValue(CloudAppSecuritySessionControlType::class)); },
         ]);
     }
 

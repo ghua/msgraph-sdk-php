@@ -47,9 +47,10 @@ class CertificationControl implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'url' => function (self $o, ParseNode $n) { $o->setUrl($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'url' => function (ParseNode $n) use ($currentObject) { $currentObject->setUrl($n->getStringValue()); },
         ];
     }
 

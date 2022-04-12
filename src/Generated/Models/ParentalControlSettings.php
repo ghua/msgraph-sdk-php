@@ -55,9 +55,10 @@ class ParentalControlSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'countriesBlockedForMinors' => function (self $o, ParseNode $n) { $o->setCountriesBlockedForMinors($n->getCollectionOfPrimitiveValues()); },
-            'legalAgeGroupRule' => function (self $o, ParseNode $n) { $o->setLegalAgeGroupRule($n->getStringValue()); },
+            'countriesBlockedForMinors' => function (ParseNode $n) use ($currentObject) { $currentObject->setCountriesBlockedForMinors($n->getCollectionOfPrimitiveValues()); },
+            'legalAgeGroupRule' => function (ParseNode $n) use ($currentObject) { $currentObject->setLegalAgeGroupRule($n->getStringValue()); },
         ];
     }
 

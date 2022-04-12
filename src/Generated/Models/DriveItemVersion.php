@@ -44,9 +44,10 @@ class DriveItemVersion extends BaseItemVersion
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getBinaryContent()); },
-            'size' => function (self $o, ParseNode $n) { $o->setSize($n->getIntegerValue()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getBinaryContent()); },
+            'size' => function (ParseNode $n) use ($currentObject) { $currentObject->setSize($n->getIntegerValue()); },
         ]);
     }
 

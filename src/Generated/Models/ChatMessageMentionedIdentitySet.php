@@ -40,8 +40,9 @@ class ChatMessageMentionedIdentitySet extends IdentitySet
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'conversation' => function (self $o, ParseNode $n) { $o->setConversation($n->getObjectValue(TeamworkConversationIdentity::class)); },
+            'conversation' => function (ParseNode $n) use ($currentObject) { $currentObject->setConversation($n->getObjectValue(TeamworkConversationIdentity::class)); },
         ]);
     }
 

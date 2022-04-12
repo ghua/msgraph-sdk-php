@@ -66,14 +66,15 @@ class Workbook extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'application' => function (self $o, ParseNode $n) { $o->setApplication($n->getObjectValue(WorkbookApplication::class)); },
-            'comments' => function (self $o, ParseNode $n) { $o->setComments($n->getCollectionOfObjectValues(WorkbookComment::class)); },
-            'functions' => function (self $o, ParseNode $n) { $o->setFunctions($n->getObjectValue(WorkbookFunctions::class)); },
-            'names' => function (self $o, ParseNode $n) { $o->setNames($n->getCollectionOfObjectValues(WorkbookNamedItem::class)); },
-            'operations' => function (self $o, ParseNode $n) { $o->setOperations($n->getCollectionOfObjectValues(WorkbookOperation::class)); },
-            'tables' => function (self $o, ParseNode $n) { $o->setTables($n->getCollectionOfObjectValues(WorkbookTable::class)); },
-            'worksheets' => function (self $o, ParseNode $n) { $o->setWorksheets($n->getCollectionOfObjectValues(WorkbookWorksheet::class)); },
+            'application' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplication($n->getObjectValue(WorkbookApplication::class)); },
+            'comments' => function (ParseNode $n) use ($currentObject) { $currentObject->setComments($n->getCollectionOfObjectValues(WorkbookComment::class)); },
+            'functions' => function (ParseNode $n) use ($currentObject) { $currentObject->setFunctions($n->getObjectValue(WorkbookFunctions::class)); },
+            'names' => function (ParseNode $n) use ($currentObject) { $currentObject->setNames($n->getCollectionOfObjectValues(WorkbookNamedItem::class)); },
+            'operations' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperations($n->getCollectionOfObjectValues(WorkbookOperation::class)); },
+            'tables' => function (ParseNode $n) use ($currentObject) { $currentObject->setTables($n->getCollectionOfObjectValues(WorkbookTable::class)); },
+            'worksheets' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorksheets($n->getCollectionOfObjectValues(WorkbookWorksheet::class)); },
         ]);
     }
 

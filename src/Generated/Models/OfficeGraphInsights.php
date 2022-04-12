@@ -38,10 +38,11 @@ class OfficeGraphInsights extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'shared' => function (self $o, ParseNode $n) { $o->setShared($n->getCollectionOfObjectValues(SharedInsight::class)); },
-            'trending' => function (self $o, ParseNode $n) { $o->setTrending($n->getCollectionOfObjectValues(Trending::class)); },
-            'used' => function (self $o, ParseNode $n) { $o->setUsed($n->getCollectionOfObjectValues(UsedInsight::class)); },
+            'shared' => function (ParseNode $n) use ($currentObject) { $currentObject->setShared($n->getCollectionOfObjectValues(SharedInsight::class)); },
+            'trending' => function (ParseNode $n) use ($currentObject) { $currentObject->setTrending($n->getCollectionOfObjectValues(Trending::class)); },
+            'used' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsed($n->getCollectionOfObjectValues(UsedInsight::class)); },
         ]);
     }
 

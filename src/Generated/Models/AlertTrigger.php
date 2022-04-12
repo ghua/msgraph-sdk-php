@@ -50,10 +50,11 @@ class AlertTrigger implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getStringValue()); },
         ];
     }
 

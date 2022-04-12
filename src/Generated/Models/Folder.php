@@ -55,9 +55,10 @@ class Folder implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'childCount' => function (self $o, ParseNode $n) { $o->setChildCount($n->getIntegerValue()); },
-            'view' => function (self $o, ParseNode $n) { $o->setView($n->getObjectValue(FolderView::class)); },
+            'childCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setChildCount($n->getIntegerValue()); },
+            'view' => function (ParseNode $n) use ($currentObject) { $currentObject->setView($n->getObjectValue(FolderView::class)); },
         ];
     }
 

@@ -64,12 +64,13 @@ class ChatMessagePolicyViolation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'dlpAction' => function (self $o, ParseNode $n) { $o->setDlpAction($n->getEnumValue(ChatMessagePolicyViolationDlpActionTypes::class)); },
-            'justificationText' => function (self $o, ParseNode $n) { $o->setJustificationText($n->getStringValue()); },
-            'policyTip' => function (self $o, ParseNode $n) { $o->setPolicyTip($n->getObjectValue(ChatMessagePolicyViolationPolicyTip::class)); },
-            'userAction' => function (self $o, ParseNode $n) { $o->setUserAction($n->getEnumValue(ChatMessagePolicyViolationUserActionTypes::class)); },
-            'verdictDetails' => function (self $o, ParseNode $n) { $o->setVerdictDetails($n->getEnumValue(ChatMessagePolicyViolationVerdictDetailsTypes::class)); },
+            'dlpAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setDlpAction($n->getEnumValue(ChatMessagePolicyViolationDlpActionTypes::class)); },
+            'justificationText' => function (ParseNode $n) use ($currentObject) { $currentObject->setJustificationText($n->getStringValue()); },
+            'policyTip' => function (ParseNode $n) use ($currentObject) { $currentObject->setPolicyTip($n->getObjectValue(ChatMessagePolicyViolationPolicyTip::class)); },
+            'userAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserAction($n->getEnumValue(ChatMessagePolicyViolationUserActionTypes::class)); },
+            'verdictDetails' => function (ParseNode $n) use ($currentObject) { $currentObject->setVerdictDetails($n->getEnumValue(ChatMessagePolicyViolationVerdictDetailsTypes::class)); },
         ];
     }
 

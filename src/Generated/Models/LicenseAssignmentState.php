@@ -84,13 +84,14 @@ class LicenseAssignmentState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'assignedByGroup' => function (self $o, ParseNode $n) { $o->setAssignedByGroup($n->getStringValue()); },
-            'disabledPlans' => function (self $o, ParseNode $n) { $o->setDisabledPlans($n->getCollectionOfPrimitiveValues()); },
-            'error' => function (self $o, ParseNode $n) { $o->setError($n->getStringValue()); },
-            'lastUpdatedDateTime' => function (self $o, ParseNode $n) { $o->setLastUpdatedDateTime($n->getDateTimeValue()); },
-            'skuId' => function (self $o, ParseNode $n) { $o->setSkuId($n->getStringValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getStringValue()); },
+            'assignedByGroup' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedByGroup($n->getStringValue()); },
+            'disabledPlans' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisabledPlans($n->getCollectionOfPrimitiveValues()); },
+            'error' => function (ParseNode $n) use ($currentObject) { $currentObject->setError($n->getStringValue()); },
+            'lastUpdatedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastUpdatedDateTime($n->getDateTimeValue()); },
+            'skuId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkuId($n->getStringValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getStringValue()); },
         ];
     }
 

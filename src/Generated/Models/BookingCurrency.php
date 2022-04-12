@@ -32,8 +32,9 @@ class BookingCurrency extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'symbol' => function (self $o, ParseNode $n) { $o->setSymbol($n->getStringValue()); },
+            'symbol' => function (ParseNode $n) use ($currentObject) { $currentObject->setSymbol($n->getStringValue()); },
         ]);
     }
 

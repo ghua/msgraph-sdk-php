@@ -58,10 +58,11 @@ class Acl implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'accessType' => function (self $o, ParseNode $n) { $o->setAccessType($n->getEnumValue(AccessType::class)); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(AclType::class)); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getStringValue()); },
+            'accessType' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessType($n->getEnumValue(AccessType::class)); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(AclType::class)); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getStringValue()); },
         ];
     }
 

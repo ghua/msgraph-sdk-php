@@ -58,7 +58,7 @@ class AssignmentDefaultsRequestBuilder
     }
 
     /**
-     * Get assignmentDefaults from education
+     * Specifies class-level defaults respected by new assignments created in the class.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -120,7 +120,7 @@ class AssignmentDefaultsRequestBuilder
     }
 
     /**
-     * Get assignmentDefaults from education
+     * Specifies class-level defaults respected by new assignments created in the class.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options

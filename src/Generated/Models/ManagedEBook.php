@@ -109,20 +109,21 @@ class ManagedEBook extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(ManagedEBookAssignment::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'deviceStates' => function (self $o, ParseNode $n) { $o->setDeviceStates($n->getCollectionOfObjectValues(DeviceInstallState::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'informationUrl' => function (self $o, ParseNode $n) { $o->setInformationUrl($n->getStringValue()); },
-            'installSummary' => function (self $o, ParseNode $n) { $o->setInstallSummary($n->getObjectValue(EBookInstallSummary::class)); },
-            'largeCover' => function (self $o, ParseNode $n) { $o->setLargeCover($n->getObjectValue(MimeContent::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'privacyInformationUrl' => function (self $o, ParseNode $n) { $o->setPrivacyInformationUrl($n->getStringValue()); },
-            'publishedDateTime' => function (self $o, ParseNode $n) { $o->setPublishedDateTime($n->getDateTimeValue()); },
-            'publisher' => function (self $o, ParseNode $n) { $o->setPublisher($n->getStringValue()); },
-            'userStateSummary' => function (self $o, ParseNode $n) { $o->setUserStateSummary($n->getCollectionOfObjectValues(UserInstallStateSummary::class)); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(ManagedEBookAssignment::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'deviceStates' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceStates($n->getCollectionOfObjectValues(DeviceInstallState::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'informationUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setInformationUrl($n->getStringValue()); },
+            'installSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstallSummary($n->getObjectValue(EBookInstallSummary::class)); },
+            'largeCover' => function (ParseNode $n) use ($currentObject) { $currentObject->setLargeCover($n->getObjectValue(MimeContent::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'privacyInformationUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrivacyInformationUrl($n->getStringValue()); },
+            'publishedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublishedDateTime($n->getDateTimeValue()); },
+            'publisher' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublisher($n->getStringValue()); },
+            'userStateSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserStateSummary($n->getCollectionOfObjectValues(UserInstallStateSummary::class)); },
         ]);
     }
 

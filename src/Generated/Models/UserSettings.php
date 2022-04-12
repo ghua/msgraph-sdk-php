@@ -54,10 +54,11 @@ class UserSettings extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'contributionToContentDiscoveryAsOrganizationDisabled' => function (self $o, ParseNode $n) { $o->setContributionToContentDiscoveryAsOrganizationDisabled($n->getBooleanValue()); },
-            'contributionToContentDiscoveryDisabled' => function (self $o, ParseNode $n) { $o->setContributionToContentDiscoveryDisabled($n->getBooleanValue()); },
-            'shiftPreferences' => function (self $o, ParseNode $n) { $o->setShiftPreferences($n->getObjectValue(ShiftPreferences::class)); },
+            'contributionToContentDiscoveryAsOrganizationDisabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setContributionToContentDiscoveryAsOrganizationDisabled($n->getBooleanValue()); },
+            'contributionToContentDiscoveryDisabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setContributionToContentDiscoveryDisabled($n->getBooleanValue()); },
+            'shiftPreferences' => function (ParseNode $n) use ($currentObject) { $currentObject->setShiftPreferences($n->getObjectValue(ShiftPreferences::class)); },
         ]);
     }
 

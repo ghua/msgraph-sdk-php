@@ -75,13 +75,14 @@ class AutomaticRepliesSetting implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'externalAudience' => function (self $o, ParseNode $n) { $o->setExternalAudience($n->getEnumValue(ExternalAudienceScope::class)); },
-            'externalReplyMessage' => function (self $o, ParseNode $n) { $o->setExternalReplyMessage($n->getStringValue()); },
-            'internalReplyMessage' => function (self $o, ParseNode $n) { $o->setInternalReplyMessage($n->getStringValue()); },
-            'scheduledEndDateTime' => function (self $o, ParseNode $n) { $o->setScheduledEndDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'scheduledStartDateTime' => function (self $o, ParseNode $n) { $o->setScheduledStartDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(AutomaticRepliesStatus::class)); },
+            'externalAudience' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalAudience($n->getEnumValue(ExternalAudienceScope::class)); },
+            'externalReplyMessage' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalReplyMessage($n->getStringValue()); },
+            'internalReplyMessage' => function (ParseNode $n) use ($currentObject) { $currentObject->setInternalReplyMessage($n->getStringValue()); },
+            'scheduledEndDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduledEndDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'scheduledStartDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduledStartDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(AutomaticRepliesStatus::class)); },
         ];
     }
 

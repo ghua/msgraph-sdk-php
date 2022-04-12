@@ -63,9 +63,10 @@ class ItemActionStat implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'actionCount' => function (self $o, ParseNode $n) { $o->setActionCount($n->getIntegerValue()); },
-            'actorCount' => function (self $o, ParseNode $n) { $o->setActorCount($n->getIntegerValue()); },
+            'actionCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setActionCount($n->getIntegerValue()); },
+            'actorCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setActorCount($n->getIntegerValue()); },
         ];
     }
 

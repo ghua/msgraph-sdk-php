@@ -38,10 +38,11 @@ class LicenseDetails extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'servicePlans' => function (self $o, ParseNode $n) { $o->setServicePlans($n->getCollectionOfObjectValues(ServicePlanInfo::class)); },
-            'skuId' => function (self $o, ParseNode $n) { $o->setSkuId($n->getStringValue()); },
-            'skuPartNumber' => function (self $o, ParseNode $n) { $o->setSkuPartNumber($n->getStringValue()); },
+            'servicePlans' => function (ParseNode $n) use ($currentObject) { $currentObject->setServicePlans($n->getCollectionOfObjectValues(ServicePlanInfo::class)); },
+            'skuId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkuId($n->getStringValue()); },
+            'skuPartNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkuPartNumber($n->getStringValue()); },
         ]);
     }
 

@@ -86,13 +86,14 @@ class CreateOrGetRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'chatInfo' => function (self $o, ParseNode $n) { $o->setChatInfo($n->getObjectValue(ChatInfo::class)); },
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'externalId' => function (self $o, ParseNode $n) { $o->setExternalId($n->getStringValue()); },
-            'participants' => function (self $o, ParseNode $n) { $o->setParticipants($n->getObjectValue(MeetingParticipants::class)); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
-            'subject' => function (self $o, ParseNode $n) { $o->setSubject($n->getStringValue()); },
+            'chatInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setChatInfo($n->getObjectValue(ChatInfo::class)); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'externalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalId($n->getStringValue()); },
+            'participants' => function (ParseNode $n) use ($currentObject) { $currentObject->setParticipants($n->getObjectValue(MeetingParticipants::class)); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
+            'subject' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubject($n->getStringValue()); },
         ];
     }
 

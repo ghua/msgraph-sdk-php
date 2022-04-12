@@ -66,10 +66,11 @@ class SearchBucket implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'aggregationFilterToken' => function (self $o, ParseNode $n) { $o->setAggregationFilterToken($n->getStringValue()); },
-            'count' => function (self $o, ParseNode $n) { $o->setCount($n->getIntegerValue()); },
-            'key' => function (self $o, ParseNode $n) { $o->setKey($n->getStringValue()); },
+            'aggregationFilterToken' => function (ParseNode $n) use ($currentObject) { $currentObject->setAggregationFilterToken($n->getStringValue()); },
+            'count' => function (ParseNode $n) use ($currentObject) { $currentObject->setCount($n->getIntegerValue()); },
+            'key' => function (ParseNode $n) use ($currentObject) { $currentObject->setKey($n->getStringValue()); },
         ];
     }
 

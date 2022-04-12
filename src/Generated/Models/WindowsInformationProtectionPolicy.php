@@ -73,19 +73,20 @@ class WindowsInformationProtectionPolicy extends WindowsInformationProtection
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'daysWithoutContactBeforeUnenroll' => function (self $o, ParseNode $n) { $o->setDaysWithoutContactBeforeUnenroll($n->getIntegerValue()); },
-            'mdmEnrollmentUrl' => function (self $o, ParseNode $n) { $o->setMdmEnrollmentUrl($n->getStringValue()); },
-            'minutesOfInactivityBeforeDeviceLock' => function (self $o, ParseNode $n) { $o->setMinutesOfInactivityBeforeDeviceLock($n->getIntegerValue()); },
-            'numberOfPastPinsRemembered' => function (self $o, ParseNode $n) { $o->setNumberOfPastPinsRemembered($n->getIntegerValue()); },
-            'passwordMaximumAttemptCount' => function (self $o, ParseNode $n) { $o->setPasswordMaximumAttemptCount($n->getIntegerValue()); },
-            'pinExpirationDays' => function (self $o, ParseNode $n) { $o->setPinExpirationDays($n->getIntegerValue()); },
-            'pinLowercaseLetters' => function (self $o, ParseNode $n) { $o->setPinLowercaseLetters($n->getEnumValue(WindowsInformationProtectionPinCharacterRequirements::class)); },
-            'pinMinimumLength' => function (self $o, ParseNode $n) { $o->setPinMinimumLength($n->getIntegerValue()); },
-            'pinSpecialCharacters' => function (self $o, ParseNode $n) { $o->setPinSpecialCharacters($n->getEnumValue(WindowsInformationProtectionPinCharacterRequirements::class)); },
-            'pinUppercaseLetters' => function (self $o, ParseNode $n) { $o->setPinUppercaseLetters($n->getEnumValue(WindowsInformationProtectionPinCharacterRequirements::class)); },
-            'revokeOnMdmHandoffDisabled' => function (self $o, ParseNode $n) { $o->setRevokeOnMdmHandoffDisabled($n->getBooleanValue()); },
-            'windowsHelloForBusinessBlocked' => function (self $o, ParseNode $n) { $o->setWindowsHelloForBusinessBlocked($n->getBooleanValue()); },
+            'daysWithoutContactBeforeUnenroll' => function (ParseNode $n) use ($currentObject) { $currentObject->setDaysWithoutContactBeforeUnenroll($n->getIntegerValue()); },
+            'mdmEnrollmentUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setMdmEnrollmentUrl($n->getStringValue()); },
+            'minutesOfInactivityBeforeDeviceLock' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinutesOfInactivityBeforeDeviceLock($n->getIntegerValue()); },
+            'numberOfPastPinsRemembered' => function (ParseNode $n) use ($currentObject) { $currentObject->setNumberOfPastPinsRemembered($n->getIntegerValue()); },
+            'passwordMaximumAttemptCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setPasswordMaximumAttemptCount($n->getIntegerValue()); },
+            'pinExpirationDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setPinExpirationDays($n->getIntegerValue()); },
+            'pinLowercaseLetters' => function (ParseNode $n) use ($currentObject) { $currentObject->setPinLowercaseLetters($n->getEnumValue(WindowsInformationProtectionPinCharacterRequirements::class)); },
+            'pinMinimumLength' => function (ParseNode $n) use ($currentObject) { $currentObject->setPinMinimumLength($n->getIntegerValue()); },
+            'pinSpecialCharacters' => function (ParseNode $n) use ($currentObject) { $currentObject->setPinSpecialCharacters($n->getEnumValue(WindowsInformationProtectionPinCharacterRequirements::class)); },
+            'pinUppercaseLetters' => function (ParseNode $n) use ($currentObject) { $currentObject->setPinUppercaseLetters($n->getEnumValue(WindowsInformationProtectionPinCharacterRequirements::class)); },
+            'revokeOnMdmHandoffDisabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setRevokeOnMdmHandoffDisabled($n->getBooleanValue()); },
+            'windowsHelloForBusinessBlocked' => function (ParseNode $n) use ($currentObject) { $currentObject->setWindowsHelloForBusinessBlocked($n->getBooleanValue()); },
         ]);
     }
 

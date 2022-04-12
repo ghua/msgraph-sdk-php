@@ -53,11 +53,12 @@ class WebApplication implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'homePageUrl' => function (self $o, ParseNode $n) { $o->setHomePageUrl($n->getStringValue()); },
-            'implicitGrantSettings' => function (self $o, ParseNode $n) { $o->setImplicitGrantSettings($n->getObjectValue(ImplicitGrantSettings::class)); },
-            'logoutUrl' => function (self $o, ParseNode $n) { $o->setLogoutUrl($n->getStringValue()); },
-            'redirectUris' => function (self $o, ParseNode $n) { $o->setRedirectUris($n->getCollectionOfPrimitiveValues()); },
+            'homePageUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setHomePageUrl($n->getStringValue()); },
+            'implicitGrantSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setImplicitGrantSettings($n->getObjectValue(ImplicitGrantSettings::class)); },
+            'logoutUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setLogoutUrl($n->getStringValue()); },
+            'redirectUris' => function (ParseNode $n) use ($currentObject) { $currentObject->setRedirectUris($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

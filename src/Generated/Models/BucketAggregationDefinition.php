@@ -56,12 +56,13 @@ class BucketAggregationDefinition implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'isDescending' => function (self $o, ParseNode $n) { $o->setIsDescending($n->getBooleanValue()); },
-            'minimumCount' => function (self $o, ParseNode $n) { $o->setMinimumCount($n->getIntegerValue()); },
-            'prefixFilter' => function (self $o, ParseNode $n) { $o->setPrefixFilter($n->getStringValue()); },
-            'ranges' => function (self $o, ParseNode $n) { $o->setRanges($n->getCollectionOfObjectValues(BucketAggregationRange::class)); },
-            'sortBy' => function (self $o, ParseNode $n) { $o->setSortBy($n->getEnumValue(BucketAggregationSortProperty::class)); },
+            'isDescending' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDescending($n->getBooleanValue()); },
+            'minimumCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumCount($n->getIntegerValue()); },
+            'prefixFilter' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrefixFilter($n->getStringValue()); },
+            'ranges' => function (ParseNode $n) use ($currentObject) { $currentObject->setRanges($n->getCollectionOfObjectValues(BucketAggregationRange::class)); },
+            'sortBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setSortBy($n->getEnumValue(BucketAggregationSortProperty::class)); },
         ];
     }
 

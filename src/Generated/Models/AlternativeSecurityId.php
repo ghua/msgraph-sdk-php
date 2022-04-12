@@ -51,10 +51,11 @@ class AlternativeSecurityId implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'identityProvider' => function (self $o, ParseNode $n) { $o->setIdentityProvider($n->getStringValue()); },
-            'key' => function (self $o, ParseNode $n) { $o->setKey($n->getBinaryContent()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getIntegerValue()); },
+            'identityProvider' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentityProvider($n->getStringValue()); },
+            'key' => function (ParseNode $n) use ($currentObject) { $currentObject->setKey($n->getBinaryContent()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getIntegerValue()); },
         ];
     }
 

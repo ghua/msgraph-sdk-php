@@ -75,13 +75,14 @@ class ParticipantInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'countryCode' => function (self $o, ParseNode $n) { $o->setCountryCode($n->getStringValue()); },
-            'endpointType' => function (self $o, ParseNode $n) { $o->setEndpointType($n->getEnumValue(EndpointType::class)); },
-            'identity' => function (self $o, ParseNode $n) { $o->setIdentity($n->getObjectValue(IdentitySet::class)); },
-            'languageId' => function (self $o, ParseNode $n) { $o->setLanguageId($n->getStringValue()); },
-            'participantId' => function (self $o, ParseNode $n) { $o->setParticipantId($n->getStringValue()); },
-            'region' => function (self $o, ParseNode $n) { $o->setRegion($n->getStringValue()); },
+            'countryCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setCountryCode($n->getStringValue()); },
+            'endpointType' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndpointType($n->getEnumValue(EndpointType::class)); },
+            'identity' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentity($n->getObjectValue(IdentitySet::class)); },
+            'languageId' => function (ParseNode $n) use ($currentObject) { $currentObject->setLanguageId($n->getStringValue()); },
+            'participantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setParticipantId($n->getStringValue()); },
+            'region' => function (ParseNode $n) use ($currentObject) { $currentObject->setRegion($n->getStringValue()); },
         ];
     }
 

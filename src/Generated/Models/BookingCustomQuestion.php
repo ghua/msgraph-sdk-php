@@ -62,10 +62,11 @@ class BookingCustomQuestion extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'answerInputType' => function (self $o, ParseNode $n) { $o->setAnswerInputType($n->getEnumValue(AnswerInputType::class)); },
-            'answerOptions' => function (self $o, ParseNode $n) { $o->setAnswerOptions($n->getCollectionOfPrimitiveValues()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
+            'answerInputType' => function (ParseNode $n) use ($currentObject) { $currentObject->setAnswerInputType($n->getEnumValue(AnswerInputType::class)); },
+            'answerOptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setAnswerOptions($n->getCollectionOfPrimitiveValues()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
         ]);
     }
 

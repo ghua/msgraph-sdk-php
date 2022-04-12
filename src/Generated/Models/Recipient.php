@@ -52,8 +52,9 @@ class Recipient implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'emailAddress' => function (self $o, ParseNode $n) { $o->setEmailAddress($n->getObjectValue(EmailAddress::class)); },
+            'emailAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmailAddress($n->getObjectValue(EmailAddress::class)); },
         ];
     }
 

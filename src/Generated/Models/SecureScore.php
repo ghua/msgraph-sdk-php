@@ -116,17 +116,18 @@ class SecureScore extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activeUserCount' => function (self $o, ParseNode $n) { $o->setActiveUserCount($n->getIntegerValue()); },
-            'averageComparativeScores' => function (self $o, ParseNode $n) { $o->setAverageComparativeScores($n->getCollectionOfObjectValues(AverageComparativeScore::class)); },
-            'azureTenantId' => function (self $o, ParseNode $n) { $o->setAzureTenantId($n->getStringValue()); },
-            'controlScores' => function (self $o, ParseNode $n) { $o->setControlScores($n->getCollectionOfObjectValues(ControlScore::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'currentScore' => function (self $o, ParseNode $n) { $o->setCurrentScore($n->getFloatValue()); },
-            'enabledServices' => function (self $o, ParseNode $n) { $o->setEnabledServices($n->getCollectionOfPrimitiveValues()); },
-            'licensedUserCount' => function (self $o, ParseNode $n) { $o->setLicensedUserCount($n->getIntegerValue()); },
-            'maxScore' => function (self $o, ParseNode $n) { $o->setMaxScore($n->getFloatValue()); },
-            'vendorInformation' => function (self $o, ParseNode $n) { $o->setVendorInformation($n->getObjectValue(SecurityVendorInformation::class)); },
+            'activeUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setActiveUserCount($n->getIntegerValue()); },
+            'averageComparativeScores' => function (ParseNode $n) use ($currentObject) { $currentObject->setAverageComparativeScores($n->getCollectionOfObjectValues(AverageComparativeScore::class)); },
+            'azureTenantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAzureTenantId($n->getStringValue()); },
+            'controlScores' => function (ParseNode $n) use ($currentObject) { $currentObject->setControlScores($n->getCollectionOfObjectValues(ControlScore::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'currentScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setCurrentScore($n->getFloatValue()); },
+            'enabledServices' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnabledServices($n->getCollectionOfPrimitiveValues()); },
+            'licensedUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setLicensedUserCount($n->getIntegerValue()); },
+            'maxScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaxScore($n->getFloatValue()); },
+            'vendorInformation' => function (ParseNode $n) use ($currentObject) { $currentObject->setVendorInformation($n->getObjectValue(SecurityVendorInformation::class)); },
         ]);
     }
 

@@ -109,20 +109,21 @@ class AccessReviewInstanceDecisionItem extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'accessReviewId' => function (self $o, ParseNode $n) { $o->setAccessReviewId($n->getStringValue()); },
-            'appliedBy' => function (self $o, ParseNode $n) { $o->setAppliedBy($n->getObjectValue(UserIdentity::class)); },
-            'appliedDateTime' => function (self $o, ParseNode $n) { $o->setAppliedDateTime($n->getDateTimeValue()); },
-            'applyResult' => function (self $o, ParseNode $n) { $o->setApplyResult($n->getStringValue()); },
-            'decision' => function (self $o, ParseNode $n) { $o->setDecision($n->getStringValue()); },
-            'justification' => function (self $o, ParseNode $n) { $o->setJustification($n->getStringValue()); },
-            'principal' => function (self $o, ParseNode $n) { $o->setPrincipal($n->getObjectValue(Identity::class)); },
-            'principalLink' => function (self $o, ParseNode $n) { $o->setPrincipalLink($n->getStringValue()); },
-            'recommendation' => function (self $o, ParseNode $n) { $o->setRecommendation($n->getStringValue()); },
-            'resource' => function (self $o, ParseNode $n) { $o->setResource($n->getObjectValue(AccessReviewInstanceDecisionItemResource::class)); },
-            'resourceLink' => function (self $o, ParseNode $n) { $o->setResourceLink($n->getStringValue()); },
-            'reviewedBy' => function (self $o, ParseNode $n) { $o->setReviewedBy($n->getObjectValue(UserIdentity::class)); },
-            'reviewedDateTime' => function (self $o, ParseNode $n) { $o->setReviewedDateTime($n->getDateTimeValue()); },
+            'accessReviewId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessReviewId($n->getStringValue()); },
+            'appliedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppliedBy($n->getObjectValue(UserIdentity::class)); },
+            'appliedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppliedDateTime($n->getDateTimeValue()); },
+            'applyResult' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplyResult($n->getStringValue()); },
+            'decision' => function (ParseNode $n) use ($currentObject) { $currentObject->setDecision($n->getStringValue()); },
+            'justification' => function (ParseNode $n) use ($currentObject) { $currentObject->setJustification($n->getStringValue()); },
+            'principal' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipal($n->getObjectValue(Identity::class)); },
+            'principalLink' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalLink($n->getStringValue()); },
+            'recommendation' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecommendation($n->getStringValue()); },
+            'resource' => function (ParseNode $n) use ($currentObject) { $currentObject->setResource($n->getObjectValue(AccessReviewInstanceDecisionItemResource::class)); },
+            'resourceLink' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceLink($n->getStringValue()); },
+            'reviewedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewedBy($n->getObjectValue(UserIdentity::class)); },
+            'reviewedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewedDateTime($n->getDateTimeValue()); },
         ]);
     }
 

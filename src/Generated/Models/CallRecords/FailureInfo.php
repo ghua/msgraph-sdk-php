@@ -47,9 +47,10 @@ class FailureInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'reason' => function (self $o, ParseNode $n) { $o->setReason($n->getStringValue()); },
-            'stage' => function (self $o, ParseNode $n) { $o->setStage($n->getEnumValue(FailureStage::class)); },
+            'reason' => function (ParseNode $n) use ($currentObject) { $currentObject->setReason($n->getStringValue()); },
+            'stage' => function (ParseNode $n) use ($currentObject) { $currentObject->setStage($n->getEnumValue(FailureStage::class)); },
         ];
     }
 

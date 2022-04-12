@@ -51,9 +51,10 @@ class OutlookCategory extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'color' => function (self $o, ParseNode $n) { $o->setColor($n->getEnumValue(CategoryColor::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
+            'color' => function (ParseNode $n) use ($currentObject) { $currentObject->setColor($n->getEnumValue(CategoryColor::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
         ]);
     }
 

@@ -42,11 +42,12 @@ class OfferShiftRequest extends ScheduleChangeRequest
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'recipientActionDateTime' => function (self $o, ParseNode $n) { $o->setRecipientActionDateTime($n->getDateTimeValue()); },
-            'recipientActionMessage' => function (self $o, ParseNode $n) { $o->setRecipientActionMessage($n->getStringValue()); },
-            'recipientUserId' => function (self $o, ParseNode $n) { $o->setRecipientUserId($n->getStringValue()); },
-            'senderShiftId' => function (self $o, ParseNode $n) { $o->setSenderShiftId($n->getStringValue()); },
+            'recipientActionDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipientActionDateTime($n->getDateTimeValue()); },
+            'recipientActionMessage' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipientActionMessage($n->getStringValue()); },
+            'recipientUserId' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipientUserId($n->getStringValue()); },
+            'senderShiftId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSenderShiftId($n->getStringValue()); },
         ]);
     }
 

@@ -32,8 +32,9 @@ class DeviceAndAppManagementRoleAssignment extends RoleAssignment
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'members' => function (self $o, ParseNode $n) { $o->setMembers($n->getCollectionOfPrimitiveValues()); },
+            'members' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembers($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

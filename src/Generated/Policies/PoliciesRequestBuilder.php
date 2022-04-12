@@ -24,6 +24,10 @@ use Microsoft\Graph\Generated\Policies\HomeRealmDiscoveryPolicies\Item\HomeRealm
 use Microsoft\Graph\Generated\Policies\IdentitySecurityDefaultsEnforcementPolicy\IdentitySecurityDefaultsEnforcementPolicyRequestBuilder;
 use Microsoft\Graph\Generated\Policies\PermissionGrantPolicies\Item\PermissionGrantPolicyItemRequestBuilder;
 use Microsoft\Graph\Generated\Policies\PermissionGrantPolicies\PermissionGrantPoliciesRequestBuilder;
+use Microsoft\Graph\Generated\Policies\RoleManagementPolicies\Item\UnifiedRoleManagementPolicyItemRequestBuilder;
+use Microsoft\Graph\Generated\Policies\RoleManagementPolicies\RoleManagementPoliciesRequestBuilder;
+use Microsoft\Graph\Generated\Policies\RoleManagementPolicyAssignments\Item\UnifiedRoleManagementPolicyAssignmentItemRequestBuilder;
+use Microsoft\Graph\Generated\Policies\RoleManagementPolicyAssignments\RoleManagementPolicyAssignmentsRequestBuilder;
 use Microsoft\Graph\Generated\Policies\TokenIssuancePolicies\Item\TokenIssuancePolicyItemRequestBuilder;
 use Microsoft\Graph\Generated\Policies\TokenIssuancePolicies\TokenIssuancePoliciesRequestBuilder;
 use Microsoft\Graph\Generated\Policies\TokenLifetimePolicies\Item\TokenLifetimePolicyItemRequestBuilder;
@@ -120,6 +124,20 @@ class PoliciesRequestBuilder
     
     /** @var RequestAdapter $requestAdapter The request adapter to use to execute the requests. */
     private RequestAdapter $requestAdapter;
+    
+    /**
+     * The roleManagementPolicies property
+    */
+    public function roleManagementPolicies(): RoleManagementPoliciesRequestBuilder {
+        return new RoleManagementPoliciesRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
+    
+    /**
+     * The roleManagementPolicyAssignments property
+    */
+    public function roleManagementPolicyAssignments(): RoleManagementPolicyAssignmentsRequestBuilder {
+        return new RoleManagementPolicyAssignmentsRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
     
     /**
      * The tokenIssuancePolicies property
@@ -293,6 +311,28 @@ class PoliciesRequestBuilder
         $urlTplParams = $this->pathParameters;
         $urlTplParams['permissionGrantPolicy_id'] = $id;
         return new PermissionGrantPolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
+    }
+
+    /**
+     * Gets an item from the Microsoft\Graph\Generated.policies.roleManagementPolicies.item collection
+     * @param string $id Unique identifier of the item
+     * @return UnifiedRoleManagementPolicyItemRequestBuilder
+    */
+    public function roleManagementPoliciesById(string $id): UnifiedRoleManagementPolicyItemRequestBuilder {
+        $urlTplParams = $this->pathParameters;
+        $urlTplParams['unifiedRoleManagementPolicy_id'] = $id;
+        return new UnifiedRoleManagementPolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
+    }
+
+    /**
+     * Gets an item from the Microsoft\Graph\Generated.policies.roleManagementPolicyAssignments.item collection
+     * @param string $id Unique identifier of the item
+     * @return UnifiedRoleManagementPolicyAssignmentItemRequestBuilder
+    */
+    public function roleManagementPolicyAssignmentsById(string $id): UnifiedRoleManagementPolicyAssignmentItemRequestBuilder {
+        $urlTplParams = $this->pathParameters;
+        $urlTplParams['unifiedRoleManagementPolicyAssignment_id'] = $id;
+        return new UnifiedRoleManagementPolicyAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
     /**

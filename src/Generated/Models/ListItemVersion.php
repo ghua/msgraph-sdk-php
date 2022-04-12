@@ -32,8 +32,9 @@ class ListItemVersion extends BaseItemVersion
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'fields' => function (self $o, ParseNode $n) { $o->setFields($n->getObjectValue(FieldValueSet::class)); },
+            'fields' => function (ParseNode $n) use ($currentObject) { $currentObject->setFields($n->getObjectValue(FieldValueSet::class)); },
         ]);
     }
 

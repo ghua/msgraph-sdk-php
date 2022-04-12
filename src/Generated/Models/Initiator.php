@@ -32,8 +32,9 @@ class Initiator extends Identity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'initiatorType' => function (self $o, ParseNode $n) { $o->setInitiatorType($n->getEnumValue(InitiatorType::class)); },
+            'initiatorType' => function (ParseNode $n) use ($currentObject) { $currentObject->setInitiatorType($n->getEnumValue(InitiatorType::class)); },
         ]);
     }
 

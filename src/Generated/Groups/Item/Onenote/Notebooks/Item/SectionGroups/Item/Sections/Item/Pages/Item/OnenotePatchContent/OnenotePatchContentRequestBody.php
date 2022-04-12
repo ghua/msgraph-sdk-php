@@ -53,8 +53,9 @@ class OnenotePatchContentRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'commands' => function (self $o, ParseNode $n) { $o->setCommands($n->getCollectionOfObjectValues(OnenotePatchContentCommand::class)); },
+            'commands' => function (ParseNode $n) use ($currentObject) { $currentObject->setCommands($n->getCollectionOfObjectValues(OnenotePatchContentCommand::class)); },
         ];
     }
 

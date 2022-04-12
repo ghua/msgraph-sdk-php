@@ -129,19 +129,20 @@ class DefaultManagedAppProtection extends ManagedAppProtection
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appDataEncryptionType' => function (self $o, ParseNode $n) { $o->setAppDataEncryptionType($n->getEnumValue(ManagedAppDataEncryptionType::class)); },
-            'apps' => function (self $o, ParseNode $n) { $o->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
-            'customSettings' => function (self $o, ParseNode $n) { $o->setCustomSettings($n->getCollectionOfObjectValues(KeyValuePair::class)); },
-            'deployedAppCount' => function (self $o, ParseNode $n) { $o->setDeployedAppCount($n->getIntegerValue()); },
-            'deploymentSummary' => function (self $o, ParseNode $n) { $o->setDeploymentSummary($n->getObjectValue(ManagedAppPolicyDeploymentSummary::class)); },
-            'disableAppEncryptionIfDeviceEncryptionIsEnabled' => function (self $o, ParseNode $n) { $o->setDisableAppEncryptionIfDeviceEncryptionIsEnabled($n->getBooleanValue()); },
-            'encryptAppData' => function (self $o, ParseNode $n) { $o->setEncryptAppData($n->getBooleanValue()); },
-            'faceIdBlocked' => function (self $o, ParseNode $n) { $o->setFaceIdBlocked($n->getBooleanValue()); },
-            'minimumRequiredPatchVersion' => function (self $o, ParseNode $n) { $o->setMinimumRequiredPatchVersion($n->getStringValue()); },
-            'minimumRequiredSdkVersion' => function (self $o, ParseNode $n) { $o->setMinimumRequiredSdkVersion($n->getStringValue()); },
-            'minimumWarningPatchVersion' => function (self $o, ParseNode $n) { $o->setMinimumWarningPatchVersion($n->getStringValue()); },
-            'screenCaptureBlocked' => function (self $o, ParseNode $n) { $o->setScreenCaptureBlocked($n->getBooleanValue()); },
+            'appDataEncryptionType' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppDataEncryptionType($n->getEnumValue(ManagedAppDataEncryptionType::class)); },
+            'apps' => function (ParseNode $n) use ($currentObject) { $currentObject->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
+            'customSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomSettings($n->getCollectionOfObjectValues(KeyValuePair::class)); },
+            'deployedAppCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeployedAppCount($n->getIntegerValue()); },
+            'deploymentSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeploymentSummary($n->getObjectValue(ManagedAppPolicyDeploymentSummary::class)); },
+            'disableAppEncryptionIfDeviceEncryptionIsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisableAppEncryptionIfDeviceEncryptionIsEnabled($n->getBooleanValue()); },
+            'encryptAppData' => function (ParseNode $n) use ($currentObject) { $currentObject->setEncryptAppData($n->getBooleanValue()); },
+            'faceIdBlocked' => function (ParseNode $n) use ($currentObject) { $currentObject->setFaceIdBlocked($n->getBooleanValue()); },
+            'minimumRequiredPatchVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumRequiredPatchVersion($n->getStringValue()); },
+            'minimumRequiredSdkVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumRequiredSdkVersion($n->getStringValue()); },
+            'minimumWarningPatchVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumWarningPatchVersion($n->getStringValue()); },
+            'screenCaptureBlocked' => function (ParseNode $n) use ($currentObject) { $currentObject->setScreenCaptureBlocked($n->getBooleanValue()); },
         ]);
     }
 

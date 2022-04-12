@@ -43,9 +43,10 @@ class EducationSubmissionResource extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignmentResourceUrl' => function (self $o, ParseNode $n) { $o->setAssignmentResourceUrl($n->getStringValue()); },
-            'resource' => function (self $o, ParseNode $n) { $o->setResource($n->getObjectValue(EducationResource::class)); },
+            'assignmentResourceUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignmentResourceUrl($n->getStringValue()); },
+            'resource' => function (ParseNode $n) use ($currentObject) { $currentObject->setResource($n->getObjectValue(EducationResource::class)); },
         ]);
     }
 

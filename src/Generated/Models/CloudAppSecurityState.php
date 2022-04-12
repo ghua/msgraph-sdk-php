@@ -66,10 +66,11 @@ class CloudAppSecurityState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'destinationServiceIp' => function (self $o, ParseNode $n) { $o->setDestinationServiceIp($n->getStringValue()); },
-            'destinationServiceName' => function (self $o, ParseNode $n) { $o->setDestinationServiceName($n->getStringValue()); },
-            'riskScore' => function (self $o, ParseNode $n) { $o->setRiskScore($n->getStringValue()); },
+            'destinationServiceIp' => function (ParseNode $n) use ($currentObject) { $currentObject->setDestinationServiceIp($n->getStringValue()); },
+            'destinationServiceName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDestinationServiceName($n->getStringValue()); },
+            'riskScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskScore($n->getStringValue()); },
         ];
     }
 

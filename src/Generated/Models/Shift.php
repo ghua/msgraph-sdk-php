@@ -49,11 +49,12 @@ class Shift extends ChangeTrackedEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'draftShift' => function (self $o, ParseNode $n) { $o->setDraftShift($n->getObjectValue(ShiftItem::class)); },
-            'schedulingGroupId' => function (self $o, ParseNode $n) { $o->setSchedulingGroupId($n->getStringValue()); },
-            'sharedShift' => function (self $o, ParseNode $n) { $o->setSharedShift($n->getObjectValue(ShiftItem::class)); },
-            'userId' => function (self $o, ParseNode $n) { $o->setUserId($n->getStringValue()); },
+            'draftShift' => function (ParseNode $n) use ($currentObject) { $currentObject->setDraftShift($n->getObjectValue(ShiftItem::class)); },
+            'schedulingGroupId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedulingGroupId($n->getStringValue()); },
+            'sharedShift' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedShift($n->getObjectValue(ShiftItem::class)); },
+            'userId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserId($n->getStringValue()); },
         ]);
     }
 

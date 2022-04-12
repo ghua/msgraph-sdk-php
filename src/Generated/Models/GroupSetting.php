@@ -46,10 +46,11 @@ class GroupSetting extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'templateId' => function (self $o, ParseNode $n) { $o->setTemplateId($n->getStringValue()); },
-            'values' => function (self $o, ParseNode $n) { $o->setValues($n->getCollectionOfObjectValues(SettingValue::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'templateId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTemplateId($n->getStringValue()); },
+            'values' => function (ParseNode $n) use ($currentObject) { $currentObject->setValues($n->getCollectionOfObjectValues(SettingValue::class)); },
         ]);
     }
 

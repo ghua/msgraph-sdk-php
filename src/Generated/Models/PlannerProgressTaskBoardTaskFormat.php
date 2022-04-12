@@ -32,8 +32,9 @@ class PlannerProgressTaskBoardTaskFormat extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'orderHint' => function (self $o, ParseNode $n) { $o->setOrderHint($n->getStringValue()); },
+            'orderHint' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrderHint($n->getStringValue()); },
         ]);
     }
 

@@ -89,16 +89,17 @@ class AccessPackageAssignmentRequest extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'accessPackage' => function (self $o, ParseNode $n) { $o->setAccessPackage($n->getObjectValue(AccessPackage::class)); },
-            'assignment' => function (self $o, ParseNode $n) { $o->setAssignment($n->getObjectValue(AccessPackageAssignment::class)); },
-            'completedDateTime' => function (self $o, ParseNode $n) { $o->setCompletedDateTime($n->getDateTimeValue()); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'requestor' => function (self $o, ParseNode $n) { $o->setRequestor($n->getObjectValue(AccessPackageSubject::class)); },
-            'requestType' => function (self $o, ParseNode $n) { $o->setRequestType($n->getEnumValue(AccessPackageRequestType::class)); },
-            'schedule' => function (self $o, ParseNode $n) { $o->setSchedule($n->getObjectValue(EntitlementManagementSchedule::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(AccessPackageRequestState::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
+            'accessPackage' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessPackage($n->getObjectValue(AccessPackage::class)); },
+            'assignment' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignment($n->getObjectValue(AccessPackageAssignment::class)); },
+            'completedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedDateTime($n->getDateTimeValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'requestor' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestor($n->getObjectValue(AccessPackageSubject::class)); },
+            'requestType' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestType($n->getEnumValue(AccessPackageRequestType::class)); },
+            'schedule' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedule($n->getObjectValue(EntitlementManagementSchedule::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(AccessPackageRequestState::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
         ]);
     }
 

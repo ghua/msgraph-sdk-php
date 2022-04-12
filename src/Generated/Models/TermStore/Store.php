@@ -50,11 +50,12 @@ class Store extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'defaultLanguageTag' => function (self $o, ParseNode $n) { $o->setDefaultLanguageTag($n->getStringValue()); },
-            'groups' => function (self $o, ParseNode $n) { $o->setGroups($n->getCollectionOfObjectValues(Group::class)); },
-            'languageTags' => function (self $o, ParseNode $n) { $o->setLanguageTags($n->getCollectionOfPrimitiveValues()); },
-            'sets' => function (self $o, ParseNode $n) { $o->setSets($n->getCollectionOfObjectValues(Set::class)); },
+            'defaultLanguageTag' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultLanguageTag($n->getStringValue()); },
+            'groups' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroups($n->getCollectionOfObjectValues(Group::class)); },
+            'languageTags' => function (ParseNode $n) use ($currentObject) { $currentObject->setLanguageTags($n->getCollectionOfPrimitiveValues()); },
+            'sets' => function (ParseNode $n) use ($currentObject) { $currentObject->setSets($n->getCollectionOfObjectValues(Set::class)); },
         ]);
     }
 

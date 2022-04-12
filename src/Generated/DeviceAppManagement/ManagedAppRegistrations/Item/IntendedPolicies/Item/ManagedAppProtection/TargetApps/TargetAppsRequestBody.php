@@ -53,8 +53,9 @@ class TargetAppsRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'apps' => function (self $o, ParseNode $n) { $o->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
+            'apps' => function (ParseNode $n) use ($currentObject) { $currentObject->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
         ];
     }
 

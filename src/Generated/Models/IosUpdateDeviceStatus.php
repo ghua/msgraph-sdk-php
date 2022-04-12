@@ -95,18 +95,19 @@ class IosUpdateDeviceStatus extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'complianceGracePeriodExpirationDateTime' => function (self $o, ParseNode $n) { $o->setComplianceGracePeriodExpirationDateTime($n->getDateTimeValue()); },
-            'deviceDisplayName' => function (self $o, ParseNode $n) { $o->setDeviceDisplayName($n->getStringValue()); },
-            'deviceId' => function (self $o, ParseNode $n) { $o->setDeviceId($n->getStringValue()); },
-            'deviceModel' => function (self $o, ParseNode $n) { $o->setDeviceModel($n->getStringValue()); },
-            'installStatus' => function (self $o, ParseNode $n) { $o->setInstallStatus($n->getEnumValue(IosUpdatesInstallStatus::class)); },
-            'lastReportedDateTime' => function (self $o, ParseNode $n) { $o->setLastReportedDateTime($n->getDateTimeValue()); },
-            'osVersion' => function (self $o, ParseNode $n) { $o->setOsVersion($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ComplianceStatus::class)); },
-            'userId' => function (self $o, ParseNode $n) { $o->setUserId($n->getStringValue()); },
-            'userName' => function (self $o, ParseNode $n) { $o->setUserName($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'complianceGracePeriodExpirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setComplianceGracePeriodExpirationDateTime($n->getDateTimeValue()); },
+            'deviceDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceDisplayName($n->getStringValue()); },
+            'deviceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceId($n->getStringValue()); },
+            'deviceModel' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceModel($n->getStringValue()); },
+            'installStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstallStatus($n->getEnumValue(IosUpdatesInstallStatus::class)); },
+            'lastReportedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastReportedDateTime($n->getDateTimeValue()); },
+            'osVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setOsVersion($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ComplianceStatus::class)); },
+            'userId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserId($n->getStringValue()); },
+            'userName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserName($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ]);
     }
 

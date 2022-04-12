@@ -91,13 +91,14 @@ class Media implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'calleeDevice' => function (self $o, ParseNode $n) { $o->setCalleeDevice($n->getObjectValue(DeviceInfo::class)); },
-            'calleeNetwork' => function (self $o, ParseNode $n) { $o->setCalleeNetwork($n->getObjectValue(NetworkInfo::class)); },
-            'callerDevice' => function (self $o, ParseNode $n) { $o->setCallerDevice($n->getObjectValue(DeviceInfo::class)); },
-            'callerNetwork' => function (self $o, ParseNode $n) { $o->setCallerNetwork($n->getObjectValue(NetworkInfo::class)); },
-            'label' => function (self $o, ParseNode $n) { $o->setLabel($n->getStringValue()); },
-            'streams' => function (self $o, ParseNode $n) { $o->setStreams($n->getCollectionOfObjectValues(MediaStream::class)); },
+            'calleeDevice' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalleeDevice($n->getObjectValue(DeviceInfo::class)); },
+            'calleeNetwork' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalleeNetwork($n->getObjectValue(NetworkInfo::class)); },
+            'callerDevice' => function (ParseNode $n) use ($currentObject) { $currentObject->setCallerDevice($n->getObjectValue(DeviceInfo::class)); },
+            'callerNetwork' => function (ParseNode $n) use ($currentObject) { $currentObject->setCallerNetwork($n->getObjectValue(NetworkInfo::class)); },
+            'label' => function (ParseNode $n) use ($currentObject) { $currentObject->setLabel($n->getStringValue()); },
+            'streams' => function (ParseNode $n) use ($currentObject) { $currentObject->setStreams($n->getCollectionOfObjectValues(MediaStream::class)); },
         ];
     }
 

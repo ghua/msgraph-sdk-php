@@ -120,21 +120,22 @@ class TodoTask extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'body' => function (self $o, ParseNode $n) { $o->setBody($n->getObjectValue(ItemBody::class)); },
-            'bodyLastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setBodyLastModifiedDateTime($n->getDateTimeValue()); },
-            'completedDateTime' => function (self $o, ParseNode $n) { $o->setCompletedDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'dueDateTime' => function (self $o, ParseNode $n) { $o->setDueDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'extensions' => function (self $o, ParseNode $n) { $o->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
-            'importance' => function (self $o, ParseNode $n) { $o->setImportance($n->getEnumValue(Importance::class)); },
-            'isReminderOn' => function (self $o, ParseNode $n) { $o->setIsReminderOn($n->getBooleanValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'linkedResources' => function (self $o, ParseNode $n) { $o->setLinkedResources($n->getCollectionOfObjectValues(LinkedResource::class)); },
-            'recurrence' => function (self $o, ParseNode $n) { $o->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
-            'reminderDateTime' => function (self $o, ParseNode $n) { $o->setReminderDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(TaskStatus::class)); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
+            'body' => function (ParseNode $n) use ($currentObject) { $currentObject->setBody($n->getObjectValue(ItemBody::class)); },
+            'bodyLastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setBodyLastModifiedDateTime($n->getDateTimeValue()); },
+            'completedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'dueDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setDueDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'extensions' => function (ParseNode $n) use ($currentObject) { $currentObject->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
+            'importance' => function (ParseNode $n) use ($currentObject) { $currentObject->setImportance($n->getEnumValue(Importance::class)); },
+            'isReminderOn' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsReminderOn($n->getBooleanValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'linkedResources' => function (ParseNode $n) use ($currentObject) { $currentObject->setLinkedResources($n->getCollectionOfObjectValues(LinkedResource::class)); },
+            'recurrence' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
+            'reminderDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReminderDateTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(TaskStatus::class)); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
         ]);
     }
 

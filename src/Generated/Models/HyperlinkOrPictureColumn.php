@@ -44,8 +44,9 @@ class HyperlinkOrPictureColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'isPicture' => function (self $o, ParseNode $n) { $o->setIsPicture($n->getBooleanValue()); },
+            'isPicture' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsPicture($n->getBooleanValue()); },
         ];
     }
 

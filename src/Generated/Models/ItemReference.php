@@ -81,15 +81,16 @@ class ItemReference implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'driveId' => function (self $o, ParseNode $n) { $o->setDriveId($n->getStringValue()); },
-            'driveType' => function (self $o, ParseNode $n) { $o->setDriveType($n->getStringValue()); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'path' => function (self $o, ParseNode $n) { $o->setPath($n->getStringValue()); },
-            'shareId' => function (self $o, ParseNode $n) { $o->setShareId($n->getStringValue()); },
-            'sharepointIds' => function (self $o, ParseNode $n) { $o->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
-            'siteId' => function (self $o, ParseNode $n) { $o->setSiteId($n->getStringValue()); },
+            'driveId' => function (ParseNode $n) use ($currentObject) { $currentObject->setDriveId($n->getStringValue()); },
+            'driveType' => function (ParseNode $n) use ($currentObject) { $currentObject->setDriveType($n->getStringValue()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'path' => function (ParseNode $n) use ($currentObject) { $currentObject->setPath($n->getStringValue()); },
+            'shareId' => function (ParseNode $n) use ($currentObject) { $currentObject->setShareId($n->getStringValue()); },
+            'sharepointIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
+            'siteId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSiteId($n->getStringValue()); },
         ];
     }
 

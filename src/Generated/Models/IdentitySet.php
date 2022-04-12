@@ -66,10 +66,11 @@ class IdentitySet implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'application' => function (self $o, ParseNode $n) { $o->setApplication($n->getObjectValue(Identity::class)); },
-            'device' => function (self $o, ParseNode $n) { $o->setDevice($n->getObjectValue(Identity::class)); },
-            'user' => function (self $o, ParseNode $n) { $o->setUser($n->getObjectValue(Identity::class)); },
+            'application' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplication($n->getObjectValue(Identity::class)); },
+            'device' => function (ParseNode $n) use ($currentObject) { $currentObject->setDevice($n->getObjectValue(Identity::class)); },
+            'user' => function (ParseNode $n) use ($currentObject) { $currentObject->setUser($n->getObjectValue(Identity::class)); },
         ];
     }
 

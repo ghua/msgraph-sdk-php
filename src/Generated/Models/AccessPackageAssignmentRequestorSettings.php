@@ -121,15 +121,16 @@ class AccessPackageAssignmentRequestorSettings implements AdditionalDataHolder, 
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowCustomAssignmentSchedule' => function (self $o, ParseNode $n) { $o->setAllowCustomAssignmentSchedule($n->getBooleanValue()); },
-            'enableOnBehalfRequestorsToAddAccess' => function (self $o, ParseNode $n) { $o->setEnableOnBehalfRequestorsToAddAccess($n->getBooleanValue()); },
-            'enableOnBehalfRequestorsToRemoveAccess' => function (self $o, ParseNode $n) { $o->setEnableOnBehalfRequestorsToRemoveAccess($n->getBooleanValue()); },
-            'enableOnBehalfRequestorsToUpdateAccess' => function (self $o, ParseNode $n) { $o->setEnableOnBehalfRequestorsToUpdateAccess($n->getBooleanValue()); },
-            'enableTargetsToSelfAddAccess' => function (self $o, ParseNode $n) { $o->setEnableTargetsToSelfAddAccess($n->getBooleanValue()); },
-            'enableTargetsToSelfRemoveAccess' => function (self $o, ParseNode $n) { $o->setEnableTargetsToSelfRemoveAccess($n->getBooleanValue()); },
-            'enableTargetsToSelfUpdateAccess' => function (self $o, ParseNode $n) { $o->setEnableTargetsToSelfUpdateAccess($n->getBooleanValue()); },
-            'onBehalfRequestors' => function (self $o, ParseNode $n) { $o->setOnBehalfRequestors($n->getCollectionOfObjectValues(SubjectSet::class)); },
+            'allowCustomAssignmentSchedule' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowCustomAssignmentSchedule($n->getBooleanValue()); },
+            'enableOnBehalfRequestorsToAddAccess' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableOnBehalfRequestorsToAddAccess($n->getBooleanValue()); },
+            'enableOnBehalfRequestorsToRemoveAccess' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableOnBehalfRequestorsToRemoveAccess($n->getBooleanValue()); },
+            'enableOnBehalfRequestorsToUpdateAccess' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableOnBehalfRequestorsToUpdateAccess($n->getBooleanValue()); },
+            'enableTargetsToSelfAddAccess' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableTargetsToSelfAddAccess($n->getBooleanValue()); },
+            'enableTargetsToSelfRemoveAccess' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableTargetsToSelfRemoveAccess($n->getBooleanValue()); },
+            'enableTargetsToSelfUpdateAccess' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableTargetsToSelfUpdateAccess($n->getBooleanValue()); },
+            'onBehalfRequestors' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnBehalfRequestors($n->getCollectionOfObjectValues(SubjectSet::class)); },
         ];
     }
 

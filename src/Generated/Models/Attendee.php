@@ -35,9 +35,10 @@ class Attendee extends AttendeeBase
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'proposedNewTime' => function (self $o, ParseNode $n) { $o->setProposedNewTime($n->getObjectValue(TimeSlot::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getObjectValue(ResponseStatus::class)); },
+            'proposedNewTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setProposedNewTime($n->getObjectValue(TimeSlot::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getObjectValue(ResponseStatus::class)); },
         ]);
     }
 

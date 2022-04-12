@@ -100,16 +100,17 @@ class MailboxSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'archiveFolder' => function (self $o, ParseNode $n) { $o->setArchiveFolder($n->getStringValue()); },
-            'automaticRepliesSetting' => function (self $o, ParseNode $n) { $o->setAutomaticRepliesSetting($n->getObjectValue(AutomaticRepliesSetting::class)); },
-            'dateFormat' => function (self $o, ParseNode $n) { $o->setDateFormat($n->getStringValue()); },
-            'delegateMeetingMessageDeliveryOptions' => function (self $o, ParseNode $n) { $o->setDelegateMeetingMessageDeliveryOptions($n->getEnumValue(DelegateMeetingMessageDeliveryOptions::class)); },
-            'language' => function (self $o, ParseNode $n) { $o->setLanguage($n->getObjectValue(LocaleInfo::class)); },
-            'timeFormat' => function (self $o, ParseNode $n) { $o->setTimeFormat($n->getStringValue()); },
-            'timeZone' => function (self $o, ParseNode $n) { $o->setTimeZone($n->getStringValue()); },
-            'userPurpose' => function (self $o, ParseNode $n) { $o->setUserPurpose($n->getEnumValue(UserPurpose::class)); },
-            'workingHours' => function (self $o, ParseNode $n) { $o->setWorkingHours($n->getObjectValue(WorkingHours::class)); },
+            'archiveFolder' => function (ParseNode $n) use ($currentObject) { $currentObject->setArchiveFolder($n->getStringValue()); },
+            'automaticRepliesSetting' => function (ParseNode $n) use ($currentObject) { $currentObject->setAutomaticRepliesSetting($n->getObjectValue(AutomaticRepliesSetting::class)); },
+            'dateFormat' => function (ParseNode $n) use ($currentObject) { $currentObject->setDateFormat($n->getStringValue()); },
+            'delegateMeetingMessageDeliveryOptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setDelegateMeetingMessageDeliveryOptions($n->getEnumValue(DelegateMeetingMessageDeliveryOptions::class)); },
+            'language' => function (ParseNode $n) use ($currentObject) { $currentObject->setLanguage($n->getObjectValue(LocaleInfo::class)); },
+            'timeFormat' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeFormat($n->getStringValue()); },
+            'timeZone' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeZone($n->getStringValue()); },
+            'userPurpose' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPurpose($n->getEnumValue(UserPurpose::class)); },
+            'workingHours' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorkingHours($n->getObjectValue(WorkingHours::class)); },
         ];
     }
 

@@ -47,9 +47,10 @@ class UserFlowApiConnectorConfiguration implements AdditionalDataHolder, Parsabl
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'postAttributeCollection' => function (self $o, ParseNode $n) { $o->setPostAttributeCollection($n->getObjectValue(IdentityApiConnector::class)); },
-            'postFederationSignup' => function (self $o, ParseNode $n) { $o->setPostFederationSignup($n->getObjectValue(IdentityApiConnector::class)); },
+            'postAttributeCollection' => function (ParseNode $n) use ($currentObject) { $currentObject->setPostAttributeCollection($n->getObjectValue(IdentityApiConnector::class)); },
+            'postFederationSignup' => function (ParseNode $n) use ($currentObject) { $currentObject->setPostFederationSignup($n->getObjectValue(IdentityApiConnector::class)); },
         ];
     }
 

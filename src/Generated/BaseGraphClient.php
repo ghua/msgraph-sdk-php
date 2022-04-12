@@ -2,9 +2,6 @@
 
 namespace Microsoft\Graph\Generated;
 
-use Exception;
-use Http\Promise\Promise;
-use Http\Promise\RejectedPromise;
 use Microsoft\Graph\Generated\Admin\AdminRequestBuilder;
 use Microsoft\Graph\Generated\AgreementAcceptances\AgreementAcceptancesRequestBuilder;
 use Microsoft\Graph\Generated\AgreementAcceptances\Item\AgreementAcceptanceItemRequestBuilder;
@@ -114,16 +111,9 @@ use Microsoft\Graph\Generated\Users\UsersRequestBuilder;
 use Microsoft\Graph\Generated\Workbooks\Item\DriveItemItemRequestBuilder;
 use Microsoft\Graph\Generated\Workbooks\WorkbooksRequestBuilder;
 use Microsoft\Kiota\Abstractions\ApiClientBuilder;
-use Microsoft\Kiota\Abstractions\HttpMethod;
 use Microsoft\Kiota\Abstractions\RequestAdapter;
-use Microsoft\Kiota\Abstractions\RequestInformation;
-use Microsoft\Kiota\Abstractions\RequestOption;
-use Microsoft\Kiota\Abstractions\ResponseHandler;
-use Microsoft\Kiota\Abstractions\Serialization\Parsable;
-use Microsoft\Kiota\Abstractions\Serialization\ParsableFactory;
 use Microsoft\Kiota\Serialization\Json\JsonParseNodeFactory;
 use Microsoft\Kiota\Serialization\Json\JsonSerializationWriterFactory;
-use Psr\Http\Message\StreamInterface;
 
 class BaseGraphClient 
 {
@@ -738,25 +728,6 @@ class BaseGraphClient
     }
 
     /**
-     * @param array<string, mixed>|null $headers Request headers
-     * @param array<string, RequestOption>|null $options Request options
-     * @return RequestInformation
-    */
-    public function createGetRequestInformation(?array $headers = null, ?array $options = null): RequestInformation {
-        $requestInfo = new RequestInformation();
-        $requestInfo->urlTemplate = $this->urlTemplate;
-        $requestInfo->pathParameters = $this->pathParameters;
-        $requestInfo->httpMethod = HttpMethod::GET;
-        if ($headers !== null) {
-            $requestInfo->headers = array_merge($requestInfo->headers, $headers);
-        }
-        if ($options !== null) {
-            $requestInfo->addRequestOptions(...$options);
-        }
-        return $requestInfo;
-    }
-
-    /**
      * Gets an item from the Microsoft\Graph\Generated.dataPolicyOperations.item collection
      * @param string $id Unique identifier of the item
      * @return DataPolicyOperationItemRequestBuilder
@@ -842,21 +813,6 @@ class BaseGraphClient
         $urlTplParams = $this->pathParameters;
         $urlTplParams['drive_id'] = $id;
         return new DriveItemRequestBuilder($urlTplParams, $this->requestAdapter);
-    }
-
-    /**
-     * @param array<string, mixed>|null $headers Request headers
-     * @param array<string, RequestOption>|null $options Request options
-     * @param ResponseHandler|null $responseHandler Response handler to use in place of the default response handling provided by the core service
-     * @return Promise
-    */
-    public function get(?array $headers = null, ?array $options = null, ?ResponseHandler $responseHandler = null): Promise {
-        $requestInfo = $this->createGetRequestInformation($headers, $options);
-        try {
-            return $this->requestAdapter->sendAsync($requestInfo, StreamInterface::class, $responseHandler);
-        } catch(Exception $ex) {
-            return new RejectedPromise($ex);
-        }
     }
 
     /**

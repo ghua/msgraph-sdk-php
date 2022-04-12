@@ -68,17 +68,18 @@ class DeviceManagementExportJob extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'filter' => function (self $o, ParseNode $n) { $o->setFilter($n->getStringValue()); },
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getEnumValue(DeviceManagementReportFileFormat::class)); },
-            'localizationType' => function (self $o, ParseNode $n) { $o->setLocalizationType($n->getEnumValue(DeviceManagementExportJobLocalizationType::class)); },
-            'reportName' => function (self $o, ParseNode $n) { $o->setReportName($n->getStringValue()); },
-            'requestDateTime' => function (self $o, ParseNode $n) { $o->setRequestDateTime($n->getDateTimeValue()); },
-            'select' => function (self $o, ParseNode $n) { $o->setSelect($n->getCollectionOfPrimitiveValues()); },
-            'snapshotId' => function (self $o, ParseNode $n) { $o->setSnapshotId($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(DeviceManagementReportStatus::class)); },
-            'url' => function (self $o, ParseNode $n) { $o->setUrl($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'filter' => function (ParseNode $n) use ($currentObject) { $currentObject->setFilter($n->getStringValue()); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getEnumValue(DeviceManagementReportFileFormat::class)); },
+            'localizationType' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocalizationType($n->getEnumValue(DeviceManagementExportJobLocalizationType::class)); },
+            'reportName' => function (ParseNode $n) use ($currentObject) { $currentObject->setReportName($n->getStringValue()); },
+            'requestDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestDateTime($n->getDateTimeValue()); },
+            'select' => function (ParseNode $n) use ($currentObject) { $currentObject->setSelect($n->getCollectionOfPrimitiveValues()); },
+            'snapshotId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSnapshotId($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(DeviceManagementReportStatus::class)); },
+            'url' => function (ParseNode $n) use ($currentObject) { $currentObject->setUrl($n->getStringValue()); },
         ]);
     }
 

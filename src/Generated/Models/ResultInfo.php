@@ -58,10 +58,11 @@ class ResultInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'code' => function (self $o, ParseNode $n) { $o->setCode($n->getIntegerValue()); },
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
-            'subcode' => function (self $o, ParseNode $n) { $o->setSubcode($n->getIntegerValue()); },
+            'code' => function (ParseNode $n) use ($currentObject) { $currentObject->setCode($n->getIntegerValue()); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
+            'subcode' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubcode($n->getIntegerValue()); },
         ];
     }
 

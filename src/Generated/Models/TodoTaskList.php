@@ -63,13 +63,14 @@ class TodoTaskList extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'extensions' => function (self $o, ParseNode $n) { $o->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
-            'isOwner' => function (self $o, ParseNode $n) { $o->setIsOwner($n->getBooleanValue()); },
-            'isShared' => function (self $o, ParseNode $n) { $o->setIsShared($n->getBooleanValue()); },
-            'tasks' => function (self $o, ParseNode $n) { $o->setTasks($n->getCollectionOfObjectValues(TodoTask::class)); },
-            'wellknownListName' => function (self $o, ParseNode $n) { $o->setWellknownListName($n->getEnumValue(WellknownListName::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'extensions' => function (ParseNode $n) use ($currentObject) { $currentObject->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
+            'isOwner' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsOwner($n->getBooleanValue()); },
+            'isShared' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsShared($n->getBooleanValue()); },
+            'tasks' => function (ParseNode $n) use ($currentObject) { $currentObject->setTasks($n->getCollectionOfObjectValues(TodoTask::class)); },
+            'wellknownListName' => function (ParseNode $n) use ($currentObject) { $currentObject->setWellknownListName($n->getEnumValue(WellknownListName::class)); },
         ]);
     }
 

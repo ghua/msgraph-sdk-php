@@ -55,9 +55,10 @@ class OnenoteOperationError implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'code' => function (self $o, ParseNode $n) { $o->setCode($n->getStringValue()); },
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
+            'code' => function (ParseNode $n) use ($currentObject) { $currentObject->setCode($n->getStringValue()); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
         ];
     }
 

@@ -77,15 +77,16 @@ class ApplicationTemplate extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'categories' => function (self $o, ParseNode $n) { $o->setCategories($n->getCollectionOfPrimitiveValues()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'homePageUrl' => function (self $o, ParseNode $n) { $o->setHomePageUrl($n->getStringValue()); },
-            'logoUrl' => function (self $o, ParseNode $n) { $o->setLogoUrl($n->getStringValue()); },
-            'publisher' => function (self $o, ParseNode $n) { $o->setPublisher($n->getStringValue()); },
-            'supportedProvisioningTypes' => function (self $o, ParseNode $n) { $o->setSupportedProvisioningTypes($n->getCollectionOfPrimitiveValues()); },
-            'supportedSingleSignOnModes' => function (self $o, ParseNode $n) { $o->setSupportedSingleSignOnModes($n->getCollectionOfPrimitiveValues()); },
+            'categories' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategories($n->getCollectionOfPrimitiveValues()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'homePageUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setHomePageUrl($n->getStringValue()); },
+            'logoUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setLogoUrl($n->getStringValue()); },
+            'publisher' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublisher($n->getStringValue()); },
+            'supportedProvisioningTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setSupportedProvisioningTypes($n->getCollectionOfPrimitiveValues()); },
+            'supportedSingleSignOnModes' => function (ParseNode $n) use ($currentObject) { $currentObject->setSupportedSingleSignOnModes($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

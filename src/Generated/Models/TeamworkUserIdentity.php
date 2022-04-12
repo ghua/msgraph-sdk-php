@@ -32,8 +32,9 @@ class TeamworkUserIdentity extends Identity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'userIdentityType' => function (self $o, ParseNode $n) { $o->setUserIdentityType($n->getEnumValue(TeamworkUserIdentityType::class)); },
+            'userIdentityType' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserIdentityType($n->getEnumValue(TeamworkUserIdentityType::class)); },
         ]);
     }
 

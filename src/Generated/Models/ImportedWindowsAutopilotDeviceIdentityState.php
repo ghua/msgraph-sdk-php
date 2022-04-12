@@ -85,11 +85,12 @@ class ImportedWindowsAutopilotDeviceIdentityState implements AdditionalDataHolde
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'deviceErrorCode' => function (self $o, ParseNode $n) { $o->setDeviceErrorCode($n->getIntegerValue()); },
-            'deviceErrorName' => function (self $o, ParseNode $n) { $o->setDeviceErrorName($n->getStringValue()); },
-            'deviceImportStatus' => function (self $o, ParseNode $n) { $o->setDeviceImportStatus($n->getEnumValue(ImportedWindowsAutopilotDeviceIdentityImportStatus::class)); },
-            'deviceRegistrationId' => function (self $o, ParseNode $n) { $o->setDeviceRegistrationId($n->getStringValue()); },
+            'deviceErrorCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceErrorCode($n->getIntegerValue()); },
+            'deviceErrorName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceErrorName($n->getStringValue()); },
+            'deviceImportStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceImportStatus($n->getEnumValue(ImportedWindowsAutopilotDeviceIdentityImportStatus::class)); },
+            'deviceRegistrationId' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceRegistrationId($n->getStringValue()); },
         ];
     }
 

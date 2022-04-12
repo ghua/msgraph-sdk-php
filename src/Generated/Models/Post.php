@@ -109,20 +109,21 @@ class Post extends OutlookItem
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'attachments' => function (self $o, ParseNode $n) { $o->setAttachments($n->getCollectionOfObjectValues(Attachment::class)); },
-            'body' => function (self $o, ParseNode $n) { $o->setBody($n->getObjectValue(ItemBody::class)); },
-            'conversationId' => function (self $o, ParseNode $n) { $o->setConversationId($n->getStringValue()); },
-            'conversationThreadId' => function (self $o, ParseNode $n) { $o->setConversationThreadId($n->getStringValue()); },
-            'extensions' => function (self $o, ParseNode $n) { $o->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
-            'from' => function (self $o, ParseNode $n) { $o->setFrom($n->getObjectValue(Recipient::class)); },
-            'hasAttachments' => function (self $o, ParseNode $n) { $o->setHasAttachments($n->getBooleanValue()); },
-            'inReplyTo' => function (self $o, ParseNode $n) { $o->setInReplyTo($n->getObjectValue(Post::class)); },
-            'multiValueExtendedProperties' => function (self $o, ParseNode $n) { $o->setMultiValueExtendedProperties($n->getCollectionOfObjectValues(MultiValueLegacyExtendedProperty::class)); },
-            'newParticipants' => function (self $o, ParseNode $n) { $o->setNewParticipants($n->getCollectionOfObjectValues(Recipient::class)); },
-            'receivedDateTime' => function (self $o, ParseNode $n) { $o->setReceivedDateTime($n->getDateTimeValue()); },
-            'sender' => function (self $o, ParseNode $n) { $o->setSender($n->getObjectValue(Recipient::class)); },
-            'singleValueExtendedProperties' => function (self $o, ParseNode $n) { $o->setSingleValueExtendedProperties($n->getCollectionOfObjectValues(SingleValueLegacyExtendedProperty::class)); },
+            'attachments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttachments($n->getCollectionOfObjectValues(Attachment::class)); },
+            'body' => function (ParseNode $n) use ($currentObject) { $currentObject->setBody($n->getObjectValue(ItemBody::class)); },
+            'conversationId' => function (ParseNode $n) use ($currentObject) { $currentObject->setConversationId($n->getStringValue()); },
+            'conversationThreadId' => function (ParseNode $n) use ($currentObject) { $currentObject->setConversationThreadId($n->getStringValue()); },
+            'extensions' => function (ParseNode $n) use ($currentObject) { $currentObject->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
+            'from' => function (ParseNode $n) use ($currentObject) { $currentObject->setFrom($n->getObjectValue(Recipient::class)); },
+            'hasAttachments' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasAttachments($n->getBooleanValue()); },
+            'inReplyTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setInReplyTo($n->getObjectValue(Post::class)); },
+            'multiValueExtendedProperties' => function (ParseNode $n) use ($currentObject) { $currentObject->setMultiValueExtendedProperties($n->getCollectionOfObjectValues(MultiValueLegacyExtendedProperty::class)); },
+            'newParticipants' => function (ParseNode $n) use ($currentObject) { $currentObject->setNewParticipants($n->getCollectionOfObjectValues(Recipient::class)); },
+            'receivedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReceivedDateTime($n->getDateTimeValue()); },
+            'sender' => function (ParseNode $n) use ($currentObject) { $currentObject->setSender($n->getObjectValue(Recipient::class)); },
+            'singleValueExtendedProperties' => function (ParseNode $n) use ($currentObject) { $currentObject->setSingleValueExtendedProperties($n->getCollectionOfObjectValues(SingleValueLegacyExtendedProperty::class)); },
         ]);
     }
 

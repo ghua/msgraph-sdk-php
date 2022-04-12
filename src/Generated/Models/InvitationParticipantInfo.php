@@ -56,12 +56,13 @@ class InvitationParticipantInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'hidden' => function (self $o, ParseNode $n) { $o->setHidden($n->getBooleanValue()); },
-            'identity' => function (self $o, ParseNode $n) { $o->setIdentity($n->getObjectValue(IdentitySet::class)); },
-            'participantId' => function (self $o, ParseNode $n) { $o->setParticipantId($n->getStringValue()); },
-            'removeFromDefaultAudioRoutingGroup' => function (self $o, ParseNode $n) { $o->setRemoveFromDefaultAudioRoutingGroup($n->getBooleanValue()); },
-            'replacesCallId' => function (self $o, ParseNode $n) { $o->setReplacesCallId($n->getStringValue()); },
+            'hidden' => function (ParseNode $n) use ($currentObject) { $currentObject->setHidden($n->getBooleanValue()); },
+            'identity' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentity($n->getObjectValue(IdentitySet::class)); },
+            'participantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setParticipantId($n->getStringValue()); },
+            'removeFromDefaultAudioRoutingGroup' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemoveFromDefaultAudioRoutingGroup($n->getBooleanValue()); },
+            'replacesCallId' => function (ParseNode $n) use ($currentObject) { $currentObject->setReplacesCallId($n->getStringValue()); },
         ];
     }
 

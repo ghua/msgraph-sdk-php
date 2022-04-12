@@ -103,18 +103,19 @@ class DirectoryAudit extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activityDateTime' => function (self $o, ParseNode $n) { $o->setActivityDateTime($n->getDateTimeValue()); },
-            'activityDisplayName' => function (self $o, ParseNode $n) { $o->setActivityDisplayName($n->getStringValue()); },
-            'additionalDetails' => function (self $o, ParseNode $n) { $o->setAdditionalDetails($n->getCollectionOfObjectValues(KeyValue::class)); },
-            'category' => function (self $o, ParseNode $n) { $o->setCategory($n->getStringValue()); },
-            'correlationId' => function (self $o, ParseNode $n) { $o->setCorrelationId($n->getStringValue()); },
-            'initiatedBy' => function (self $o, ParseNode $n) { $o->setInitiatedBy($n->getObjectValue(AuditActivityInitiator::class)); },
-            'loggedByService' => function (self $o, ParseNode $n) { $o->setLoggedByService($n->getStringValue()); },
-            'operationType' => function (self $o, ParseNode $n) { $o->setOperationType($n->getStringValue()); },
-            'result' => function (self $o, ParseNode $n) { $o->setResult($n->getEnumValue(OperationResult::class)); },
-            'resultReason' => function (self $o, ParseNode $n) { $o->setResultReason($n->getStringValue()); },
-            'targetResources' => function (self $o, ParseNode $n) { $o->setTargetResources($n->getCollectionOfObjectValues(TargetResource::class)); },
+            'activityDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivityDateTime($n->getDateTimeValue()); },
+            'activityDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivityDisplayName($n->getStringValue()); },
+            'additionalDetails' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdditionalDetails($n->getCollectionOfObjectValues(KeyValue::class)); },
+            'category' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory($n->getStringValue()); },
+            'correlationId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCorrelationId($n->getStringValue()); },
+            'initiatedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setInitiatedBy($n->getObjectValue(AuditActivityInitiator::class)); },
+            'loggedByService' => function (ParseNode $n) use ($currentObject) { $currentObject->setLoggedByService($n->getStringValue()); },
+            'operationType' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperationType($n->getStringValue()); },
+            'result' => function (ParseNode $n) use ($currentObject) { $currentObject->setResult($n->getEnumValue(OperationResult::class)); },
+            'resultReason' => function (ParseNode $n) use ($currentObject) { $currentObject->setResultReason($n->getStringValue()); },
+            'targetResources' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetResources($n->getCollectionOfObjectValues(TargetResource::class)); },
         ]);
     }
 

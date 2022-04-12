@@ -35,9 +35,10 @@ class WorkbookChartPoint extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getObjectValue(WorkbookChartPointFormat::class)); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getObjectValue(Json::class)); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getObjectValue(WorkbookChartPointFormat::class)); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getObjectValue(Json::class)); },
         ]);
     }
 

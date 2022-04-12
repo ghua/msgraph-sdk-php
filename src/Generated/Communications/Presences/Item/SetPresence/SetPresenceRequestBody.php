@@ -78,11 +78,12 @@ class SetPresenceRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'activity' => function (self $o, ParseNode $n) { $o->setActivity($n->getStringValue()); },
-            'availability' => function (self $o, ParseNode $n) { $o->setAvailability($n->getStringValue()); },
-            'expirationDuration' => function (self $o, ParseNode $n) { $o->setExpirationDuration($n->getDateIntervalValue()); },
-            'sessionId' => function (self $o, ParseNode $n) { $o->setSessionId($n->getStringValue()); },
+            'activity' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivity($n->getStringValue()); },
+            'availability' => function (ParseNode $n) use ($currentObject) { $currentObject->setAvailability($n->getStringValue()); },
+            'expirationDuration' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDuration($n->getDateIntervalValue()); },
+            'sessionId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSessionId($n->getStringValue()); },
         ];
     }
 

@@ -50,11 +50,12 @@ class ManagedAppOperation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getStringValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getStringValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

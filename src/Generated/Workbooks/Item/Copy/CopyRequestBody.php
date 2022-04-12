@@ -48,9 +48,10 @@ class CopyRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'parentReference' => function (self $o, ParseNode $n) { $o->setParentReference($n->getObjectValue(ItemReference::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'parentReference' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentReference($n->getObjectValue(ItemReference::class)); },
         ];
     }
 

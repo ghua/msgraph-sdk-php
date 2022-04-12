@@ -32,8 +32,9 @@ class EducationAssignmentSettings extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'submissionAnimationDisabled' => function (self $o, ParseNode $n) { $o->setSubmissionAnimationDisabled($n->getBooleanValue()); },
+            'submissionAnimationDisabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubmissionAnimationDisabled($n->getBooleanValue()); },
         ]);
     }
 

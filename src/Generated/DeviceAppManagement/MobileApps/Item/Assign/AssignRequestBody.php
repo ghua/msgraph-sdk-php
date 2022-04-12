@@ -45,8 +45,9 @@ class AssignRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'mobileAppAssignments' => function (self $o, ParseNode $n) { $o->setMobileAppAssignments($n->getCollectionOfObjectValues(MobileAppAssignment::class)); },
+            'mobileAppAssignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setMobileAppAssignments($n->getCollectionOfObjectValues(MobileAppAssignment::class)); },
         ];
     }
 

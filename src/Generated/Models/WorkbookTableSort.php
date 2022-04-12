@@ -38,10 +38,11 @@ class WorkbookTableSort extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'fields' => function (self $o, ParseNode $n) { $o->setFields($n->getCollectionOfObjectValues(WorkbookSortField::class)); },
-            'matchCase' => function (self $o, ParseNode $n) { $o->setMatchCase($n->getBooleanValue()); },
-            'method' => function (self $o, ParseNode $n) { $o->setMethod($n->getStringValue()); },
+            'fields' => function (ParseNode $n) use ($currentObject) { $currentObject->setFields($n->getCollectionOfObjectValues(WorkbookSortField::class)); },
+            'matchCase' => function (ParseNode $n) use ($currentObject) { $currentObject->setMatchCase($n->getBooleanValue()); },
+            'method' => function (ParseNode $n) use ($currentObject) { $currentObject->setMethod($n->getStringValue()); },
         ]);
     }
 

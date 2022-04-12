@@ -47,10 +47,11 @@ class Operation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'lastActionDateTime' => function (self $o, ParseNode $n) { $o->setLastActionDateTime($n->getDateTimeValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(OperationStatus::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'lastActionDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastActionDateTime($n->getDateTimeValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(OperationStatus::class)); },
         ]);
     }
 

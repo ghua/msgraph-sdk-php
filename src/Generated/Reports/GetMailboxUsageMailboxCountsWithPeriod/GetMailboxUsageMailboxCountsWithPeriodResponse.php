@@ -45,8 +45,9 @@ class GetMailboxUsageMailboxCountsWithPeriodResponse implements AdditionalDataHo
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getBinaryContent()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getBinaryContent()); },
         ];
     }
 

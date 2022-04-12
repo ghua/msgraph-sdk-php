@@ -51,10 +51,11 @@ class BookingReminder implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
-            'offset' => function (self $o, ParseNode $n) { $o->setOffset($n->getDateIntervalValue()); },
-            'recipients' => function (self $o, ParseNode $n) { $o->setRecipients($n->getEnumValue(BookingReminderRecipients::class)); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
+            'offset' => function (ParseNode $n) use ($currentObject) { $currentObject->setOffset($n->getDateIntervalValue()); },
+            'recipients' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipients($n->getEnumValue(BookingReminderRecipients::class)); },
         ];
     }
 

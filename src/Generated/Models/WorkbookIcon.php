@@ -47,9 +47,10 @@ class WorkbookIcon implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'index' => function (self $o, ParseNode $n) { $o->setIndex($n->getIntegerValue()); },
-            'set' => function (self $o, ParseNode $n) { $o->setSet($n->getStringValue()); },
+            'index' => function (ParseNode $n) use ($currentObject) { $currentObject->setIndex($n->getIntegerValue()); },
+            'set' => function (ParseNode $n) use ($currentObject) { $currentObject->setSet($n->getStringValue()); },
         ];
     }
 

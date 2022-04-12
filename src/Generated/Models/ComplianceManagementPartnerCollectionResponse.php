@@ -47,9 +47,10 @@ class ComplianceManagementPartnerCollectionResponse implements AdditionalDataHol
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            '@odata.nextLink' => function (self $o, ParseNode $n) { $o->setNextLink($n->getStringValue()); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getCollectionOfObjectValues(ComplianceManagementPartner::class)); },
+            '@odata.nextLink' => function (ParseNode $n) use ($currentObject) { $currentObject->setNextLink($n->getStringValue()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getCollectionOfObjectValues(ComplianceManagementPartner::class)); },
         ];
     }
 

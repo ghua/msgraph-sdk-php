@@ -45,8 +45,9 @@ class ImportRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'importedWindowsAutopilotDeviceIdentities' => function (self $o, ParseNode $n) { $o->setImportedWindowsAutopilotDeviceIdentities($n->getCollectionOfObjectValues(ImportedWindowsAutopilotDeviceIdentity::class)); },
+            'importedWindowsAutopilotDeviceIdentities' => function (ParseNode $n) use ($currentObject) { $currentObject->setImportedWindowsAutopilotDeviceIdentities($n->getCollectionOfObjectValues(ImportedWindowsAutopilotDeviceIdentity::class)); },
         ];
     }
 

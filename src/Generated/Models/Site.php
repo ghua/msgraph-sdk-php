@@ -148,25 +148,26 @@ class Site extends BaseItem
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'analytics' => function (self $o, ParseNode $n) { $o->setAnalytics($n->getObjectValue(ItemAnalytics::class)); },
-            'columns' => function (self $o, ParseNode $n) { $o->setColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
-            'contentTypes' => function (self $o, ParseNode $n) { $o->setContentTypes($n->getCollectionOfObjectValues(ContentType::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'drive' => function (self $o, ParseNode $n) { $o->setDrive($n->getObjectValue(Drive::class)); },
-            'drives' => function (self $o, ParseNode $n) { $o->setDrives($n->getCollectionOfObjectValues(Drive::class)); },
-            'error' => function (self $o, ParseNode $n) { $o->setError($n->getObjectValue(PublicError::class)); },
-            'externalColumns' => function (self $o, ParseNode $n) { $o->setExternalColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
-            'items' => function (self $o, ParseNode $n) { $o->setItems($n->getCollectionOfObjectValues(BaseItem::class)); },
-            'lists' => function (self $o, ParseNode $n) { $o->setLists($n->getCollectionOfObjectValues(EscapedList::class)); },
-            'onenote' => function (self $o, ParseNode $n) { $o->setOnenote($n->getObjectValue(Onenote::class)); },
-            'permissions' => function (self $o, ParseNode $n) { $o->setPermissions($n->getCollectionOfObjectValues(Permission::class)); },
-            'root' => function (self $o, ParseNode $n) { $o->setRoot($n->getObjectValue(Root::class)); },
-            'sharepointIds' => function (self $o, ParseNode $n) { $o->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
-            'siteCollection' => function (self $o, ParseNode $n) { $o->setSiteCollection($n->getObjectValue(SiteCollection::class)); },
-            'sites' => function (self $o, ParseNode $n) { $o->setSites($n->getCollectionOfObjectValues(Site::class)); },
-            'termStore' => function (self $o, ParseNode $n) { $o->setTermStore($n->getObjectValue(Store::class)); },
-            'termStores' => function (self $o, ParseNode $n) { $o->setTermStores($n->getCollectionOfObjectValues(Store::class)); },
+            'analytics' => function (ParseNode $n) use ($currentObject) { $currentObject->setAnalytics($n->getObjectValue(ItemAnalytics::class)); },
+            'columns' => function (ParseNode $n) use ($currentObject) { $currentObject->setColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
+            'contentTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentTypes($n->getCollectionOfObjectValues(ContentType::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'drive' => function (ParseNode $n) use ($currentObject) { $currentObject->setDrive($n->getObjectValue(Drive::class)); },
+            'drives' => function (ParseNode $n) use ($currentObject) { $currentObject->setDrives($n->getCollectionOfObjectValues(Drive::class)); },
+            'error' => function (ParseNode $n) use ($currentObject) { $currentObject->setError($n->getObjectValue(PublicError::class)); },
+            'externalColumns' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
+            'items' => function (ParseNode $n) use ($currentObject) { $currentObject->setItems($n->getCollectionOfObjectValues(BaseItem::class)); },
+            'lists' => function (ParseNode $n) use ($currentObject) { $currentObject->setLists($n->getCollectionOfObjectValues(EscapedList::class)); },
+            'onenote' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnenote($n->getObjectValue(Onenote::class)); },
+            'permissions' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermissions($n->getCollectionOfObjectValues(Permission::class)); },
+            'root' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoot($n->getObjectValue(Root::class)); },
+            'sharepointIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
+            'siteCollection' => function (ParseNode $n) use ($currentObject) { $currentObject->setSiteCollection($n->getObjectValue(SiteCollection::class)); },
+            'sites' => function (ParseNode $n) use ($currentObject) { $currentObject->setSites($n->getCollectionOfObjectValues(Site::class)); },
+            'termStore' => function (ParseNode $n) use ($currentObject) { $currentObject->setTermStore($n->getObjectValue(Store::class)); },
+            'termStores' => function (ParseNode $n) use ($currentObject) { $currentObject->setTermStores($n->getCollectionOfObjectValues(Store::class)); },
         ]);
     }
 

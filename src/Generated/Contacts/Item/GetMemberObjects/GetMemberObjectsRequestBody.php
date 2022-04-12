@@ -44,8 +44,9 @@ class GetMemberObjectsRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'securityEnabledOnly' => function (self $o, ParseNode $n) { $o->setSecurityEnabledOnly($n->getBooleanValue()); },
+            'securityEnabledOnly' => function (ParseNode $n) use ($currentObject) { $currentObject->setSecurityEnabledOnly($n->getBooleanValue()); },
         ];
     }
 

@@ -83,13 +83,14 @@ class WorkbookSortField implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'ascending' => function (self $o, ParseNode $n) { $o->setAscending($n->getBooleanValue()); },
-            'color' => function (self $o, ParseNode $n) { $o->setColor($n->getStringValue()); },
-            'dataOption' => function (self $o, ParseNode $n) { $o->setDataOption($n->getStringValue()); },
-            'icon' => function (self $o, ParseNode $n) { $o->setIcon($n->getObjectValue(WorkbookIcon::class)); },
-            'key' => function (self $o, ParseNode $n) { $o->setKey($n->getIntegerValue()); },
-            'sortOn' => function (self $o, ParseNode $n) { $o->setSortOn($n->getStringValue()); },
+            'ascending' => function (ParseNode $n) use ($currentObject) { $currentObject->setAscending($n->getBooleanValue()); },
+            'color' => function (ParseNode $n) use ($currentObject) { $currentObject->setColor($n->getStringValue()); },
+            'dataOption' => function (ParseNode $n) use ($currentObject) { $currentObject->setDataOption($n->getStringValue()); },
+            'icon' => function (ParseNode $n) use ($currentObject) { $currentObject->setIcon($n->getObjectValue(WorkbookIcon::class)); },
+            'key' => function (ParseNode $n) use ($currentObject) { $currentObject->setKey($n->getIntegerValue()); },
+            'sortOn' => function (ParseNode $n) use ($currentObject) { $currentObject->setSortOn($n->getStringValue()); },
         ];
     }
 
