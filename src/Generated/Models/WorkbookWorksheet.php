@@ -61,15 +61,16 @@ class WorkbookWorksheet extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'charts' => function (self $o, ParseNode $n) { $o->setCharts($n->getCollectionOfObjectValues(WorkbookChart::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'names' => function (self $o, ParseNode $n) { $o->setNames($n->getCollectionOfObjectValues(WorkbookNamedItem::class)); },
-            'pivotTables' => function (self $o, ParseNode $n) { $o->setPivotTables($n->getCollectionOfObjectValues(WorkbookPivotTable::class)); },
-            'position' => function (self $o, ParseNode $n) { $o->setPosition($n->getIntegerValue()); },
-            'protection' => function (self $o, ParseNode $n) { $o->setProtection($n->getObjectValue(WorkbookWorksheetProtection::class)); },
-            'tables' => function (self $o, ParseNode $n) { $o->setTables($n->getCollectionOfObjectValues(WorkbookTable::class)); },
-            'visibility' => function (self $o, ParseNode $n) { $o->setVisibility($n->getStringValue()); },
+            'charts' => function (ParseNode $n) use ($currentObject) { $currentObject->setCharts($n->getCollectionOfObjectValues(WorkbookChart::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'names' => function (ParseNode $n) use ($currentObject) { $currentObject->setNames($n->getCollectionOfObjectValues(WorkbookNamedItem::class)); },
+            'pivotTables' => function (ParseNode $n) use ($currentObject) { $currentObject->setPivotTables($n->getCollectionOfObjectValues(WorkbookPivotTable::class)); },
+            'position' => function (ParseNode $n) use ($currentObject) { $currentObject->setPosition($n->getIntegerValue()); },
+            'protection' => function (ParseNode $n) use ($currentObject) { $currentObject->setProtection($n->getObjectValue(WorkbookWorksheetProtection::class)); },
+            'tables' => function (ParseNode $n) use ($currentObject) { $currentObject->setTables($n->getCollectionOfObjectValues(WorkbookTable::class)); },
+            'visibility' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisibility($n->getStringValue()); },
         ]);
     }
 

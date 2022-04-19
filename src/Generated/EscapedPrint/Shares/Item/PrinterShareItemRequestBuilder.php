@@ -59,7 +59,7 @@ class PrinterShareItemRequestBuilder
     */
     public function allowedGroupsById(string $id): GroupItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['group_id'] = $id;
+        $urlTplParams['group%2Did'] = $id;
         return new GroupItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -70,7 +70,7 @@ class PrinterShareItemRequestBuilder
     */
     public function allowedUsersById(string $id): UserItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['user_id'] = $id;
+        $urlTplParams['user%2Did'] = $id;
         return new UserItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -80,7 +80,7 @@ class PrinterShareItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/print/shares/{printerShare_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/print/shares/{printerShare%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -201,4 +201,15 @@ class PrinterShareItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

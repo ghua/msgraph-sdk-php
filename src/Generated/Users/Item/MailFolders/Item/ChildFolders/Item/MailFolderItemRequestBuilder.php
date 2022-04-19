@@ -84,7 +84,7 @@ class MailFolderItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/mailFolders/{mailFolder_id}/childFolders/{mailFolder_id1}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/mailFolders/{mailFolder%2Did}/childFolders/{mailFolder%2Did1}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -195,7 +195,7 @@ class MailFolderItemRequestBuilder
     */
     public function messageRulesById(string $id): MessageRuleItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['messageRule_id'] = $id;
+        $urlTplParams['messageRule%2Did'] = $id;
         return new MessageRuleItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -206,7 +206,7 @@ class MailFolderItemRequestBuilder
     */
     public function messagesById(string $id): MessageItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['message_id'] = $id;
+        $urlTplParams['message%2Did'] = $id;
         return new MessageItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -217,7 +217,7 @@ class MailFolderItemRequestBuilder
     */
     public function multiValueExtendedPropertiesById(string $id): MultiValueLegacyExtendedPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['multiValueLegacyExtendedProperty_id'] = $id;
+        $urlTplParams['multiValueLegacyExtendedProperty%2Did'] = $id;
         return new MultiValueLegacyExtendedPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -245,8 +245,19 @@ class MailFolderItemRequestBuilder
     */
     public function singleValueExtendedPropertiesById(string $id): SingleValueLegacyExtendedPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['singleValueLegacyExtendedProperty_id'] = $id;
+        $urlTplParams['singleValueLegacyExtendedProperty%2Did'] = $id;
         return new SingleValueLegacyExtendedPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

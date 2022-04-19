@@ -68,7 +68,7 @@ class SetItemRequestBuilder
     */
     public function childrenById(string $id): MicrosoftGraphGeneratedGroupsItemSitesItemTermStoresItemSetsItemChildrenItemTermItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['term_id'] = $id;
+        $urlTplParams['term%2Did'] = $id;
         return new MicrosoftGraphGeneratedGroupsItemSitesItemTermStoresItemSetsItemChildrenItemTermItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -78,7 +78,7 @@ class SetItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/sites/{site_id}/termStores/{store_id}/sets/{set_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/sites/{site%2Did}/termStores/{store%2Did}/sets/{set%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -206,7 +206,7 @@ class SetItemRequestBuilder
     */
     public function relationsById(string $id): RelationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['relation_id'] = $id;
+        $urlTplParams['relation%2Did'] = $id;
         return new RelationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -217,8 +217,19 @@ class SetItemRequestBuilder
     */
     public function termsById(string $id): MicrosoftGraphGeneratedGroupsItemSitesItemTermStoresItemSetsItemTermsItemTermItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['term_id'] = $id;
+        $urlTplParams['term%2Did'] = $id;
         return new MicrosoftGraphGeneratedGroupsItemSitesItemTermStoresItemSetsItemTermsItemTermItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

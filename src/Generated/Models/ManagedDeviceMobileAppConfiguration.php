@@ -111,18 +111,19 @@ class ManagedDeviceMobileAppConfiguration extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(ManagedDeviceMobileAppConfigurationAssignment::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'deviceStatuses' => function (self $o, ParseNode $n) { $o->setDeviceStatuses($n->getCollectionOfObjectValues(ManagedDeviceMobileAppConfigurationDeviceStatus::class)); },
-            'deviceStatusSummary' => function (self $o, ParseNode $n) { $o->setDeviceStatusSummary($n->getObjectValue(ManagedDeviceMobileAppConfigurationDeviceSummary::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'targetedMobileApps' => function (self $o, ParseNode $n) { $o->setTargetedMobileApps($n->getCollectionOfPrimitiveValues()); },
-            'userStatuses' => function (self $o, ParseNode $n) { $o->setUserStatuses($n->getCollectionOfObjectValues(ManagedDeviceMobileAppConfigurationUserStatus::class)); },
-            'userStatusSummary' => function (self $o, ParseNode $n) { $o->setUserStatusSummary($n->getObjectValue(ManagedDeviceMobileAppConfigurationUserSummary::class)); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getIntegerValue()); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(ManagedDeviceMobileAppConfigurationAssignment::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'deviceStatuses' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceStatuses($n->getCollectionOfObjectValues(ManagedDeviceMobileAppConfigurationDeviceStatus::class)); },
+            'deviceStatusSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceStatusSummary($n->getObjectValue(ManagedDeviceMobileAppConfigurationDeviceSummary::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'targetedMobileApps' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetedMobileApps($n->getCollectionOfPrimitiveValues()); },
+            'userStatuses' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserStatuses($n->getCollectionOfObjectValues(ManagedDeviceMobileAppConfigurationUserStatus::class)); },
+            'userStatusSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserStatusSummary($n->getObjectValue(ManagedDeviceMobileAppConfigurationUserSummary::class)); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getIntegerValue()); },
         ]);
     }
 

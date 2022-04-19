@@ -67,13 +67,14 @@ class SharingLink implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'application' => function (self $o, ParseNode $n) { $o->setApplication($n->getObjectValue(Identity::class)); },
-            'preventsDownload' => function (self $o, ParseNode $n) { $o->setPreventsDownload($n->getBooleanValue()); },
-            'scope' => function (self $o, ParseNode $n) { $o->setScope($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
-            'webHtml' => function (self $o, ParseNode $n) { $o->setWebHtml($n->getStringValue()); },
-            'webUrl' => function (self $o, ParseNode $n) { $o->setWebUrl($n->getStringValue()); },
+            'application' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplication($n->getObjectValue(Identity::class)); },
+            'preventsDownload' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreventsDownload($n->getBooleanValue()); },
+            'scope' => function (ParseNode $n) use ($currentObject) { $currentObject->setScope($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
+            'webHtml' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebHtml($n->getStringValue()); },
+            'webUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebUrl($n->getStringValue()); },
         ];
     }
 

@@ -101,7 +101,7 @@ class TeamRequestBuilder
     */
     public function channelsById(string $id): ChannelItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['channel_id'] = $id;
+        $urlTplParams['channel%2Did'] = $id;
         return new ChannelItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -111,7 +111,7 @@ class TeamRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/team{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/team{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -137,7 +137,7 @@ class TeamRequestBuilder
     }
 
     /**
-     * Get team from groups
+     * The team associated with this group.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -199,7 +199,7 @@ class TeamRequestBuilder
     }
 
     /**
-     * Get team from groups
+     * The team associated with this group.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -222,7 +222,7 @@ class TeamRequestBuilder
     */
     public function installedAppsById(string $id): TeamsAppInstallationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['teamsAppInstallation_id'] = $id;
+        $urlTplParams['teamsAppInstallation%2Did'] = $id;
         return new TeamsAppInstallationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -233,7 +233,7 @@ class TeamRequestBuilder
     */
     public function membersById(string $id): ConversationMemberItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['conversationMember_id'] = $id;
+        $urlTplParams['conversationMember%2Did'] = $id;
         return new ConversationMemberItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -244,7 +244,7 @@ class TeamRequestBuilder
     */
     public function operationsById(string $id): TeamsAsyncOperationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['teamsAsyncOperation_id'] = $id;
+        $urlTplParams['teamsAsyncOperation%2Did'] = $id;
         return new TeamsAsyncOperationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -265,4 +265,15 @@ class TeamRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

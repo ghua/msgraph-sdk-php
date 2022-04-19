@@ -78,14 +78,15 @@ class DocumentSet implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowedContentTypes' => function (self $o, ParseNode $n) { $o->setAllowedContentTypes($n->getCollectionOfObjectValues(ContentTypeInfo::class)); },
-            'defaultContents' => function (self $o, ParseNode $n) { $o->setDefaultContents($n->getCollectionOfObjectValues(DocumentSetContent::class)); },
-            'propagateWelcomePageChanges' => function (self $o, ParseNode $n) { $o->setPropagateWelcomePageChanges($n->getBooleanValue()); },
-            'sharedColumns' => function (self $o, ParseNode $n) { $o->setSharedColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
-            'shouldPrefixNameToFile' => function (self $o, ParseNode $n) { $o->setShouldPrefixNameToFile($n->getBooleanValue()); },
-            'welcomePageColumns' => function (self $o, ParseNode $n) { $o->setWelcomePageColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
-            'welcomePageUrl' => function (self $o, ParseNode $n) { $o->setWelcomePageUrl($n->getStringValue()); },
+            'allowedContentTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedContentTypes($n->getCollectionOfObjectValues(ContentTypeInfo::class)); },
+            'defaultContents' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultContents($n->getCollectionOfObjectValues(DocumentSetContent::class)); },
+            'propagateWelcomePageChanges' => function (ParseNode $n) use ($currentObject) { $currentObject->setPropagateWelcomePageChanges($n->getBooleanValue()); },
+            'sharedColumns' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
+            'shouldPrefixNameToFile' => function (ParseNode $n) use ($currentObject) { $currentObject->setShouldPrefixNameToFile($n->getBooleanValue()); },
+            'welcomePageColumns' => function (ParseNode $n) use ($currentObject) { $currentObject->setWelcomePageColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
+            'welcomePageUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWelcomePageUrl($n->getStringValue()); },
         ];
     }
 

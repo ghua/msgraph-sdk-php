@@ -32,7 +32,7 @@ class ParentNotebookRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/sites/{site_id}/onenote/notebooks/{notebook_id}/sectionGroups/{sectionGroup_id}/parentNotebook{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/sites/{site%2Did}/onenote/notebooks/{notebook%2Did}/sectionGroups/{sectionGroup%2Did}/parentNotebook{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -78,4 +78,15 @@ class ParentNotebookRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

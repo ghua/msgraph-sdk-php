@@ -58,10 +58,11 @@ class ConvertIdResult implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'errorDetails' => function (self $o, ParseNode $n) { $o->setErrorDetails($n->getObjectValue(GenericError::class)); },
-            'sourceId' => function (self $o, ParseNode $n) { $o->setSourceId($n->getStringValue()); },
-            'targetId' => function (self $o, ParseNode $n) { $o->setTargetId($n->getStringValue()); },
+            'errorDetails' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorDetails($n->getObjectValue(GenericError::class)); },
+            'sourceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceId($n->getStringValue()); },
+            'targetId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetId($n->getStringValue()); },
         ];
     }
 

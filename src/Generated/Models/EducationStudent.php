@@ -76,13 +76,14 @@ class EducationStudent implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'birthDate' => function (self $o, ParseNode $n) { $o->setBirthDate($n->getDateValue()); },
-            'externalId' => function (self $o, ParseNode $n) { $o->setExternalId($n->getStringValue()); },
-            'gender' => function (self $o, ParseNode $n) { $o->setGender($n->getEnumValue(EducationGender::class)); },
-            'grade' => function (self $o, ParseNode $n) { $o->setGrade($n->getStringValue()); },
-            'graduationYear' => function (self $o, ParseNode $n) { $o->setGraduationYear($n->getStringValue()); },
-            'studentNumber' => function (self $o, ParseNode $n) { $o->setStudentNumber($n->getStringValue()); },
+            'birthDate' => function (ParseNode $n) use ($currentObject) { $currentObject->setBirthDate($n->getDateValue()); },
+            'externalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalId($n->getStringValue()); },
+            'gender' => function (ParseNode $n) use ($currentObject) { $currentObject->setGender($n->getEnumValue(EducationGender::class)); },
+            'grade' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrade($n->getStringValue()); },
+            'graduationYear' => function (ParseNode $n) use ($currentObject) { $currentObject->setGraduationYear($n->getStringValue()); },
+            'studentNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setStudentNumber($n->getStringValue()); },
         ];
     }
 

@@ -60,7 +60,7 @@ class ManagedAppRegistrationItemRequestBuilder
     */
     public function appliedPoliciesById(string $id): MicrosoftGraphGeneratedDeviceAppManagementManagedAppRegistrationsItemAppliedPoliciesItemManagedAppPolicyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedAppPolicy_id'] = $id;
+        $urlTplParams['managedAppPolicy%2Did'] = $id;
         return new MicrosoftGraphGeneratedDeviceAppManagementManagedAppRegistrationsItemAppliedPoliciesItemManagedAppPolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -70,7 +70,7 @@ class ManagedAppRegistrationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedAppRegistrations/{managedAppRegistration_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedAppRegistrations/{managedAppRegistration%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -181,7 +181,7 @@ class ManagedAppRegistrationItemRequestBuilder
     */
     public function intendedPoliciesById(string $id): MicrosoftGraphGeneratedDeviceAppManagementManagedAppRegistrationsItemIntendedPoliciesItemManagedAppPolicyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedAppPolicy_id'] = $id;
+        $urlTplParams['managedAppPolicy%2Did'] = $id;
         return new MicrosoftGraphGeneratedDeviceAppManagementManagedAppRegistrationsItemIntendedPoliciesItemManagedAppPolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -192,7 +192,7 @@ class ManagedAppRegistrationItemRequestBuilder
     */
     public function operationsById(string $id): ManagedAppOperationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedAppOperation_id'] = $id;
+        $urlTplParams['managedAppOperation%2Did'] = $id;
         return new ManagedAppOperationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -213,4 +213,15 @@ class ManagedAppRegistrationItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

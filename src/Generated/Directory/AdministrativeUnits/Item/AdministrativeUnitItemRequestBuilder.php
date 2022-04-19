@@ -59,7 +59,7 @@ class AdministrativeUnitItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/directory/administrativeUnits/{administrativeUnit_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/directory/administrativeUnits/{administrativeUnit%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -153,7 +153,7 @@ class AdministrativeUnitItemRequestBuilder
     */
     public function extensionsById(string $id): ExtensionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['extension_id'] = $id;
+        $urlTplParams['extension%2Did'] = $id;
         return new ExtensionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -181,7 +181,7 @@ class AdministrativeUnitItemRequestBuilder
     */
     public function membersById(string $id): DirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new DirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -209,8 +209,19 @@ class AdministrativeUnitItemRequestBuilder
     */
     public function scopedRoleMembersById(string $id): ScopedRoleMembershipItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['scopedRoleMembership_id'] = $id;
+        $urlTplParams['scopedRoleMembership%2Did'] = $id;
         return new ScopedRoleMembershipItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -127,17 +127,18 @@ class TeleconferenceDeviceQuality implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'callChainId' => function (self $o, ParseNode $n) { $o->setCallChainId($n->getStringValue()); },
-            'cloudServiceDeploymentEnvironment' => function (self $o, ParseNode $n) { $o->setCloudServiceDeploymentEnvironment($n->getStringValue()); },
-            'cloudServiceDeploymentId' => function (self $o, ParseNode $n) { $o->setCloudServiceDeploymentId($n->getStringValue()); },
-            'cloudServiceInstanceName' => function (self $o, ParseNode $n) { $o->setCloudServiceInstanceName($n->getStringValue()); },
-            'cloudServiceName' => function (self $o, ParseNode $n) { $o->setCloudServiceName($n->getStringValue()); },
-            'deviceDescription' => function (self $o, ParseNode $n) { $o->setDeviceDescription($n->getStringValue()); },
-            'deviceName' => function (self $o, ParseNode $n) { $o->setDeviceName($n->getStringValue()); },
-            'mediaLegId' => function (self $o, ParseNode $n) { $o->setMediaLegId($n->getStringValue()); },
-            'mediaQualityList' => function (self $o, ParseNode $n) { $o->setMediaQualityList($n->getCollectionOfObjectValues(TeleconferenceDeviceMediaQuality::class)); },
-            'participantId' => function (self $o, ParseNode $n) { $o->setParticipantId($n->getStringValue()); },
+            'callChainId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCallChainId($n->getStringValue()); },
+            'cloudServiceDeploymentEnvironment' => function (ParseNode $n) use ($currentObject) { $currentObject->setCloudServiceDeploymentEnvironment($n->getStringValue()); },
+            'cloudServiceDeploymentId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCloudServiceDeploymentId($n->getStringValue()); },
+            'cloudServiceInstanceName' => function (ParseNode $n) use ($currentObject) { $currentObject->setCloudServiceInstanceName($n->getStringValue()); },
+            'cloudServiceName' => function (ParseNode $n) use ($currentObject) { $currentObject->setCloudServiceName($n->getStringValue()); },
+            'deviceDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceDescription($n->getStringValue()); },
+            'deviceName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceName($n->getStringValue()); },
+            'mediaLegId' => function (ParseNode $n) use ($currentObject) { $currentObject->setMediaLegId($n->getStringValue()); },
+            'mediaQualityList' => function (ParseNode $n) use ($currentObject) { $currentObject->setMediaQualityList($n->getCollectionOfObjectValues(TeleconferenceDeviceMediaQuality::class)); },
+            'participantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setParticipantId($n->getStringValue()); },
         ];
     }
 

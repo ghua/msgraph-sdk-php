@@ -50,7 +50,7 @@ class ConnectedOrganizationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identityGovernance/entitlementManagement/connectedOrganizations/{connectedOrganization_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identityGovernance/entitlementManagement/connectedOrganizations/{connectedOrganization%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -144,7 +144,7 @@ class ConnectedOrganizationItemRequestBuilder
     */
     public function externalSponsorsById(string $id): MicrosoftGraphGeneratedIdentityGovernanceEntitlementManagementConnectedOrganizationsItemExternalSponsorsItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedIdentityGovernanceEntitlementManagementConnectedOrganizationsItemExternalSponsorsItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -172,7 +172,7 @@ class ConnectedOrganizationItemRequestBuilder
     */
     public function internalSponsorsById(string $id): MicrosoftGraphGeneratedIdentityGovernanceEntitlementManagementConnectedOrganizationsItemInternalSponsorsItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedIdentityGovernanceEntitlementManagementConnectedOrganizationsItemInternalSponsorsItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -193,4 +193,15 @@ class ConnectedOrganizationItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -59,10 +59,11 @@ class RedirectRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'callbackUri' => function (self $o, ParseNode $n) { $o->setCallbackUri($n->getStringValue()); },
-            'targets' => function (self $o, ParseNode $n) { $o->setTargets($n->getCollectionOfObjectValues(InvitationParticipantInfo::class)); },
-            'timeout' => function (self $o, ParseNode $n) { $o->setTimeout($n->getIntegerValue()); },
+            'callbackUri' => function (ParseNode $n) use ($currentObject) { $currentObject->setCallbackUri($n->getStringValue()); },
+            'targets' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargets($n->getCollectionOfObjectValues(InvitationParticipantInfo::class)); },
+            'timeout' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeout($n->getIntegerValue()); },
         ];
     }
 

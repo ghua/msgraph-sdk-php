@@ -94,15 +94,16 @@ class ThreatAssessmentRequest extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'category' => function (self $o, ParseNode $n) { $o->setCategory($n->getEnumValue(ThreatCategory::class)); },
-            'contentType' => function (self $o, ParseNode $n) { $o->setContentType($n->getEnumValue(ThreatAssessmentContentType::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'expectedAssessment' => function (self $o, ParseNode $n) { $o->setExpectedAssessment($n->getEnumValue(ThreatExpectedAssessment::class)); },
-            'requestSource' => function (self $o, ParseNode $n) { $o->setRequestSource($n->getEnumValue(ThreatAssessmentRequestSource::class)); },
-            'results' => function (self $o, ParseNode $n) { $o->setResults($n->getCollectionOfObjectValues(ThreatAssessmentResult::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ThreatAssessmentStatus::class)); },
+            'category' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory($n->getEnumValue(ThreatCategory::class)); },
+            'contentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentType($n->getEnumValue(ThreatAssessmentContentType::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'expectedAssessment' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpectedAssessment($n->getEnumValue(ThreatExpectedAssessment::class)); },
+            'requestSource' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestSource($n->getEnumValue(ThreatAssessmentRequestSource::class)); },
+            'results' => function (ParseNode $n) use ($currentObject) { $currentObject->setResults($n->getCollectionOfObjectValues(ThreatAssessmentResult::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ThreatAssessmentStatus::class)); },
         ]);
     }
 

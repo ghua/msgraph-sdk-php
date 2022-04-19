@@ -64,12 +64,13 @@ class ApiApplication implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'acceptMappedClaims' => function (self $o, ParseNode $n) { $o->setAcceptMappedClaims($n->getBooleanValue()); },
-            'knownClientApplications' => function (self $o, ParseNode $n) { $o->setKnownClientApplications($n->getCollectionOfPrimitiveValues()); },
-            'oauth2PermissionScopes' => function (self $o, ParseNode $n) { $o->setOauth2PermissionScopes($n->getCollectionOfObjectValues(PermissionScope::class)); },
-            'preAuthorizedApplications' => function (self $o, ParseNode $n) { $o->setPreAuthorizedApplications($n->getCollectionOfObjectValues(PreAuthorizedApplication::class)); },
-            'requestedAccessTokenVersion' => function (self $o, ParseNode $n) { $o->setRequestedAccessTokenVersion($n->getIntegerValue()); },
+            'acceptMappedClaims' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcceptMappedClaims($n->getBooleanValue()); },
+            'knownClientApplications' => function (ParseNode $n) use ($currentObject) { $currentObject->setKnownClientApplications($n->getCollectionOfPrimitiveValues()); },
+            'oauth2PermissionScopes' => function (ParseNode $n) use ($currentObject) { $currentObject->setOauth2PermissionScopes($n->getCollectionOfObjectValues(PermissionScope::class)); },
+            'preAuthorizedApplications' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreAuthorizedApplications($n->getCollectionOfObjectValues(PreAuthorizedApplication::class)); },
+            'requestedAccessTokenVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestedAccessTokenVersion($n->getIntegerValue()); },
         ];
     }
 

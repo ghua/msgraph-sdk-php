@@ -32,7 +32,7 @@ class ContentRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/sites/{site_id}/onenote/pages/{onenotePage_id}/content';
+        $this->urlTemplate = '{+baseurl}/sites/{site%2Did}/onenote/pages/{onenotePage%2Did}/content';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

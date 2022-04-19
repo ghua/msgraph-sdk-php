@@ -58,7 +58,7 @@ class TermItemRequestBuilder
     */
     public function childrenById(string $id): TermItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['term_id1'] = $id;
+        $urlTplParams['term%2Did1'] = $id;
         return new TermItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -68,7 +68,7 @@ class TermItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/sites/{site_id}/termStores/{store_id}/sets/{set_id}/terms/{term_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/sites/{site%2Did}/termStores/{store%2Did}/sets/{set%2Did}/terms/{term%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -196,8 +196,19 @@ class TermItemRequestBuilder
     */
     public function relationsById(string $id): RelationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['relation_id'] = $id;
+        $urlTplParams['relation%2Did'] = $id;
         return new RelationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

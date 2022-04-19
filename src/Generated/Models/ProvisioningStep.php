@@ -72,12 +72,13 @@ class ProvisioningStep implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'details' => function (self $o, ParseNode $n) { $o->setDetails($n->getObjectValue(DetailsInfo::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'provisioningStepType' => function (self $o, ParseNode $n) { $o->setProvisioningStepType($n->getEnumValue(ProvisioningStepType::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ProvisioningResult::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'details' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetails($n->getObjectValue(DetailsInfo::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'provisioningStepType' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisioningStepType($n->getEnumValue(ProvisioningStepType::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ProvisioningResult::class)); },
         ];
     }
 

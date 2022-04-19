@@ -103,7 +103,7 @@ class BookingBusinessItemRequestBuilder
     */
     public function appointmentsById(string $id): MicrosoftGraphGeneratedSolutionsBookingBusinessesItemAppointmentsItemBookingAppointmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['bookingAppointment_id'] = $id;
+        $urlTplParams['bookingAppointment%2Did'] = $id;
         return new MicrosoftGraphGeneratedSolutionsBookingBusinessesItemAppointmentsItemBookingAppointmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -114,7 +114,7 @@ class BookingBusinessItemRequestBuilder
     */
     public function calendarViewById(string $id): MicrosoftGraphGeneratedSolutionsBookingBusinessesItemCalendarViewItemBookingAppointmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['bookingAppointment_id'] = $id;
+        $urlTplParams['bookingAppointment%2Did'] = $id;
         return new MicrosoftGraphGeneratedSolutionsBookingBusinessesItemCalendarViewItemBookingAppointmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -124,7 +124,7 @@ class BookingBusinessItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/solutions/bookingBusinesses/{bookingBusiness_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/solutions/bookingBusinesses/{bookingBusiness%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -202,7 +202,7 @@ class BookingBusinessItemRequestBuilder
     */
     public function customersById(string $id): BookingCustomerBaseItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['bookingCustomerBase_id'] = $id;
+        $urlTplParams['bookingCustomerBase%2Did'] = $id;
         return new BookingCustomerBaseItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -213,7 +213,7 @@ class BookingBusinessItemRequestBuilder
     */
     public function customQuestionsById(string $id): BookingCustomQuestionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['bookingCustomQuestion_id'] = $id;
+        $urlTplParams['bookingCustomQuestion%2Did'] = $id;
         return new BookingCustomQuestionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -274,7 +274,7 @@ class BookingBusinessItemRequestBuilder
     */
     public function servicesById(string $id): BookingServiceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['bookingService_id'] = $id;
+        $urlTplParams['bookingService%2Did'] = $id;
         return new BookingServiceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -285,8 +285,19 @@ class BookingBusinessItemRequestBuilder
     */
     public function staffMembersById(string $id): BookingStaffMemberBaseItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['bookingStaffMemberBase_id'] = $id;
+        $urlTplParams['bookingStaffMemberBase%2Did'] = $id;
         return new BookingStaffMemberBaseItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

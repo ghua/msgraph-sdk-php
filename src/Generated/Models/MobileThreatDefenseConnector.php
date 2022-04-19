@@ -70,15 +70,16 @@ class MobileThreatDefenseConnector extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'androidDeviceBlockedOnMissingPartnerData' => function (self $o, ParseNode $n) { $o->setAndroidDeviceBlockedOnMissingPartnerData($n->getBooleanValue()); },
-            'androidEnabled' => function (self $o, ParseNode $n) { $o->setAndroidEnabled($n->getBooleanValue()); },
-            'iosDeviceBlockedOnMissingPartnerData' => function (self $o, ParseNode $n) { $o->setIosDeviceBlockedOnMissingPartnerData($n->getBooleanValue()); },
-            'iosEnabled' => function (self $o, ParseNode $n) { $o->setIosEnabled($n->getBooleanValue()); },
-            'lastHeartbeatDateTime' => function (self $o, ParseNode $n) { $o->setLastHeartbeatDateTime($n->getDateTimeValue()); },
-            'partnerState' => function (self $o, ParseNode $n) { $o->setPartnerState($n->getEnumValue(MobileThreatPartnerTenantState::class)); },
-            'partnerUnresponsivenessThresholdInDays' => function (self $o, ParseNode $n) { $o->setPartnerUnresponsivenessThresholdInDays($n->getIntegerValue()); },
-            'partnerUnsupportedOsVersionBlocked' => function (self $o, ParseNode $n) { $o->setPartnerUnsupportedOsVersionBlocked($n->getBooleanValue()); },
+            'androidDeviceBlockedOnMissingPartnerData' => function (ParseNode $n) use ($currentObject) { $currentObject->setAndroidDeviceBlockedOnMissingPartnerData($n->getBooleanValue()); },
+            'androidEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setAndroidEnabled($n->getBooleanValue()); },
+            'iosDeviceBlockedOnMissingPartnerData' => function (ParseNode $n) use ($currentObject) { $currentObject->setIosDeviceBlockedOnMissingPartnerData($n->getBooleanValue()); },
+            'iosEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIosEnabled($n->getBooleanValue()); },
+            'lastHeartbeatDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastHeartbeatDateTime($n->getDateTimeValue()); },
+            'partnerState' => function (ParseNode $n) use ($currentObject) { $currentObject->setPartnerState($n->getEnumValue(MobileThreatPartnerTenantState::class)); },
+            'partnerUnresponsivenessThresholdInDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setPartnerUnresponsivenessThresholdInDays($n->getIntegerValue()); },
+            'partnerUnsupportedOsVersionBlocked' => function (ParseNode $n) use ($currentObject) { $currentObject->setPartnerUnsupportedOsVersionBlocked($n->getBooleanValue()); },
         ]);
     }
 

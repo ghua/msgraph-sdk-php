@@ -44,8 +44,9 @@ class ConditionalAccessSessionControl implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'isEnabled' => function (self $o, ParseNode $n) { $o->setIsEnabled($n->getBooleanValue()); },
+            'isEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabled($n->getBooleanValue()); },
         ];
     }
 

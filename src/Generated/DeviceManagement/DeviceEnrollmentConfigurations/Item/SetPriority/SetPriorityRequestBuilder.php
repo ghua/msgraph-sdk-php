@@ -30,7 +30,7 @@ class SetPriorityRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceEnrollmentConfigurations/{deviceEnrollmentConfiguration_id}/microsoft.graph.setPriority';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceEnrollmentConfigurations/{deviceEnrollmentConfiguration%2Did}/microsoft.graph.setPriority';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

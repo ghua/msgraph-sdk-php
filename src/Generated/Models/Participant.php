@@ -47,13 +47,14 @@ class Participant extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'info' => function (self $o, ParseNode $n) { $o->setInfo($n->getObjectValue(ParticipantInfo::class)); },
-            'isInLobby' => function (self $o, ParseNode $n) { $o->setIsInLobby($n->getBooleanValue()); },
-            'isMuted' => function (self $o, ParseNode $n) { $o->setIsMuted($n->getBooleanValue()); },
-            'mediaStreams' => function (self $o, ParseNode $n) { $o->setMediaStreams($n->getCollectionOfObjectValues(MediaStream::class)); },
-            'metadata' => function (self $o, ParseNode $n) { $o->setMetadata($n->getStringValue()); },
-            'recordingInfo' => function (self $o, ParseNode $n) { $o->setRecordingInfo($n->getObjectValue(RecordingInfo::class)); },
+            'info' => function (ParseNode $n) use ($currentObject) { $currentObject->setInfo($n->getObjectValue(ParticipantInfo::class)); },
+            'isInLobby' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsInLobby($n->getBooleanValue()); },
+            'isMuted' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsMuted($n->getBooleanValue()); },
+            'mediaStreams' => function (ParseNode $n) use ($currentObject) { $currentObject->setMediaStreams($n->getCollectionOfObjectValues(MediaStream::class)); },
+            'metadata' => function (ParseNode $n) use ($currentObject) { $currentObject->setMetadata($n->getStringValue()); },
+            'recordingInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecordingInfo($n->getObjectValue(RecordingInfo::class)); },
         ]);
     }
 

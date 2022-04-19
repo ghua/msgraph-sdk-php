@@ -58,10 +58,11 @@ class DocumentSetContent implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'contentType' => function (self $o, ParseNode $n) { $o->setContentType($n->getObjectValue(ContentTypeInfo::class)); },
-            'fileName' => function (self $o, ParseNode $n) { $o->setFileName($n->getStringValue()); },
-            'folderName' => function (self $o, ParseNode $n) { $o->setFolderName($n->getStringValue()); },
+            'contentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentType($n->getObjectValue(ContentTypeInfo::class)); },
+            'fileName' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileName($n->getStringValue()); },
+            'folderName' => function (ParseNode $n) use ($currentObject) { $currentObject->setFolderName($n->getStringValue()); },
         ];
     }
 

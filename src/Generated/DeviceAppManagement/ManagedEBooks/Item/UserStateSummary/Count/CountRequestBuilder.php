@@ -31,7 +31,7 @@ class CountRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedEBooks/{managedEBook_id}/userStateSummary/$count';
+        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedEBooks/{managedEBook%2Did}/userStateSummary/$count';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

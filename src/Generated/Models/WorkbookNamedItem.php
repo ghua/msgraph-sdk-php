@@ -58,14 +58,15 @@ class WorkbookNamedItem extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'comment' => function (self $o, ParseNode $n) { $o->setComment($n->getStringValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'scope' => function (self $o, ParseNode $n) { $o->setScope($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getObjectValue(Json::class)); },
-            'visible' => function (self $o, ParseNode $n) { $o->setVisible($n->getBooleanValue()); },
-            'worksheet' => function (self $o, ParseNode $n) { $o->setWorksheet($n->getObjectValue(WorkbookWorksheet::class)); },
+            'comment' => function (ParseNode $n) use ($currentObject) { $currentObject->setComment($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'scope' => function (ParseNode $n) use ($currentObject) { $currentObject->setScope($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getObjectValue(Json::class)); },
+            'visible' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisible($n->getBooleanValue()); },
+            'worksheet' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorksheet($n->getObjectValue(WorkbookWorksheet::class)); },
         ]);
     }
 

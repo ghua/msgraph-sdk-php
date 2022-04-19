@@ -109,7 +109,7 @@ class ContentTypeItemRequestBuilder
     */
     public function baseTypesById(string $id): ContentTypeItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['contentType_id1'] = $id;
+        $urlTplParams['contentType%2Did1'] = $id;
         return new ContentTypeItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -120,7 +120,7 @@ class ContentTypeItemRequestBuilder
     */
     public function columnLinksById(string $id): ColumnLinkItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['columnLink_id'] = $id;
+        $urlTplParams['columnLink%2Did'] = $id;
         return new ColumnLinkItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -131,7 +131,7 @@ class ContentTypeItemRequestBuilder
     */
     public function columnPositionsById(string $id): MicrosoftGraphGeneratedGroupsItemSitesItemListsItemContentTypesItemColumnPositionsItemColumnDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['columnDefinition_id'] = $id;
+        $urlTplParams['columnDefinition%2Did'] = $id;
         return new MicrosoftGraphGeneratedGroupsItemSitesItemListsItemContentTypesItemColumnPositionsItemColumnDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -142,7 +142,7 @@ class ContentTypeItemRequestBuilder
     */
     public function columnsById(string $id): MicrosoftGraphGeneratedGroupsItemSitesItemListsItemContentTypesItemColumnsItemColumnDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['columnDefinition_id'] = $id;
+        $urlTplParams['columnDefinition%2Did'] = $id;
         return new MicrosoftGraphGeneratedGroupsItemSitesItemListsItemContentTypesItemColumnsItemColumnDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -152,7 +152,7 @@ class ContentTypeItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/sites/{site_id}/lists/{list_id}/contentTypes/{contentType_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/sites/{site%2Did}/lists/{list%2Did}/contentTypes/{contentType%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -281,4 +281,15 @@ class ContentTypeItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

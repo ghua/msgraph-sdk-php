@@ -87,14 +87,15 @@ class CreateRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'certificateSigningRequest' => function (self $o, ParseNode $n) { $o->setCertificateSigningRequest($n->getObjectValue(PrintCertificateSigningRequest::class)); },
-            'connectorId' => function (self $o, ParseNode $n) { $o->setConnectorId($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'hasPhysicalDevice' => function (self $o, ParseNode $n) { $o->setHasPhysicalDevice($n->getBooleanValue()); },
-            'manufacturer' => function (self $o, ParseNode $n) { $o->setManufacturer($n->getStringValue()); },
-            'model' => function (self $o, ParseNode $n) { $o->setModel($n->getStringValue()); },
-            'physicalDeviceId' => function (self $o, ParseNode $n) { $o->setPhysicalDeviceId($n->getStringValue()); },
+            'certificateSigningRequest' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificateSigningRequest($n->getObjectValue(PrintCertificateSigningRequest::class)); },
+            'connectorId' => function (ParseNode $n) use ($currentObject) { $currentObject->setConnectorId($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'hasPhysicalDevice' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasPhysicalDevice($n->getBooleanValue()); },
+            'manufacturer' => function (ParseNode $n) use ($currentObject) { $currentObject->setManufacturer($n->getStringValue()); },
+            'model' => function (ParseNode $n) use ($currentObject) { $currentObject->setModel($n->getStringValue()); },
+            'physicalDeviceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhysicalDeviceId($n->getStringValue()); },
         ];
     }
 

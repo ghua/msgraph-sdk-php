@@ -31,7 +31,7 @@ class CountRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/authentication/windowsHelloForBusinessMethods/{windowsHelloForBusinessAuthenticationMethod_id}/device/registeredUsers/$count';
+        $this->urlTemplate = '{+baseurl}/me/authentication/windowsHelloForBusinessMethods/{windowsHelloForBusinessAuthenticationMethod%2Did}/device/registeredUsers/$count';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

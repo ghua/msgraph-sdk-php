@@ -30,7 +30,7 @@ class GetFinalReportRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/privacy/subjectRightsRequests/{subjectRightsRequest_id}/microsoft.graph.getFinalReport()';
+        $this->urlTemplate = '{+baseurl}/privacy/subjectRightsRequests/{subjectRightsRequest%2Did}/microsoft.graph.getFinalReport()';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

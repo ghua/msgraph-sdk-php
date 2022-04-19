@@ -31,7 +31,7 @@ class CountRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/sites/{site_id}/onenote/sectionGroups/{sectionGroup_id}/sectionGroups/$count';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/sites/{site%2Did}/onenote/sectionGroups/{sectionGroup%2Did}/sectionGroups/$count';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

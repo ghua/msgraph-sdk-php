@@ -44,8 +44,9 @@ class AssignmentOrder implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'order' => function (self $o, ParseNode $n) { $o->setOrder($n->getCollectionOfPrimitiveValues()); },
+            'order' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrder($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

@@ -32,7 +32,7 @@ class ContentRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/sites/{site_id}/lists/{list_id}/items/{listItem_id}/driveItem/content';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/sites/{site%2Did}/lists/{list%2Did}/items/{listItem%2Did}/driveItem/content';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

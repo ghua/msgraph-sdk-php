@@ -40,8 +40,9 @@ class PrintService extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'endpoints' => function (self $o, ParseNode $n) { $o->setEndpoints($n->getCollectionOfObjectValues(PrintServiceEndpoint::class)); },
+            'endpoints' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndpoints($n->getCollectionOfObjectValues(PrintServiceEndpoint::class)); },
         ]);
     }
 

@@ -60,12 +60,13 @@ class RoleDefinition extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isBuiltIn' => function (self $o, ParseNode $n) { $o->setIsBuiltIn($n->getBooleanValue()); },
-            'roleAssignments' => function (self $o, ParseNode $n) { $o->setRoleAssignments($n->getCollectionOfObjectValues(RoleAssignment::class)); },
-            'rolePermissions' => function (self $o, ParseNode $n) { $o->setRolePermissions($n->getCollectionOfObjectValues(RolePermission::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isBuiltIn' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsBuiltIn($n->getBooleanValue()); },
+            'roleAssignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoleAssignments($n->getCollectionOfObjectValues(RoleAssignment::class)); },
+            'rolePermissions' => function (ParseNode $n) use ($currentObject) { $currentObject->setRolePermissions($n->getCollectionOfObjectValues(RolePermission::class)); },
         ]);
     }
 

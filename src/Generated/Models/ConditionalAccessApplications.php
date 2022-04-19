@@ -61,11 +61,12 @@ class ConditionalAccessApplications implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'excludeApplications' => function (self $o, ParseNode $n) { $o->setExcludeApplications($n->getCollectionOfPrimitiveValues()); },
-            'includeApplications' => function (self $o, ParseNode $n) { $o->setIncludeApplications($n->getCollectionOfPrimitiveValues()); },
-            'includeAuthenticationContextClassReferences' => function (self $o, ParseNode $n) { $o->setIncludeAuthenticationContextClassReferences($n->getCollectionOfPrimitiveValues()); },
-            'includeUserActions' => function (self $o, ParseNode $n) { $o->setIncludeUserActions($n->getCollectionOfPrimitiveValues()); },
+            'excludeApplications' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludeApplications($n->getCollectionOfPrimitiveValues()); },
+            'includeApplications' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeApplications($n->getCollectionOfPrimitiveValues()); },
+            'includeAuthenticationContextClassReferences' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeAuthenticationContextClassReferences($n->getCollectionOfPrimitiveValues()); },
+            'includeUserActions' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeUserActions($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

@@ -115,26 +115,27 @@ class RemoteItem implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'file' => function (self $o, ParseNode $n) { $o->setFile($n->getObjectValue(File::class)); },
-            'fileSystemInfo' => function (self $o, ParseNode $n) { $o->setFileSystemInfo($n->getObjectValue(FileSystemInfo::class)); },
-            'folder' => function (self $o, ParseNode $n) { $o->setFolder($n->getObjectValue(Folder::class)); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'image' => function (self $o, ParseNode $n) { $o->setImage($n->getObjectValue(Image::class)); },
-            'lastModifiedBy' => function (self $o, ParseNode $n) { $o->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'package' => function (self $o, ParseNode $n) { $o->setPackage($n->getObjectValue(Package::class)); },
-            'parentReference' => function (self $o, ParseNode $n) { $o->setParentReference($n->getObjectValue(ItemReference::class)); },
-            'shared' => function (self $o, ParseNode $n) { $o->setShared($n->getObjectValue(Shared::class)); },
-            'sharepointIds' => function (self $o, ParseNode $n) { $o->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
-            'size' => function (self $o, ParseNode $n) { $o->setSize($n->getIntegerValue()); },
-            'specialFolder' => function (self $o, ParseNode $n) { $o->setSpecialFolder($n->getObjectValue(SpecialFolder::class)); },
-            'video' => function (self $o, ParseNode $n) { $o->setVideo($n->getObjectValue(Video::class)); },
-            'webDavUrl' => function (self $o, ParseNode $n) { $o->setWebDavUrl($n->getStringValue()); },
-            'webUrl' => function (self $o, ParseNode $n) { $o->setWebUrl($n->getStringValue()); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'file' => function (ParseNode $n) use ($currentObject) { $currentObject->setFile($n->getObjectValue(File::class)); },
+            'fileSystemInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileSystemInfo($n->getObjectValue(FileSystemInfo::class)); },
+            'folder' => function (ParseNode $n) use ($currentObject) { $currentObject->setFolder($n->getObjectValue(Folder::class)); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'image' => function (ParseNode $n) use ($currentObject) { $currentObject->setImage($n->getObjectValue(Image::class)); },
+            'lastModifiedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'package' => function (ParseNode $n) use ($currentObject) { $currentObject->setPackage($n->getObjectValue(Package::class)); },
+            'parentReference' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentReference($n->getObjectValue(ItemReference::class)); },
+            'shared' => function (ParseNode $n) use ($currentObject) { $currentObject->setShared($n->getObjectValue(Shared::class)); },
+            'sharepointIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
+            'size' => function (ParseNode $n) use ($currentObject) { $currentObject->setSize($n->getIntegerValue()); },
+            'specialFolder' => function (ParseNode $n) use ($currentObject) { $currentObject->setSpecialFolder($n->getObjectValue(SpecialFolder::class)); },
+            'video' => function (ParseNode $n) use ($currentObject) { $currentObject->setVideo($n->getObjectValue(Video::class)); },
+            'webDavUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebDavUrl($n->getStringValue()); },
+            'webUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebUrl($n->getStringValue()); },
         ];
     }
 

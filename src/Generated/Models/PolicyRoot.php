@@ -41,6 +41,12 @@ class PolicyRoot extends Entity
     /** @var array<PermissionGrantPolicy>|null $permissionGrantPolicies The policy that specifies the conditions under which consent can be granted. */
     private ?array $permissionGrantPolicies = null;
     
+    /** @var array<UnifiedRoleManagementPolicy>|null $roleManagementPolicies Represents the role management policies. */
+    private ?array $roleManagementPolicies = null;
+    
+    /** @var array<UnifiedRoleManagementPolicyAssignment>|null $roleManagementPolicyAssignments Represents the role management policy assignments. */
+    private ?array $roleManagementPolicyAssignments = null;
+    
     /** @var array<TokenIssuancePolicy>|null $tokenIssuancePolicies The policy that specifies the characteristics of SAML tokens issued by Azure AD. */
     private ?array $tokenIssuancePolicies = null;
     
@@ -132,20 +138,23 @@ class PolicyRoot extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activityBasedTimeoutPolicies' => function (self $o, ParseNode $n) { $o->setActivityBasedTimeoutPolicies($n->getCollectionOfObjectValues(ActivityBasedTimeoutPolicy::class)); },
-            'adminConsentRequestPolicy' => function (self $o, ParseNode $n) { $o->setAdminConsentRequestPolicy($n->getObjectValue(AdminConsentRequestPolicy::class)); },
-            'authenticationFlowsPolicy' => function (self $o, ParseNode $n) { $o->setAuthenticationFlowsPolicy($n->getObjectValue(AuthenticationFlowsPolicy::class)); },
-            'authenticationMethodsPolicy' => function (self $o, ParseNode $n) { $o->setAuthenticationMethodsPolicy($n->getObjectValue(AuthenticationMethodsPolicy::class)); },
-            'authorizationPolicy' => function (self $o, ParseNode $n) { $o->setAuthorizationPolicy($n->getObjectValue(AuthorizationPolicy::class)); },
-            'claimsMappingPolicies' => function (self $o, ParseNode $n) { $o->setClaimsMappingPolicies($n->getCollectionOfObjectValues(ClaimsMappingPolicy::class)); },
-            'conditionalAccessPolicies' => function (self $o, ParseNode $n) { $o->setConditionalAccessPolicies($n->getCollectionOfObjectValues(ConditionalAccessPolicy::class)); },
-            'featureRolloutPolicies' => function (self $o, ParseNode $n) { $o->setFeatureRolloutPolicies($n->getCollectionOfObjectValues(FeatureRolloutPolicy::class)); },
-            'homeRealmDiscoveryPolicies' => function (self $o, ParseNode $n) { $o->setHomeRealmDiscoveryPolicies($n->getCollectionOfObjectValues(HomeRealmDiscoveryPolicy::class)); },
-            'identitySecurityDefaultsEnforcementPolicy' => function (self $o, ParseNode $n) { $o->setIdentitySecurityDefaultsEnforcementPolicy($n->getObjectValue(IdentitySecurityDefaultsEnforcementPolicy::class)); },
-            'permissionGrantPolicies' => function (self $o, ParseNode $n) { $o->setPermissionGrantPolicies($n->getCollectionOfObjectValues(PermissionGrantPolicy::class)); },
-            'tokenIssuancePolicies' => function (self $o, ParseNode $n) { $o->setTokenIssuancePolicies($n->getCollectionOfObjectValues(TokenIssuancePolicy::class)); },
-            'tokenLifetimePolicies' => function (self $o, ParseNode $n) { $o->setTokenLifetimePolicies($n->getCollectionOfObjectValues(TokenLifetimePolicy::class)); },
+            'activityBasedTimeoutPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivityBasedTimeoutPolicies($n->getCollectionOfObjectValues(ActivityBasedTimeoutPolicy::class)); },
+            'adminConsentRequestPolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdminConsentRequestPolicy($n->getObjectValue(AdminConsentRequestPolicy::class)); },
+            'authenticationFlowsPolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthenticationFlowsPolicy($n->getObjectValue(AuthenticationFlowsPolicy::class)); },
+            'authenticationMethodsPolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthenticationMethodsPolicy($n->getObjectValue(AuthenticationMethodsPolicy::class)); },
+            'authorizationPolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthorizationPolicy($n->getObjectValue(AuthorizationPolicy::class)); },
+            'claimsMappingPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setClaimsMappingPolicies($n->getCollectionOfObjectValues(ClaimsMappingPolicy::class)); },
+            'conditionalAccessPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setConditionalAccessPolicies($n->getCollectionOfObjectValues(ConditionalAccessPolicy::class)); },
+            'featureRolloutPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setFeatureRolloutPolicies($n->getCollectionOfObjectValues(FeatureRolloutPolicy::class)); },
+            'homeRealmDiscoveryPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setHomeRealmDiscoveryPolicies($n->getCollectionOfObjectValues(HomeRealmDiscoveryPolicy::class)); },
+            'identitySecurityDefaultsEnforcementPolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentitySecurityDefaultsEnforcementPolicy($n->getObjectValue(IdentitySecurityDefaultsEnforcementPolicy::class)); },
+            'permissionGrantPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermissionGrantPolicies($n->getCollectionOfObjectValues(PermissionGrantPolicy::class)); },
+            'roleManagementPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoleManagementPolicies($n->getCollectionOfObjectValues(UnifiedRoleManagementPolicy::class)); },
+            'roleManagementPolicyAssignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoleManagementPolicyAssignments($n->getCollectionOfObjectValues(UnifiedRoleManagementPolicyAssignment::class)); },
+            'tokenIssuancePolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setTokenIssuancePolicies($n->getCollectionOfObjectValues(TokenIssuancePolicy::class)); },
+            'tokenLifetimePolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setTokenLifetimePolicies($n->getCollectionOfObjectValues(TokenLifetimePolicy::class)); },
         ]);
     }
 
@@ -171,6 +180,22 @@ class PolicyRoot extends Entity
     */
     public function getPermissionGrantPolicies(): ?array {
         return $this->permissionGrantPolicies;
+    }
+
+    /**
+     * Gets the roleManagementPolicies property value. Represents the role management policies.
+     * @return array<UnifiedRoleManagementPolicy>|null
+    */
+    public function getRoleManagementPolicies(): ?array {
+        return $this->roleManagementPolicies;
+    }
+
+    /**
+     * Gets the roleManagementPolicyAssignments property value. Represents the role management policy assignments.
+     * @return array<UnifiedRoleManagementPolicyAssignment>|null
+    */
+    public function getRoleManagementPolicyAssignments(): ?array {
+        return $this->roleManagementPolicyAssignments;
     }
 
     /**
@@ -206,6 +231,8 @@ class PolicyRoot extends Entity
         $writer->writeCollectionOfObjectValues('homeRealmDiscoveryPolicies', $this->homeRealmDiscoveryPolicies);
         $writer->writeObjectValue('identitySecurityDefaultsEnforcementPolicy', $this->identitySecurityDefaultsEnforcementPolicy);
         $writer->writeCollectionOfObjectValues('permissionGrantPolicies', $this->permissionGrantPolicies);
+        $writer->writeCollectionOfObjectValues('roleManagementPolicies', $this->roleManagementPolicies);
+        $writer->writeCollectionOfObjectValues('roleManagementPolicyAssignments', $this->roleManagementPolicyAssignments);
         $writer->writeCollectionOfObjectValues('tokenIssuancePolicies', $this->tokenIssuancePolicies);
         $writer->writeCollectionOfObjectValues('tokenLifetimePolicies', $this->tokenLifetimePolicies);
     }
@@ -296,6 +323,22 @@ class PolicyRoot extends Entity
     */
     public function setPermissionGrantPolicies(?array $value ): void {
         $this->permissionGrantPolicies = $value;
+    }
+
+    /**
+     * Sets the roleManagementPolicies property value. Represents the role management policies.
+     *  @param array<UnifiedRoleManagementPolicy>|null $value Value to set for the roleManagementPolicies property.
+    */
+    public function setRoleManagementPolicies(?array $value ): void {
+        $this->roleManagementPolicies = $value;
+    }
+
+    /**
+     * Sets the roleManagementPolicyAssignments property value. Represents the role management policy assignments.
+     *  @param array<UnifiedRoleManagementPolicyAssignment>|null $value Value to set for the roleManagementPolicyAssignments property.
+    */
+    public function setRoleManagementPolicyAssignments(?array $value ): void {
+        $this->roleManagementPolicyAssignments = $value;
     }
 
     /**

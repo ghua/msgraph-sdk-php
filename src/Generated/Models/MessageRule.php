@@ -85,15 +85,16 @@ class MessageRule extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'actions' => function (self $o, ParseNode $n) { $o->setActions($n->getObjectValue(MessageRuleActions::class)); },
-            'conditions' => function (self $o, ParseNode $n) { $o->setConditions($n->getObjectValue(MessageRulePredicates::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'exceptions' => function (self $o, ParseNode $n) { $o->setExceptions($n->getObjectValue(MessageRulePredicates::class)); },
-            'hasError' => function (self $o, ParseNode $n) { $o->setHasError($n->getBooleanValue()); },
-            'isEnabled' => function (self $o, ParseNode $n) { $o->setIsEnabled($n->getBooleanValue()); },
-            'isReadOnly' => function (self $o, ParseNode $n) { $o->setIsReadOnly($n->getBooleanValue()); },
-            'sequence' => function (self $o, ParseNode $n) { $o->setSequence($n->getIntegerValue()); },
+            'actions' => function (ParseNode $n) use ($currentObject) { $currentObject->setActions($n->getObjectValue(MessageRuleActions::class)); },
+            'conditions' => function (ParseNode $n) use ($currentObject) { $currentObject->setConditions($n->getObjectValue(MessageRulePredicates::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'exceptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setExceptions($n->getObjectValue(MessageRulePredicates::class)); },
+            'hasError' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasError($n->getBooleanValue()); },
+            'isEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabled($n->getBooleanValue()); },
+            'isReadOnly' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsReadOnly($n->getBooleanValue()); },
+            'sequence' => function (ParseNode $n) use ($currentObject) { $currentObject->setSequence($n->getIntegerValue()); },
         ]);
     }
 

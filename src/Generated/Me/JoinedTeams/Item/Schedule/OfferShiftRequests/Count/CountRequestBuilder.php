@@ -31,7 +31,7 @@ class CountRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team_id}/schedule/offerShiftRequests/$count';
+        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team%2Did}/schedule/offerShiftRequests/$count';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

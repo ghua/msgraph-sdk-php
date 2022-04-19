@@ -59,10 +59,11 @@ class AttendanceInterval implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'durationInSeconds' => function (self $o, ParseNode $n) { $o->setDurationInSeconds($n->getIntegerValue()); },
-            'joinDateTime' => function (self $o, ParseNode $n) { $o->setJoinDateTime($n->getDateTimeValue()); },
-            'leaveDateTime' => function (self $o, ParseNode $n) { $o->setLeaveDateTime($n->getDateTimeValue()); },
+            'durationInSeconds' => function (ParseNode $n) use ($currentObject) { $currentObject->setDurationInSeconds($n->getIntegerValue()); },
+            'joinDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setJoinDateTime($n->getDateTimeValue()); },
+            'leaveDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLeaveDateTime($n->getDateTimeValue()); },
         ];
     }
 

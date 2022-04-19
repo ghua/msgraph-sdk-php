@@ -32,7 +32,7 @@ class SquareLogoRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/organization/{organization_id}/branding/squareLogo';
+        $this->urlTemplate = '{+baseurl}/organization/{organization%2Did}/branding/squareLogo';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

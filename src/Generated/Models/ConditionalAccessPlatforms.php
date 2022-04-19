@@ -55,9 +55,10 @@ class ConditionalAccessPlatforms implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'excludePlatforms' => function (self $o, ParseNode $n) { $o->setExcludePlatforms($n->getCollectionOfEnumValues(ConditionalAccessDevicePlatform::class)); },
-            'includePlatforms' => function (self $o, ParseNode $n) { $o->setIncludePlatforms($n->getCollectionOfEnumValues(ConditionalAccessDevicePlatform::class)); },
+            'excludePlatforms' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludePlatforms($n->getCollectionOfEnumValues(ConditionalAccessDevicePlatform::class)); },
+            'includePlatforms' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludePlatforms($n->getCollectionOfEnumValues(ConditionalAccessDevicePlatform::class)); },
         ];
     }
 

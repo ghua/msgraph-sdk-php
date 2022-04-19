@@ -89,16 +89,17 @@ class EducationRubric extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getObjectValue(EducationItemBody::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'grading' => function (self $o, ParseNode $n) { $o->setGrading($n->getObjectValue(EducationAssignmentGradeType::class)); },
-            'lastModifiedBy' => function (self $o, ParseNode $n) { $o->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'levels' => function (self $o, ParseNode $n) { $o->setLevels($n->getCollectionOfObjectValues(RubricLevel::class)); },
-            'qualities' => function (self $o, ParseNode $n) { $o->setQualities($n->getCollectionOfObjectValues(RubricQuality::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getObjectValue(EducationItemBody::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'grading' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrading($n->getObjectValue(EducationAssignmentGradeType::class)); },
+            'lastModifiedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'levels' => function (ParseNode $n) use ($currentObject) { $currentObject->setLevels($n->getCollectionOfObjectValues(RubricLevel::class)); },
+            'qualities' => function (ParseNode $n) use ($currentObject) { $currentObject->setQualities($n->getCollectionOfObjectValues(RubricQuality::class)); },
         ]);
     }
 

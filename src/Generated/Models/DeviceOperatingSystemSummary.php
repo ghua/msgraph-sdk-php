@@ -67,13 +67,14 @@ class DeviceOperatingSystemSummary implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'androidCount' => function (self $o, ParseNode $n) { $o->setAndroidCount($n->getIntegerValue()); },
-            'iosCount' => function (self $o, ParseNode $n) { $o->setIosCount($n->getIntegerValue()); },
-            'macOSCount' => function (self $o, ParseNode $n) { $o->setMacOSCount($n->getIntegerValue()); },
-            'unknownCount' => function (self $o, ParseNode $n) { $o->setUnknownCount($n->getIntegerValue()); },
-            'windowsCount' => function (self $o, ParseNode $n) { $o->setWindowsCount($n->getIntegerValue()); },
-            'windowsMobileCount' => function (self $o, ParseNode $n) { $o->setWindowsMobileCount($n->getIntegerValue()); },
+            'androidCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setAndroidCount($n->getIntegerValue()); },
+            'iosCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setIosCount($n->getIntegerValue()); },
+            'macOSCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setMacOSCount($n->getIntegerValue()); },
+            'unknownCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnknownCount($n->getIntegerValue()); },
+            'windowsCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setWindowsCount($n->getIntegerValue()); },
+            'windowsMobileCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setWindowsMobileCount($n->getIntegerValue()); },
         ];
     }
 

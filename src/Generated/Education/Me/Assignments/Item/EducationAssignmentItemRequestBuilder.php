@@ -84,7 +84,7 @@ class EducationAssignmentItemRequestBuilder
     */
     public function categoriesById(string $id): EducationCategoryItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationCategory_id'] = $id;
+        $urlTplParams['educationCategory%2Did'] = $id;
         return new EducationCategoryItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -94,7 +94,7 @@ class EducationAssignmentItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/education/me/assignments/{educationAssignment_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/education/me/assignments/{educationAssignment%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -120,7 +120,7 @@ class EducationAssignmentItemRequestBuilder
     }
 
     /**
-     * Assignments that belongs to the user.
+     * Assignments belonging to the user.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -182,7 +182,7 @@ class EducationAssignmentItemRequestBuilder
     }
 
     /**
-     * Assignments that belongs to the user.
+     * Assignments belonging to the user.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -222,7 +222,7 @@ class EducationAssignmentItemRequestBuilder
     */
     public function resourcesById(string $id): EducationAssignmentResourceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationAssignmentResource_id'] = $id;
+        $urlTplParams['educationAssignmentResource%2Did'] = $id;
         return new EducationAssignmentResourceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -233,8 +233,19 @@ class EducationAssignmentItemRequestBuilder
     */
     public function submissionsById(string $id): EducationSubmissionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationSubmission_id'] = $id;
+        $urlTplParams['educationSubmission%2Did'] = $id;
         return new EducationSubmissionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

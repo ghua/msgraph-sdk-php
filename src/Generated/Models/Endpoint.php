@@ -52,12 +52,13 @@ class Endpoint extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'capability' => function (self $o, ParseNode $n) { $o->setCapability($n->getStringValue()); },
-            'providerId' => function (self $o, ParseNode $n) { $o->setProviderId($n->getStringValue()); },
-            'providerName' => function (self $o, ParseNode $n) { $o->setProviderName($n->getStringValue()); },
-            'providerResourceId' => function (self $o, ParseNode $n) { $o->setProviderResourceId($n->getStringValue()); },
-            'uri' => function (self $o, ParseNode $n) { $o->setUri($n->getStringValue()); },
+            'capability' => function (ParseNode $n) use ($currentObject) { $currentObject->setCapability($n->getStringValue()); },
+            'providerId' => function (ParseNode $n) use ($currentObject) { $currentObject->setProviderId($n->getStringValue()); },
+            'providerName' => function (ParseNode $n) use ($currentObject) { $currentObject->setProviderName($n->getStringValue()); },
+            'providerResourceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setProviderResourceId($n->getStringValue()); },
+            'uri' => function (ParseNode $n) use ($currentObject) { $currentObject->setUri($n->getStringValue()); },
         ]);
     }
 

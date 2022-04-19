@@ -65,12 +65,13 @@ class BookingSchedulingPolicy implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowStaffSelection' => function (self $o, ParseNode $n) { $o->setAllowStaffSelection($n->getBooleanValue()); },
-            'maximumAdvance' => function (self $o, ParseNode $n) { $o->setMaximumAdvance($n->getDateIntervalValue()); },
-            'minimumLeadTime' => function (self $o, ParseNode $n) { $o->setMinimumLeadTime($n->getDateIntervalValue()); },
-            'sendConfirmationsToOwner' => function (self $o, ParseNode $n) { $o->setSendConfirmationsToOwner($n->getBooleanValue()); },
-            'timeSlotInterval' => function (self $o, ParseNode $n) { $o->setTimeSlotInterval($n->getDateIntervalValue()); },
+            'allowStaffSelection' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowStaffSelection($n->getBooleanValue()); },
+            'maximumAdvance' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaximumAdvance($n->getDateIntervalValue()); },
+            'minimumLeadTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumLeadTime($n->getDateIntervalValue()); },
+            'sendConfirmationsToOwner' => function (ParseNode $n) use ($currentObject) { $currentObject->setSendConfirmationsToOwner($n->getBooleanValue()); },
+            'timeSlotInterval' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeSlotInterval($n->getDateIntervalValue()); },
         ];
     }
 

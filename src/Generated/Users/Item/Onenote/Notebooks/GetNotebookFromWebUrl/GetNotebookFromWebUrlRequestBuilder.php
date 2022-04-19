@@ -31,7 +31,7 @@ class GetNotebookFromWebUrlRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/onenote/notebooks/microsoft.graph.getNotebookFromWebUrl';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/onenote/notebooks/microsoft.graph.getNotebookFromWebUrl';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

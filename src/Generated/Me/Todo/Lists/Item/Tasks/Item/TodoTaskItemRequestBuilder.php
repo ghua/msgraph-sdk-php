@@ -50,7 +50,7 @@ class TodoTaskItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/todo/lists/{todoTaskList_id}/tasks/{todoTask_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/me/todo/lists/{todoTaskList%2Did}/tasks/{todoTask%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -144,7 +144,7 @@ class TodoTaskItemRequestBuilder
     */
     public function extensionsById(string $id): ExtensionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['extension_id'] = $id;
+        $urlTplParams['extension%2Did'] = $id;
         return new ExtensionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -172,7 +172,7 @@ class TodoTaskItemRequestBuilder
     */
     public function linkedResourcesById(string $id): LinkedResourceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['linkedResource_id'] = $id;
+        $urlTplParams['linkedResource%2Did'] = $id;
         return new LinkedResourceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -193,4 +193,15 @@ class TodoTaskItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

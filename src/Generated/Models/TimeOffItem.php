@@ -32,8 +32,9 @@ class TimeOffItem extends ScheduleEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'timeOffReasonId' => function (self $o, ParseNode $n) { $o->setTimeOffReasonId($n->getStringValue()); },
+            'timeOffReasonId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeOffReasonId($n->getStringValue()); },
         ]);
     }
 

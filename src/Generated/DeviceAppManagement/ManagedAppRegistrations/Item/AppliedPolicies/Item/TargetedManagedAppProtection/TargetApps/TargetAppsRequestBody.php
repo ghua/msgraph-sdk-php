@@ -65,9 +65,10 @@ class TargetAppsRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'appGroupType' => function (self $o, ParseNode $n) { $o->setAppGroupType($n->getEnumValue(TargetedManagedAppGroupType::class)); },
-            'apps' => function (self $o, ParseNode $n) { $o->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
+            'appGroupType' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppGroupType($n->getEnumValue(TargetedManagedAppGroupType::class)); },
+            'apps' => function (ParseNode $n) use ($currentObject) { $currentObject->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
         ];
     }
 

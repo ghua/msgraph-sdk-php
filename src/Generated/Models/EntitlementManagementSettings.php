@@ -52,9 +52,10 @@ class EntitlementManagementSettings extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'durationUntilExternalUserDeletedAfterBlocked' => function (self $o, ParseNode $n) { $o->setDurationUntilExternalUserDeletedAfterBlocked($n->getDateIntervalValue()); },
-            'externalUserLifecycleAction' => function (self $o, ParseNode $n) { $o->setExternalUserLifecycleAction($n->getEnumValue(AccessPackageExternalUserLifecycleAction::class)); },
+            'durationUntilExternalUserDeletedAfterBlocked' => function (ParseNode $n) use ($currentObject) { $currentObject->setDurationUntilExternalUserDeletedAfterBlocked($n->getDateIntervalValue()); },
+            'externalUserLifecycleAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalUserLifecycleAction($n->getEnumValue(AccessPackageExternalUserLifecycleAction::class)); },
         ]);
     }
 

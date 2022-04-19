@@ -50,7 +50,7 @@ class UserFlowLanguageConfigurationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identity/b2xUserFlows/{b2xIdentityUserFlow_id}/languages/{userFlowLanguageConfiguration_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identity/b2xUserFlows/{b2xIdentityUserFlow%2Did}/languages/{userFlowLanguageConfiguration%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -128,7 +128,7 @@ class UserFlowLanguageConfigurationItemRequestBuilder
     */
     public function defaultPagesById(string $id): MicrosoftGraphGeneratedIdentityB2xUserFlowsItemLanguagesItemDefaultPagesItemUserFlowLanguagePageItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['userFlowLanguagePage_id'] = $id;
+        $urlTplParams['userFlowLanguagePage%2Did'] = $id;
         return new MicrosoftGraphGeneratedIdentityB2xUserFlowsItemLanguagesItemDefaultPagesItemUserFlowLanguagePageItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -172,7 +172,7 @@ class UserFlowLanguageConfigurationItemRequestBuilder
     */
     public function overridesPagesById(string $id): MicrosoftGraphGeneratedIdentityB2xUserFlowsItemLanguagesItemOverridesPagesItemUserFlowLanguagePageItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['userFlowLanguagePage_id'] = $id;
+        $urlTplParams['userFlowLanguagePage%2Did'] = $id;
         return new MicrosoftGraphGeneratedIdentityB2xUserFlowsItemLanguagesItemOverridesPagesItemUserFlowLanguagePageItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -193,4 +193,15 @@ class UserFlowLanguageConfigurationItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

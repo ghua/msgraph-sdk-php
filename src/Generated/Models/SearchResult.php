@@ -44,8 +44,9 @@ class SearchResult implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'onClickTelemetryUrl' => function (self $o, ParseNode $n) { $o->setOnClickTelemetryUrl($n->getStringValue()); },
+            'onClickTelemetryUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnClickTelemetryUrl($n->getStringValue()); },
         ];
     }
 

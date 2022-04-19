@@ -91,15 +91,16 @@ class KeyCredential implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'customKeyIdentifier' => function (self $o, ParseNode $n) { $o->setCustomKeyIdentifier($n->getBinaryContent()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'key' => function (self $o, ParseNode $n) { $o->setKey($n->getBinaryContent()); },
-            'keyId' => function (self $o, ParseNode $n) { $o->setKeyId($n->getStringValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
-            'usage' => function (self $o, ParseNode $n) { $o->setUsage($n->getStringValue()); },
+            'customKeyIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomKeyIdentifier($n->getBinaryContent()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'key' => function (ParseNode $n) use ($currentObject) { $currentObject->setKey($n->getBinaryContent()); },
+            'keyId' => function (ParseNode $n) use ($currentObject) { $currentObject->setKeyId($n->getStringValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
+            'usage' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsage($n->getStringValue()); },
         ];
     }
 

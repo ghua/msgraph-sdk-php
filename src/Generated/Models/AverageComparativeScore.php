@@ -63,9 +63,10 @@ class AverageComparativeScore implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'averageScore' => function (self $o, ParseNode $n) { $o->setAverageScore($n->getFloatValue()); },
-            'basis' => function (self $o, ParseNode $n) { $o->setBasis($n->getStringValue()); },
+            'averageScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setAverageScore($n->getFloatValue()); },
+            'basis' => function (ParseNode $n) use ($currentObject) { $currentObject->setBasis($n->getStringValue()); },
         ];
     }
 

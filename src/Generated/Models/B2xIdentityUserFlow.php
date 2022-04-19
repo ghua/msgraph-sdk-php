@@ -52,12 +52,13 @@ class B2xIdentityUserFlow extends IdentityUserFlow
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'apiConnectorConfiguration' => function (self $o, ParseNode $n) { $o->setApiConnectorConfiguration($n->getObjectValue(UserFlowApiConnectorConfiguration::class)); },
-            'identityProviders' => function (self $o, ParseNode $n) { $o->setIdentityProviders($n->getCollectionOfObjectValues(IdentityProvider::class)); },
-            'languages' => function (self $o, ParseNode $n) { $o->setLanguages($n->getCollectionOfObjectValues(UserFlowLanguageConfiguration::class)); },
-            'userAttributeAssignments' => function (self $o, ParseNode $n) { $o->setUserAttributeAssignments($n->getCollectionOfObjectValues(IdentityUserFlowAttributeAssignment::class)); },
-            'userFlowIdentityProviders' => function (self $o, ParseNode $n) { $o->setUserFlowIdentityProviders($n->getCollectionOfObjectValues(IdentityProviderBase::class)); },
+            'apiConnectorConfiguration' => function (ParseNode $n) use ($currentObject) { $currentObject->setApiConnectorConfiguration($n->getObjectValue(UserFlowApiConnectorConfiguration::class)); },
+            'identityProviders' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentityProviders($n->getCollectionOfObjectValues(IdentityProvider::class)); },
+            'languages' => function (ParseNode $n) use ($currentObject) { $currentObject->setLanguages($n->getCollectionOfObjectValues(UserFlowLanguageConfiguration::class)); },
+            'userAttributeAssignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserAttributeAssignments($n->getCollectionOfObjectValues(IdentityUserFlowAttributeAssignment::class)); },
+            'userFlowIdentityProviders' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserFlowIdentityProviders($n->getCollectionOfObjectValues(IdentityProviderBase::class)); },
         ]);
     }
 

@@ -146,26 +146,27 @@ class PrintJobConfiguration implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'collate' => function (self $o, ParseNode $n) { $o->setCollate($n->getBooleanValue()); },
-            'colorMode' => function (self $o, ParseNode $n) { $o->setColorMode($n->getEnumValue(PrintColorMode::class)); },
-            'copies' => function (self $o, ParseNode $n) { $o->setCopies($n->getIntegerValue()); },
-            'dpi' => function (self $o, ParseNode $n) { $o->setDpi($n->getIntegerValue()); },
-            'duplexMode' => function (self $o, ParseNode $n) { $o->setDuplexMode($n->getEnumValue(PrintDuplexMode::class)); },
-            'feedOrientation' => function (self $o, ParseNode $n) { $o->setFeedOrientation($n->getEnumValue(PrinterFeedOrientation::class)); },
-            'finishings' => function (self $o, ParseNode $n) { $o->setFinishings($n->getCollectionOfEnumValues(PrintFinishing::class)); },
-            'fitPdfToPage' => function (self $o, ParseNode $n) { $o->setFitPdfToPage($n->getBooleanValue()); },
-            'inputBin' => function (self $o, ParseNode $n) { $o->setInputBin($n->getStringValue()); },
-            'margin' => function (self $o, ParseNode $n) { $o->setMargin($n->getObjectValue(PrintMargin::class)); },
-            'mediaSize' => function (self $o, ParseNode $n) { $o->setMediaSize($n->getStringValue()); },
-            'mediaType' => function (self $o, ParseNode $n) { $o->setMediaType($n->getStringValue()); },
-            'multipageLayout' => function (self $o, ParseNode $n) { $o->setMultipageLayout($n->getEnumValue(PrintMultipageLayout::class)); },
-            'orientation' => function (self $o, ParseNode $n) { $o->setOrientation($n->getEnumValue(PrintOrientation::class)); },
-            'outputBin' => function (self $o, ParseNode $n) { $o->setOutputBin($n->getStringValue()); },
-            'pageRanges' => function (self $o, ParseNode $n) { $o->setPageRanges($n->getCollectionOfObjectValues(IntegerRange::class)); },
-            'pagesPerSheet' => function (self $o, ParseNode $n) { $o->setPagesPerSheet($n->getIntegerValue()); },
-            'quality' => function (self $o, ParseNode $n) { $o->setQuality($n->getEnumValue(PrintQuality::class)); },
-            'scaling' => function (self $o, ParseNode $n) { $o->setScaling($n->getEnumValue(PrintScaling::class)); },
+            'collate' => function (ParseNode $n) use ($currentObject) { $currentObject->setCollate($n->getBooleanValue()); },
+            'colorMode' => function (ParseNode $n) use ($currentObject) { $currentObject->setColorMode($n->getEnumValue(PrintColorMode::class)); },
+            'copies' => function (ParseNode $n) use ($currentObject) { $currentObject->setCopies($n->getIntegerValue()); },
+            'dpi' => function (ParseNode $n) use ($currentObject) { $currentObject->setDpi($n->getIntegerValue()); },
+            'duplexMode' => function (ParseNode $n) use ($currentObject) { $currentObject->setDuplexMode($n->getEnumValue(PrintDuplexMode::class)); },
+            'feedOrientation' => function (ParseNode $n) use ($currentObject) { $currentObject->setFeedOrientation($n->getEnumValue(PrinterFeedOrientation::class)); },
+            'finishings' => function (ParseNode $n) use ($currentObject) { $currentObject->setFinishings($n->getCollectionOfEnumValues(PrintFinishing::class)); },
+            'fitPdfToPage' => function (ParseNode $n) use ($currentObject) { $currentObject->setFitPdfToPage($n->getBooleanValue()); },
+            'inputBin' => function (ParseNode $n) use ($currentObject) { $currentObject->setInputBin($n->getStringValue()); },
+            'margin' => function (ParseNode $n) use ($currentObject) { $currentObject->setMargin($n->getObjectValue(PrintMargin::class)); },
+            'mediaSize' => function (ParseNode $n) use ($currentObject) { $currentObject->setMediaSize($n->getStringValue()); },
+            'mediaType' => function (ParseNode $n) use ($currentObject) { $currentObject->setMediaType($n->getStringValue()); },
+            'multipageLayout' => function (ParseNode $n) use ($currentObject) { $currentObject->setMultipageLayout($n->getEnumValue(PrintMultipageLayout::class)); },
+            'orientation' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrientation($n->getEnumValue(PrintOrientation::class)); },
+            'outputBin' => function (ParseNode $n) use ($currentObject) { $currentObject->setOutputBin($n->getStringValue()); },
+            'pageRanges' => function (ParseNode $n) use ($currentObject) { $currentObject->setPageRanges($n->getCollectionOfObjectValues(IntegerRange::class)); },
+            'pagesPerSheet' => function (ParseNode $n) use ($currentObject) { $currentObject->setPagesPerSheet($n->getIntegerValue()); },
+            'quality' => function (ParseNode $n) use ($currentObject) { $currentObject->setQuality($n->getEnumValue(PrintQuality::class)); },
+            'scaling' => function (ParseNode $n) use ($currentObject) { $currentObject->setScaling($n->getEnumValue(PrintScaling::class)); },
         ];
     }
 

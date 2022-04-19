@@ -59,10 +59,11 @@ class ShareRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'notifyTeam' => function (self $o, ParseNode $n) { $o->setNotifyTeam($n->getBooleanValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'notifyTeam' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotifyTeam($n->getBooleanValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
         ];
     }
 

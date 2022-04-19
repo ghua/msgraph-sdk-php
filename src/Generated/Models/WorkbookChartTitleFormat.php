@@ -35,9 +35,10 @@ class WorkbookChartTitleFormat extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'fill' => function (self $o, ParseNode $n) { $o->setFill($n->getObjectValue(WorkbookChartFill::class)); },
-            'font' => function (self $o, ParseNode $n) { $o->setFont($n->getObjectValue(WorkbookChartFont::class)); },
+            'fill' => function (ParseNode $n) use ($currentObject) { $currentObject->setFill($n->getObjectValue(WorkbookChartFill::class)); },
+            'font' => function (ParseNode $n) use ($currentObject) { $currentObject->setFont($n->getObjectValue(WorkbookChartFont::class)); },
         ]);
     }
 

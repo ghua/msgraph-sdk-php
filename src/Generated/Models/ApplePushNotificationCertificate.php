@@ -80,13 +80,14 @@ class ApplePushNotificationCertificate extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appleIdentifier' => function (self $o, ParseNode $n) { $o->setAppleIdentifier($n->getStringValue()); },
-            'certificate' => function (self $o, ParseNode $n) { $o->setCertificate($n->getStringValue()); },
-            'certificateSerialNumber' => function (self $o, ParseNode $n) { $o->setCertificateSerialNumber($n->getStringValue()); },
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'topicIdentifier' => function (self $o, ParseNode $n) { $o->setTopicIdentifier($n->getStringValue()); },
+            'appleIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppleIdentifier($n->getStringValue()); },
+            'certificate' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificate($n->getStringValue()); },
+            'certificateSerialNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificateSerialNumber($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'topicIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setTopicIdentifier($n->getStringValue()); },
         ]);
     }
 

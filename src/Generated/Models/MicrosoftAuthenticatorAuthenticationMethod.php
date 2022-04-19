@@ -77,12 +77,13 @@ class MicrosoftAuthenticatorAuthenticationMethod extends AuthenticationMethod
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'device' => function (self $o, ParseNode $n) { $o->setDevice($n->getObjectValue(Device::class)); },
-            'deviceTag' => function (self $o, ParseNode $n) { $o->setDeviceTag($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'phoneAppVersion' => function (self $o, ParseNode $n) { $o->setPhoneAppVersion($n->getStringValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'device' => function (ParseNode $n) use ($currentObject) { $currentObject->setDevice($n->getObjectValue(Device::class)); },
+            'deviceTag' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceTag($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'phoneAppVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhoneAppVersion($n->getStringValue()); },
         ]);
     }
 

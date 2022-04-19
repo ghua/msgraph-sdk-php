@@ -50,7 +50,7 @@ class PermissionGrantPolicyItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/policies/permissionGrantPolicies/{permissionGrantPolicy_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/policies/permissionGrantPolicies/{permissionGrantPolicy%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -144,7 +144,7 @@ class PermissionGrantPolicyItemRequestBuilder
     */
     public function excludesById(string $id): MicrosoftGraphGeneratedPoliciesPermissionGrantPoliciesItemExcludesItemPermissionGrantConditionSetItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['permissionGrantConditionSet_id'] = $id;
+        $urlTplParams['permissionGrantConditionSet%2Did'] = $id;
         return new MicrosoftGraphGeneratedPoliciesPermissionGrantPoliciesItemExcludesItemPermissionGrantConditionSetItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -172,7 +172,7 @@ class PermissionGrantPolicyItemRequestBuilder
     */
     public function includesById(string $id): MicrosoftGraphGeneratedPoliciesPermissionGrantPoliciesItemIncludesItemPermissionGrantConditionSetItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['permissionGrantConditionSet_id'] = $id;
+        $urlTplParams['permissionGrantConditionSet%2Did'] = $id;
         return new MicrosoftGraphGeneratedPoliciesPermissionGrantPoliciesItemIncludesItemPermissionGrantConditionSetItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -193,4 +193,15 @@ class PermissionGrantPolicyItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -59,10 +59,11 @@ class ChatMessageReaction implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'reactionType' => function (self $o, ParseNode $n) { $o->setReactionType($n->getStringValue()); },
-            'user' => function (self $o, ParseNode $n) { $o->setUser($n->getObjectValue(ChatMessageReactionIdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'reactionType' => function (ParseNode $n) use ($currentObject) { $currentObject->setReactionType($n->getStringValue()); },
+            'user' => function (ParseNode $n) use ($currentObject) { $currentObject->setUser($n->getObjectValue(ChatMessageReactionIdentitySet::class)); },
         ];
     }
 

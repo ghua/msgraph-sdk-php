@@ -50,11 +50,12 @@ class WindowsInformationProtectionAppLockerFile extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'file' => function (self $o, ParseNode $n) { $o->setFile($n->getBinaryContent()); },
-            'fileHash' => function (self $o, ParseNode $n) { $o->setFileHash($n->getStringValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'file' => function (ParseNode $n) use ($currentObject) { $currentObject->setFile($n->getBinaryContent()); },
+            'fileHash' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileHash($n->getStringValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

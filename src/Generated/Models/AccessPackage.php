@@ -91,14 +91,15 @@ class AccessPackage extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignmentPolicies' => function (self $o, ParseNode $n) { $o->setAssignmentPolicies($n->getCollectionOfObjectValues(AccessPackageAssignmentPolicy::class)); },
-            'catalog' => function (self $o, ParseNode $n) { $o->setCatalog($n->getObjectValue(AccessPackageCatalog::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isHidden' => function (self $o, ParseNode $n) { $o->setIsHidden($n->getBooleanValue()); },
-            'modifiedDateTime' => function (self $o, ParseNode $n) { $o->setModifiedDateTime($n->getDateTimeValue()); },
+            'assignmentPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignmentPolicies($n->getCollectionOfObjectValues(AccessPackageAssignmentPolicy::class)); },
+            'catalog' => function (ParseNode $n) use ($currentObject) { $currentObject->setCatalog($n->getObjectValue(AccessPackageCatalog::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isHidden' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsHidden($n->getBooleanValue()); },
+            'modifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setModifiedDateTime($n->getDateTimeValue()); },
         ]);
     }
 

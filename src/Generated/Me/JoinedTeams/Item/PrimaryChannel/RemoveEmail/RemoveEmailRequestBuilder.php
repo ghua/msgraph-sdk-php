@@ -30,7 +30,7 @@ class RemoveEmailRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team_id}/primaryChannel/microsoft.graph.removeEmail';
+        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team%2Did}/primaryChannel/microsoft.graph.removeEmail';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

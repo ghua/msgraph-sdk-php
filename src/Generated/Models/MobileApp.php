@@ -123,22 +123,23 @@ class MobileApp extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(MobileAppAssignment::class)); },
-            'categories' => function (self $o, ParseNode $n) { $o->setCategories($n->getCollectionOfObjectValues(MobileAppCategory::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'developer' => function (self $o, ParseNode $n) { $o->setDeveloper($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'informationUrl' => function (self $o, ParseNode $n) { $o->setInformationUrl($n->getStringValue()); },
-            'isFeatured' => function (self $o, ParseNode $n) { $o->setIsFeatured($n->getBooleanValue()); },
-            'largeIcon' => function (self $o, ParseNode $n) { $o->setLargeIcon($n->getObjectValue(MimeContent::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'notes' => function (self $o, ParseNode $n) { $o->setNotes($n->getStringValue()); },
-            'owner' => function (self $o, ParseNode $n) { $o->setOwner($n->getStringValue()); },
-            'privacyInformationUrl' => function (self $o, ParseNode $n) { $o->setPrivacyInformationUrl($n->getStringValue()); },
-            'publisher' => function (self $o, ParseNode $n) { $o->setPublisher($n->getStringValue()); },
-            'publishingState' => function (self $o, ParseNode $n) { $o->setPublishingState($n->getEnumValue(MobileAppPublishingState::class)); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(MobileAppAssignment::class)); },
+            'categories' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategories($n->getCollectionOfObjectValues(MobileAppCategory::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'developer' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeveloper($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'informationUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setInformationUrl($n->getStringValue()); },
+            'isFeatured' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsFeatured($n->getBooleanValue()); },
+            'largeIcon' => function (ParseNode $n) use ($currentObject) { $currentObject->setLargeIcon($n->getObjectValue(MimeContent::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'notes' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotes($n->getStringValue()); },
+            'owner' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwner($n->getStringValue()); },
+            'privacyInformationUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrivacyInformationUrl($n->getStringValue()); },
+            'publisher' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublisher($n->getStringValue()); },
+            'publishingState' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublishingState($n->getEnumValue(MobileAppPublishingState::class)); },
         ]);
     }
 

@@ -31,7 +31,7 @@ class VerifyRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/domains/{domain_id}/microsoft.graph.verify';
+        $this->urlTemplate = '{+baseurl}/domains/{domain%2Did}/microsoft.graph.verify';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

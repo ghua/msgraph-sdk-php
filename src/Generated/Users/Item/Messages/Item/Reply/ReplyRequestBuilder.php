@@ -30,7 +30,7 @@ class ReplyRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/messages/{message_id}/microsoft.graph.reply';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/messages/{message%2Did}/microsoft.graph.reply';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

@@ -101,7 +101,7 @@ class TeamItemRequestBuilder
     */
     public function channelsById(string $id): ChannelItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['channel_id'] = $id;
+        $urlTplParams['channel%2Did'] = $id;
         return new ChannelItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -111,7 +111,7 @@ class TeamItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/joinedTeams/{team_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/joinedTeams/{team%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -222,7 +222,7 @@ class TeamItemRequestBuilder
     */
     public function installedAppsById(string $id): TeamsAppInstallationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['teamsAppInstallation_id'] = $id;
+        $urlTplParams['teamsAppInstallation%2Did'] = $id;
         return new TeamsAppInstallationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -233,7 +233,7 @@ class TeamItemRequestBuilder
     */
     public function membersById(string $id): ConversationMemberItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['conversationMember_id'] = $id;
+        $urlTplParams['conversationMember%2Did'] = $id;
         return new ConversationMemberItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -244,7 +244,7 @@ class TeamItemRequestBuilder
     */
     public function operationsById(string $id): TeamsAsyncOperationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['teamsAsyncOperation_id'] = $id;
+        $urlTplParams['teamsAsyncOperation%2Did'] = $id;
         return new TeamsAsyncOperationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -265,4 +265,15 @@ class TeamItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

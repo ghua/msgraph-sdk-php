@@ -163,25 +163,26 @@ class Calendar extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'allowedOnlineMeetingProviders' => function (self $o, ParseNode $n) { $o->setAllowedOnlineMeetingProviders($n->getCollectionOfEnumValues(OnlineMeetingProviderType::class)); },
-            'calendarPermissions' => function (self $o, ParseNode $n) { $o->setCalendarPermissions($n->getCollectionOfObjectValues(CalendarPermission::class)); },
-            'calendarView' => function (self $o, ParseNode $n) { $o->setCalendarView($n->getCollectionOfObjectValues(Event::class)); },
-            'canEdit' => function (self $o, ParseNode $n) { $o->setCanEdit($n->getBooleanValue()); },
-            'canShare' => function (self $o, ParseNode $n) { $o->setCanShare($n->getBooleanValue()); },
-            'canViewPrivateItems' => function (self $o, ParseNode $n) { $o->setCanViewPrivateItems($n->getBooleanValue()); },
-            'changeKey' => function (self $o, ParseNode $n) { $o->setChangeKey($n->getStringValue()); },
-            'color' => function (self $o, ParseNode $n) { $o->setColor($n->getEnumValue(CalendarColor::class)); },
-            'defaultOnlineMeetingProvider' => function (self $o, ParseNode $n) { $o->setDefaultOnlineMeetingProvider($n->getEnumValue(OnlineMeetingProviderType::class)); },
-            'events' => function (self $o, ParseNode $n) { $o->setEvents($n->getCollectionOfObjectValues(Event::class)); },
-            'hexColor' => function (self $o, ParseNode $n) { $o->setHexColor($n->getStringValue()); },
-            'isDefaultCalendar' => function (self $o, ParseNode $n) { $o->setIsDefaultCalendar($n->getBooleanValue()); },
-            'isRemovable' => function (self $o, ParseNode $n) { $o->setIsRemovable($n->getBooleanValue()); },
-            'isTallyingResponses' => function (self $o, ParseNode $n) { $o->setIsTallyingResponses($n->getBooleanValue()); },
-            'multiValueExtendedProperties' => function (self $o, ParseNode $n) { $o->setMultiValueExtendedProperties($n->getCollectionOfObjectValues(MultiValueLegacyExtendedProperty::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'owner' => function (self $o, ParseNode $n) { $o->setOwner($n->getObjectValue(EmailAddress::class)); },
-            'singleValueExtendedProperties' => function (self $o, ParseNode $n) { $o->setSingleValueExtendedProperties($n->getCollectionOfObjectValues(SingleValueLegacyExtendedProperty::class)); },
+            'allowedOnlineMeetingProviders' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedOnlineMeetingProviders($n->getCollectionOfEnumValues(OnlineMeetingProviderType::class)); },
+            'calendarPermissions' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalendarPermissions($n->getCollectionOfObjectValues(CalendarPermission::class)); },
+            'calendarView' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalendarView($n->getCollectionOfObjectValues(Event::class)); },
+            'canEdit' => function (ParseNode $n) use ($currentObject) { $currentObject->setCanEdit($n->getBooleanValue()); },
+            'canShare' => function (ParseNode $n) use ($currentObject) { $currentObject->setCanShare($n->getBooleanValue()); },
+            'canViewPrivateItems' => function (ParseNode $n) use ($currentObject) { $currentObject->setCanViewPrivateItems($n->getBooleanValue()); },
+            'changeKey' => function (ParseNode $n) use ($currentObject) { $currentObject->setChangeKey($n->getStringValue()); },
+            'color' => function (ParseNode $n) use ($currentObject) { $currentObject->setColor($n->getEnumValue(CalendarColor::class)); },
+            'defaultOnlineMeetingProvider' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultOnlineMeetingProvider($n->getEnumValue(OnlineMeetingProviderType::class)); },
+            'events' => function (ParseNode $n) use ($currentObject) { $currentObject->setEvents($n->getCollectionOfObjectValues(Event::class)); },
+            'hexColor' => function (ParseNode $n) use ($currentObject) { $currentObject->setHexColor($n->getStringValue()); },
+            'isDefaultCalendar' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDefaultCalendar($n->getBooleanValue()); },
+            'isRemovable' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsRemovable($n->getBooleanValue()); },
+            'isTallyingResponses' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsTallyingResponses($n->getBooleanValue()); },
+            'multiValueExtendedProperties' => function (ParseNode $n) use ($currentObject) { $currentObject->setMultiValueExtendedProperties($n->getCollectionOfObjectValues(MultiValueLegacyExtendedProperty::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'owner' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwner($n->getObjectValue(EmailAddress::class)); },
+            'singleValueExtendedProperties' => function (ParseNode $n) use ($currentObject) { $currentObject->setSingleValueExtendedProperties($n->getCollectionOfObjectValues(SingleValueLegacyExtendedProperty::class)); },
         ]);
     }
 

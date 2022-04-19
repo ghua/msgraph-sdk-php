@@ -31,7 +31,7 @@ class SearchWithQRequestBuilder
      * @param string|null $q Usage: q='{q}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $q = null) {
-        $this->urlTemplate = '{+baseurl}/drives/{drive_id}/microsoft.graph.search(q=\'{q}\')';
+        $this->urlTemplate = '{+baseurl}/drives/{drive%2Did}/microsoft.graph.search(q=\'{q}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

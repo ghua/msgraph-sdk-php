@@ -46,10 +46,11 @@ class OpenShift extends ChangeTrackedEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'draftOpenShift' => function (self $o, ParseNode $n) { $o->setDraftOpenShift($n->getObjectValue(OpenShiftItem::class)); },
-            'schedulingGroupId' => function (self $o, ParseNode $n) { $o->setSchedulingGroupId($n->getStringValue()); },
-            'sharedOpenShift' => function (self $o, ParseNode $n) { $o->setSharedOpenShift($n->getObjectValue(OpenShiftItem::class)); },
+            'draftOpenShift' => function (ParseNode $n) use ($currentObject) { $currentObject->setDraftOpenShift($n->getObjectValue(OpenShiftItem::class)); },
+            'schedulingGroupId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedulingGroupId($n->getStringValue()); },
+            'sharedOpenShift' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedOpenShift($n->getObjectValue(OpenShiftItem::class)); },
         ]);
     }
 

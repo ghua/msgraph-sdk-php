@@ -50,10 +50,11 @@ class AccessPackageAssignmentApprovalSettings implements AdditionalDataHolder, P
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'isApprovalRequiredForAdd' => function (self $o, ParseNode $n) { $o->setIsApprovalRequiredForAdd($n->getBooleanValue()); },
-            'isApprovalRequiredForUpdate' => function (self $o, ParseNode $n) { $o->setIsApprovalRequiredForUpdate($n->getBooleanValue()); },
-            'stages' => function (self $o, ParseNode $n) { $o->setStages($n->getCollectionOfObjectValues(AccessPackageApprovalStage::class)); },
+            'isApprovalRequiredForAdd' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsApprovalRequiredForAdd($n->getBooleanValue()); },
+            'isApprovalRequiredForUpdate' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsApprovalRequiredForUpdate($n->getBooleanValue()); },
+            'stages' => function (ParseNode $n) use ($currentObject) { $currentObject->setStages($n->getCollectionOfObjectValues(AccessPackageApprovalStage::class)); },
         ];
     }
 

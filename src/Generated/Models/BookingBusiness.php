@@ -160,24 +160,25 @@ class BookingBusiness extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'address' => function (self $o, ParseNode $n) { $o->setAddress($n->getObjectValue(PhysicalAddress::class)); },
-            'appointments' => function (self $o, ParseNode $n) { $o->setAppointments($n->getCollectionOfObjectValues(BookingAppointment::class)); },
-            'businessHours' => function (self $o, ParseNode $n) { $o->setBusinessHours($n->getCollectionOfObjectValues(BookingWorkHours::class)); },
-            'businessType' => function (self $o, ParseNode $n) { $o->setBusinessType($n->getStringValue()); },
-            'calendarView' => function (self $o, ParseNode $n) { $o->setCalendarView($n->getCollectionOfObjectValues(BookingAppointment::class)); },
-            'customers' => function (self $o, ParseNode $n) { $o->setCustomers($n->getCollectionOfObjectValues(BookingCustomerBase::class)); },
-            'customQuestions' => function (self $o, ParseNode $n) { $o->setCustomQuestions($n->getCollectionOfObjectValues(BookingCustomQuestion::class)); },
-            'defaultCurrencyIso' => function (self $o, ParseNode $n) { $o->setDefaultCurrencyIso($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'email' => function (self $o, ParseNode $n) { $o->setEmail($n->getStringValue()); },
-            'isPublished' => function (self $o, ParseNode $n) { $o->setIsPublished($n->getBooleanValue()); },
-            'phone' => function (self $o, ParseNode $n) { $o->setPhone($n->getStringValue()); },
-            'publicUrl' => function (self $o, ParseNode $n) { $o->setPublicUrl($n->getStringValue()); },
-            'schedulingPolicy' => function (self $o, ParseNode $n) { $o->setSchedulingPolicy($n->getObjectValue(BookingSchedulingPolicy::class)); },
-            'services' => function (self $o, ParseNode $n) { $o->setServices($n->getCollectionOfObjectValues(BookingService::class)); },
-            'staffMembers' => function (self $o, ParseNode $n) { $o->setStaffMembers($n->getCollectionOfObjectValues(BookingStaffMemberBase::class)); },
-            'webSiteUrl' => function (self $o, ParseNode $n) { $o->setWebSiteUrl($n->getStringValue()); },
+            'address' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddress($n->getObjectValue(PhysicalAddress::class)); },
+            'appointments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppointments($n->getCollectionOfObjectValues(BookingAppointment::class)); },
+            'businessHours' => function (ParseNode $n) use ($currentObject) { $currentObject->setBusinessHours($n->getCollectionOfObjectValues(BookingWorkHours::class)); },
+            'businessType' => function (ParseNode $n) use ($currentObject) { $currentObject->setBusinessType($n->getStringValue()); },
+            'calendarView' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalendarView($n->getCollectionOfObjectValues(BookingAppointment::class)); },
+            'customers' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomers($n->getCollectionOfObjectValues(BookingCustomerBase::class)); },
+            'customQuestions' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomQuestions($n->getCollectionOfObjectValues(BookingCustomQuestion::class)); },
+            'defaultCurrencyIso' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultCurrencyIso($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'email' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmail($n->getStringValue()); },
+            'isPublished' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsPublished($n->getBooleanValue()); },
+            'phone' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhone($n->getStringValue()); },
+            'publicUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublicUrl($n->getStringValue()); },
+            'schedulingPolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedulingPolicy($n->getObjectValue(BookingSchedulingPolicy::class)); },
+            'services' => function (ParseNode $n) use ($currentObject) { $currentObject->setServices($n->getCollectionOfObjectValues(BookingService::class)); },
+            'staffMembers' => function (ParseNode $n) use ($currentObject) { $currentObject->setStaffMembers($n->getCollectionOfObjectValues(BookingStaffMemberBase::class)); },
+            'webSiteUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebSiteUrl($n->getStringValue()); },
         ]);
     }
 

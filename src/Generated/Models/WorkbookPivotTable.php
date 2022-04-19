@@ -35,9 +35,10 @@ class WorkbookPivotTable extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'worksheet' => function (self $o, ParseNode $n) { $o->setWorksheet($n->getObjectValue(WorkbookWorksheet::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'worksheet' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorksheet($n->getObjectValue(WorkbookWorksheet::class)); },
         ]);
     }
 

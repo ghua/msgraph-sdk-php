@@ -84,7 +84,7 @@ class ManagedDeviceMobileAppConfigurationItemRequestBuilder
     */
     public function assignmentsById(string $id): ManagedDeviceMobileAppConfigurationAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedDeviceMobileAppConfigurationAssignment_id'] = $id;
+        $urlTplParams['managedDeviceMobileAppConfigurationAssignment%2Did'] = $id;
         return new ManagedDeviceMobileAppConfigurationAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -94,7 +94,7 @@ class ManagedDeviceMobileAppConfigurationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceAppManagement/mobileAppConfigurations/{managedDeviceMobileAppConfiguration_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceAppManagement/mobileAppConfigurations/{managedDeviceMobileAppConfiguration%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -188,7 +188,7 @@ class ManagedDeviceMobileAppConfigurationItemRequestBuilder
     */
     public function deviceStatusesById(string $id): ManagedDeviceMobileAppConfigurationDeviceStatusItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedDeviceMobileAppConfigurationDeviceStatus_id'] = $id;
+        $urlTplParams['managedDeviceMobileAppConfigurationDeviceStatus%2Did'] = $id;
         return new ManagedDeviceMobileAppConfigurationDeviceStatusItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -233,8 +233,19 @@ class ManagedDeviceMobileAppConfigurationItemRequestBuilder
     */
     public function userStatusesById(string $id): ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedDeviceMobileAppConfigurationUserStatus_id'] = $id;
+        $urlTplParams['managedDeviceMobileAppConfigurationUserStatus%2Did'] = $id;
         return new ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

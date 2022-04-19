@@ -33,7 +33,7 @@ class SubscribedSkusRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/subscribedSkus{?search,orderby,select}';
+        $this->urlTemplate = '{+baseurl}/subscribedSkus{?%24search,%24orderby,%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -118,4 +118,18 @@ class SubscribedSkusRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $orderby Order items by property values */
+        public ?array $orderby = null;
+        
+        /** @var string|null $search Search items by search phrases */
+        public ?string $search = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

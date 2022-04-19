@@ -31,7 +31,7 @@ class CopyToNotebookRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/sites/{site_id}/onenote/notebooks/{notebook_id}/sections/{onenoteSection_id}/microsoft.graph.copyToNotebook';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/sites/{site%2Did}/onenote/notebooks/{notebook%2Did}/sections/{onenoteSection%2Did}/microsoft.graph.copyToNotebook';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

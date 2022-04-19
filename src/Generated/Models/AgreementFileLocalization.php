@@ -32,8 +32,9 @@ class AgreementFileLocalization extends AgreementFileProperties
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'versions' => function (self $o, ParseNode $n) { $o->setVersions($n->getCollectionOfObjectValues(AgreementFileVersion::class)); },
+            'versions' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersions($n->getCollectionOfObjectValues(AgreementFileVersion::class)); },
         ]);
     }
 

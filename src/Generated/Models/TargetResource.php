@@ -67,13 +67,14 @@ class TargetResource implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'groupType' => function (self $o, ParseNode $n) { $o->setGroupType($n->getEnumValue(GroupType::class)); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'modifiedProperties' => function (self $o, ParseNode $n) { $o->setModifiedProperties($n->getCollectionOfObjectValues(ModifiedProperty::class)); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'groupType' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupType($n->getEnumValue(GroupType::class)); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'modifiedProperties' => function (ParseNode $n) use ($currentObject) { $currentObject->setModifiedProperties($n->getCollectionOfObjectValues(ModifiedProperty::class)); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ];
     }
 

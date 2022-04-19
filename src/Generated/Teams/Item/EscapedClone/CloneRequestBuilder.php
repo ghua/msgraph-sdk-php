@@ -30,7 +30,7 @@ class CloneRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/teams/{team_id}/microsoft.graph.clone';
+        $this->urlTemplate = '{+baseurl}/teams/{team%2Did}/microsoft.graph.clone';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

@@ -70,14 +70,15 @@ class AccessPackageAssignmentRequestRequirements implements AdditionalDataHolder
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowCustomAssignmentSchedule' => function (self $o, ParseNode $n) { $o->setAllowCustomAssignmentSchedule($n->getBooleanValue()); },
-            'isApprovalRequiredForAdd' => function (self $o, ParseNode $n) { $o->setIsApprovalRequiredForAdd($n->getBooleanValue()); },
-            'isApprovalRequiredForUpdate' => function (self $o, ParseNode $n) { $o->setIsApprovalRequiredForUpdate($n->getBooleanValue()); },
-            'policyDescription' => function (self $o, ParseNode $n) { $o->setPolicyDescription($n->getStringValue()); },
-            'policyDisplayName' => function (self $o, ParseNode $n) { $o->setPolicyDisplayName($n->getStringValue()); },
-            'policyId' => function (self $o, ParseNode $n) { $o->setPolicyId($n->getStringValue()); },
-            'schedule' => function (self $o, ParseNode $n) { $o->setSchedule($n->getObjectValue(EntitlementManagementSchedule::class)); },
+            'allowCustomAssignmentSchedule' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowCustomAssignmentSchedule($n->getBooleanValue()); },
+            'isApprovalRequiredForAdd' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsApprovalRequiredForAdd($n->getBooleanValue()); },
+            'isApprovalRequiredForUpdate' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsApprovalRequiredForUpdate($n->getBooleanValue()); },
+            'policyDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setPolicyDescription($n->getStringValue()); },
+            'policyDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setPolicyDisplayName($n->getStringValue()); },
+            'policyId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPolicyId($n->getStringValue()); },
+            'schedule' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedule($n->getObjectValue(EntitlementManagementSchedule::class)); },
         ];
     }
 

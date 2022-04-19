@@ -88,14 +88,15 @@ class PasswordCredential implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'customKeyIdentifier' => function (self $o, ParseNode $n) { $o->setCustomKeyIdentifier($n->getBinaryContent()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'hint' => function (self $o, ParseNode $n) { $o->setHint($n->getStringValue()); },
-            'keyId' => function (self $o, ParseNode $n) { $o->setKeyId($n->getStringValue()); },
-            'secretText' => function (self $o, ParseNode $n) { $o->setSecretText($n->getStringValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
+            'customKeyIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomKeyIdentifier($n->getBinaryContent()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'hint' => function (ParseNode $n) use ($currentObject) { $currentObject->setHint($n->getStringValue()); },
+            'keyId' => function (ParseNode $n) use ($currentObject) { $currentObject->setKeyId($n->getStringValue()); },
+            'secretText' => function (ParseNode $n) use ($currentObject) { $currentObject->setSecretText($n->getStringValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
         ];
     }
 

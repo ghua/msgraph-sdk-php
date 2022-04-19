@@ -124,25 +124,26 @@ class OrgContact extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'addresses' => function (self $o, ParseNode $n) { $o->setAddresses($n->getCollectionOfObjectValues(PhysicalOfficeAddress::class)); },
-            'companyName' => function (self $o, ParseNode $n) { $o->setCompanyName($n->getStringValue()); },
-            'department' => function (self $o, ParseNode $n) { $o->setDepartment($n->getStringValue()); },
-            'directReports' => function (self $o, ParseNode $n) { $o->setDirectReports($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'givenName' => function (self $o, ParseNode $n) { $o->setGivenName($n->getStringValue()); },
-            'jobTitle' => function (self $o, ParseNode $n) { $o->setJobTitle($n->getStringValue()); },
-            'mail' => function (self $o, ParseNode $n) { $o->setMail($n->getStringValue()); },
-            'mailNickname' => function (self $o, ParseNode $n) { $o->setMailNickname($n->getStringValue()); },
-            'manager' => function (self $o, ParseNode $n) { $o->setManager($n->getObjectValue(DirectoryObject::class)); },
-            'memberOf' => function (self $o, ParseNode $n) { $o->setMemberOf($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'onPremisesLastSyncDateTime' => function (self $o, ParseNode $n) { $o->setOnPremisesLastSyncDateTime($n->getDateTimeValue()); },
-            'onPremisesProvisioningErrors' => function (self $o, ParseNode $n) { $o->setOnPremisesProvisioningErrors($n->getCollectionOfObjectValues(OnPremisesProvisioningError::class)); },
-            'onPremisesSyncEnabled' => function (self $o, ParseNode $n) { $o->setOnPremisesSyncEnabled($n->getBooleanValue()); },
-            'phones' => function (self $o, ParseNode $n) { $o->setPhones($n->getCollectionOfObjectValues(Phone::class)); },
-            'proxyAddresses' => function (self $o, ParseNode $n) { $o->setProxyAddresses($n->getCollectionOfPrimitiveValues()); },
-            'surname' => function (self $o, ParseNode $n) { $o->setSurname($n->getStringValue()); },
-            'transitiveMemberOf' => function (self $o, ParseNode $n) { $o->setTransitiveMemberOf($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'addresses' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddresses($n->getCollectionOfObjectValues(PhysicalOfficeAddress::class)); },
+            'companyName' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompanyName($n->getStringValue()); },
+            'department' => function (ParseNode $n) use ($currentObject) { $currentObject->setDepartment($n->getStringValue()); },
+            'directReports' => function (ParseNode $n) use ($currentObject) { $currentObject->setDirectReports($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'givenName' => function (ParseNode $n) use ($currentObject) { $currentObject->setGivenName($n->getStringValue()); },
+            'jobTitle' => function (ParseNode $n) use ($currentObject) { $currentObject->setJobTitle($n->getStringValue()); },
+            'mail' => function (ParseNode $n) use ($currentObject) { $currentObject->setMail($n->getStringValue()); },
+            'mailNickname' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailNickname($n->getStringValue()); },
+            'manager' => function (ParseNode $n) use ($currentObject) { $currentObject->setManager($n->getObjectValue(DirectoryObject::class)); },
+            'memberOf' => function (ParseNode $n) use ($currentObject) { $currentObject->setMemberOf($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'onPremisesLastSyncDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesLastSyncDateTime($n->getDateTimeValue()); },
+            'onPremisesProvisioningErrors' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesProvisioningErrors($n->getCollectionOfObjectValues(OnPremisesProvisioningError::class)); },
+            'onPremisesSyncEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesSyncEnabled($n->getBooleanValue()); },
+            'phones' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhones($n->getCollectionOfObjectValues(Phone::class)); },
+            'proxyAddresses' => function (ParseNode $n) use ($currentObject) { $currentObject->setProxyAddresses($n->getCollectionOfPrimitiveValues()); },
+            'surname' => function (ParseNode $n) use ($currentObject) { $currentObject->setSurname($n->getStringValue()); },
+            'transitiveMemberOf' => function (ParseNode $n) use ($currentObject) { $currentObject->setTransitiveMemberOf($n->getCollectionOfObjectValues(DirectoryObject::class)); },
         ]);
     }
 

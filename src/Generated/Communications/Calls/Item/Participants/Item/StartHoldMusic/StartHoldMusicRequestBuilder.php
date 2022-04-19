@@ -31,7 +31,7 @@ class StartHoldMusicRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/communications/calls/{call_id}/participants/{participant_id}/microsoft.graph.startHoldMusic';
+        $this->urlTemplate = '{+baseurl}/communications/calls/{call%2Did}/participants/{participant%2Did}/microsoft.graph.startHoldMusic';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

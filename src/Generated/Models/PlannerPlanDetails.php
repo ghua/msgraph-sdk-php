@@ -43,9 +43,10 @@ class PlannerPlanDetails extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'categoryDescriptions' => function (self $o, ParseNode $n) { $o->setCategoryDescriptions($n->getObjectValue(PlannerCategoryDescriptions::class)); },
-            'sharedWith' => function (self $o, ParseNode $n) { $o->setSharedWith($n->getObjectValue(PlannerUserIds::class)); },
+            'categoryDescriptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategoryDescriptions($n->getObjectValue(PlannerCategoryDescriptions::class)); },
+            'sharedWith' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedWith($n->getObjectValue(PlannerUserIds::class)); },
         ]);
     }
 

@@ -32,8 +32,9 @@ class SwapShiftsChangeRequest extends OfferShiftRequest
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'recipientShiftId' => function (self $o, ParseNode $n) { $o->setRecipientShiftId($n->getStringValue()); },
+            'recipientShiftId' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipientShiftId($n->getStringValue()); },
         ]);
     }
 

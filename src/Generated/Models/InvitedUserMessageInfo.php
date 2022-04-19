@@ -66,10 +66,11 @@ class InvitedUserMessageInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'ccRecipients' => function (self $o, ParseNode $n) { $o->setCcRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
-            'customizedMessageBody' => function (self $o, ParseNode $n) { $o->setCustomizedMessageBody($n->getStringValue()); },
-            'messageLanguage' => function (self $o, ParseNode $n) { $o->setMessageLanguage($n->getStringValue()); },
+            'ccRecipients' => function (ParseNode $n) use ($currentObject) { $currentObject->setCcRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
+            'customizedMessageBody' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomizedMessageBody($n->getStringValue()); },
+            'messageLanguage' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessageLanguage($n->getStringValue()); },
         ];
     }
 

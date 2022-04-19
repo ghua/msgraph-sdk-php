@@ -67,13 +67,14 @@ class Quota implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'deleted' => function (self $o, ParseNode $n) { $o->setDeleted($n->getIntegerValue()); },
-            'remaining' => function (self $o, ParseNode $n) { $o->setRemaining($n->getIntegerValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getStringValue()); },
-            'storagePlanInformation' => function (self $o, ParseNode $n) { $o->setStoragePlanInformation($n->getObjectValue(StoragePlanInformation::class)); },
-            'total' => function (self $o, ParseNode $n) { $o->setTotal($n->getIntegerValue()); },
-            'used' => function (self $o, ParseNode $n) { $o->setUsed($n->getIntegerValue()); },
+            'deleted' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeleted($n->getIntegerValue()); },
+            'remaining' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemaining($n->getIntegerValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getStringValue()); },
+            'storagePlanInformation' => function (ParseNode $n) use ($currentObject) { $currentObject->setStoragePlanInformation($n->getObjectValue(StoragePlanInformation::class)); },
+            'total' => function (ParseNode $n) use ($currentObject) { $currentObject->setTotal($n->getIntegerValue()); },
+            'used' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsed($n->getIntegerValue()); },
         ];
     }
 

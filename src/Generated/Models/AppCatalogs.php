@@ -32,8 +32,9 @@ class AppCatalogs extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'teamsApps' => function (self $o, ParseNode $n) { $o->setTeamsApps($n->getCollectionOfObjectValues(TeamsApp::class)); },
+            'teamsApps' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeamsApps($n->getCollectionOfObjectValues(TeamsApp::class)); },
         ]);
     }
 

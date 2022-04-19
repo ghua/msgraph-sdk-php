@@ -45,8 +45,9 @@ class GetEffectivePermissionsWithScopeResponse implements AdditionalDataHolder, 
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getCollectionOfObjectValues(RolePermission::class)); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getCollectionOfObjectValues(RolePermission::class)); },
         ];
     }
 

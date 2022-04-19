@@ -45,8 +45,9 @@ class UpdateWindowsDeviceAccountRequestBody implements AdditionalDataHolder, Par
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'updateWindowsDeviceAccountActionParameter' => function (self $o, ParseNode $n) { $o->setUpdateWindowsDeviceAccountActionParameter($n->getObjectValue(UpdateWindowsDeviceAccountActionParameter::class)); },
+            'updateWindowsDeviceAccountActionParameter' => function (ParseNode $n) use ($currentObject) { $currentObject->setUpdateWindowsDeviceAccountActionParameter($n->getObjectValue(UpdateWindowsDeviceAccountActionParameter::class)); },
         ];
     }
 

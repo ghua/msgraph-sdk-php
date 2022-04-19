@@ -67,14 +67,15 @@ class ApprovalStage extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignedToMe' => function (self $o, ParseNode $n) { $o->setAssignedToMe($n->getBooleanValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'justification' => function (self $o, ParseNode $n) { $o->setJustification($n->getStringValue()); },
-            'reviewedBy' => function (self $o, ParseNode $n) { $o->setReviewedBy($n->getObjectValue(Identity::class)); },
-            'reviewedDateTime' => function (self $o, ParseNode $n) { $o->setReviewedDateTime($n->getDateTimeValue()); },
-            'reviewResult' => function (self $o, ParseNode $n) { $o->setReviewResult($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
+            'assignedToMe' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedToMe($n->getBooleanValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'justification' => function (ParseNode $n) use ($currentObject) { $currentObject->setJustification($n->getStringValue()); },
+            'reviewedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewedBy($n->getObjectValue(Identity::class)); },
+            'reviewedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewedDateTime($n->getDateTimeValue()); },
+            'reviewResult' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewResult($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
         ]);
     }
 

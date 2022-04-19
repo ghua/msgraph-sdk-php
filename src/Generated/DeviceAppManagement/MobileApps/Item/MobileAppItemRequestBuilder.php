@@ -59,7 +59,7 @@ class MobileAppItemRequestBuilder
     */
     public function assignmentsById(string $id): MobileAppAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['mobileAppAssignment_id'] = $id;
+        $urlTplParams['mobileAppAssignment%2Did'] = $id;
         return new MobileAppAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -70,7 +70,7 @@ class MobileAppItemRequestBuilder
     */
     public function categoriesById(string $id): MobileAppCategoryItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['mobileAppCategory_id'] = $id;
+        $urlTplParams['mobileAppCategory%2Did'] = $id;
         return new MobileAppCategoryItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -80,7 +80,7 @@ class MobileAppItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceAppManagement/mobileApps/{mobileApp_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceAppManagement/mobileApps/{mobileApp%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -201,4 +201,15 @@ class MobileAppItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

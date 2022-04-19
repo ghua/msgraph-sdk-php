@@ -41,7 +41,7 @@ class RiskyUserItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identityProtection/riskyUsers/{riskyUser_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identityProtection/riskyUsers/{riskyUser%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -152,7 +152,7 @@ class RiskyUserItemRequestBuilder
     */
     public function historyById(string $id): RiskyUserHistoryItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['riskyUserHistoryItem_id'] = $id;
+        $urlTplParams['riskyUserHistoryItem%2Did'] = $id;
         return new RiskyUserHistoryItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -173,4 +173,15 @@ class RiskyUserItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

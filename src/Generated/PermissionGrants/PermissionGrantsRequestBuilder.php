@@ -57,7 +57,7 @@ class PermissionGrantsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/permissionGrants{?search,filter,orderby,select,expand}';
+        $this->urlTemplate = '{+baseurl}/permissionGrants{?%24search,%24filter,%24orderby,%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -142,4 +142,24 @@ class PermissionGrantsRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var string|null $filter Filter items by property values */
+        public ?string $filter = null;
+        
+        /** @var array<string>|null $orderby Order items by property values */
+        public ?array $orderby = null;
+        
+        /** @var string|null $search Search items by search phrases */
+        public ?string $search = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

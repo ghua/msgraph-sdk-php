@@ -49,11 +49,12 @@ class AuditLogRoot extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'directoryAudits' => function (self $o, ParseNode $n) { $o->setDirectoryAudits($n->getCollectionOfObjectValues(DirectoryAudit::class)); },
-            'provisioning' => function (self $o, ParseNode $n) { $o->setProvisioning($n->getCollectionOfObjectValues(ProvisioningObjectSummary::class)); },
-            'restrictedSignIns' => function (self $o, ParseNode $n) { $o->setRestrictedSignIns($n->getCollectionOfObjectValues(RestrictedSignIn::class)); },
-            'signIns' => function (self $o, ParseNode $n) { $o->setSignIns($n->getCollectionOfObjectValues(SignIn::class)); },
+            'directoryAudits' => function (ParseNode $n) use ($currentObject) { $currentObject->setDirectoryAudits($n->getCollectionOfObjectValues(DirectoryAudit::class)); },
+            'provisioning' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisioning($n->getCollectionOfObjectValues(ProvisioningObjectSummary::class)); },
+            'restrictedSignIns' => function (ParseNode $n) use ($currentObject) { $currentObject->setRestrictedSignIns($n->getCollectionOfObjectValues(RestrictedSignIn::class)); },
+            'signIns' => function (ParseNode $n) use ($currentObject) { $currentObject->setSignIns($n->getCollectionOfObjectValues(SignIn::class)); },
         ]);
     }
 

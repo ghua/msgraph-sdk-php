@@ -70,14 +70,15 @@ class EscapedPrint implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'connectors' => function (self $o, ParseNode $n) { $o->setConnectors($n->getCollectionOfObjectValues(PrintConnector::class)); },
-            'operations' => function (self $o, ParseNode $n) { $o->setOperations($n->getCollectionOfObjectValues(PrintOperation::class)); },
-            'printers' => function (self $o, ParseNode $n) { $o->setPrinters($n->getCollectionOfObjectValues(Printer::class)); },
-            'services' => function (self $o, ParseNode $n) { $o->setServices($n->getCollectionOfObjectValues(PrintService::class)); },
-            'settings' => function (self $o, ParseNode $n) { $o->setSettings($n->getObjectValue(PrintSettings::class)); },
-            'shares' => function (self $o, ParseNode $n) { $o->setShares($n->getCollectionOfObjectValues(PrinterShare::class)); },
-            'taskDefinitions' => function (self $o, ParseNode $n) { $o->setTaskDefinitions($n->getCollectionOfObjectValues(PrintTaskDefinition::class)); },
+            'connectors' => function (ParseNode $n) use ($currentObject) { $currentObject->setConnectors($n->getCollectionOfObjectValues(PrintConnector::class)); },
+            'operations' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperations($n->getCollectionOfObjectValues(PrintOperation::class)); },
+            'printers' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrinters($n->getCollectionOfObjectValues(Printer::class)); },
+            'services' => function (ParseNode $n) use ($currentObject) { $currentObject->setServices($n->getCollectionOfObjectValues(PrintService::class)); },
+            'settings' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettings($n->getObjectValue(PrintSettings::class)); },
+            'shares' => function (ParseNode $n) use ($currentObject) { $currentObject->setShares($n->getCollectionOfObjectValues(PrinterShare::class)); },
+            'taskDefinitions' => function (ParseNode $n) use ($currentObject) { $currentObject->setTaskDefinitions($n->getCollectionOfObjectValues(PrintTaskDefinition::class)); },
         ];
     }
 

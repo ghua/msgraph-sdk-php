@@ -31,7 +31,7 @@ class FilterByCurrentUserWithOnRequestBuilder
      * @param string|null $on Usage: on='{on}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $on = null) {
-        $this->urlTemplate = '{+baseurl}/identityGovernance/entitlementManagement/catalogs/{accessPackageCatalog_id}/accessPackages/microsoft.graph.filterByCurrentUser(on=\'{on}\')';
+        $this->urlTemplate = '{+baseurl}/identityGovernance/entitlementManagement/catalogs/{accessPackageCatalog%2Did}/accessPackages/microsoft.graph.filterByCurrentUser(on=\'{on}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

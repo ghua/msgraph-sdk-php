@@ -44,8 +44,9 @@ class CurrencyColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'locale' => function (self $o, ParseNode $n) { $o->setLocale($n->getStringValue()); },
+            'locale' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocale($n->getStringValue()); },
         ];
     }
 

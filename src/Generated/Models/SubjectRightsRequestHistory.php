@@ -73,12 +73,13 @@ class SubjectRightsRequestHistory implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'changedBy' => function (self $o, ParseNode $n) { $o->setChangedBy($n->getObjectValue(IdentitySet::class)); },
-            'eventDateTime' => function (self $o, ParseNode $n) { $o->setEventDateTime($n->getDateTimeValue()); },
-            'stage' => function (self $o, ParseNode $n) { $o->setStage($n->getEnumValue(SubjectRightsRequestStage::class)); },
-            'stageStatus' => function (self $o, ParseNode $n) { $o->setStageStatus($n->getEnumValue(SubjectRightsRequestStageStatus::class)); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
+            'changedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setChangedBy($n->getObjectValue(IdentitySet::class)); },
+            'eventDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEventDateTime($n->getDateTimeValue()); },
+            'stage' => function (ParseNode $n) use ($currentObject) { $currentObject->setStage($n->getEnumValue(SubjectRightsRequestStage::class)); },
+            'stageStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setStageStatus($n->getEnumValue(SubjectRightsRequestStageStatus::class)); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
         ];
     }
 

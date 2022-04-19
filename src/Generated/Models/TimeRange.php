@@ -56,9 +56,10 @@ class TimeRange implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'endTime' => function (self $o, ParseNode $n) { $o->setEndTime($n->getTimeValue()); },
-            'startTime' => function (self $o, ParseNode $n) { $o->setStartTime($n->getTimeValue()); },
+            'endTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndTime($n->getTimeValue()); },
+            'startTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartTime($n->getTimeValue()); },
         ];
     }
 

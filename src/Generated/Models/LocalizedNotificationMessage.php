@@ -45,12 +45,13 @@ class LocalizedNotificationMessage extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'isDefault' => function (self $o, ParseNode $n) { $o->setIsDefault($n->getBooleanValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'locale' => function (self $o, ParseNode $n) { $o->setLocale($n->getStringValue()); },
-            'messageTemplate' => function (self $o, ParseNode $n) { $o->setMessageTemplate($n->getStringValue()); },
-            'subject' => function (self $o, ParseNode $n) { $o->setSubject($n->getStringValue()); },
+            'isDefault' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDefault($n->getBooleanValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'locale' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocale($n->getStringValue()); },
+            'messageTemplate' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessageTemplate($n->getStringValue()); },
+            'subject' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubject($n->getStringValue()); },
         ]);
     }
 

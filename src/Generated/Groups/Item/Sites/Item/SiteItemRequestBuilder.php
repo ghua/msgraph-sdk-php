@@ -145,7 +145,7 @@ class SiteItemRequestBuilder
     */
     public function columnsById(string $id): MicrosoftGraphGeneratedGroupsItemSitesItemColumnsItemColumnDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['columnDefinition_id'] = $id;
+        $urlTplParams['columnDefinition%2Did'] = $id;
         return new MicrosoftGraphGeneratedGroupsItemSitesItemColumnsItemColumnDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -155,7 +155,7 @@ class SiteItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/sites/{site_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/sites/{site%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -167,7 +167,7 @@ class SiteItemRequestBuilder
     */
     public function contentTypesById(string $id): ContentTypeItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['contentType_id'] = $id;
+        $urlTplParams['contentType%2Did'] = $id;
         return new ContentTypeItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -260,7 +260,7 @@ class SiteItemRequestBuilder
     */
     public function drivesById(string $id): DriveItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['drive_id'] = $id;
+        $urlTplParams['drive%2Did'] = $id;
         return new DriveItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -271,7 +271,7 @@ class SiteItemRequestBuilder
     */
     public function externalColumnsById(string $id): MicrosoftGraphGeneratedGroupsItemSitesItemExternalColumnsItemColumnDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['columnDefinition_id'] = $id;
+        $urlTplParams['columnDefinition%2Did'] = $id;
         return new MicrosoftGraphGeneratedGroupsItemSitesItemExternalColumnsItemColumnDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -299,7 +299,7 @@ class SiteItemRequestBuilder
     */
     public function itemsById(string $id): BaseItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['baseItem_id'] = $id;
+        $urlTplParams['baseItem%2Did'] = $id;
         return new BaseItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -310,7 +310,7 @@ class SiteItemRequestBuilder
     */
     public function listsById(string $id): ListItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['list_id'] = $id;
+        $urlTplParams['list%2Did'] = $id;
         return new ListItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -338,7 +338,7 @@ class SiteItemRequestBuilder
     */
     public function permissionsById(string $id): PermissionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['permission_id'] = $id;
+        $urlTplParams['permission%2Did'] = $id;
         return new PermissionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -349,7 +349,7 @@ class SiteItemRequestBuilder
     */
     public function sitesById(string $id): SiteItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['site_id1'] = $id;
+        $urlTplParams['site%2Did1'] = $id;
         return new SiteItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -360,8 +360,19 @@ class SiteItemRequestBuilder
     */
     public function termStoresById(string $id): StoreItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['store_id'] = $id;
+        $urlTplParams['store%2Did'] = $id;
         return new StoreItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

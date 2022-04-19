@@ -52,8 +52,9 @@ class CancelRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'cancellationMessage' => function (self $o, ParseNode $n) { $o->setCancellationMessage($n->getStringValue()); },
+            'cancellationMessage' => function (ParseNode $n) use ($currentObject) { $currentObject->setCancellationMessage($n->getStringValue()); },
         ];
     }
 

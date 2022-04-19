@@ -35,9 +35,10 @@ class RecordOperation extends CommsOperation
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'recordingAccessToken' => function (self $o, ParseNode $n) { $o->setRecordingAccessToken($n->getStringValue()); },
-            'recordingLocation' => function (self $o, ParseNode $n) { $o->setRecordingLocation($n->getStringValue()); },
+            'recordingAccessToken' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecordingAccessToken($n->getStringValue()); },
+            'recordingLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecordingLocation($n->getStringValue()); },
         ]);
     }
 

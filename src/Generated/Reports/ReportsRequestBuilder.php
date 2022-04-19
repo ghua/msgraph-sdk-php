@@ -162,7 +162,7 @@ class ReportsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/reports{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/reports{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -220,7 +220,7 @@ class ReportsRequestBuilder
     */
     public function dailyPrintUsageByPrinterById(string $id): MicrosoftGraphGeneratedReportsDailyPrintUsageByPrinterItemPrintUsageByPrinterItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printUsageByPrinter_id'] = $id;
+        $urlTplParams['printUsageByPrinter%2Did'] = $id;
         return new MicrosoftGraphGeneratedReportsDailyPrintUsageByPrinterItemPrintUsageByPrinterItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -231,7 +231,7 @@ class ReportsRequestBuilder
     */
     public function dailyPrintUsageByUserById(string $id): MicrosoftGraphGeneratedReportsDailyPrintUsageByUserItemPrintUsageByUserItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printUsageByUser_id'] = $id;
+        $urlTplParams['printUsageByUser%2Did'] = $id;
         return new MicrosoftGraphGeneratedReportsDailyPrintUsageByUserItemPrintUsageByUserItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -1089,7 +1089,7 @@ class ReportsRequestBuilder
     */
     public function monthlyPrintUsageByPrinterById(string $id): MicrosoftGraphGeneratedReportsMonthlyPrintUsageByPrinterItemPrintUsageByPrinterItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printUsageByPrinter_id'] = $id;
+        $urlTplParams['printUsageByPrinter%2Did'] = $id;
         return new MicrosoftGraphGeneratedReportsMonthlyPrintUsageByPrinterItemPrintUsageByPrinterItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -1100,7 +1100,7 @@ class ReportsRequestBuilder
     */
     public function monthlyPrintUsageByUserById(string $id): MicrosoftGraphGeneratedReportsMonthlyPrintUsageByUserItemPrintUsageByUserItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printUsageByUser_id'] = $id;
+        $urlTplParams['printUsageByUser%2Did'] = $id;
         return new MicrosoftGraphGeneratedReportsMonthlyPrintUsageByUserItemPrintUsageByUserItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -1121,4 +1121,15 @@ class ReportsRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

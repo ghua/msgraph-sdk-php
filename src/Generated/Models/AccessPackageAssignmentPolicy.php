@@ -122,19 +122,20 @@ class AccessPackageAssignmentPolicy extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'accessPackage' => function (self $o, ParseNode $n) { $o->setAccessPackage($n->getObjectValue(AccessPackage::class)); },
-            'allowedTargetScope' => function (self $o, ParseNode $n) { $o->setAllowedTargetScope($n->getEnumValue(AllowedTargetScope::class)); },
-            'catalog' => function (self $o, ParseNode $n) { $o->setCatalog($n->getObjectValue(AccessPackageCatalog::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'expiration' => function (self $o, ParseNode $n) { $o->setExpiration($n->getObjectValue(ExpirationPattern::class)); },
-            'modifiedDateTime' => function (self $o, ParseNode $n) { $o->setModifiedDateTime($n->getDateTimeValue()); },
-            'requestApprovalSettings' => function (self $o, ParseNode $n) { $o->setRequestApprovalSettings($n->getObjectValue(AccessPackageAssignmentApprovalSettings::class)); },
-            'requestorSettings' => function (self $o, ParseNode $n) { $o->setRequestorSettings($n->getObjectValue(AccessPackageAssignmentRequestorSettings::class)); },
-            'reviewSettings' => function (self $o, ParseNode $n) { $o->setReviewSettings($n->getObjectValue(AccessPackageAssignmentReviewSettings::class)); },
-            'specificAllowedTargets' => function (self $o, ParseNode $n) { $o->setSpecificAllowedTargets($n->getCollectionOfObjectValues(SubjectSet::class)); },
+            'accessPackage' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessPackage($n->getObjectValue(AccessPackage::class)); },
+            'allowedTargetScope' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedTargetScope($n->getEnumValue(AllowedTargetScope::class)); },
+            'catalog' => function (ParseNode $n) use ($currentObject) { $currentObject->setCatalog($n->getObjectValue(AccessPackageCatalog::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'expiration' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpiration($n->getObjectValue(ExpirationPattern::class)); },
+            'modifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setModifiedDateTime($n->getDateTimeValue()); },
+            'requestApprovalSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestApprovalSettings($n->getObjectValue(AccessPackageAssignmentApprovalSettings::class)); },
+            'requestorSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestorSettings($n->getObjectValue(AccessPackageAssignmentRequestorSettings::class)); },
+            'reviewSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewSettings($n->getObjectValue(AccessPackageAssignmentReviewSettings::class)); },
+            'specificAllowedTargets' => function (ParseNode $n) use ($currentObject) { $currentObject->setSpecificAllowedTargets($n->getCollectionOfObjectValues(SubjectSet::class)); },
         ]);
     }
 

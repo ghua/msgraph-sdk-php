@@ -108,17 +108,18 @@ class ItemActivityStat extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'access' => function (self $o, ParseNode $n) { $o->setAccess($n->getObjectValue(ItemActionStat::class)); },
-            'activities' => function (self $o, ParseNode $n) { $o->setActivities($n->getCollectionOfObjectValues(ItemActivity::class)); },
-            'create' => function (self $o, ParseNode $n) { $o->setCreate($n->getObjectValue(ItemActionStat::class)); },
-            'delete' => function (self $o, ParseNode $n) { $o->setDelete($n->getObjectValue(ItemActionStat::class)); },
-            'edit' => function (self $o, ParseNode $n) { $o->setEdit($n->getObjectValue(ItemActionStat::class)); },
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'incompleteData' => function (self $o, ParseNode $n) { $o->setIncompleteData($n->getObjectValue(IncompleteData::class)); },
-            'isTrending' => function (self $o, ParseNode $n) { $o->setIsTrending($n->getBooleanValue()); },
-            'move' => function (self $o, ParseNode $n) { $o->setMove($n->getObjectValue(ItemActionStat::class)); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
+            'access' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccess($n->getObjectValue(ItemActionStat::class)); },
+            'activities' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivities($n->getCollectionOfObjectValues(ItemActivity::class)); },
+            'create' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreate($n->getObjectValue(ItemActionStat::class)); },
+            'delete' => function (ParseNode $n) use ($currentObject) { $currentObject->setDelete($n->getObjectValue(ItemActionStat::class)); },
+            'edit' => function (ParseNode $n) use ($currentObject) { $currentObject->setEdit($n->getObjectValue(ItemActionStat::class)); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'incompleteData' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncompleteData($n->getObjectValue(IncompleteData::class)); },
+            'isTrending' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsTrending($n->getBooleanValue()); },
+            'move' => function (ParseNode $n) use ($currentObject) { $currentObject->setMove($n->getObjectValue(ItemActionStat::class)); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
         ]);
     }
 

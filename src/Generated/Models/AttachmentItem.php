@@ -83,13 +83,14 @@ class AttachmentItem implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'attachmentType' => function (self $o, ParseNode $n) { $o->setAttachmentType($n->getEnumValue(AttachmentType::class)); },
-            'contentId' => function (self $o, ParseNode $n) { $o->setContentId($n->getStringValue()); },
-            'contentType' => function (self $o, ParseNode $n) { $o->setContentType($n->getStringValue()); },
-            'isInline' => function (self $o, ParseNode $n) { $o->setIsInline($n->getBooleanValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'size' => function (self $o, ParseNode $n) { $o->setSize($n->getIntegerValue()); },
+            'attachmentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttachmentType($n->getEnumValue(AttachmentType::class)); },
+            'contentId' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentId($n->getStringValue()); },
+            'contentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentType($n->getStringValue()); },
+            'isInline' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsInline($n->getBooleanValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'size' => function (ParseNode $n) use ($currentObject) { $currentObject->setSize($n->getIntegerValue()); },
         ];
     }
 

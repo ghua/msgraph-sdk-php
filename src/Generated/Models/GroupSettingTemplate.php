@@ -54,10 +54,11 @@ class GroupSettingTemplate extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'values' => function (self $o, ParseNode $n) { $o->setValues($n->getCollectionOfObjectValues(SettingTemplateValue::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'values' => function (ParseNode $n) use ($currentObject) { $currentObject->setValues($n->getCollectionOfObjectValues(SettingTemplateValue::class)); },
         ]);
     }
 

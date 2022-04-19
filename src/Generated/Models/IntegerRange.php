@@ -55,9 +55,10 @@ class IntegerRange implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'end' => function (self $o, ParseNode $n) { $o->setEnd($n->getIntegerValue()); },
-            'start' => function (self $o, ParseNode $n) { $o->setStart($n->getIntegerValue()); },
+            'end' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnd($n->getIntegerValue()); },
+            'start' => function (ParseNode $n) use ($currentObject) { $currentObject->setStart($n->getIntegerValue()); },
         ];
     }
 

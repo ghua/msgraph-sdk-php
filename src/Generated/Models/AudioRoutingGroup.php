@@ -38,10 +38,11 @@ class AudioRoutingGroup extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'receivers' => function (self $o, ParseNode $n) { $o->setReceivers($n->getCollectionOfPrimitiveValues()); },
-            'routingMode' => function (self $o, ParseNode $n) { $o->setRoutingMode($n->getEnumValue(RoutingMode::class)); },
-            'sources' => function (self $o, ParseNode $n) { $o->setSources($n->getCollectionOfPrimitiveValues()); },
+            'receivers' => function (ParseNode $n) use ($currentObject) { $currentObject->setReceivers($n->getCollectionOfPrimitiveValues()); },
+            'routingMode' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoutingMode($n->getEnumValue(RoutingMode::class)); },
+            'sources' => function (ParseNode $n) use ($currentObject) { $currentObject->setSources($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

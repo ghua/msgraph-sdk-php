@@ -31,7 +31,7 @@ class CreateOrGetRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/onlineMeetings/microsoft.graph.createOrGet';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/onlineMeetings/microsoft.graph.createOrGet';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

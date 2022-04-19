@@ -202,7 +202,7 @@ class ManagedDeviceItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/managedDevices/{managedDevice_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/managedDevices/{managedDevice%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -296,7 +296,7 @@ class ManagedDeviceItemRequestBuilder
     */
     public function deviceCompliancePolicyStatesById(string $id): DeviceCompliancePolicyStateItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceCompliancePolicyState_id'] = $id;
+        $urlTplParams['deviceCompliancePolicyState%2Did'] = $id;
         return new DeviceCompliancePolicyStateItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -307,7 +307,7 @@ class ManagedDeviceItemRequestBuilder
     */
     public function deviceConfigurationStatesById(string $id): DeviceConfigurationStateItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceConfigurationState_id'] = $id;
+        $urlTplParams['deviceConfigurationState%2Did'] = $id;
         return new DeviceConfigurationStateItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -345,4 +345,15 @@ class ManagedDeviceItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

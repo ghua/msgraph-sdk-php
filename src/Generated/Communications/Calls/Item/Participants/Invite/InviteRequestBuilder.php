@@ -31,7 +31,7 @@ class InviteRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/communications/calls/{call_id}/participants/microsoft.graph.invite';
+        $this->urlTemplate = '{+baseurl}/communications/calls/{call%2Did}/participants/microsoft.graph.invite';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

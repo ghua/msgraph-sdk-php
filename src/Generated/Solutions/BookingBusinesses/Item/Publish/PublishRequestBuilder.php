@@ -30,7 +30,7 @@ class PublishRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/solutions/bookingBusinesses/{bookingBusiness_id}/microsoft.graph.publish';
+        $this->urlTemplate = '{+baseurl}/solutions/bookingBusinesses/{bookingBusiness%2Did}/microsoft.graph.publish';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

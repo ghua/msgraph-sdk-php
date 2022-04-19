@@ -41,7 +41,7 @@ class FileRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/agreements/{agreement_id}/file{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/agreements/{agreement%2Did}/file{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -152,7 +152,7 @@ class FileRequestBuilder
     */
     public function localizationsById(string $id): AgreementFileLocalizationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['agreementFileLocalization_id'] = $id;
+        $urlTplParams['agreementFileLocalization%2Did'] = $id;
         return new AgreementFileLocalizationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -173,4 +173,15 @@ class FileRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

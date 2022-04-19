@@ -47,10 +47,11 @@ class ConversationMember extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'roles' => function (self $o, ParseNode $n) { $o->setRoles($n->getCollectionOfPrimitiveValues()); },
-            'visibleHistoryStartDateTime' => function (self $o, ParseNode $n) { $o->setVisibleHistoryStartDateTime($n->getDateTimeValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'roles' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoles($n->getCollectionOfPrimitiveValues()); },
+            'visibleHistoryStartDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisibleHistoryStartDateTime($n->getDateTimeValue()); },
         ]);
     }
 

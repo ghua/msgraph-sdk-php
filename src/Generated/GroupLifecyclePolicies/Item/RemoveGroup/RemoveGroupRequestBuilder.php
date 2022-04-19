@@ -30,7 +30,7 @@ class RemoveGroupRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groupLifecyclePolicies/{groupLifecyclePolicy_id}/microsoft.graph.removeGroup';
+        $this->urlTemplate = '{+baseurl}/groupLifecyclePolicies/{groupLifecyclePolicy%2Did}/microsoft.graph.removeGroup';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

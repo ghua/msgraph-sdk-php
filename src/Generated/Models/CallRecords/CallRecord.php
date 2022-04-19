@@ -70,17 +70,18 @@ class CallRecord extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'joinWebUrl' => function (self $o, ParseNode $n) { $o->setJoinWebUrl($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'modalities' => function (self $o, ParseNode $n) { $o->setModalities($n->getCollectionOfEnumValues(Modality::class)); },
-            'organizer' => function (self $o, ParseNode $n) { $o->setOrganizer($n->getObjectValue(IdentitySet::class)); },
-            'participants' => function (self $o, ParseNode $n) { $o->setParticipants($n->getCollectionOfObjectValues(IdentitySet::class)); },
-            'sessions' => function (self $o, ParseNode $n) { $o->setSessions($n->getCollectionOfObjectValues(Session::class)); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(CallType::class)); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getIntegerValue()); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'joinWebUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setJoinWebUrl($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'modalities' => function (ParseNode $n) use ($currentObject) { $currentObject->setModalities($n->getCollectionOfEnumValues(Modality::class)); },
+            'organizer' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrganizer($n->getObjectValue(IdentitySet::class)); },
+            'participants' => function (ParseNode $n) use ($currentObject) { $currentObject->setParticipants($n->getCollectionOfObjectValues(IdentitySet::class)); },
+            'sessions' => function (ParseNode $n) use ($currentObject) { $currentObject->setSessions($n->getCollectionOfObjectValues(Session::class)); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(CallType::class)); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getIntegerValue()); },
         ]);
     }
 

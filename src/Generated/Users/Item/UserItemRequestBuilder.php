@@ -564,7 +564,7 @@ class UserItemRequestBuilder
     */
     public function activitiesById(string $id): UserActivityItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['userActivity_id'] = $id;
+        $urlTplParams['userActivity%2Did'] = $id;
         return new UserActivityItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -575,7 +575,7 @@ class UserItemRequestBuilder
     */
     public function agreementAcceptancesById(string $id): AgreementAcceptanceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['agreementAcceptance_id'] = $id;
+        $urlTplParams['agreementAcceptance%2Did'] = $id;
         return new AgreementAcceptanceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -586,7 +586,7 @@ class UserItemRequestBuilder
     */
     public function appRoleAssignmentsById(string $id): AppRoleAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['appRoleAssignment_id'] = $id;
+        $urlTplParams['appRoleAssignment%2Did'] = $id;
         return new AppRoleAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -597,7 +597,7 @@ class UserItemRequestBuilder
     */
     public function calendarGroupsById(string $id): CalendarGroupItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['calendarGroup_id'] = $id;
+        $urlTplParams['calendarGroup%2Did'] = $id;
         return new CalendarGroupItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -608,7 +608,7 @@ class UserItemRequestBuilder
     */
     public function calendarsById(string $id): CalendarItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['calendar_id'] = $id;
+        $urlTplParams['calendar%2Did'] = $id;
         return new CalendarItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -619,7 +619,7 @@ class UserItemRequestBuilder
     */
     public function calendarViewById(string $id): MicrosoftGraphGeneratedUsersItemCalendarViewItemEventItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['event_id'] = $id;
+        $urlTplParams['event%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemCalendarViewItemEventItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -630,7 +630,7 @@ class UserItemRequestBuilder
     */
     public function chatsById(string $id): ChatItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['chat_id'] = $id;
+        $urlTplParams['chat%2Did'] = $id;
         return new ChatItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -640,7 +640,7 @@ class UserItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -652,7 +652,7 @@ class UserItemRequestBuilder
     */
     public function contactFoldersById(string $id): ContactFolderItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['contactFolder_id'] = $id;
+        $urlTplParams['contactFolder%2Did'] = $id;
         return new ContactFolderItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -663,7 +663,7 @@ class UserItemRequestBuilder
     */
     public function contactsById(string $id): ContactItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['contact_id'] = $id;
+        $urlTplParams['contact%2Did'] = $id;
         return new ContactItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -694,7 +694,7 @@ class UserItemRequestBuilder
     */
     public function createdObjectsById(string $id): MicrosoftGraphGeneratedUsersItemCreatedObjectsItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemCreatedObjectsItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -767,7 +767,7 @@ class UserItemRequestBuilder
     */
     public function deviceManagementTroubleshootingEventsById(string $id): DeviceManagementTroubleshootingEventItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceManagementTroubleshootingEvent_id'] = $id;
+        $urlTplParams['deviceManagementTroubleshootingEvent%2Did'] = $id;
         return new DeviceManagementTroubleshootingEventItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -778,7 +778,7 @@ class UserItemRequestBuilder
     */
     public function directReportsById(string $id): MicrosoftGraphGeneratedUsersItemDirectReportsItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemDirectReportsItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -789,7 +789,7 @@ class UserItemRequestBuilder
     */
     public function drivesById(string $id): DriveItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['drive_id'] = $id;
+        $urlTplParams['drive%2Did'] = $id;
         return new DriveItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -800,7 +800,7 @@ class UserItemRequestBuilder
     */
     public function eventsById(string $id): MicrosoftGraphGeneratedUsersItemEventsItemEventItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['event_id'] = $id;
+        $urlTplParams['event%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemEventsItemEventItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -811,7 +811,7 @@ class UserItemRequestBuilder
     */
     public function extensionsById(string $id): ExtensionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['extension_id'] = $id;
+        $urlTplParams['extension%2Did'] = $id;
         return new ExtensionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -822,7 +822,7 @@ class UserItemRequestBuilder
     */
     public function followedSitesById(string $id): SiteItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['site_id'] = $id;
+        $urlTplParams['site%2Did'] = $id;
         return new SiteItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -866,7 +866,7 @@ class UserItemRequestBuilder
     */
     public function joinedTeamsById(string $id): TeamItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['team_id'] = $id;
+        $urlTplParams['team%2Did'] = $id;
         return new TeamItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -877,7 +877,7 @@ class UserItemRequestBuilder
     */
     public function licenseDetailsById(string $id): LicenseDetailsItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['licenseDetails_id'] = $id;
+        $urlTplParams['licenseDetails%2Did'] = $id;
         return new LicenseDetailsItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -888,7 +888,7 @@ class UserItemRequestBuilder
     */
     public function mailFoldersById(string $id): MailFolderItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['mailFolder_id'] = $id;
+        $urlTplParams['mailFolder%2Did'] = $id;
         return new MailFolderItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -899,7 +899,7 @@ class UserItemRequestBuilder
     */
     public function managedAppRegistrationsById(string $id): ManagedAppRegistrationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedAppRegistration_id'] = $id;
+        $urlTplParams['managedAppRegistration%2Did'] = $id;
         return new ManagedAppRegistrationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -910,7 +910,7 @@ class UserItemRequestBuilder
     */
     public function managedDevicesById(string $id): ManagedDeviceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedDevice_id'] = $id;
+        $urlTplParams['managedDevice%2Did'] = $id;
         return new ManagedDeviceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -921,7 +921,7 @@ class UserItemRequestBuilder
     */
     public function memberOfById(string $id): MicrosoftGraphGeneratedUsersItemMemberOfItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemMemberOfItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -932,7 +932,7 @@ class UserItemRequestBuilder
     */
     public function messagesById(string $id): MessageItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['message_id'] = $id;
+        $urlTplParams['message%2Did'] = $id;
         return new MessageItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -943,7 +943,7 @@ class UserItemRequestBuilder
     */
     public function oauth2PermissionGrantsById(string $id): OAuth2PermissionGrantItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['oAuth2PermissionGrant_id'] = $id;
+        $urlTplParams['oAuth2PermissionGrant%2Did'] = $id;
         return new OAuth2PermissionGrantItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -954,7 +954,7 @@ class UserItemRequestBuilder
     */
     public function onlineMeetingsById(string $id): OnlineMeetingItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['onlineMeeting_id'] = $id;
+        $urlTplParams['onlineMeeting%2Did'] = $id;
         return new OnlineMeetingItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -965,7 +965,7 @@ class UserItemRequestBuilder
     */
     public function ownedDevicesById(string $id): MicrosoftGraphGeneratedUsersItemOwnedDevicesItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemOwnedDevicesItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -976,7 +976,7 @@ class UserItemRequestBuilder
     */
     public function ownedObjectsById(string $id): MicrosoftGraphGeneratedUsersItemOwnedObjectsItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemOwnedObjectsItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -1004,7 +1004,7 @@ class UserItemRequestBuilder
     */
     public function peopleById(string $id): PersonItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['person_id'] = $id;
+        $urlTplParams['person%2Did'] = $id;
         return new PersonItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -1015,7 +1015,7 @@ class UserItemRequestBuilder
     */
     public function photosById(string $id): ProfilePhotoItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['profilePhoto_id'] = $id;
+        $urlTplParams['profilePhoto%2Did'] = $id;
         return new ProfilePhotoItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -1026,7 +1026,7 @@ class UserItemRequestBuilder
     */
     public function registeredDevicesById(string $id): MicrosoftGraphGeneratedUsersItemRegisteredDevicesItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemRegisteredDevicesItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -1047,7 +1047,7 @@ class UserItemRequestBuilder
     */
     public function scopedRoleMemberOfById(string $id): ScopedRoleMembershipItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['scopedRoleMembership_id'] = $id;
+        $urlTplParams['scopedRoleMembership%2Did'] = $id;
         return new ScopedRoleMembershipItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -1058,8 +1058,19 @@ class UserItemRequestBuilder
     */
     public function transitiveMemberOfById(string $id): MicrosoftGraphGeneratedUsersItemTransitiveMemberOfItemDirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemTransitiveMemberOfItemDirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -30,7 +30,7 @@ class DeltaRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/contactFolders/{contactFolder_id}/contacts/microsoft.graph.delta()';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/contactFolders/{contactFolder%2Did}/contacts/microsoft.graph.delta()';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

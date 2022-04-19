@@ -159,26 +159,27 @@ class BookingService extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'additionalInformation' => function (self $o, ParseNode $n) { $o->setAdditionalInformation($n->getStringValue()); },
-            'customQuestions' => function (self $o, ParseNode $n) { $o->setCustomQuestions($n->getCollectionOfObjectValues(BookingQuestionAssignment::class)); },
-            'defaultDuration' => function (self $o, ParseNode $n) { $o->setDefaultDuration($n->getDateIntervalValue()); },
-            'defaultLocation' => function (self $o, ParseNode $n) { $o->setDefaultLocation($n->getObjectValue(Location::class)); },
-            'defaultPrice' => function (self $o, ParseNode $n) { $o->setDefaultPrice($n->getFloatValue()); },
-            'defaultPriceType' => function (self $o, ParseNode $n) { $o->setDefaultPriceType($n->getEnumValue(BookingPriceType::class)); },
-            'defaultReminders' => function (self $o, ParseNode $n) { $o->setDefaultReminders($n->getCollectionOfObjectValues(BookingReminder::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isHiddenFromCustomers' => function (self $o, ParseNode $n) { $o->setIsHiddenFromCustomers($n->getBooleanValue()); },
-            'isLocationOnline' => function (self $o, ParseNode $n) { $o->setIsLocationOnline($n->getBooleanValue()); },
-            'maximumAttendeesCount' => function (self $o, ParseNode $n) { $o->setMaximumAttendeesCount($n->getIntegerValue()); },
-            'notes' => function (self $o, ParseNode $n) { $o->setNotes($n->getStringValue()); },
-            'postBuffer' => function (self $o, ParseNode $n) { $o->setPostBuffer($n->getDateIntervalValue()); },
-            'preBuffer' => function (self $o, ParseNode $n) { $o->setPreBuffer($n->getDateIntervalValue()); },
-            'schedulingPolicy' => function (self $o, ParseNode $n) { $o->setSchedulingPolicy($n->getObjectValue(BookingSchedulingPolicy::class)); },
-            'smsNotificationsEnabled' => function (self $o, ParseNode $n) { $o->setSmsNotificationsEnabled($n->getBooleanValue()); },
-            'staffMemberIds' => function (self $o, ParseNode $n) { $o->setStaffMemberIds($n->getCollectionOfPrimitiveValues()); },
-            'webUrl' => function (self $o, ParseNode $n) { $o->setWebUrl($n->getStringValue()); },
+            'additionalInformation' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdditionalInformation($n->getStringValue()); },
+            'customQuestions' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomQuestions($n->getCollectionOfObjectValues(BookingQuestionAssignment::class)); },
+            'defaultDuration' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultDuration($n->getDateIntervalValue()); },
+            'defaultLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultLocation($n->getObjectValue(Location::class)); },
+            'defaultPrice' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultPrice($n->getFloatValue()); },
+            'defaultPriceType' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultPriceType($n->getEnumValue(BookingPriceType::class)); },
+            'defaultReminders' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultReminders($n->getCollectionOfObjectValues(BookingReminder::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isHiddenFromCustomers' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsHiddenFromCustomers($n->getBooleanValue()); },
+            'isLocationOnline' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsLocationOnline($n->getBooleanValue()); },
+            'maximumAttendeesCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaximumAttendeesCount($n->getIntegerValue()); },
+            'notes' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotes($n->getStringValue()); },
+            'postBuffer' => function (ParseNode $n) use ($currentObject) { $currentObject->setPostBuffer($n->getDateIntervalValue()); },
+            'preBuffer' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreBuffer($n->getDateIntervalValue()); },
+            'schedulingPolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedulingPolicy($n->getObjectValue(BookingSchedulingPolicy::class)); },
+            'smsNotificationsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setSmsNotificationsEnabled($n->getBooleanValue()); },
+            'staffMemberIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setStaffMemberIds($n->getCollectionOfPrimitiveValues()); },
+            'webUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebUrl($n->getStringValue()); },
         ]);
     }
 

@@ -44,8 +44,9 @@ class SamlSingleSignOnSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'relayState' => function (self $o, ParseNode $n) { $o->setRelayState($n->getStringValue()); },
+            'relayState' => function (ParseNode $n) use ($currentObject) { $currentObject->setRelayState($n->getStringValue()); },
         ];
     }
 

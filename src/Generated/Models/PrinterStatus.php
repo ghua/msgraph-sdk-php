@@ -66,10 +66,11 @@ class PrinterStatus implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'details' => function (self $o, ParseNode $n) { $o->setDetails($n->getCollectionOfEnumValues(PrinterProcessingStateDetail::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(PrinterProcessingState::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'details' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetails($n->getCollectionOfEnumValues(PrinterProcessingStateDetail::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(PrinterProcessingState::class)); },
         ];
     }
 

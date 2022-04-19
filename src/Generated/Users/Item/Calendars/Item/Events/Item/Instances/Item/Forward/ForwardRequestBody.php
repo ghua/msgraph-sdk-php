@@ -56,9 +56,10 @@ class ForwardRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'comment' => function (self $o, ParseNode $n) { $o->setComment($n->getStringValue()); },
-            'toRecipients' => function (self $o, ParseNode $n) { $o->setToRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
+            'comment' => function (ParseNode $n) use ($currentObject) { $currentObject->setComment($n->getStringValue()); },
+            'toRecipients' => function (ParseNode $n) use ($currentObject) { $currentObject->setToRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
         ];
     }
 

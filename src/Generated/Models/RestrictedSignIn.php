@@ -32,8 +32,9 @@ class RestrictedSignIn extends SignIn
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'targetTenantId' => function (self $o, ParseNode $n) { $o->setTargetTenantId($n->getStringValue()); },
+            'targetTenantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetTenantId($n->getStringValue()); },
         ]);
     }
 

@@ -89,16 +89,17 @@ class TeamsAppDefinition extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'bot' => function (self $o, ParseNode $n) { $o->setBot($n->getObjectValue(TeamworkBot::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'publishingState' => function (self $o, ParseNode $n) { $o->setPublishingState($n->getEnumValue(TeamsAppPublishingState::class)); },
-            'shortDescription' => function (self $o, ParseNode $n) { $o->setShortDescription($n->getStringValue()); },
-            'teamsAppId' => function (self $o, ParseNode $n) { $o->setTeamsAppId($n->getStringValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'bot' => function (ParseNode $n) use ($currentObject) { $currentObject->setBot($n->getObjectValue(TeamworkBot::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'publishingState' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublishingState($n->getEnumValue(TeamsAppPublishingState::class)); },
+            'shortDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setShortDescription($n->getStringValue()); },
+            'teamsAppId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeamsAppId($n->getStringValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

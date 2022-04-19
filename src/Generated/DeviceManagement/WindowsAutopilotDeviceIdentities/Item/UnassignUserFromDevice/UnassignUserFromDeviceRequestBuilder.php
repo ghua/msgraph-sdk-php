@@ -30,7 +30,7 @@ class UnassignUserFromDeviceRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/windowsAutopilotDeviceIdentities/{windowsAutopilotDeviceIdentity_id}/microsoft.graph.unassignUserFromDevice';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/windowsAutopilotDeviceIdentities/{windowsAutopilotDeviceIdentity%2Did}/microsoft.graph.unassignUserFromDevice';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

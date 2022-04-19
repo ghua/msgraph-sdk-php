@@ -50,10 +50,11 @@ class File implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'hashes' => function (self $o, ParseNode $n) { $o->setHashes($n->getObjectValue(Hashes::class)); },
-            'mimeType' => function (self $o, ParseNode $n) { $o->setMimeType($n->getStringValue()); },
-            'processingMetadata' => function (self $o, ParseNode $n) { $o->setProcessingMetadata($n->getBooleanValue()); },
+            'hashes' => function (ParseNode $n) use ($currentObject) { $currentObject->setHashes($n->getObjectValue(Hashes::class)); },
+            'mimeType' => function (ParseNode $n) use ($currentObject) { $currentObject->setMimeType($n->getStringValue()); },
+            'processingMetadata' => function (ParseNode $n) use ($currentObject) { $currentObject->setProcessingMetadata($n->getBooleanValue()); },
         ];
     }
 

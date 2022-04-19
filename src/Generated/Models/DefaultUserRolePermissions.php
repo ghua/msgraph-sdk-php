@@ -77,11 +77,12 @@ class DefaultUserRolePermissions implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowedToCreateApps' => function (self $o, ParseNode $n) { $o->setAllowedToCreateApps($n->getBooleanValue()); },
-            'allowedToCreateSecurityGroups' => function (self $o, ParseNode $n) { $o->setAllowedToCreateSecurityGroups($n->getBooleanValue()); },
-            'allowedToReadOtherUsers' => function (self $o, ParseNode $n) { $o->setAllowedToReadOtherUsers($n->getBooleanValue()); },
-            'permissionGrantPoliciesAssigned' => function (self $o, ParseNode $n) { $o->setPermissionGrantPoliciesAssigned($n->getCollectionOfPrimitiveValues()); },
+            'allowedToCreateApps' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedToCreateApps($n->getBooleanValue()); },
+            'allowedToCreateSecurityGroups' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedToCreateSecurityGroups($n->getBooleanValue()); },
+            'allowedToReadOtherUsers' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedToReadOtherUsers($n->getBooleanValue()); },
+            'permissionGrantPoliciesAssigned' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermissionGrantPoliciesAssigned($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

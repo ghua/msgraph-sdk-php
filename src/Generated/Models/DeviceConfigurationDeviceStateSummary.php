@@ -74,14 +74,15 @@ class DeviceConfigurationDeviceStateSummary extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'compliantDeviceCount' => function (self $o, ParseNode $n) { $o->setCompliantDeviceCount($n->getIntegerValue()); },
-            'conflictDeviceCount' => function (self $o, ParseNode $n) { $o->setConflictDeviceCount($n->getIntegerValue()); },
-            'errorDeviceCount' => function (self $o, ParseNode $n) { $o->setErrorDeviceCount($n->getIntegerValue()); },
-            'nonCompliantDeviceCount' => function (self $o, ParseNode $n) { $o->setNonCompliantDeviceCount($n->getIntegerValue()); },
-            'notApplicableDeviceCount' => function (self $o, ParseNode $n) { $o->setNotApplicableDeviceCount($n->getIntegerValue()); },
-            'remediatedDeviceCount' => function (self $o, ParseNode $n) { $o->setRemediatedDeviceCount($n->getIntegerValue()); },
-            'unknownDeviceCount' => function (self $o, ParseNode $n) { $o->setUnknownDeviceCount($n->getIntegerValue()); },
+            'compliantDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompliantDeviceCount($n->getIntegerValue()); },
+            'conflictDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setConflictDeviceCount($n->getIntegerValue()); },
+            'errorDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorDeviceCount($n->getIntegerValue()); },
+            'nonCompliantDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNonCompliantDeviceCount($n->getIntegerValue()); },
+            'notApplicableDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotApplicableDeviceCount($n->getIntegerValue()); },
+            'remediatedDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemediatedDeviceCount($n->getIntegerValue()); },
+            'unknownDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnknownDeviceCount($n->getIntegerValue()); },
         ]);
     }
 

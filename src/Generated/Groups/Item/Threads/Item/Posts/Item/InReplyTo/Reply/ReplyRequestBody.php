@@ -45,8 +45,9 @@ class ReplyRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'post' => function (self $o, ParseNode $n) { $o->setPost($n->getObjectValue(Post::class)); },
+            'post' => function (ParseNode $n) use ($currentObject) { $currentObject->setPost($n->getObjectValue(Post::class)); },
         ];
     }
 

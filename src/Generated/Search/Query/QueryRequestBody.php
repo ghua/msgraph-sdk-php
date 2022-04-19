@@ -45,8 +45,9 @@ class QueryRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'requests' => function (self $o, ParseNode $n) { $o->setRequests($n->getCollectionOfObjectValues(SearchRequest::class)); },
+            'requests' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequests($n->getCollectionOfObjectValues(SearchRequest::class)); },
         ];
     }
 

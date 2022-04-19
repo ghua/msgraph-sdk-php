@@ -77,11 +77,12 @@ class TeamFunSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowCustomMemes' => function (self $o, ParseNode $n) { $o->setAllowCustomMemes($n->getBooleanValue()); },
-            'allowGiphy' => function (self $o, ParseNode $n) { $o->setAllowGiphy($n->getBooleanValue()); },
-            'allowStickersAndMemes' => function (self $o, ParseNode $n) { $o->setAllowStickersAndMemes($n->getBooleanValue()); },
-            'giphyContentRating' => function (self $o, ParseNode $n) { $o->setGiphyContentRating($n->getEnumValue(GiphyRatingType::class)); },
+            'allowCustomMemes' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowCustomMemes($n->getBooleanValue()); },
+            'allowGiphy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowGiphy($n->getBooleanValue()); },
+            'allowStickersAndMemes' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowStickersAndMemes($n->getBooleanValue()); },
+            'giphyContentRating' => function (ParseNode $n) use ($currentObject) { $currentObject->setGiphyContentRating($n->getEnumValue(GiphyRatingType::class)); },
         ];
     }
 

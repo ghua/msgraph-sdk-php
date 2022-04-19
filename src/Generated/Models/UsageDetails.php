@@ -48,9 +48,10 @@ class UsageDetails implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'lastAccessedDateTime' => function (self $o, ParseNode $n) { $o->setLastAccessedDateTime($n->getDateTimeValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'lastAccessedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastAccessedDateTime($n->getDateTimeValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
         ];
     }
 

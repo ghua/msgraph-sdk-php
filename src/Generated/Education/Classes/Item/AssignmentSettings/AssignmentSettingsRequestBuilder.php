@@ -32,7 +32,7 @@ class AssignmentSettingsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/education/classes/{educationClass_id}/assignmentSettings{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/education/classes/{educationClass%2Did}/assignmentSettings{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -58,7 +58,7 @@ class AssignmentSettingsRequestBuilder
     }
 
     /**
-     * Get assignmentSettings from education
+     * Specifies class-level assignments settings.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -120,7 +120,7 @@ class AssignmentSettingsRequestBuilder
     }
 
     /**
-     * Get assignmentSettings from education
+     * Specifies class-level assignments settings.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -153,4 +153,15 @@ class AssignmentSettingsRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

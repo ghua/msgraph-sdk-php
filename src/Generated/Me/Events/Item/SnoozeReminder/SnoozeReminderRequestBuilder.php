@@ -30,7 +30,7 @@ class SnoozeReminderRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/events/{event_id}/microsoft.graph.snoozeReminder';
+        $this->urlTemplate = '{+baseurl}/me/events/{event%2Did}/microsoft.graph.snoozeReminder';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

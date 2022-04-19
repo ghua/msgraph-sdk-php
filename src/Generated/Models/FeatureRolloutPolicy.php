@@ -79,13 +79,14 @@ class FeatureRolloutPolicy extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appliesTo' => function (self $o, ParseNode $n) { $o->setAppliesTo($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'feature' => function (self $o, ParseNode $n) { $o->setFeature($n->getEnumValue(StagedFeatureName::class)); },
-            'isAppliedToOrganization' => function (self $o, ParseNode $n) { $o->setIsAppliedToOrganization($n->getBooleanValue()); },
-            'isEnabled' => function (self $o, ParseNode $n) { $o->setIsEnabled($n->getBooleanValue()); },
+            'appliesTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppliesTo($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'feature' => function (ParseNode $n) use ($currentObject) { $currentObject->setFeature($n->getEnumValue(StagedFeatureName::class)); },
+            'isAppliedToOrganization' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAppliedToOrganization($n->getBooleanValue()); },
+            'isEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabled($n->getBooleanValue()); },
         ]);
     }
 

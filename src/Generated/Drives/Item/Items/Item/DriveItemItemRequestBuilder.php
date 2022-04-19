@@ -101,7 +101,7 @@ class DriveItemItemRequestBuilder
     */
     public function childrenById(string $id): DriveItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['driveItem_id1'] = $id;
+        $urlTplParams['driveItem%2Did1'] = $id;
         return new DriveItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -111,7 +111,7 @@ class DriveItemItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/drives/{drive_id}/items/{driveItem_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/drives/{drive%2Did}/items/{driveItem%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -239,7 +239,7 @@ class DriveItemItemRequestBuilder
     */
     public function permissionsById(string $id): PermissionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['permission_id'] = $id;
+        $urlTplParams['permission%2Did'] = $id;
         return new PermissionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -250,7 +250,7 @@ class DriveItemItemRequestBuilder
     */
     public function subscriptionsById(string $id): SubscriptionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['subscription_id'] = $id;
+        $urlTplParams['subscription%2Did'] = $id;
         return new SubscriptionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -261,7 +261,7 @@ class DriveItemItemRequestBuilder
     */
     public function thumbnailsById(string $id): ThumbnailSetItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['thumbnailSet_id'] = $id;
+        $urlTplParams['thumbnailSet%2Did'] = $id;
         return new ThumbnailSetItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -272,8 +272,19 @@ class DriveItemItemRequestBuilder
     */
     public function versionsById(string $id): DriveItemVersionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['driveItemVersion_id'] = $id;
+        $urlTplParams['driveItemVersion%2Did'] = $id;
         return new DriveItemVersionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

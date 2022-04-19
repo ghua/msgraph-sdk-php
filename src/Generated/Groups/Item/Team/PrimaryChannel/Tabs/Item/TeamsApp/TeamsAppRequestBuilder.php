@@ -32,7 +32,7 @@ class TeamsAppRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/team/primaryChannel/tabs/{teamsTab_id}/teamsApp{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/team/primaryChannel/tabs/{teamsTab%2Did}/teamsApp{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -78,4 +78,15 @@ class TeamsAppRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

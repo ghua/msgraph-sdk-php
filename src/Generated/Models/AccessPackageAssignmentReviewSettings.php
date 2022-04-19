@@ -81,15 +81,16 @@ class AccessPackageAssignmentReviewSettings implements AdditionalDataHolder, Par
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'expirationBehavior' => function (self $o, ParseNode $n) { $o->setExpirationBehavior($n->getEnumValue(AccessReviewExpirationBehavior::class)); },
-            'fallbackReviewers' => function (self $o, ParseNode $n) { $o->setFallbackReviewers($n->getCollectionOfObjectValues(SubjectSet::class)); },
-            'isEnabled' => function (self $o, ParseNode $n) { $o->setIsEnabled($n->getBooleanValue()); },
-            'isRecommendationEnabled' => function (self $o, ParseNode $n) { $o->setIsRecommendationEnabled($n->getBooleanValue()); },
-            'isReviewerJustificationRequired' => function (self $o, ParseNode $n) { $o->setIsReviewerJustificationRequired($n->getBooleanValue()); },
-            'isSelfReview' => function (self $o, ParseNode $n) { $o->setIsSelfReview($n->getBooleanValue()); },
-            'primaryReviewers' => function (self $o, ParseNode $n) { $o->setPrimaryReviewers($n->getCollectionOfObjectValues(SubjectSet::class)); },
-            'schedule' => function (self $o, ParseNode $n) { $o->setSchedule($n->getObjectValue(EntitlementManagementSchedule::class)); },
+            'expirationBehavior' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationBehavior($n->getEnumValue(AccessReviewExpirationBehavior::class)); },
+            'fallbackReviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setFallbackReviewers($n->getCollectionOfObjectValues(SubjectSet::class)); },
+            'isEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabled($n->getBooleanValue()); },
+            'isRecommendationEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsRecommendationEnabled($n->getBooleanValue()); },
+            'isReviewerJustificationRequired' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsReviewerJustificationRequired($n->getBooleanValue()); },
+            'isSelfReview' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsSelfReview($n->getBooleanValue()); },
+            'primaryReviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrimaryReviewers($n->getCollectionOfObjectValues(SubjectSet::class)); },
+            'schedule' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedule($n->getObjectValue(EntitlementManagementSchedule::class)); },
         ];
     }
 

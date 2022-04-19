@@ -29,7 +29,7 @@ class ManagedAppProtectionRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedAppPolicies/{managedAppPolicy_id}/microsoft.graph.managedAppProtection';
+        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedAppPolicies/{managedAppPolicy%2Did}/microsoft.graph.managedAppProtection';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

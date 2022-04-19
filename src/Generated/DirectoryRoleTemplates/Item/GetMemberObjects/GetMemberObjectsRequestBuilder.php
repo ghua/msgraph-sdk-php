@@ -30,7 +30,7 @@ class GetMemberObjectsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/directoryRoleTemplates/{directoryRoleTemplate_id}/microsoft.graph.getMemberObjects';
+        $this->urlTemplate = '{+baseurl}/directoryRoleTemplates/{directoryRoleTemplate%2Did}/microsoft.graph.getMemberObjects';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

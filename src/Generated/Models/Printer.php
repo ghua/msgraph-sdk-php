@@ -59,14 +59,15 @@ class Printer extends PrinterBase
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'connectors' => function (self $o, ParseNode $n) { $o->setConnectors($n->getCollectionOfObjectValues(PrintConnector::class)); },
-            'hasPhysicalDevice' => function (self $o, ParseNode $n) { $o->setHasPhysicalDevice($n->getBooleanValue()); },
-            'isShared' => function (self $o, ParseNode $n) { $o->setIsShared($n->getBooleanValue()); },
-            'lastSeenDateTime' => function (self $o, ParseNode $n) { $o->setLastSeenDateTime($n->getDateTimeValue()); },
-            'registeredDateTime' => function (self $o, ParseNode $n) { $o->setRegisteredDateTime($n->getDateTimeValue()); },
-            'shares' => function (self $o, ParseNode $n) { $o->setShares($n->getCollectionOfObjectValues(PrinterShare::class)); },
-            'taskTriggers' => function (self $o, ParseNode $n) { $o->setTaskTriggers($n->getCollectionOfObjectValues(PrintTaskTrigger::class)); },
+            'connectors' => function (ParseNode $n) use ($currentObject) { $currentObject->setConnectors($n->getCollectionOfObjectValues(PrintConnector::class)); },
+            'hasPhysicalDevice' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasPhysicalDevice($n->getBooleanValue()); },
+            'isShared' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsShared($n->getBooleanValue()); },
+            'lastSeenDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastSeenDateTime($n->getDateTimeValue()); },
+            'registeredDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRegisteredDateTime($n->getDateTimeValue()); },
+            'shares' => function (ParseNode $n) use ($currentObject) { $currentObject->setShares($n->getCollectionOfObjectValues(PrinterShare::class)); },
+            'taskTriggers' => function (ParseNode $n) use ($currentObject) { $currentObject->setTaskTriggers($n->getCollectionOfObjectValues(PrintTaskTrigger::class)); },
         ]);
     }
 

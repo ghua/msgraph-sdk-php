@@ -67,13 +67,14 @@ class OnlineMeetingInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'conferenceId' => function (self $o, ParseNode $n) { $o->setConferenceId($n->getStringValue()); },
-            'joinUrl' => function (self $o, ParseNode $n) { $o->setJoinUrl($n->getStringValue()); },
-            'phones' => function (self $o, ParseNode $n) { $o->setPhones($n->getCollectionOfObjectValues(Phone::class)); },
-            'quickDial' => function (self $o, ParseNode $n) { $o->setQuickDial($n->getStringValue()); },
-            'tollFreeNumbers' => function (self $o, ParseNode $n) { $o->setTollFreeNumbers($n->getCollectionOfPrimitiveValues()); },
-            'tollNumber' => function (self $o, ParseNode $n) { $o->setTollNumber($n->getStringValue()); },
+            'conferenceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setConferenceId($n->getStringValue()); },
+            'joinUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setJoinUrl($n->getStringValue()); },
+            'phones' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhones($n->getCollectionOfObjectValues(Phone::class)); },
+            'quickDial' => function (ParseNode $n) use ($currentObject) { $currentObject->setQuickDial($n->getStringValue()); },
+            'tollFreeNumbers' => function (ParseNode $n) use ($currentObject) { $currentObject->setTollFreeNumbers($n->getCollectionOfPrimitiveValues()); },
+            'tollNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setTollNumber($n->getStringValue()); },
         ];
     }
 

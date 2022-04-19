@@ -143,26 +143,27 @@ class SecureScoreControlProfile extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'actionType' => function (self $o, ParseNode $n) { $o->setActionType($n->getStringValue()); },
-            'actionUrl' => function (self $o, ParseNode $n) { $o->setActionUrl($n->getStringValue()); },
-            'azureTenantId' => function (self $o, ParseNode $n) { $o->setAzureTenantId($n->getStringValue()); },
-            'complianceInformation' => function (self $o, ParseNode $n) { $o->setComplianceInformation($n->getCollectionOfObjectValues(ComplianceInformation::class)); },
-            'controlCategory' => function (self $o, ParseNode $n) { $o->setControlCategory($n->getStringValue()); },
-            'controlStateUpdates' => function (self $o, ParseNode $n) { $o->setControlStateUpdates($n->getCollectionOfObjectValues(SecureScoreControlStateUpdate::class)); },
-            'deprecated' => function (self $o, ParseNode $n) { $o->setDeprecated($n->getBooleanValue()); },
-            'implementationCost' => function (self $o, ParseNode $n) { $o->setImplementationCost($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'maxScore' => function (self $o, ParseNode $n) { $o->setMaxScore($n->getFloatValue()); },
-            'rank' => function (self $o, ParseNode $n) { $o->setRank($n->getIntegerValue()); },
-            'remediation' => function (self $o, ParseNode $n) { $o->setRemediation($n->getStringValue()); },
-            'remediationImpact' => function (self $o, ParseNode $n) { $o->setRemediationImpact($n->getStringValue()); },
-            'service' => function (self $o, ParseNode $n) { $o->setService($n->getStringValue()); },
-            'threats' => function (self $o, ParseNode $n) { $o->setThreats($n->getCollectionOfPrimitiveValues()); },
-            'tier' => function (self $o, ParseNode $n) { $o->setTier($n->getStringValue()); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
-            'userImpact' => function (self $o, ParseNode $n) { $o->setUserImpact($n->getStringValue()); },
-            'vendorInformation' => function (self $o, ParseNode $n) { $o->setVendorInformation($n->getObjectValue(SecurityVendorInformation::class)); },
+            'actionType' => function (ParseNode $n) use ($currentObject) { $currentObject->setActionType($n->getStringValue()); },
+            'actionUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setActionUrl($n->getStringValue()); },
+            'azureTenantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAzureTenantId($n->getStringValue()); },
+            'complianceInformation' => function (ParseNode $n) use ($currentObject) { $currentObject->setComplianceInformation($n->getCollectionOfObjectValues(ComplianceInformation::class)); },
+            'controlCategory' => function (ParseNode $n) use ($currentObject) { $currentObject->setControlCategory($n->getStringValue()); },
+            'controlStateUpdates' => function (ParseNode $n) use ($currentObject) { $currentObject->setControlStateUpdates($n->getCollectionOfObjectValues(SecureScoreControlStateUpdate::class)); },
+            'deprecated' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeprecated($n->getBooleanValue()); },
+            'implementationCost' => function (ParseNode $n) use ($currentObject) { $currentObject->setImplementationCost($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'maxScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaxScore($n->getFloatValue()); },
+            'rank' => function (ParseNode $n) use ($currentObject) { $currentObject->setRank($n->getIntegerValue()); },
+            'remediation' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemediation($n->getStringValue()); },
+            'remediationImpact' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemediationImpact($n->getStringValue()); },
+            'service' => function (ParseNode $n) use ($currentObject) { $currentObject->setService($n->getStringValue()); },
+            'threats' => function (ParseNode $n) use ($currentObject) { $currentObject->setThreats($n->getCollectionOfPrimitiveValues()); },
+            'tier' => function (ParseNode $n) use ($currentObject) { $currentObject->setTier($n->getStringValue()); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
+            'userImpact' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserImpact($n->getStringValue()); },
+            'vendorInformation' => function (ParseNode $n) use ($currentObject) { $currentObject->setVendorInformation($n->getObjectValue(SecurityVendorInformation::class)); },
         ]);
     }
 

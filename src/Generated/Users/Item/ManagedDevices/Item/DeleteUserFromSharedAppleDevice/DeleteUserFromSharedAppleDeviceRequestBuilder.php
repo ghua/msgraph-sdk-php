@@ -30,7 +30,7 @@ class DeleteUserFromSharedAppleDeviceRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/managedDevices/{managedDevice_id}/microsoft.graph.deleteUserFromSharedAppleDevice';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/managedDevices/{managedDevice%2Did}/microsoft.graph.deleteUserFromSharedAppleDevice';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

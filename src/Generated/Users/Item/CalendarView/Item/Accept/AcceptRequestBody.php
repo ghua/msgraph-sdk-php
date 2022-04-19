@@ -55,9 +55,10 @@ class AcceptRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'comment' => function (self $o, ParseNode $n) { $o->setComment($n->getStringValue()); },
-            'sendResponse' => function (self $o, ParseNode $n) { $o->setSendResponse($n->getBooleanValue()); },
+            'comment' => function (ParseNode $n) use ($currentObject) { $currentObject->setComment($n->getStringValue()); },
+            'sendResponse' => function (ParseNode $n) use ($currentObject) { $currentObject->setSendResponse($n->getBooleanValue()); },
         ];
     }
 

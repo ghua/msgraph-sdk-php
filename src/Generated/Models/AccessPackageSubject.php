@@ -74,14 +74,15 @@ class AccessPackageSubject extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'connectedOrganization' => function (self $o, ParseNode $n) { $o->setConnectedOrganization($n->getObjectValue(ConnectedOrganization::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'email' => function (self $o, ParseNode $n) { $o->setEmail($n->getStringValue()); },
-            'objectId' => function (self $o, ParseNode $n) { $o->setObjectId($n->getStringValue()); },
-            'onPremisesSecurityIdentifier' => function (self $o, ParseNode $n) { $o->setOnPremisesSecurityIdentifier($n->getStringValue()); },
-            'principalName' => function (self $o, ParseNode $n) { $o->setPrincipalName($n->getStringValue()); },
-            'subjectType' => function (self $o, ParseNode $n) { $o->setSubjectType($n->getEnumValue(AccessPackageSubjectType::class)); },
+            'connectedOrganization' => function (ParseNode $n) use ($currentObject) { $currentObject->setConnectedOrganization($n->getObjectValue(ConnectedOrganization::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'email' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmail($n->getStringValue()); },
+            'objectId' => function (ParseNode $n) use ($currentObject) { $currentObject->setObjectId($n->getStringValue()); },
+            'onPremisesSecurityIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesSecurityIdentifier($n->getStringValue()); },
+            'principalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalName($n->getStringValue()); },
+            'subjectType' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubjectType($n->getEnumValue(AccessPackageSubjectType::class)); },
         ]);
     }
 

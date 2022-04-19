@@ -59,7 +59,7 @@ class InsightsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/insights{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/insights{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -187,7 +187,7 @@ class InsightsRequestBuilder
     */
     public function sharedById(string $id): SharedInsightItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['sharedInsight_id'] = $id;
+        $urlTplParams['sharedInsight%2Did'] = $id;
         return new SharedInsightItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -198,7 +198,7 @@ class InsightsRequestBuilder
     */
     public function trendingById(string $id): TrendingItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['trending_id'] = $id;
+        $urlTplParams['trending%2Did'] = $id;
         return new TrendingItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -209,8 +209,19 @@ class InsightsRequestBuilder
     */
     public function usedById(string $id): UsedInsightItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['usedInsight_id'] = $id;
+        $urlTplParams['usedInsight%2Did'] = $id;
         return new UsedInsightItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

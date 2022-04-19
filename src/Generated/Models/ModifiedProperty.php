@@ -58,10 +58,11 @@ class ModifiedProperty implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'newValue' => function (self $o, ParseNode $n) { $o->setNewValue($n->getStringValue()); },
-            'oldValue' => function (self $o, ParseNode $n) { $o->setOldValue($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'newValue' => function (ParseNode $n) use ($currentObject) { $currentObject->setNewValue($n->getStringValue()); },
+            'oldValue' => function (ParseNode $n) use ($currentObject) { $currentObject->setOldValue($n->getStringValue()); },
         ];
     }
 

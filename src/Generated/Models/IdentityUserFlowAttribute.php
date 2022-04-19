@@ -65,11 +65,12 @@ class IdentityUserFlowAttribute extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'dataType' => function (self $o, ParseNode $n) { $o->setDataType($n->getEnumValue(IdentityUserFlowAttributeDataType::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'userFlowAttributeType' => function (self $o, ParseNode $n) { $o->setUserFlowAttributeType($n->getEnumValue(IdentityUserFlowAttributeType::class)); },
+            'dataType' => function (ParseNode $n) use ($currentObject) { $currentObject->setDataType($n->getEnumValue(IdentityUserFlowAttributeDataType::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'userFlowAttributeType' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserFlowAttributeType($n->getEnumValue(IdentityUserFlowAttributeType::class)); },
         ]);
     }
 

@@ -43,9 +43,10 @@ class ProvisionedIdentity extends Identity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'details' => function (self $o, ParseNode $n) { $o->setDetails($n->getObjectValue(DetailsInfo::class)); },
-            'identityType' => function (self $o, ParseNode $n) { $o->setIdentityType($n->getStringValue()); },
+            'details' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetails($n->getObjectValue(DetailsInfo::class)); },
+            'identityType' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentityType($n->getStringValue()); },
         ]);
     }
 

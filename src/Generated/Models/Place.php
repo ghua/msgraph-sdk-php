@@ -57,11 +57,12 @@ class Place extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'address' => function (self $o, ParseNode $n) { $o->setAddress($n->getObjectValue(PhysicalAddress::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'geoCoordinates' => function (self $o, ParseNode $n) { $o->setGeoCoordinates($n->getObjectValue(OutlookGeoCoordinates::class)); },
-            'phone' => function (self $o, ParseNode $n) { $o->setPhone($n->getStringValue()); },
+            'address' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddress($n->getObjectValue(PhysicalAddress::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'geoCoordinates' => function (ParseNode $n) use ($currentObject) { $currentObject->setGeoCoordinates($n->getObjectValue(OutlookGeoCoordinates::class)); },
+            'phone' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhone($n->getStringValue()); },
         ]);
     }
 

@@ -116,17 +116,18 @@ class TermsAndConditions extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'acceptanceStatement' => function (self $o, ParseNode $n) { $o->setAcceptanceStatement($n->getStringValue()); },
-            'acceptanceStatuses' => function (self $o, ParseNode $n) { $o->setAcceptanceStatuses($n->getCollectionOfObjectValues(TermsAndConditionsAcceptanceStatus::class)); },
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(TermsAndConditionsAssignment::class)); },
-            'bodyText' => function (self $o, ParseNode $n) { $o->setBodyText($n->getStringValue()); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getIntegerValue()); },
+            'acceptanceStatement' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcceptanceStatement($n->getStringValue()); },
+            'acceptanceStatuses' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcceptanceStatuses($n->getCollectionOfObjectValues(TermsAndConditionsAcceptanceStatus::class)); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(TermsAndConditionsAssignment::class)); },
+            'bodyText' => function (ParseNode $n) use ($currentObject) { $currentObject->setBodyText($n->getStringValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getIntegerValue()); },
         ]);
     }
 

@@ -55,13 +55,14 @@ class DeviceCompliancePolicyState extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'platformType' => function (self $o, ParseNode $n) { $o->setPlatformType($n->getEnumValue(PolicyPlatformType::class)); },
-            'settingCount' => function (self $o, ParseNode $n) { $o->setSettingCount($n->getIntegerValue()); },
-            'settingStates' => function (self $o, ParseNode $n) { $o->setSettingStates($n->getCollectionOfObjectValues(DeviceCompliancePolicySettingState::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(ComplianceStatus::class)); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getIntegerValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'platformType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlatformType($n->getEnumValue(PolicyPlatformType::class)); },
+            'settingCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettingCount($n->getIntegerValue()); },
+            'settingStates' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettingStates($n->getCollectionOfObjectValues(DeviceCompliancePolicySettingState::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(ComplianceStatus::class)); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getIntegerValue()); },
         ]);
     }
 

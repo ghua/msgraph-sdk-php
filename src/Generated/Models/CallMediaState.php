@@ -52,8 +52,9 @@ class CallMediaState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'audio' => function (self $o, ParseNode $n) { $o->setAudio($n->getEnumValue(MediaState::class)); },
+            'audio' => function (ParseNode $n) use ($currentObject) { $currentObject->setAudio($n->getEnumValue(MediaState::class)); },
         ];
     }
 

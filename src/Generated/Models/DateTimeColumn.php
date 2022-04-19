@@ -55,9 +55,10 @@ class DateTimeColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayAs' => function (self $o, ParseNode $n) { $o->setDisplayAs($n->getStringValue()); },
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getStringValue()); },
+            'displayAs' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayAs($n->getStringValue()); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getStringValue()); },
         ];
     }
 

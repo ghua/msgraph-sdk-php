@@ -40,8 +40,9 @@ class AppConsentApprovalRoute extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appConsentRequests' => function (self $o, ParseNode $n) { $o->setAppConsentRequests($n->getCollectionOfObjectValues(AppConsentRequest::class)); },
+            'appConsentRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppConsentRequests($n->getCollectionOfObjectValues(AppConsentRequest::class)); },
         ]);
     }
 

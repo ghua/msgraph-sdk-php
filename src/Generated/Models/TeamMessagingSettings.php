@@ -96,12 +96,13 @@ class TeamMessagingSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowChannelMentions' => function (self $o, ParseNode $n) { $o->setAllowChannelMentions($n->getBooleanValue()); },
-            'allowOwnerDeleteMessages' => function (self $o, ParseNode $n) { $o->setAllowOwnerDeleteMessages($n->getBooleanValue()); },
-            'allowTeamMentions' => function (self $o, ParseNode $n) { $o->setAllowTeamMentions($n->getBooleanValue()); },
-            'allowUserDeleteMessages' => function (self $o, ParseNode $n) { $o->setAllowUserDeleteMessages($n->getBooleanValue()); },
-            'allowUserEditMessages' => function (self $o, ParseNode $n) { $o->setAllowUserEditMessages($n->getBooleanValue()); },
+            'allowChannelMentions' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowChannelMentions($n->getBooleanValue()); },
+            'allowOwnerDeleteMessages' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowOwnerDeleteMessages($n->getBooleanValue()); },
+            'allowTeamMentions' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowTeamMentions($n->getBooleanValue()); },
+            'allowUserDeleteMessages' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowUserDeleteMessages($n->getBooleanValue()); },
+            'allowUserEditMessages' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowUserEditMessages($n->getBooleanValue()); },
         ];
     }
 

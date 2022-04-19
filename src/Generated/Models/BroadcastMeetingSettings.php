@@ -64,12 +64,13 @@ class BroadcastMeetingSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowedAudience' => function (self $o, ParseNode $n) { $o->setAllowedAudience($n->getEnumValue(BroadcastMeetingAudience::class)); },
-            'isAttendeeReportEnabled' => function (self $o, ParseNode $n) { $o->setIsAttendeeReportEnabled($n->getBooleanValue()); },
-            'isQuestionAndAnswerEnabled' => function (self $o, ParseNode $n) { $o->setIsQuestionAndAnswerEnabled($n->getBooleanValue()); },
-            'isRecordingEnabled' => function (self $o, ParseNode $n) { $o->setIsRecordingEnabled($n->getBooleanValue()); },
-            'isVideoOnDemandEnabled' => function (self $o, ParseNode $n) { $o->setIsVideoOnDemandEnabled($n->getBooleanValue()); },
+            'allowedAudience' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedAudience($n->getEnumValue(BroadcastMeetingAudience::class)); },
+            'isAttendeeReportEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAttendeeReportEnabled($n->getBooleanValue()); },
+            'isQuestionAndAnswerEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsQuestionAndAnswerEnabled($n->getBooleanValue()); },
+            'isRecordingEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsRecordingEnabled($n->getBooleanValue()); },
+            'isVideoOnDemandEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsVideoOnDemandEnabled($n->getBooleanValue()); },
         ];
     }
 

@@ -31,7 +31,7 @@ class SupportedTimeZonesWithTimeZoneStandardRequestBuilder
      * @param string|null $timeZoneStandard Usage: TimeZoneStandard='{TimeZoneStandard}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $timeZoneStandard = null) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/outlook/microsoft.graph.supportedTimeZones(TimeZoneStandard=\'{TimeZoneStandard}\')';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/outlook/microsoft.graph.supportedTimeZones(TimeZoneStandard=\'{TimeZoneStandard}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

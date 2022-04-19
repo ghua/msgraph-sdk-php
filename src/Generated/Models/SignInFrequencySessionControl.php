@@ -35,9 +35,10 @@ class SignInFrequencySessionControl extends ConditionalAccessSessionControl
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(SigninFrequencyType::class)); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getIntegerValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(SigninFrequencyType::class)); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getIntegerValue()); },
         ]);
     }
 

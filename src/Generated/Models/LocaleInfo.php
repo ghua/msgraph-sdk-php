@@ -55,9 +55,10 @@ class LocaleInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'locale' => function (self $o, ParseNode $n) { $o->setLocale($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'locale' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocale($n->getStringValue()); },
         ];
     }
 

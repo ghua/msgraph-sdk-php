@@ -50,10 +50,11 @@ class PasswordProfile implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'forceChangePasswordNextSignIn' => function (self $o, ParseNode $n) { $o->setForceChangePasswordNextSignIn($n->getBooleanValue()); },
-            'forceChangePasswordNextSignInWithMfa' => function (self $o, ParseNode $n) { $o->setForceChangePasswordNextSignInWithMfa($n->getBooleanValue()); },
-            'password' => function (self $o, ParseNode $n) { $o->setPassword($n->getStringValue()); },
+            'forceChangePasswordNextSignIn' => function (ParseNode $n) use ($currentObject) { $currentObject->setForceChangePasswordNextSignIn($n->getBooleanValue()); },
+            'forceChangePasswordNextSignInWithMfa' => function (ParseNode $n) use ($currentObject) { $currentObject->setForceChangePasswordNextSignInWithMfa($n->getBooleanValue()); },
+            'password' => function (ParseNode $n) use ($currentObject) { $currentObject->setPassword($n->getStringValue()); },
         ];
     }
 

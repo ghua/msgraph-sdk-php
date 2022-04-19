@@ -71,13 +71,14 @@ class WorkforceIntegration extends ChangeTrackedEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'apiVersion' => function (self $o, ParseNode $n) { $o->setApiVersion($n->getIntegerValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'encryption' => function (self $o, ParseNode $n) { $o->setEncryption($n->getObjectValue(WorkforceIntegrationEncryption::class)); },
-            'isActive' => function (self $o, ParseNode $n) { $o->setIsActive($n->getBooleanValue()); },
-            'supportedEntities' => function (self $o, ParseNode $n) { $o->setSupportedEntities($n->getEnumValue(WorkforceIntegrationSupportedEntities::class)); },
-            'url' => function (self $o, ParseNode $n) { $o->setUrl($n->getStringValue()); },
+            'apiVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setApiVersion($n->getIntegerValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'encryption' => function (ParseNode $n) use ($currentObject) { $currentObject->setEncryption($n->getObjectValue(WorkforceIntegrationEncryption::class)); },
+            'isActive' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsActive($n->getBooleanValue()); },
+            'supportedEntities' => function (ParseNode $n) use ($currentObject) { $currentObject->setSupportedEntities($n->getEnumValue(WorkforceIntegrationSupportedEntities::class)); },
+            'url' => function (ParseNode $n) use ($currentObject) { $currentObject->setUrl($n->getStringValue()); },
         ]);
     }
 

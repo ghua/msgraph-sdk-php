@@ -63,9 +63,10 @@ class EmployeeOrgData implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'costCenter' => function (self $o, ParseNode $n) { $o->setCostCenter($n->getStringValue()); },
-            'division' => function (self $o, ParseNode $n) { $o->setDivision($n->getStringValue()); },
+            'costCenter' => function (ParseNode $n) use ($currentObject) { $currentObject->setCostCenter($n->getStringValue()); },
+            'division' => function (ParseNode $n) use ($currentObject) { $currentObject->setDivision($n->getStringValue()); },
         ];
     }
 

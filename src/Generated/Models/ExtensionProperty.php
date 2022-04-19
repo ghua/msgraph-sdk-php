@@ -60,12 +60,13 @@ class ExtensionProperty extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appDisplayName' => function (self $o, ParseNode $n) { $o->setAppDisplayName($n->getStringValue()); },
-            'dataType' => function (self $o, ParseNode $n) { $o->setDataType($n->getStringValue()); },
-            'isSyncedFromOnPremises' => function (self $o, ParseNode $n) { $o->setIsSyncedFromOnPremises($n->getBooleanValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'targetObjects' => function (self $o, ParseNode $n) { $o->setTargetObjects($n->getCollectionOfPrimitiveValues()); },
+            'appDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppDisplayName($n->getStringValue()); },
+            'dataType' => function (ParseNode $n) use ($currentObject) { $currentObject->setDataType($n->getStringValue()); },
+            'isSyncedFromOnPremises' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsSyncedFromOnPremises($n->getBooleanValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'targetObjects' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetObjects($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

@@ -49,11 +49,12 @@ class OnenoteOperation extends Operation
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'error' => function (self $o, ParseNode $n) { $o->setError($n->getObjectValue(OnenoteOperationError::class)); },
-            'percentComplete' => function (self $o, ParseNode $n) { $o->setPercentComplete($n->getStringValue()); },
-            'resourceId' => function (self $o, ParseNode $n) { $o->setResourceId($n->getStringValue()); },
-            'resourceLocation' => function (self $o, ParseNode $n) { $o->setResourceLocation($n->getStringValue()); },
+            'error' => function (ParseNode $n) use ($currentObject) { $currentObject->setError($n->getObjectValue(OnenoteOperationError::class)); },
+            'percentComplete' => function (ParseNode $n) use ($currentObject) { $currentObject->setPercentComplete($n->getStringValue()); },
+            'resourceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceId($n->getStringValue()); },
+            'resourceLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceLocation($n->getStringValue()); },
         ]);
     }
 

@@ -52,12 +52,13 @@ class SchemaExtension extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'owner' => function (self $o, ParseNode $n) { $o->setOwner($n->getStringValue()); },
-            'properties' => function (self $o, ParseNode $n) { $o->setProperties($n->getCollectionOfObjectValues(ExtensionSchemaProperty::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
-            'targetTypes' => function (self $o, ParseNode $n) { $o->setTargetTypes($n->getCollectionOfPrimitiveValues()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'owner' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwner($n->getStringValue()); },
+            'properties' => function (ParseNode $n) use ($currentObject) { $currentObject->setProperties($n->getCollectionOfObjectValues(ExtensionSchemaProperty::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
+            'targetTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetTypes($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

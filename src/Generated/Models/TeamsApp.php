@@ -73,11 +73,12 @@ class TeamsApp extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appDefinitions' => function (self $o, ParseNode $n) { $o->setAppDefinitions($n->getCollectionOfObjectValues(TeamsAppDefinition::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'distributionMethod' => function (self $o, ParseNode $n) { $o->setDistributionMethod($n->getEnumValue(TeamsAppDistributionMethod::class)); },
-            'externalId' => function (self $o, ParseNode $n) { $o->setExternalId($n->getStringValue()); },
+            'appDefinitions' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppDefinitions($n->getCollectionOfObjectValues(TeamsAppDefinition::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'distributionMethod' => function (ParseNode $n) use ($currentObject) { $currentObject->setDistributionMethod($n->getEnumValue(TeamsAppDistributionMethod::class)); },
+            'externalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalId($n->getStringValue()); },
         ]);
     }
 

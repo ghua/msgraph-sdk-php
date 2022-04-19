@@ -158,26 +158,27 @@ class ContentType extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'associatedHubsUrls' => function (self $o, ParseNode $n) { $o->setAssociatedHubsUrls($n->getCollectionOfPrimitiveValues()); },
-            'base' => function (self $o, ParseNode $n) { $o->setBase($n->getObjectValue(ContentType::class)); },
-            'baseTypes' => function (self $o, ParseNode $n) { $o->setBaseTypes($n->getCollectionOfObjectValues(ContentType::class)); },
-            'columnLinks' => function (self $o, ParseNode $n) { $o->setColumnLinks($n->getCollectionOfObjectValues(ColumnLink::class)); },
-            'columnPositions' => function (self $o, ParseNode $n) { $o->setColumnPositions($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
-            'columns' => function (self $o, ParseNode $n) { $o->setColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'documentSet' => function (self $o, ParseNode $n) { $o->setDocumentSet($n->getObjectValue(DocumentSet::class)); },
-            'documentTemplate' => function (self $o, ParseNode $n) { $o->setDocumentTemplate($n->getObjectValue(DocumentSetContent::class)); },
-            'group' => function (self $o, ParseNode $n) { $o->setGroup($n->getStringValue()); },
-            'hidden' => function (self $o, ParseNode $n) { $o->setHidden($n->getBooleanValue()); },
-            'inheritedFrom' => function (self $o, ParseNode $n) { $o->setInheritedFrom($n->getObjectValue(ItemReference::class)); },
-            'isBuiltIn' => function (self $o, ParseNode $n) { $o->setIsBuiltIn($n->getBooleanValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'order' => function (self $o, ParseNode $n) { $o->setOrder($n->getObjectValue(ContentTypeOrder::class)); },
-            'parentId' => function (self $o, ParseNode $n) { $o->setParentId($n->getStringValue()); },
-            'propagateChanges' => function (self $o, ParseNode $n) { $o->setPropagateChanges($n->getBooleanValue()); },
-            'readOnly' => function (self $o, ParseNode $n) { $o->setReadOnly($n->getBooleanValue()); },
-            'sealed' => function (self $o, ParseNode $n) { $o->setSealed($n->getBooleanValue()); },
+            'associatedHubsUrls' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssociatedHubsUrls($n->getCollectionOfPrimitiveValues()); },
+            'base' => function (ParseNode $n) use ($currentObject) { $currentObject->setBase($n->getObjectValue(ContentType::class)); },
+            'baseTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setBaseTypes($n->getCollectionOfObjectValues(ContentType::class)); },
+            'columnLinks' => function (ParseNode $n) use ($currentObject) { $currentObject->setColumnLinks($n->getCollectionOfObjectValues(ColumnLink::class)); },
+            'columnPositions' => function (ParseNode $n) use ($currentObject) { $currentObject->setColumnPositions($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
+            'columns' => function (ParseNode $n) use ($currentObject) { $currentObject->setColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'documentSet' => function (ParseNode $n) use ($currentObject) { $currentObject->setDocumentSet($n->getObjectValue(DocumentSet::class)); },
+            'documentTemplate' => function (ParseNode $n) use ($currentObject) { $currentObject->setDocumentTemplate($n->getObjectValue(DocumentSetContent::class)); },
+            'group' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroup($n->getStringValue()); },
+            'hidden' => function (ParseNode $n) use ($currentObject) { $currentObject->setHidden($n->getBooleanValue()); },
+            'inheritedFrom' => function (ParseNode $n) use ($currentObject) { $currentObject->setInheritedFrom($n->getObjectValue(ItemReference::class)); },
+            'isBuiltIn' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsBuiltIn($n->getBooleanValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'order' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrder($n->getObjectValue(ContentTypeOrder::class)); },
+            'parentId' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentId($n->getStringValue()); },
+            'propagateChanges' => function (ParseNode $n) use ($currentObject) { $currentObject->setPropagateChanges($n->getBooleanValue()); },
+            'readOnly' => function (ParseNode $n) use ($currentObject) { $currentObject->setReadOnly($n->getBooleanValue()); },
+            'sealed' => function (ParseNode $n) use ($currentObject) { $currentObject->setSealed($n->getBooleanValue()); },
         ]);
     }
 

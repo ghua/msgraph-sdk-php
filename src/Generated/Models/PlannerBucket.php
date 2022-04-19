@@ -41,11 +41,12 @@ class PlannerBucket extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'orderHint' => function (self $o, ParseNode $n) { $o->setOrderHint($n->getStringValue()); },
-            'planId' => function (self $o, ParseNode $n) { $o->setPlanId($n->getStringValue()); },
-            'tasks' => function (self $o, ParseNode $n) { $o->setTasks($n->getCollectionOfObjectValues(PlannerTask::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'orderHint' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrderHint($n->getStringValue()); },
+            'planId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlanId($n->getStringValue()); },
+            'tasks' => function (ParseNode $n) use ($currentObject) { $currentObject->setTasks($n->getCollectionOfObjectValues(PlannerTask::class)); },
         ]);
     }
 

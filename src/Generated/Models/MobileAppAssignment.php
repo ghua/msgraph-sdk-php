@@ -38,10 +38,11 @@ class MobileAppAssignment extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'intent' => function (self $o, ParseNode $n) { $o->setIntent($n->getEnumValue(InstallIntent::class)); },
-            'settings' => function (self $o, ParseNode $n) { $o->setSettings($n->getObjectValue(MobileAppAssignmentSettings::class)); },
-            'target' => function (self $o, ParseNode $n) { $o->setTarget($n->getObjectValue(DeviceAndAppManagementAssignmentTarget::class)); },
+            'intent' => function (ParseNode $n) use ($currentObject) { $currentObject->setIntent($n->getEnumValue(InstallIntent::class)); },
+            'settings' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettings($n->getObjectValue(MobileAppAssignmentSettings::class)); },
+            'target' => function (ParseNode $n) use ($currentObject) { $currentObject->setTarget($n->getObjectValue(DeviceAndAppManagementAssignmentTarget::class)); },
         ]);
     }
 

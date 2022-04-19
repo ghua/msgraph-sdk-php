@@ -47,9 +47,10 @@ class OnenotePagePreview implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'links' => function (self $o, ParseNode $n) { $o->setLinks($n->getObjectValue(OnenotePagePreviewLinks::class)); },
-            'previewText' => function (self $o, ParseNode $n) { $o->setPreviewText($n->getStringValue()); },
+            'links' => function (ParseNode $n) use ($currentObject) { $currentObject->setLinks($n->getObjectValue(OnenotePagePreviewLinks::class)); },
+            'previewText' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreviewText($n->getStringValue()); },
         ];
     }
 

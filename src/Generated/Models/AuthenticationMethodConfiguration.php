@@ -32,8 +32,9 @@ class AuthenticationMethodConfiguration extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(AuthenticationMethodState::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(AuthenticationMethodState::class)); },
         ]);
     }
 

@@ -47,9 +47,10 @@ class Image implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'height' => function (self $o, ParseNode $n) { $o->setHeight($n->getIntegerValue()); },
-            'width' => function (self $o, ParseNode $n) { $o->setWidth($n->getIntegerValue()); },
+            'height' => function (ParseNode $n) use ($currentObject) { $currentObject->setHeight($n->getIntegerValue()); },
+            'width' => function (ParseNode $n) use ($currentObject) { $currentObject->setWidth($n->getIntegerValue()); },
         ];
     }
 

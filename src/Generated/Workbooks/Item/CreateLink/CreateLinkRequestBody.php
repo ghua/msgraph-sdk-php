@@ -68,13 +68,14 @@ class CreateLinkRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
-            'password' => function (self $o, ParseNode $n) { $o->setPassword($n->getStringValue()); },
-            'retainInheritedPermissions' => function (self $o, ParseNode $n) { $o->setRetainInheritedPermissions($n->getBooleanValue()); },
-            'scope' => function (self $o, ParseNode $n) { $o->setScope($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
+            'password' => function (ParseNode $n) use ($currentObject) { $currentObject->setPassword($n->getStringValue()); },
+            'retainInheritedPermissions' => function (ParseNode $n) use ($currentObject) { $currentObject->setRetainInheritedPermissions($n->getBooleanValue()); },
+            'scope' => function (ParseNode $n) use ($currentObject) { $currentObject->setScope($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
         ];
     }
 

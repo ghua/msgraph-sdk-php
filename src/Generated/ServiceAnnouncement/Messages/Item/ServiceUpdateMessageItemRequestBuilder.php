@@ -50,7 +50,7 @@ class ServiceUpdateMessageItemRequestBuilder
     */
     public function attachmentsById(string $id): ServiceAnnouncementAttachmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['serviceAnnouncementAttachment_id'] = $id;
+        $urlTplParams['serviceAnnouncementAttachment%2Did'] = $id;
         return new ServiceAnnouncementAttachmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -60,7 +60,7 @@ class ServiceUpdateMessageItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/admin/serviceAnnouncement/messages/{serviceUpdateMessage_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/admin/serviceAnnouncement/messages/{serviceUpdateMessage%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -181,4 +181,15 @@ class ServiceUpdateMessageItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

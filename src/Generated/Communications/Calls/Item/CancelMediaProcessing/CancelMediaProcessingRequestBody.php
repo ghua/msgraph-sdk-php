@@ -52,8 +52,9 @@ class CancelMediaProcessingRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'clientContext' => function (self $o, ParseNode $n) { $o->setClientContext($n->getStringValue()); },
+            'clientContext' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientContext($n->getStringValue()); },
         ];
     }
 

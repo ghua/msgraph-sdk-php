@@ -50,10 +50,11 @@ class ShiftAvailability implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'recurrence' => function (self $o, ParseNode $n) { $o->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
-            'timeSlots' => function (self $o, ParseNode $n) { $o->setTimeSlots($n->getCollectionOfObjectValues(TimeRange::class)); },
-            'timeZone' => function (self $o, ParseNode $n) { $o->setTimeZone($n->getStringValue()); },
+            'recurrence' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
+            'timeSlots' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeSlots($n->getCollectionOfObjectValues(TimeRange::class)); },
+            'timeZone' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeZone($n->getStringValue()); },
         ];
     }
 

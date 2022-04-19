@@ -41,7 +41,7 @@ class PrivacyRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/privacy{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/privacy{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -133,8 +133,19 @@ class PrivacyRequestBuilder
     */
     public function subjectRightsRequestsById(string $id): SubjectRightsRequestItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['subjectRightsRequest_id'] = $id;
+        $urlTplParams['subjectRightsRequest%2Did'] = $id;
         return new SubjectRightsRequestItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

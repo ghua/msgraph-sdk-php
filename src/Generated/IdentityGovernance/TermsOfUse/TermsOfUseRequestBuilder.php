@@ -51,7 +51,7 @@ class TermsOfUseRequestBuilder
     */
     public function agreementAcceptancesById(string $id): AgreementAcceptanceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['agreementAcceptance_id'] = $id;
+        $urlTplParams['agreementAcceptance%2Did'] = $id;
         return new AgreementAcceptanceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -62,7 +62,7 @@ class TermsOfUseRequestBuilder
     */
     public function agreementsById(string $id): AgreementItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['agreement_id'] = $id;
+        $urlTplParams['agreement%2Did'] = $id;
         return new AgreementItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -72,7 +72,7 @@ class TermsOfUseRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identityGovernance/termsOfUse{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identityGovernance/termsOfUse{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -193,4 +193,15 @@ class TermsOfUseRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

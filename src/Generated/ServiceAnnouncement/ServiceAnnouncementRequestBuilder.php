@@ -59,7 +59,7 @@ class ServiceAnnouncementRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/admin/serviceAnnouncement{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/admin/serviceAnnouncement{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -170,7 +170,7 @@ class ServiceAnnouncementRequestBuilder
     */
     public function healthOverviewsById(string $id): ServiceHealthItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['serviceHealth_id'] = $id;
+        $urlTplParams['serviceHealth%2Did'] = $id;
         return new ServiceHealthItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -181,7 +181,7 @@ class ServiceAnnouncementRequestBuilder
     */
     public function issuesById(string $id): ServiceHealthIssueItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['serviceHealthIssue_id'] = $id;
+        $urlTplParams['serviceHealthIssue%2Did'] = $id;
         return new ServiceHealthIssueItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -192,7 +192,7 @@ class ServiceAnnouncementRequestBuilder
     */
     public function messagesById(string $id): ServiceUpdateMessageItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['serviceUpdateMessage_id'] = $id;
+        $urlTplParams['serviceUpdateMessage%2Did'] = $id;
         return new ServiceUpdateMessageItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -213,4 +213,15 @@ class ServiceAnnouncementRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

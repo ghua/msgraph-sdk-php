@@ -67,10 +67,11 @@ class InnerError implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'client-request-id' => function (self $o, ParseNode $n) { $o->setClientRequestId($n->getStringValue()); },
-            'date' => function (self $o, ParseNode $n) { $o->setDate($n->getDateTimeValue()); },
-            'request-id' => function (self $o, ParseNode $n) { $o->setRequestId($n->getStringValue()); },
+            'client-request-id' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientRequestId($n->getStringValue()); },
+            'date' => function (ParseNode $n) use ($currentObject) { $currentObject->setDate($n->getDateTimeValue()); },
+            'request-id' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestId($n->getStringValue()); },
         ];
     }
 

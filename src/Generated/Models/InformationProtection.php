@@ -43,9 +43,10 @@ class InformationProtection extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'bitlocker' => function (self $o, ParseNode $n) { $o->setBitlocker($n->getObjectValue(Bitlocker::class)); },
-            'threatAssessmentRequests' => function (self $o, ParseNode $n) { $o->setThreatAssessmentRequests($n->getCollectionOfObjectValues(ThreatAssessmentRequest::class)); },
+            'bitlocker' => function (ParseNode $n) use ($currentObject) { $currentObject->setBitlocker($n->getObjectValue(Bitlocker::class)); },
+            'threatAssessmentRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setThreatAssessmentRequests($n->getCollectionOfObjectValues(ThreatAssessmentRequest::class)); },
         ]);
     }
 

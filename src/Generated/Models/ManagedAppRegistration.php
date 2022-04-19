@@ -131,22 +131,23 @@ class ManagedAppRegistration extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appIdentifier' => function (self $o, ParseNode $n) { $o->setAppIdentifier($n->getObjectValue(MobileAppIdentifier::class)); },
-            'applicationVersion' => function (self $o, ParseNode $n) { $o->setApplicationVersion($n->getStringValue()); },
-            'appliedPolicies' => function (self $o, ParseNode $n) { $o->setAppliedPolicies($n->getCollectionOfObjectValues(ManagedAppPolicy::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'deviceName' => function (self $o, ParseNode $n) { $o->setDeviceName($n->getStringValue()); },
-            'deviceTag' => function (self $o, ParseNode $n) { $o->setDeviceTag($n->getStringValue()); },
-            'deviceType' => function (self $o, ParseNode $n) { $o->setDeviceType($n->getStringValue()); },
-            'flaggedReasons' => function (self $o, ParseNode $n) { $o->setFlaggedReasons($n->getCollectionOfEnumValues(ManagedAppFlaggedReason::class)); },
-            'intendedPolicies' => function (self $o, ParseNode $n) { $o->setIntendedPolicies($n->getCollectionOfObjectValues(ManagedAppPolicy::class)); },
-            'lastSyncDateTime' => function (self $o, ParseNode $n) { $o->setLastSyncDateTime($n->getDateTimeValue()); },
-            'managementSdkVersion' => function (self $o, ParseNode $n) { $o->setManagementSdkVersion($n->getStringValue()); },
-            'operations' => function (self $o, ParseNode $n) { $o->setOperations($n->getCollectionOfObjectValues(ManagedAppOperation::class)); },
-            'platformVersion' => function (self $o, ParseNode $n) { $o->setPlatformVersion($n->getStringValue()); },
-            'userId' => function (self $o, ParseNode $n) { $o->setUserId($n->getStringValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'appIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppIdentifier($n->getObjectValue(MobileAppIdentifier::class)); },
+            'applicationVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplicationVersion($n->getStringValue()); },
+            'appliedPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppliedPolicies($n->getCollectionOfObjectValues(ManagedAppPolicy::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'deviceName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceName($n->getStringValue()); },
+            'deviceTag' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceTag($n->getStringValue()); },
+            'deviceType' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceType($n->getStringValue()); },
+            'flaggedReasons' => function (ParseNode $n) use ($currentObject) { $currentObject->setFlaggedReasons($n->getCollectionOfEnumValues(ManagedAppFlaggedReason::class)); },
+            'intendedPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setIntendedPolicies($n->getCollectionOfObjectValues(ManagedAppPolicy::class)); },
+            'lastSyncDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastSyncDateTime($n->getDateTimeValue()); },
+            'managementSdkVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagementSdkVersion($n->getStringValue()); },
+            'operations' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperations($n->getCollectionOfObjectValues(ManagedAppOperation::class)); },
+            'platformVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlatformVersion($n->getStringValue()); },
+            'userId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserId($n->getStringValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

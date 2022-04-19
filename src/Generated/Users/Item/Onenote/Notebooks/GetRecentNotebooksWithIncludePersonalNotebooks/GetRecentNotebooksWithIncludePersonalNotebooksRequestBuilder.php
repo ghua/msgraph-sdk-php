@@ -31,7 +31,7 @@ class GetRecentNotebooksWithIncludePersonalNotebooksRequestBuilder
      * @param bool|null $includePersonalNotebooks Usage: includePersonalNotebooks={includePersonalNotebooks}
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?bool $includePersonalNotebooks = null) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/onenote/notebooks/microsoft.graph.getRecentNotebooks(includePersonalNotebooks={includePersonalNotebooks})';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/onenote/notebooks/microsoft.graph.getRecentNotebooks(includePersonalNotebooks={includePersonalNotebooks})';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

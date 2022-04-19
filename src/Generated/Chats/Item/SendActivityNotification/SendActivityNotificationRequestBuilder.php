@@ -30,7 +30,7 @@ class SendActivityNotificationRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/chats/{chat_id}/microsoft.graph.sendActivityNotification';
+        $this->urlTemplate = '{+baseurl}/chats/{chat%2Did}/microsoft.graph.sendActivityNotification';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

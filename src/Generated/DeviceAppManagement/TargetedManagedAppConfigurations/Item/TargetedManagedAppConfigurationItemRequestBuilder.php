@@ -75,7 +75,7 @@ class TargetedManagedAppConfigurationItemRequestBuilder
     */
     public function appsById(string $id): ManagedMobileAppItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedMobileApp_id'] = $id;
+        $urlTplParams['managedMobileApp%2Did'] = $id;
         return new ManagedMobileAppItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -86,7 +86,7 @@ class TargetedManagedAppConfigurationItemRequestBuilder
     */
     public function assignmentsById(string $id): TargetedManagedAppPolicyAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['targetedManagedAppPolicyAssignment_id'] = $id;
+        $urlTplParams['targetedManagedAppPolicyAssignment%2Did'] = $id;
         return new TargetedManagedAppPolicyAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -96,7 +96,7 @@ class TargetedManagedAppConfigurationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceAppManagement/targetedManagedAppConfigurations/{targetedManagedAppConfiguration_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceAppManagement/targetedManagedAppConfigurations/{targetedManagedAppConfiguration%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -217,4 +217,15 @@ class TargetedManagedAppConfigurationItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -43,9 +43,10 @@ class UserConsentRequest extends Request
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'approval' => function (self $o, ParseNode $n) { $o->setApproval($n->getObjectValue(Approval::class)); },
-            'reason' => function (self $o, ParseNode $n) { $o->setReason($n->getStringValue()); },
+            'approval' => function (ParseNode $n) use ($currentObject) { $currentObject->setApproval($n->getObjectValue(Approval::class)); },
+            'reason' => function (ParseNode $n) use ($currentObject) { $currentObject->setReason($n->getStringValue()); },
         ]);
     }
 

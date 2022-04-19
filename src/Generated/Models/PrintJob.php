@@ -89,16 +89,17 @@ class PrintJob extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'configuration' => function (self $o, ParseNode $n) { $o->setConfiguration($n->getObjectValue(PrintJobConfiguration::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'documents' => function (self $o, ParseNode $n) { $o->setDocuments($n->getCollectionOfObjectValues(PrintDocument::class)); },
-            'isFetchable' => function (self $o, ParseNode $n) { $o->setIsFetchable($n->getBooleanValue()); },
-            'redirectedFrom' => function (self $o, ParseNode $n) { $o->setRedirectedFrom($n->getStringValue()); },
-            'redirectedTo' => function (self $o, ParseNode $n) { $o->setRedirectedTo($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getObjectValue(PrintJobStatus::class)); },
-            'tasks' => function (self $o, ParseNode $n) { $o->setTasks($n->getCollectionOfObjectValues(PrintTask::class)); },
+            'configuration' => function (ParseNode $n) use ($currentObject) { $currentObject->setConfiguration($n->getObjectValue(PrintJobConfiguration::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'documents' => function (ParseNode $n) use ($currentObject) { $currentObject->setDocuments($n->getCollectionOfObjectValues(PrintDocument::class)); },
+            'isFetchable' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsFetchable($n->getBooleanValue()); },
+            'redirectedFrom' => function (ParseNode $n) use ($currentObject) { $currentObject->setRedirectedFrom($n->getStringValue()); },
+            'redirectedTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setRedirectedTo($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getObjectValue(PrintJobStatus::class)); },
+            'tasks' => function (ParseNode $n) use ($currentObject) { $currentObject->setTasks($n->getCollectionOfObjectValues(PrintTask::class)); },
         ]);
     }
 

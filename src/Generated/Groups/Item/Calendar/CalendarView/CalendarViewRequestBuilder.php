@@ -42,7 +42,7 @@ class CalendarViewRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/calendar/calendarView{?startDateTime,endDateTime,top,skip,filter,count,orderby,select}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/calendar/calendarView{?startDateTime,endDateTime,%24top,%24skip,%24filter,%24count,%24orderby,%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -135,4 +135,33 @@ class CalendarViewRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var bool|null $count Include count of items */
+        public ?bool $count = null;
+        
+        /** @var string|null $endDateTime The end date and time of the time range, represented in ISO 8601 format. For example, 2019-11-08T20:00:00-08:00 */
+        public ?string $endDateTime = null;
+        
+        /** @var string|null $filter Filter items by property values */
+        public ?string $filter = null;
+        
+        /** @var array<string>|null $orderby Order items by property values */
+        public ?array $orderby = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+        /** @var int|null $skip Skip the first n items */
+        public ?int $skip = null;
+        
+        /** @var string|null $startDateTime The start date and time of the time range, represented in ISO 8601 format. For example, 2019-11-08T19:00:00-08:00 */
+        public ?string $startDateTime = null;
+        
+        /** @var int|null $top Show only the first n items */
+        public ?int $top = null;
+        
+    }
 }

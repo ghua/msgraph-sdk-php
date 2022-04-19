@@ -49,11 +49,12 @@ class DeviceComplianceActionItem extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'actionType' => function (self $o, ParseNode $n) { $o->setActionType($n->getEnumValue(DeviceComplianceActionType::class)); },
-            'gracePeriodHours' => function (self $o, ParseNode $n) { $o->setGracePeriodHours($n->getIntegerValue()); },
-            'notificationMessageCCList' => function (self $o, ParseNode $n) { $o->setNotificationMessageCCList($n->getCollectionOfPrimitiveValues()); },
-            'notificationTemplateId' => function (self $o, ParseNode $n) { $o->setNotificationTemplateId($n->getStringValue()); },
+            'actionType' => function (ParseNode $n) use ($currentObject) { $currentObject->setActionType($n->getEnumValue(DeviceComplianceActionType::class)); },
+            'gracePeriodHours' => function (ParseNode $n) use ($currentObject) { $currentObject->setGracePeriodHours($n->getIntegerValue()); },
+            'notificationMessageCCList' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotificationMessageCCList($n->getCollectionOfPrimitiveValues()); },
+            'notificationTemplateId' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotificationTemplateId($n->getStringValue()); },
         ]);
     }
 

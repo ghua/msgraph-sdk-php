@@ -76,13 +76,14 @@ class UriClickSecurityState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'clickAction' => function (self $o, ParseNode $n) { $o->setClickAction($n->getStringValue()); },
-            'clickDateTime' => function (self $o, ParseNode $n) { $o->setClickDateTime($n->getDateTimeValue()); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'sourceId' => function (self $o, ParseNode $n) { $o->setSourceId($n->getStringValue()); },
-            'uriDomain' => function (self $o, ParseNode $n) { $o->setUriDomain($n->getStringValue()); },
-            'verdict' => function (self $o, ParseNode $n) { $o->setVerdict($n->getStringValue()); },
+            'clickAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setClickAction($n->getStringValue()); },
+            'clickDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setClickDateTime($n->getDateTimeValue()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'sourceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceId($n->getStringValue()); },
+            'uriDomain' => function (ParseNode $n) use ($currentObject) { $currentObject->setUriDomain($n->getStringValue()); },
+            'verdict' => function (ParseNode $n) use ($currentObject) { $currentObject->setVerdict($n->getStringValue()); },
         ];
     }
 

@@ -50,10 +50,11 @@ class ManagedAppDiagnosticStatus implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'mitigationInstruction' => function (self $o, ParseNode $n) { $o->setMitigationInstruction($n->getStringValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getStringValue()); },
-            'validationName' => function (self $o, ParseNode $n) { $o->setValidationName($n->getStringValue()); },
+            'mitigationInstruction' => function (ParseNode $n) use ($currentObject) { $currentObject->setMitigationInstruction($n->getStringValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getStringValue()); },
+            'validationName' => function (ParseNode $n) use ($currentObject) { $currentObject->setValidationName($n->getStringValue()); },
         ];
     }
 

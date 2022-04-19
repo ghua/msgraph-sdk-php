@@ -31,7 +31,7 @@ class UploadClientCertificateRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identity/apiConnectors/{identityApiConnector_id}/microsoft.graph.uploadClientCertificate';
+        $this->urlTemplate = '{+baseurl}/identity/apiConnectors/{identityApiConnector%2Did}/microsoft.graph.uploadClientCertificate';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

@@ -103,17 +103,18 @@ class AccessReviewScheduleSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'applyActions' => function (self $o, ParseNode $n) { $o->setApplyActions($n->getCollectionOfObjectValues(AccessReviewApplyAction::class)); },
-            'autoApplyDecisionsEnabled' => function (self $o, ParseNode $n) { $o->setAutoApplyDecisionsEnabled($n->getBooleanValue()); },
-            'defaultDecision' => function (self $o, ParseNode $n) { $o->setDefaultDecision($n->getStringValue()); },
-            'defaultDecisionEnabled' => function (self $o, ParseNode $n) { $o->setDefaultDecisionEnabled($n->getBooleanValue()); },
-            'instanceDurationInDays' => function (self $o, ParseNode $n) { $o->setInstanceDurationInDays($n->getIntegerValue()); },
-            'justificationRequiredOnApproval' => function (self $o, ParseNode $n) { $o->setJustificationRequiredOnApproval($n->getBooleanValue()); },
-            'mailNotificationsEnabled' => function (self $o, ParseNode $n) { $o->setMailNotificationsEnabled($n->getBooleanValue()); },
-            'recommendationsEnabled' => function (self $o, ParseNode $n) { $o->setRecommendationsEnabled($n->getBooleanValue()); },
-            'recurrence' => function (self $o, ParseNode $n) { $o->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
-            'reminderNotificationsEnabled' => function (self $o, ParseNode $n) { $o->setReminderNotificationsEnabled($n->getBooleanValue()); },
+            'applyActions' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplyActions($n->getCollectionOfObjectValues(AccessReviewApplyAction::class)); },
+            'autoApplyDecisionsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setAutoApplyDecisionsEnabled($n->getBooleanValue()); },
+            'defaultDecision' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultDecision($n->getStringValue()); },
+            'defaultDecisionEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultDecisionEnabled($n->getBooleanValue()); },
+            'instanceDurationInDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstanceDurationInDays($n->getIntegerValue()); },
+            'justificationRequiredOnApproval' => function (ParseNode $n) use ($currentObject) { $currentObject->setJustificationRequiredOnApproval($n->getBooleanValue()); },
+            'mailNotificationsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailNotificationsEnabled($n->getBooleanValue()); },
+            'recommendationsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecommendationsEnabled($n->getBooleanValue()); },
+            'recurrence' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
+            'reminderNotificationsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setReminderNotificationsEnabled($n->getBooleanValue()); },
         ];
     }
 

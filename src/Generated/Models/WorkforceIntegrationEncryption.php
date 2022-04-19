@@ -47,9 +47,10 @@ class WorkforceIntegrationEncryption implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'protocol' => function (self $o, ParseNode $n) { $o->setProtocol($n->getEnumValue(WorkforceIntegrationEncryptionProtocol::class)); },
-            'secret' => function (self $o, ParseNode $n) { $o->setSecret($n->getStringValue()); },
+            'protocol' => function (ParseNode $n) use ($currentObject) { $currentObject->setProtocol($n->getEnumValue(WorkforceIntegrationEncryptionProtocol::class)); },
+            'secret' => function (ParseNode $n) use ($currentObject) { $currentObject->setSecret($n->getStringValue()); },
         ];
     }
 

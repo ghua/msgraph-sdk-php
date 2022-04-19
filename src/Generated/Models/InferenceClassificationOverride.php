@@ -43,9 +43,10 @@ class InferenceClassificationOverride extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'classifyAs' => function (self $o, ParseNode $n) { $o->setClassifyAs($n->getEnumValue(InferenceClassificationType::class)); },
-            'senderEmailAddress' => function (self $o, ParseNode $n) { $o->setSenderEmailAddress($n->getObjectValue(EmailAddress::class)); },
+            'classifyAs' => function (ParseNode $n) use ($currentObject) { $currentObject->setClassifyAs($n->getEnumValue(InferenceClassificationType::class)); },
+            'senderEmailAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setSenderEmailAddress($n->getObjectValue(EmailAddress::class)); },
         ]);
     }
 

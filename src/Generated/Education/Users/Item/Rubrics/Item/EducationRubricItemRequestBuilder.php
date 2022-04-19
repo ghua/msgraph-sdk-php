@@ -32,7 +32,7 @@ class EducationRubricItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/education/users/{educationUser_id}/rubrics/{educationRubric_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/education/users/{educationUser%2Did}/rubrics/{educationRubric%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -58,7 +58,7 @@ class EducationRubricItemRequestBuilder
     }
 
     /**
-     * Get rubrics from education
+     * When set, the grading rubric attached to the assignment.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -120,7 +120,7 @@ class EducationRubricItemRequestBuilder
     }
 
     /**
-     * Get rubrics from education
+     * When set, the grading rubric attached to the assignment.
      * @param array|null $queryParameters Request query parameters
      * @param array<string, mixed>|null $headers Request headers
      * @param array<string, RequestOption>|null $options Request options
@@ -153,4 +153,15 @@ class EducationRubricItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

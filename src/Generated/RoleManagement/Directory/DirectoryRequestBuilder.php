@@ -9,8 +9,20 @@ use Microsoft\Graph\Generated\Models\ODataErrors\ODataError;
 use Microsoft\Graph\Generated\Models\RbacApplication;
 use Microsoft\Graph\Generated\RoleManagement\Directory\RoleAssignments\Item\UnifiedRoleAssignmentItemRequestBuilder;
 use Microsoft\Graph\Generated\RoleManagement\Directory\RoleAssignments\RoleAssignmentsRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleAssignmentScheduleInstances\Item\UnifiedRoleAssignmentScheduleInstanceItemRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleAssignmentScheduleInstances\RoleAssignmentScheduleInstancesRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleAssignmentScheduleRequests\Item\UnifiedRoleAssignmentScheduleRequestItemRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleAssignmentScheduleRequests\RoleAssignmentScheduleRequestsRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleAssignmentSchedules\Item\UnifiedRoleAssignmentScheduleItemRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleAssignmentSchedules\RoleAssignmentSchedulesRequestBuilder;
 use Microsoft\Graph\Generated\RoleManagement\Directory\RoleDefinitions\Item\UnifiedRoleDefinitionItemRequestBuilder;
 use Microsoft\Graph\Generated\RoleManagement\Directory\RoleDefinitions\RoleDefinitionsRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleEligibilityScheduleInstances\Item\UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleEligibilityScheduleInstances\RoleEligibilityScheduleInstancesRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleEligibilityScheduleRequests\Item\UnifiedRoleEligibilityScheduleRequestItemRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleEligibilityScheduleRequests\RoleEligibilityScheduleRequestsRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleEligibilitySchedules\Item\UnifiedRoleEligibilityScheduleItemRequestBuilder;
+use Microsoft\Graph\Generated\RoleManagement\Directory\RoleEligibilitySchedules\RoleEligibilitySchedulesRequestBuilder;
 use Microsoft\Kiota\Abstractions\HttpMethod;
 use Microsoft\Kiota\Abstractions\RequestAdapter;
 use Microsoft\Kiota\Abstractions\RequestInformation;
@@ -35,10 +47,52 @@ class DirectoryRequestBuilder
     }
     
     /**
+     * The roleAssignmentScheduleInstances property
+    */
+    public function roleAssignmentScheduleInstances(): RoleAssignmentScheduleInstancesRequestBuilder {
+        return new RoleAssignmentScheduleInstancesRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
+    
+    /**
+     * The roleAssignmentScheduleRequests property
+    */
+    public function roleAssignmentScheduleRequests(): RoleAssignmentScheduleRequestsRequestBuilder {
+        return new RoleAssignmentScheduleRequestsRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
+    
+    /**
+     * The roleAssignmentSchedules property
+    */
+    public function roleAssignmentSchedules(): RoleAssignmentSchedulesRequestBuilder {
+        return new RoleAssignmentSchedulesRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
+    
+    /**
      * The roleDefinitions property
     */
     public function roleDefinitions(): RoleDefinitionsRequestBuilder {
         return new RoleDefinitionsRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
+    
+    /**
+     * The roleEligibilityScheduleInstances property
+    */
+    public function roleEligibilityScheduleInstances(): RoleEligibilityScheduleInstancesRequestBuilder {
+        return new RoleEligibilityScheduleInstancesRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
+    
+    /**
+     * The roleEligibilityScheduleRequests property
+    */
+    public function roleEligibilityScheduleRequests(): RoleEligibilityScheduleRequestsRequestBuilder {
+        return new RoleEligibilityScheduleRequestsRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
+    
+    /**
+     * The roleEligibilitySchedules property
+    */
+    public function roleEligibilitySchedules(): RoleEligibilitySchedulesRequestBuilder {
+        return new RoleEligibilitySchedulesRequestBuilder($this->pathParameters, $this->requestAdapter);
     }
     
     /** @var string $urlTemplate Url template to use to build the URL for the current request builder */
@@ -50,7 +104,7 @@ class DirectoryRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/roleManagement/directory{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/roleManagement/directory{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -178,8 +232,41 @@ class DirectoryRequestBuilder
     */
     public function roleAssignmentsById(string $id): UnifiedRoleAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['unifiedRoleAssignment_id'] = $id;
+        $urlTplParams['unifiedRoleAssignment%2Did'] = $id;
         return new UnifiedRoleAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
+    }
+
+    /**
+     * Gets an item from the Microsoft\Graph\Generated.roleManagement.directory.roleAssignmentScheduleInstances.item collection
+     * @param string $id Unique identifier of the item
+     * @return UnifiedRoleAssignmentScheduleInstanceItemRequestBuilder
+    */
+    public function roleAssignmentScheduleInstancesById(string $id): UnifiedRoleAssignmentScheduleInstanceItemRequestBuilder {
+        $urlTplParams = $this->pathParameters;
+        $urlTplParams['unifiedRoleAssignmentScheduleInstance%2Did'] = $id;
+        return new UnifiedRoleAssignmentScheduleInstanceItemRequestBuilder($urlTplParams, $this->requestAdapter);
+    }
+
+    /**
+     * Gets an item from the Microsoft\Graph\Generated.roleManagement.directory.roleAssignmentScheduleRequests.item collection
+     * @param string $id Unique identifier of the item
+     * @return UnifiedRoleAssignmentScheduleRequestItemRequestBuilder
+    */
+    public function roleAssignmentScheduleRequestsById(string $id): UnifiedRoleAssignmentScheduleRequestItemRequestBuilder {
+        $urlTplParams = $this->pathParameters;
+        $urlTplParams['unifiedRoleAssignmentScheduleRequest%2Did'] = $id;
+        return new UnifiedRoleAssignmentScheduleRequestItemRequestBuilder($urlTplParams, $this->requestAdapter);
+    }
+
+    /**
+     * Gets an item from the Microsoft\Graph\Generated.roleManagement.directory.roleAssignmentSchedules.item collection
+     * @param string $id Unique identifier of the item
+     * @return UnifiedRoleAssignmentScheduleItemRequestBuilder
+    */
+    public function roleAssignmentSchedulesById(string $id): UnifiedRoleAssignmentScheduleItemRequestBuilder {
+        $urlTplParams = $this->pathParameters;
+        $urlTplParams['unifiedRoleAssignmentSchedule%2Did'] = $id;
+        return new UnifiedRoleAssignmentScheduleItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
     /**
@@ -189,8 +276,52 @@ class DirectoryRequestBuilder
     */
     public function roleDefinitionsById(string $id): UnifiedRoleDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['unifiedRoleDefinition_id'] = $id;
+        $urlTplParams['unifiedRoleDefinition%2Did'] = $id;
         return new UnifiedRoleDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    /**
+     * Gets an item from the Microsoft\Graph\Generated.roleManagement.directory.roleEligibilityScheduleInstances.item collection
+     * @param string $id Unique identifier of the item
+     * @return UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder
+    */
+    public function roleEligibilityScheduleInstancesById(string $id): UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder {
+        $urlTplParams = $this->pathParameters;
+        $urlTplParams['unifiedRoleEligibilityScheduleInstance%2Did'] = $id;
+        return new UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder($urlTplParams, $this->requestAdapter);
+    }
+
+    /**
+     * Gets an item from the Microsoft\Graph\Generated.roleManagement.directory.roleEligibilityScheduleRequests.item collection
+     * @param string $id Unique identifier of the item
+     * @return UnifiedRoleEligibilityScheduleRequestItemRequestBuilder
+    */
+    public function roleEligibilityScheduleRequestsById(string $id): UnifiedRoleEligibilityScheduleRequestItemRequestBuilder {
+        $urlTplParams = $this->pathParameters;
+        $urlTplParams['unifiedRoleEligibilityScheduleRequest%2Did'] = $id;
+        return new UnifiedRoleEligibilityScheduleRequestItemRequestBuilder($urlTplParams, $this->requestAdapter);
+    }
+
+    /**
+     * Gets an item from the Microsoft\Graph\Generated.roleManagement.directory.roleEligibilitySchedules.item collection
+     * @param string $id Unique identifier of the item
+     * @return UnifiedRoleEligibilityScheduleItemRequestBuilder
+    */
+    public function roleEligibilitySchedulesById(string $id): UnifiedRoleEligibilityScheduleItemRequestBuilder {
+        $urlTplParams = $this->pathParameters;
+        $urlTplParams['unifiedRoleEligibilitySchedule%2Did'] = $id;
+        return new UnifiedRoleEligibilityScheduleItemRequestBuilder($urlTplParams, $this->requestAdapter);
+    }
+
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

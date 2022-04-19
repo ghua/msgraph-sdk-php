@@ -88,12 +88,13 @@ class EducationCourse implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'courseNumber' => function (self $o, ParseNode $n) { $o->setCourseNumber($n->getStringValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'externalId' => function (self $o, ParseNode $n) { $o->setExternalId($n->getStringValue()); },
-            'subject' => function (self $o, ParseNode $n) { $o->setSubject($n->getStringValue()); },
+            'courseNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setCourseNumber($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'externalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalId($n->getStringValue()); },
+            'subject' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubject($n->getStringValue()); },
         ];
     }
 

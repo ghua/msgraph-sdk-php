@@ -128,21 +128,22 @@ class Subscription extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'applicationId' => function (self $o, ParseNode $n) { $o->setApplicationId($n->getStringValue()); },
-            'changeType' => function (self $o, ParseNode $n) { $o->setChangeType($n->getStringValue()); },
-            'clientState' => function (self $o, ParseNode $n) { $o->setClientState($n->getStringValue()); },
-            'creatorId' => function (self $o, ParseNode $n) { $o->setCreatorId($n->getStringValue()); },
-            'encryptionCertificate' => function (self $o, ParseNode $n) { $o->setEncryptionCertificate($n->getStringValue()); },
-            'encryptionCertificateId' => function (self $o, ParseNode $n) { $o->setEncryptionCertificateId($n->getStringValue()); },
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'includeResourceData' => function (self $o, ParseNode $n) { $o->setIncludeResourceData($n->getBooleanValue()); },
-            'latestSupportedTlsVersion' => function (self $o, ParseNode $n) { $o->setLatestSupportedTlsVersion($n->getStringValue()); },
-            'lifecycleNotificationUrl' => function (self $o, ParseNode $n) { $o->setLifecycleNotificationUrl($n->getStringValue()); },
-            'notificationQueryOptions' => function (self $o, ParseNode $n) { $o->setNotificationQueryOptions($n->getStringValue()); },
-            'notificationUrl' => function (self $o, ParseNode $n) { $o->setNotificationUrl($n->getStringValue()); },
-            'notificationUrlAppId' => function (self $o, ParseNode $n) { $o->setNotificationUrlAppId($n->getStringValue()); },
-            'resource' => function (self $o, ParseNode $n) { $o->setResource($n->getStringValue()); },
+            'applicationId' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplicationId($n->getStringValue()); },
+            'changeType' => function (ParseNode $n) use ($currentObject) { $currentObject->setChangeType($n->getStringValue()); },
+            'clientState' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientState($n->getStringValue()); },
+            'creatorId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatorId($n->getStringValue()); },
+            'encryptionCertificate' => function (ParseNode $n) use ($currentObject) { $currentObject->setEncryptionCertificate($n->getStringValue()); },
+            'encryptionCertificateId' => function (ParseNode $n) use ($currentObject) { $currentObject->setEncryptionCertificateId($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'includeResourceData' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeResourceData($n->getBooleanValue()); },
+            'latestSupportedTlsVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setLatestSupportedTlsVersion($n->getStringValue()); },
+            'lifecycleNotificationUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setLifecycleNotificationUrl($n->getStringValue()); },
+            'notificationQueryOptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotificationQueryOptions($n->getStringValue()); },
+            'notificationUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotificationUrl($n->getStringValue()); },
+            'notificationUrlAppId' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotificationUrlAppId($n->getStringValue()); },
+            'resource' => function (ParseNode $n) use ($currentObject) { $currentObject->setResource($n->getStringValue()); },
         ]);
     }
 

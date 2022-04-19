@@ -77,11 +77,12 @@ class ImageInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'addImageQuery' => function (self $o, ParseNode $n) { $o->setAddImageQuery($n->getBooleanValue()); },
-            'alternateText' => function (self $o, ParseNode $n) { $o->setAlternateText($n->getStringValue()); },
-            'alternativeText' => function (self $o, ParseNode $n) { $o->setAlternativeText($n->getStringValue()); },
-            'iconUrl' => function (self $o, ParseNode $n) { $o->setIconUrl($n->getStringValue()); },
+            'addImageQuery' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddImageQuery($n->getBooleanValue()); },
+            'alternateText' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlternateText($n->getStringValue()); },
+            'alternativeText' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlternativeText($n->getStringValue()); },
+            'iconUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setIconUrl($n->getStringValue()); },
         ];
     }
 

@@ -45,8 +45,9 @@ class LogTeleconferenceDeviceQualityRequestBody implements AdditionalDataHolder,
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'quality' => function (self $o, ParseNode $n) { $o->setQuality($n->getObjectValue(TeleconferenceDeviceQuality::class)); },
+            'quality' => function (ParseNode $n) use ($currentObject) { $currentObject->setQuality($n->getObjectValue(TeleconferenceDeviceQuality::class)); },
         ];
     }
 

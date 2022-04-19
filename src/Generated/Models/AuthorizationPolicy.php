@@ -98,14 +98,15 @@ class AuthorizationPolicy extends PolicyBase
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'allowedToSignUpEmailBasedSubscriptions' => function (self $o, ParseNode $n) { $o->setAllowedToSignUpEmailBasedSubscriptions($n->getBooleanValue()); },
-            'allowedToUseSSPR' => function (self $o, ParseNode $n) { $o->setAllowedToUseSSPR($n->getBooleanValue()); },
-            'allowEmailVerifiedUsersToJoinOrganization' => function (self $o, ParseNode $n) { $o->setAllowEmailVerifiedUsersToJoinOrganization($n->getBooleanValue()); },
-            'allowInvitesFrom' => function (self $o, ParseNode $n) { $o->setAllowInvitesFrom($n->getEnumValue(AllowInvitesFrom::class)); },
-            'blockMsolPowerShell' => function (self $o, ParseNode $n) { $o->setBlockMsolPowerShell($n->getBooleanValue()); },
-            'defaultUserRolePermissions' => function (self $o, ParseNode $n) { $o->setDefaultUserRolePermissions($n->getObjectValue(DefaultUserRolePermissions::class)); },
-            'guestUserRoleId' => function (self $o, ParseNode $n) { $o->setGuestUserRoleId($n->getStringValue()); },
+            'allowedToSignUpEmailBasedSubscriptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedToSignUpEmailBasedSubscriptions($n->getBooleanValue()); },
+            'allowedToUseSSPR' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedToUseSSPR($n->getBooleanValue()); },
+            'allowEmailVerifiedUsersToJoinOrganization' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowEmailVerifiedUsersToJoinOrganization($n->getBooleanValue()); },
+            'allowInvitesFrom' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowInvitesFrom($n->getEnumValue(AllowInvitesFrom::class)); },
+            'blockMsolPowerShell' => function (ParseNode $n) use ($currentObject) { $currentObject->setBlockMsolPowerShell($n->getBooleanValue()); },
+            'defaultUserRolePermissions' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultUserRolePermissions($n->getObjectValue(DefaultUserRolePermissions::class)); },
+            'guestUserRoleId' => function (ParseNode $n) use ($currentObject) { $currentObject->setGuestUserRoleId($n->getStringValue()); },
         ]);
     }
 

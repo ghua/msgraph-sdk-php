@@ -32,7 +32,7 @@ class ReminderViewWithStartDateTimeWithEndDateTimeRequestBuilder
      * @param string|null $startDateTime Usage: StartDateTime='{StartDateTime}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $endDateTime = null, ?string $startDateTime = null) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/microsoft.graph.reminderView(StartDateTime=\'{StartDateTime}\',EndDateTime=\'{EndDateTime}\')';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/microsoft.graph.reminderView(StartDateTime=\'{StartDateTime}\',EndDateTime=\'{EndDateTime}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

@@ -59,10 +59,11 @@ class DeclineRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'comment' => function (self $o, ParseNode $n) { $o->setComment($n->getStringValue()); },
-            'proposedNewTime' => function (self $o, ParseNode $n) { $o->setProposedNewTime($n->getObjectValue(TimeSlot::class)); },
-            'sendResponse' => function (self $o, ParseNode $n) { $o->setSendResponse($n->getBooleanValue()); },
+            'comment' => function (ParseNode $n) use ($currentObject) { $currentObject->setComment($n->getStringValue()); },
+            'proposedNewTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setProposedNewTime($n->getObjectValue(TimeSlot::class)); },
+            'sendResponse' => function (ParseNode $n) use ($currentObject) { $currentObject->setSendResponse($n->getBooleanValue()); },
         ];
     }
 

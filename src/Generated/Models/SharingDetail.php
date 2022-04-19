@@ -57,12 +57,13 @@ class SharingDetail implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'sharedBy' => function (self $o, ParseNode $n) { $o->setSharedBy($n->getObjectValue(InsightIdentity::class)); },
-            'sharedDateTime' => function (self $o, ParseNode $n) { $o->setSharedDateTime($n->getDateTimeValue()); },
-            'sharingReference' => function (self $o, ParseNode $n) { $o->setSharingReference($n->getObjectValue(ResourceReference::class)); },
-            'sharingSubject' => function (self $o, ParseNode $n) { $o->setSharingSubject($n->getStringValue()); },
-            'sharingType' => function (self $o, ParseNode $n) { $o->setSharingType($n->getStringValue()); },
+            'sharedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedBy($n->getObjectValue(InsightIdentity::class)); },
+            'sharedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedDateTime($n->getDateTimeValue()); },
+            'sharingReference' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharingReference($n->getObjectValue(ResourceReference::class)); },
+            'sharingSubject' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharingSubject($n->getStringValue()); },
+            'sharingType' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharingType($n->getStringValue()); },
         ];
     }
 

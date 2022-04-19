@@ -45,8 +45,9 @@ class CreateUploadSessionRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'item' => function (self $o, ParseNode $n) { $o->setItem($n->getObjectValue(DriveItemUploadableProperties::class)); },
+            'item' => function (ParseNode $n) use ($currentObject) { $currentObject->setItem($n->getObjectValue(DriveItemUploadableProperties::class)); },
         ];
     }
 

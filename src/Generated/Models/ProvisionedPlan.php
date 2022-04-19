@@ -58,10 +58,11 @@ class ProvisionedPlan implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'capabilityStatus' => function (self $o, ParseNode $n) { $o->setCapabilityStatus($n->getStringValue()); },
-            'provisioningStatus' => function (self $o, ParseNode $n) { $o->setProvisioningStatus($n->getStringValue()); },
-            'service' => function (self $o, ParseNode $n) { $o->setService($n->getStringValue()); },
+            'capabilityStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setCapabilityStatus($n->getStringValue()); },
+            'provisioningStatus' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisioningStatus($n->getStringValue()); },
+            'service' => function (ParseNode $n) use ($currentObject) { $currentObject->setService($n->getStringValue()); },
         ];
     }
 

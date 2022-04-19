@@ -30,7 +30,7 @@ class CancelRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/calendar/calendarView/{event_id}/microsoft.graph.cancel';
+        $this->urlTemplate = '{+baseurl}/me/calendar/calendarView/{event%2Did}/microsoft.graph.cancel';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

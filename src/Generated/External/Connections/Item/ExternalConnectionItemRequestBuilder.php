@@ -67,7 +67,7 @@ class ExternalConnectionItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/external/connections/{externalConnection_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/external/connections/{externalConnection%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -178,7 +178,7 @@ class ExternalConnectionItemRequestBuilder
     */
     public function groupsById(string $id): ExternalGroupItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['externalGroup_id'] = $id;
+        $urlTplParams['externalGroup%2Did'] = $id;
         return new ExternalGroupItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -189,7 +189,7 @@ class ExternalConnectionItemRequestBuilder
     */
     public function itemsById(string $id): ExternalItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['externalItem_id'] = $id;
+        $urlTplParams['externalItem%2Did'] = $id;
         return new ExternalItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -200,7 +200,7 @@ class ExternalConnectionItemRequestBuilder
     */
     public function operationsById(string $id): ConnectionOperationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['connectionOperation_id'] = $id;
+        $urlTplParams['connectionOperation%2Did'] = $id;
         return new ConnectionOperationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -221,4 +221,15 @@ class ExternalConnectionItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

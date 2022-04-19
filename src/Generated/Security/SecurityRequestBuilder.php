@@ -60,7 +60,7 @@ class SecurityRequestBuilder
     */
     public function alertsById(string $id): AlertItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['alert_id'] = $id;
+        $urlTplParams['alert%2Did'] = $id;
         return new AlertItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -70,7 +70,7 @@ class SecurityRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/security{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/security{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -162,7 +162,7 @@ class SecurityRequestBuilder
     */
     public function secureScoreControlProfilesById(string $id): SecureScoreControlProfileItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['secureScoreControlProfile_id'] = $id;
+        $urlTplParams['secureScoreControlProfile%2Did'] = $id;
         return new SecureScoreControlProfileItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -173,8 +173,19 @@ class SecurityRequestBuilder
     */
     public function secureScoresById(string $id): SecureScoreItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['secureScore_id'] = $id;
+        $urlTplParams['secureScore%2Did'] = $id;
         return new SecureScoreItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -110,23 +110,24 @@ class WindowsAutopilotDeviceIdentity extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'addressableUserName' => function (self $o, ParseNode $n) { $o->setAddressableUserName($n->getStringValue()); },
-            'azureActiveDirectoryDeviceId' => function (self $o, ParseNode $n) { $o->setAzureActiveDirectoryDeviceId($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'enrollmentState' => function (self $o, ParseNode $n) { $o->setEnrollmentState($n->getEnumValue(EnrollmentState::class)); },
-            'groupTag' => function (self $o, ParseNode $n) { $o->setGroupTag($n->getStringValue()); },
-            'lastContactedDateTime' => function (self $o, ParseNode $n) { $o->setLastContactedDateTime($n->getDateTimeValue()); },
-            'managedDeviceId' => function (self $o, ParseNode $n) { $o->setManagedDeviceId($n->getStringValue()); },
-            'manufacturer' => function (self $o, ParseNode $n) { $o->setManufacturer($n->getStringValue()); },
-            'model' => function (self $o, ParseNode $n) { $o->setModel($n->getStringValue()); },
-            'productKey' => function (self $o, ParseNode $n) { $o->setProductKey($n->getStringValue()); },
-            'purchaseOrderIdentifier' => function (self $o, ParseNode $n) { $o->setPurchaseOrderIdentifier($n->getStringValue()); },
-            'resourceName' => function (self $o, ParseNode $n) { $o->setResourceName($n->getStringValue()); },
-            'serialNumber' => function (self $o, ParseNode $n) { $o->setSerialNumber($n->getStringValue()); },
-            'skuNumber' => function (self $o, ParseNode $n) { $o->setSkuNumber($n->getStringValue()); },
-            'systemFamily' => function (self $o, ParseNode $n) { $o->setSystemFamily($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'addressableUserName' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddressableUserName($n->getStringValue()); },
+            'azureActiveDirectoryDeviceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAzureActiveDirectoryDeviceId($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'enrollmentState' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnrollmentState($n->getEnumValue(EnrollmentState::class)); },
+            'groupTag' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupTag($n->getStringValue()); },
+            'lastContactedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastContactedDateTime($n->getDateTimeValue()); },
+            'managedDeviceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagedDeviceId($n->getStringValue()); },
+            'manufacturer' => function (ParseNode $n) use ($currentObject) { $currentObject->setManufacturer($n->getStringValue()); },
+            'model' => function (ParseNode $n) use ($currentObject) { $currentObject->setModel($n->getStringValue()); },
+            'productKey' => function (ParseNode $n) use ($currentObject) { $currentObject->setProductKey($n->getStringValue()); },
+            'purchaseOrderIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setPurchaseOrderIdentifier($n->getStringValue()); },
+            'resourceName' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceName($n->getStringValue()); },
+            'serialNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setSerialNumber($n->getStringValue()); },
+            'skuNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkuNumber($n->getStringValue()); },
+            'systemFamily' => function (ParseNode $n) use ($currentObject) { $currentObject->setSystemFamily($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ]);
     }
 

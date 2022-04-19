@@ -74,11 +74,12 @@ class ItemActivity extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'access' => function (self $o, ParseNode $n) { $o->setAccess($n->getObjectValue(AccessAction::class)); },
-            'activityDateTime' => function (self $o, ParseNode $n) { $o->setActivityDateTime($n->getDateTimeValue()); },
-            'actor' => function (self $o, ParseNode $n) { $o->setActor($n->getObjectValue(IdentitySet::class)); },
-            'driveItem' => function (self $o, ParseNode $n) { $o->setDriveItem($n->getObjectValue(DriveItem::class)); },
+            'access' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccess($n->getObjectValue(AccessAction::class)); },
+            'activityDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivityDateTime($n->getDateTimeValue()); },
+            'actor' => function (ParseNode $n) use ($currentObject) { $currentObject->setActor($n->getObjectValue(IdentitySet::class)); },
+            'driveItem' => function (ParseNode $n) use ($currentObject) { $currentObject->setDriveItem($n->getObjectValue(DriveItem::class)); },
         ]);
     }
 

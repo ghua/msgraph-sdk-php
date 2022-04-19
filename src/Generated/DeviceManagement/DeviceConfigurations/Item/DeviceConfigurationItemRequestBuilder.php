@@ -94,7 +94,7 @@ class DeviceConfigurationItemRequestBuilder
     */
     public function assignmentsById(string $id): DeviceConfigurationAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceConfigurationAssignment_id'] = $id;
+        $urlTplParams['deviceConfigurationAssignment%2Did'] = $id;
         return new DeviceConfigurationAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -104,7 +104,7 @@ class DeviceConfigurationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceConfigurations/{deviceConfiguration_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceConfigurations/{deviceConfiguration%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -198,7 +198,7 @@ class DeviceConfigurationItemRequestBuilder
     */
     public function deviceSettingStateSummariesById(string $id): SettingStateDeviceSummaryItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['settingStateDeviceSummary_id'] = $id;
+        $urlTplParams['settingStateDeviceSummary%2Did'] = $id;
         return new SettingStateDeviceSummaryItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -209,7 +209,7 @@ class DeviceConfigurationItemRequestBuilder
     */
     public function deviceStatusesById(string $id): DeviceConfigurationDeviceStatusItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceConfigurationDeviceStatus_id'] = $id;
+        $urlTplParams['deviceConfigurationDeviceStatus%2Did'] = $id;
         return new DeviceConfigurationDeviceStatusItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -263,8 +263,19 @@ class DeviceConfigurationItemRequestBuilder
     */
     public function userStatusesById(string $id): DeviceConfigurationUserStatusItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceConfigurationUserStatus_id'] = $id;
+        $urlTplParams['deviceConfigurationUserStatus%2Did'] = $id;
         return new DeviceConfigurationUserStatusItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -80,15 +80,16 @@ class Set extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'children' => function (self $o, ParseNode $n) { $o->setChildren($n->getCollectionOfObjectValues(Term::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'localizedNames' => function (self $o, ParseNode $n) { $o->setLocalizedNames($n->getCollectionOfObjectValues(LocalizedName::class)); },
-            'parentGroup' => function (self $o, ParseNode $n) { $o->setParentGroup($n->getObjectValue(Group::class)); },
-            'properties' => function (self $o, ParseNode $n) { $o->setProperties($n->getCollectionOfObjectValues(KeyValue::class)); },
-            'relations' => function (self $o, ParseNode $n) { $o->setRelations($n->getCollectionOfObjectValues(Relation::class)); },
-            'terms' => function (self $o, ParseNode $n) { $o->setTerms($n->getCollectionOfObjectValues(Term::class)); },
+            'children' => function (ParseNode $n) use ($currentObject) { $currentObject->setChildren($n->getCollectionOfObjectValues(Term::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'localizedNames' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocalizedNames($n->getCollectionOfObjectValues(LocalizedName::class)); },
+            'parentGroup' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentGroup($n->getObjectValue(Group::class)); },
+            'properties' => function (ParseNode $n) use ($currentObject) { $currentObject->setProperties($n->getCollectionOfObjectValues(KeyValue::class)); },
+            'relations' => function (ParseNode $n) use ($currentObject) { $currentObject->setRelations($n->getCollectionOfObjectValues(Relation::class)); },
+            'terms' => function (ParseNode $n) use ($currentObject) { $currentObject->setTerms($n->getCollectionOfObjectValues(Term::class)); },
         ]);
     }
 

@@ -45,8 +45,9 @@ class SnoozeReminderRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'newReminderTime' => function (self $o, ParseNode $n) { $o->setNewReminderTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'newReminderTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setNewReminderTime($n->getObjectValue(DateTimeTimeZone::class)); },
         ];
     }
 

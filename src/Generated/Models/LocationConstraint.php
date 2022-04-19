@@ -50,10 +50,11 @@ class LocationConstraint implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'isRequired' => function (self $o, ParseNode $n) { $o->setIsRequired($n->getBooleanValue()); },
-            'locations' => function (self $o, ParseNode $n) { $o->setLocations($n->getCollectionOfObjectValues(LocationConstraintItem::class)); },
-            'suggestLocation' => function (self $o, ParseNode $n) { $o->setSuggestLocation($n->getBooleanValue()); },
+            'isRequired' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsRequired($n->getBooleanValue()); },
+            'locations' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocations($n->getCollectionOfObjectValues(LocationConstraintItem::class)); },
+            'suggestLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setSuggestLocation($n->getBooleanValue()); },
         ];
     }
 

@@ -65,16 +65,17 @@ class ConversationThread extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'ccRecipients' => function (self $o, ParseNode $n) { $o->setCcRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
-            'hasAttachments' => function (self $o, ParseNode $n) { $o->setHasAttachments($n->getBooleanValue()); },
-            'isLocked' => function (self $o, ParseNode $n) { $o->setIsLocked($n->getBooleanValue()); },
-            'lastDeliveredDateTime' => function (self $o, ParseNode $n) { $o->setLastDeliveredDateTime($n->getDateTimeValue()); },
-            'posts' => function (self $o, ParseNode $n) { $o->setPosts($n->getCollectionOfObjectValues(Post::class)); },
-            'preview' => function (self $o, ParseNode $n) { $o->setPreview($n->getStringValue()); },
-            'topic' => function (self $o, ParseNode $n) { $o->setTopic($n->getStringValue()); },
-            'toRecipients' => function (self $o, ParseNode $n) { $o->setToRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
-            'uniqueSenders' => function (self $o, ParseNode $n) { $o->setUniqueSenders($n->getCollectionOfPrimitiveValues()); },
+            'ccRecipients' => function (ParseNode $n) use ($currentObject) { $currentObject->setCcRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
+            'hasAttachments' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasAttachments($n->getBooleanValue()); },
+            'isLocked' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsLocked($n->getBooleanValue()); },
+            'lastDeliveredDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastDeliveredDateTime($n->getDateTimeValue()); },
+            'posts' => function (ParseNode $n) use ($currentObject) { $currentObject->setPosts($n->getCollectionOfObjectValues(Post::class)); },
+            'preview' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreview($n->getStringValue()); },
+            'topic' => function (ParseNode $n) use ($currentObject) { $currentObject->setTopic($n->getStringValue()); },
+            'toRecipients' => function (ParseNode $n) use ($currentObject) { $currentObject->setToRecipients($n->getCollectionOfObjectValues(Recipient::class)); },
+            'uniqueSenders' => function (ParseNode $n) use ($currentObject) { $currentObject->setUniqueSenders($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

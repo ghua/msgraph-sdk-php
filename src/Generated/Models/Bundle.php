@@ -63,9 +63,10 @@ class Bundle implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'album' => function (self $o, ParseNode $n) { $o->setAlbum($n->getObjectValue(Album::class)); },
-            'childCount' => function (self $o, ParseNode $n) { $o->setChildCount($n->getIntegerValue()); },
+            'album' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlbum($n->getObjectValue(Album::class)); },
+            'childCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setChildCount($n->getIntegerValue()); },
         ];
     }
 

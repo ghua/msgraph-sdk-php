@@ -94,15 +94,16 @@ class AccessPackageCatalog extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'accessPackages' => function (self $o, ParseNode $n) { $o->setAccessPackages($n->getCollectionOfObjectValues(AccessPackage::class)); },
-            'catalogType' => function (self $o, ParseNode $n) { $o->setCatalogType($n->getEnumValue(AccessPackageCatalogType::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isExternallyVisible' => function (self $o, ParseNode $n) { $o->setIsExternallyVisible($n->getBooleanValue()); },
-            'modifiedDateTime' => function (self $o, ParseNode $n) { $o->setModifiedDateTime($n->getDateTimeValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(AccessPackageCatalogState::class)); },
+            'accessPackages' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessPackages($n->getCollectionOfObjectValues(AccessPackage::class)); },
+            'catalogType' => function (ParseNode $n) use ($currentObject) { $currentObject->setCatalogType($n->getEnumValue(AccessPackageCatalogType::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isExternallyVisible' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsExternallyVisible($n->getBooleanValue()); },
+            'modifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setModifiedDateTime($n->getDateTimeValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(AccessPackageCatalogState::class)); },
         ]);
     }
 

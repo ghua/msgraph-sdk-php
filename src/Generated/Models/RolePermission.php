@@ -44,8 +44,9 @@ class RolePermission implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'resourceActions' => function (self $o, ParseNode $n) { $o->setResourceActions($n->getCollectionOfObjectValues(ResourceAction::class)); },
+            'resourceActions' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceActions($n->getCollectionOfObjectValues(ResourceAction::class)); },
         ];
     }
 

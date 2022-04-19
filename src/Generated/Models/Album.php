@@ -52,8 +52,9 @@ class Album implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'coverImageItemId' => function (self $o, ParseNode $n) { $o->setCoverImageItemId($n->getStringValue()); },
+            'coverImageItemId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCoverImageItemId($n->getStringValue()); },
         ];
     }
 

@@ -88,18 +88,19 @@ class OnenotePage extends OnenoteEntitySchemaObjectModel
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getBinaryContent()); },
-            'contentUrl' => function (self $o, ParseNode $n) { $o->setContentUrl($n->getStringValue()); },
-            'createdByAppId' => function (self $o, ParseNode $n) { $o->setCreatedByAppId($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'level' => function (self $o, ParseNode $n) { $o->setLevel($n->getIntegerValue()); },
-            'links' => function (self $o, ParseNode $n) { $o->setLinks($n->getObjectValue(PageLinks::class)); },
-            'order' => function (self $o, ParseNode $n) { $o->setOrder($n->getIntegerValue()); },
-            'parentNotebook' => function (self $o, ParseNode $n) { $o->setParentNotebook($n->getObjectValue(Notebook::class)); },
-            'parentSection' => function (self $o, ParseNode $n) { $o->setParentSection($n->getObjectValue(OnenoteSection::class)); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
-            'userTags' => function (self $o, ParseNode $n) { $o->setUserTags($n->getCollectionOfPrimitiveValues()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getBinaryContent()); },
+            'contentUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentUrl($n->getStringValue()); },
+            'createdByAppId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedByAppId($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'level' => function (ParseNode $n) use ($currentObject) { $currentObject->setLevel($n->getIntegerValue()); },
+            'links' => function (ParseNode $n) use ($currentObject) { $currentObject->setLinks($n->getObjectValue(PageLinks::class)); },
+            'order' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrder($n->getIntegerValue()); },
+            'parentNotebook' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentNotebook($n->getObjectValue(Notebook::class)); },
+            'parentSection' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentSection($n->getObjectValue(OnenoteSection::class)); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
+            'userTags' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserTags($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

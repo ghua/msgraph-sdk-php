@@ -66,10 +66,11 @@ class ColumnValidation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'defaultLanguage' => function (self $o, ParseNode $n) { $o->setDefaultLanguage($n->getStringValue()); },
-            'descriptions' => function (self $o, ParseNode $n) { $o->setDescriptions($n->getCollectionOfObjectValues(DisplayNameLocalization::class)); },
-            'formula' => function (self $o, ParseNode $n) { $o->setFormula($n->getStringValue()); },
+            'defaultLanguage' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultLanguage($n->getStringValue()); },
+            'descriptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescriptions($n->getCollectionOfObjectValues(DisplayNameLocalization::class)); },
+            'formula' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormula($n->getStringValue()); },
         ];
     }
 

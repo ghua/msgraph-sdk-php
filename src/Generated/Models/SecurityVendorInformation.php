@@ -53,11 +53,12 @@ class SecurityVendorInformation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'provider' => function (self $o, ParseNode $n) { $o->setProvider($n->getStringValue()); },
-            'providerVersion' => function (self $o, ParseNode $n) { $o->setProviderVersion($n->getStringValue()); },
-            'subProvider' => function (self $o, ParseNode $n) { $o->setSubProvider($n->getStringValue()); },
-            'vendor' => function (self $o, ParseNode $n) { $o->setVendor($n->getStringValue()); },
+            'provider' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvider($n->getStringValue()); },
+            'providerVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setProviderVersion($n->getStringValue()); },
+            'subProvider' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubProvider($n->getStringValue()); },
+            'vendor' => function (ParseNode $n) use ($currentObject) { $currentObject->setVendor($n->getStringValue()); },
         ];
     }
 

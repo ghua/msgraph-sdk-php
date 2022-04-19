@@ -38,10 +38,11 @@ class ServiceHealth extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'issues' => function (self $o, ParseNode $n) { $o->setIssues($n->getCollectionOfObjectValues(ServiceHealthIssue::class)); },
-            'service' => function (self $o, ParseNode $n) { $o->setService($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ServiceHealthStatus::class)); },
+            'issues' => function (ParseNode $n) use ($currentObject) { $currentObject->setIssues($n->getCollectionOfObjectValues(ServiceHealthIssue::class)); },
+            'service' => function (ParseNode $n) use ($currentObject) { $currentObject->setService($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ServiceHealthStatus::class)); },
         ]);
     }
 

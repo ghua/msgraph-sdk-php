@@ -85,13 +85,14 @@ class CloneRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'classification' => function (self $o, ParseNode $n) { $o->setClassification($n->getStringValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'mailNickname' => function (self $o, ParseNode $n) { $o->setMailNickname($n->getStringValue()); },
-            'partsToClone' => function (self $o, ParseNode $n) { $o->setPartsToClone($n->getEnumValue(ClonableTeamParts::class)); },
-            'visibility' => function (self $o, ParseNode $n) { $o->setVisibility($n->getEnumValue(TeamVisibilityType::class)); },
+            'classification' => function (ParseNode $n) use ($currentObject) { $currentObject->setClassification($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'mailNickname' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailNickname($n->getStringValue()); },
+            'partsToClone' => function (ParseNode $n) use ($currentObject) { $currentObject->setPartsToClone($n->getEnumValue(ClonableTeamParts::class)); },
+            'visibility' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisibility($n->getEnumValue(TeamVisibilityType::class)); },
         ];
     }
 

@@ -99,7 +99,7 @@ class EducationSubmissionItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/education/me/assignments/{educationAssignment_id}/submissions/{educationSubmission_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/education/me/assignments/{educationAssignment%2Did}/submissions/{educationSubmission%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -210,7 +210,7 @@ class EducationSubmissionItemRequestBuilder
     */
     public function outcomesById(string $id): EducationOutcomeItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationOutcome_id'] = $id;
+        $urlTplParams['educationOutcome%2Did'] = $id;
         return new EducationOutcomeItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -238,7 +238,7 @@ class EducationSubmissionItemRequestBuilder
     */
     public function resourcesById(string $id): MicrosoftGraphGeneratedEducationMeAssignmentsItemSubmissionsItemResourcesItemEducationSubmissionResourceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationSubmissionResource_id'] = $id;
+        $urlTplParams['educationSubmissionResource%2Did'] = $id;
         return new MicrosoftGraphGeneratedEducationMeAssignmentsItemSubmissionsItemResourcesItemEducationSubmissionResourceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -249,8 +249,19 @@ class EducationSubmissionItemRequestBuilder
     */
     public function submittedResourcesById(string $id): MicrosoftGraphGeneratedEducationMeAssignmentsItemSubmissionsItemSubmittedResourcesItemEducationSubmissionResourceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationSubmissionResource_id'] = $id;
+        $urlTplParams['educationSubmissionResource%2Did'] = $id;
         return new MicrosoftGraphGeneratedEducationMeAssignmentsItemSubmissionsItemSubmittedResourcesItemEducationSubmissionResourceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

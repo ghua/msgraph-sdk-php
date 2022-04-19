@@ -30,7 +30,7 @@ class ReauthorizeRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/subscriptions/{subscription_id}/microsoft.graph.reauthorize';
+        $this->urlTemplate = '{+baseurl}/subscriptions/{subscription%2Did}/microsoft.graph.reauthorize';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

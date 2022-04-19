@@ -54,10 +54,11 @@ class StsPolicy extends PolicyBase
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appliesTo' => function (self $o, ParseNode $n) { $o->setAppliesTo($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'definition' => function (self $o, ParseNode $n) { $o->setDefinition($n->getCollectionOfPrimitiveValues()); },
-            'isOrganizationDefault' => function (self $o, ParseNode $n) { $o->setIsOrganizationDefault($n->getBooleanValue()); },
+            'appliesTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppliesTo($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'definition' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefinition($n->getCollectionOfPrimitiveValues()); },
+            'isOrganizationDefault' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsOrganizationDefault($n->getBooleanValue()); },
         ]);
     }
 

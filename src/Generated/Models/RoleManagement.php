@@ -63,9 +63,10 @@ class RoleManagement implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'directory' => function (self $o, ParseNode $n) { $o->setDirectory($n->getObjectValue(RbacApplication::class)); },
-            'entitlementManagement' => function (self $o, ParseNode $n) { $o->setEntitlementManagement($n->getObjectValue(RbacApplication::class)); },
+            'directory' => function (ParseNode $n) use ($currentObject) { $currentObject->setDirectory($n->getObjectValue(RbacApplication::class)); },
+            'entitlementManagement' => function (ParseNode $n) use ($currentObject) { $currentObject->setEntitlementManagement($n->getObjectValue(RbacApplication::class)); },
         ];
     }
 

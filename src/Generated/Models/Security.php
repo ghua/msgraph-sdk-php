@@ -46,10 +46,11 @@ class Security extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'alerts' => function (self $o, ParseNode $n) { $o->setAlerts($n->getCollectionOfObjectValues(Alert::class)); },
-            'secureScoreControlProfiles' => function (self $o, ParseNode $n) { $o->setSecureScoreControlProfiles($n->getCollectionOfObjectValues(SecureScoreControlProfile::class)); },
-            'secureScores' => function (self $o, ParseNode $n) { $o->setSecureScores($n->getCollectionOfObjectValues(SecureScore::class)); },
+            'alerts' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlerts($n->getCollectionOfObjectValues(Alert::class)); },
+            'secureScoreControlProfiles' => function (ParseNode $n) use ($currentObject) { $currentObject->setSecureScoreControlProfiles($n->getCollectionOfObjectValues(SecureScoreControlProfile::class)); },
+            'secureScores' => function (ParseNode $n) use ($currentObject) { $currentObject->setSecureScores($n->getCollectionOfObjectValues(SecureScore::class)); },
         ]);
     }
 

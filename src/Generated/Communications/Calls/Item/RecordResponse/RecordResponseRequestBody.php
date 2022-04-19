@@ -82,15 +82,16 @@ class RecordResponseRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'bargeInAllowed' => function (self $o, ParseNode $n) { $o->setBargeInAllowed($n->getBooleanValue()); },
-            'clientContext' => function (self $o, ParseNode $n) { $o->setClientContext($n->getStringValue()); },
-            'initialSilenceTimeoutInSeconds' => function (self $o, ParseNode $n) { $o->setInitialSilenceTimeoutInSeconds($n->getIntegerValue()); },
-            'maxRecordDurationInSeconds' => function (self $o, ParseNode $n) { $o->setMaxRecordDurationInSeconds($n->getIntegerValue()); },
-            'maxSilenceTimeoutInSeconds' => function (self $o, ParseNode $n) { $o->setMaxSilenceTimeoutInSeconds($n->getIntegerValue()); },
-            'playBeep' => function (self $o, ParseNode $n) { $o->setPlayBeep($n->getBooleanValue()); },
-            'prompts' => function (self $o, ParseNode $n) { $o->setPrompts($n->getCollectionOfObjectValues(Prompt::class)); },
-            'stopTones' => function (self $o, ParseNode $n) { $o->setStopTones($n->getCollectionOfPrimitiveValues()); },
+            'bargeInAllowed' => function (ParseNode $n) use ($currentObject) { $currentObject->setBargeInAllowed($n->getBooleanValue()); },
+            'clientContext' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientContext($n->getStringValue()); },
+            'initialSilenceTimeoutInSeconds' => function (ParseNode $n) use ($currentObject) { $currentObject->setInitialSilenceTimeoutInSeconds($n->getIntegerValue()); },
+            'maxRecordDurationInSeconds' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaxRecordDurationInSeconds($n->getIntegerValue()); },
+            'maxSilenceTimeoutInSeconds' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaxSilenceTimeoutInSeconds($n->getIntegerValue()); },
+            'playBeep' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlayBeep($n->getBooleanValue()); },
+            'prompts' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrompts($n->getCollectionOfObjectValues(Prompt::class)); },
+            'stopTones' => function (ParseNode $n) use ($currentObject) { $currentObject->setStopTones($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

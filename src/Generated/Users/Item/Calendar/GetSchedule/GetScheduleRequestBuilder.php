@@ -30,7 +30,7 @@ class GetScheduleRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/calendar/microsoft.graph.getSchedule';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/calendar/microsoft.graph.getSchedule';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

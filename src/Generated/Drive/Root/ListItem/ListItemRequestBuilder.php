@@ -67,7 +67,7 @@ class ListItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/drive/root/listItem{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/drive/root/listItem{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -214,8 +214,19 @@ class ListItemRequestBuilder
     */
     public function versionsById(string $id): ListItemVersionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['listItemVersion_id'] = $id;
+        $urlTplParams['listItemVersion%2Did'] = $id;
         return new ListItemVersionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

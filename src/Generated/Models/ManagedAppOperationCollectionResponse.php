@@ -47,9 +47,10 @@ class ManagedAppOperationCollectionResponse implements AdditionalDataHolder, Par
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            '@odata.nextLink' => function (self $o, ParseNode $n) { $o->setNextLink($n->getStringValue()); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getCollectionOfObjectValues(ManagedAppOperation::class)); },
+            '@odata.nextLink' => function (ParseNode $n) use ($currentObject) { $currentObject->setNextLink($n->getStringValue()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getCollectionOfObjectValues(ManagedAppOperation::class)); },
         ];
     }
 
@@ -57,7 +58,7 @@ class ManagedAppOperationCollectionResponse implements AdditionalDataHolder, Par
      * Gets the @odata.nextLink property value. The nextLink property
      * @return string|null
     */
-    public function getNextLink(): ?string {
+    public function getOdatanextLink(): ?string {
         return $this->nextLink;
     }
 
@@ -91,7 +92,7 @@ class ManagedAppOperationCollectionResponse implements AdditionalDataHolder, Par
      * Sets the @odata.nextLink property value. The nextLink property
      *  @param string|null $value Value to set for the nextLink property.
     */
-    public function setNextLink(?string $value ): void {
+    public function setOdatanextLink(?string $value ): void {
         $this->nextLink = $value;
     }
 

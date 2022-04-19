@@ -41,7 +41,7 @@ class InferenceClassificationRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/inferenceClassification{?select}';
+        $this->urlTemplate = '{+baseurl}/me/inferenceClassification{?%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -152,7 +152,7 @@ class InferenceClassificationRequestBuilder
     */
     public function overridesById(string $id): InferenceClassificationOverrideItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['inferenceClassificationOverride_id'] = $id;
+        $urlTplParams['inferenceClassificationOverride%2Did'] = $id;
         return new InferenceClassificationOverrideItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -173,4 +173,12 @@ class InferenceClassificationRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

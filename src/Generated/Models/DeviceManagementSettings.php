@@ -58,10 +58,11 @@ class DeviceManagementSettings implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'deviceComplianceCheckinThresholdDays' => function (self $o, ParseNode $n) { $o->setDeviceComplianceCheckinThresholdDays($n->getIntegerValue()); },
-            'isScheduledActionEnabled' => function (self $o, ParseNode $n) { $o->setIsScheduledActionEnabled($n->getBooleanValue()); },
-            'secureByDefault' => function (self $o, ParseNode $n) { $o->setSecureByDefault($n->getBooleanValue()); },
+            'deviceComplianceCheckinThresholdDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceComplianceCheckinThresholdDays($n->getIntegerValue()); },
+            'isScheduledActionEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsScheduledActionEnabled($n->getBooleanValue()); },
+            'secureByDefault' => function (ParseNode $n) use ($currentObject) { $currentObject->setSecureByDefault($n->getBooleanValue()); },
         ];
     }
 

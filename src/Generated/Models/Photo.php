@@ -101,16 +101,17 @@ class Photo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'cameraMake' => function (self $o, ParseNode $n) { $o->setCameraMake($n->getStringValue()); },
-            'cameraModel' => function (self $o, ParseNode $n) { $o->setCameraModel($n->getStringValue()); },
-            'exposureDenominator' => function (self $o, ParseNode $n) { $o->setExposureDenominator($n->getFloatValue()); },
-            'exposureNumerator' => function (self $o, ParseNode $n) { $o->setExposureNumerator($n->getFloatValue()); },
-            'fNumber' => function (self $o, ParseNode $n) { $o->setFNumber($n->getFloatValue()); },
-            'focalLength' => function (self $o, ParseNode $n) { $o->setFocalLength($n->getFloatValue()); },
-            'iso' => function (self $o, ParseNode $n) { $o->setIso($n->getIntegerValue()); },
-            'orientation' => function (self $o, ParseNode $n) { $o->setOrientation($n->getIntegerValue()); },
-            'takenDateTime' => function (self $o, ParseNode $n) { $o->setTakenDateTime($n->getDateTimeValue()); },
+            'cameraMake' => function (ParseNode $n) use ($currentObject) { $currentObject->setCameraMake($n->getStringValue()); },
+            'cameraModel' => function (ParseNode $n) use ($currentObject) { $currentObject->setCameraModel($n->getStringValue()); },
+            'exposureDenominator' => function (ParseNode $n) use ($currentObject) { $currentObject->setExposureDenominator($n->getFloatValue()); },
+            'exposureNumerator' => function (ParseNode $n) use ($currentObject) { $currentObject->setExposureNumerator($n->getFloatValue()); },
+            'fNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setFNumber($n->getFloatValue()); },
+            'focalLength' => function (ParseNode $n) use ($currentObject) { $currentObject->setFocalLength($n->getFloatValue()); },
+            'iso' => function (ParseNode $n) use ($currentObject) { $currentObject->setIso($n->getIntegerValue()); },
+            'orientation' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrientation($n->getIntegerValue()); },
+            'takenDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setTakenDateTime($n->getDateTimeValue()); },
         ];
     }
 

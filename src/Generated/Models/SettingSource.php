@@ -58,10 +58,11 @@ class SettingSource implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'sourceType' => function (self $o, ParseNode $n) { $o->setSourceType($n->getEnumValue(SettingSourceType::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'sourceType' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceType($n->getEnumValue(SettingSourceType::class)); },
         ];
     }
 

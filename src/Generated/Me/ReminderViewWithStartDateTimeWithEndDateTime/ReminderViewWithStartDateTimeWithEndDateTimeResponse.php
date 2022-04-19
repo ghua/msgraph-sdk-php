@@ -45,8 +45,9 @@ class ReminderViewWithStartDateTimeWithEndDateTimeResponse implements Additional
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getCollectionOfObjectValues(Reminder::class)); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getCollectionOfObjectValues(Reminder::class)); },
         ];
     }
 

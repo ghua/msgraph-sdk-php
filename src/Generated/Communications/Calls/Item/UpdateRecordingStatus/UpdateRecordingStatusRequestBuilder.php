@@ -31,7 +31,7 @@ class UpdateRecordingStatusRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/communications/calls/{call_id}/microsoft.graph.updateRecordingStatus';
+        $this->urlTemplate = '{+baseurl}/communications/calls/{call%2Did}/microsoft.graph.updateRecordingStatus';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

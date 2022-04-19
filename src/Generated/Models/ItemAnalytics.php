@@ -46,10 +46,11 @@ class ItemAnalytics extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'allTime' => function (self $o, ParseNode $n) { $o->setAllTime($n->getObjectValue(ItemActivityStat::class)); },
-            'itemActivityStats' => function (self $o, ParseNode $n) { $o->setItemActivityStats($n->getCollectionOfObjectValues(ItemActivityStat::class)); },
-            'lastSevenDays' => function (self $o, ParseNode $n) { $o->setLastSevenDays($n->getObjectValue(ItemActivityStat::class)); },
+            'allTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllTime($n->getObjectValue(ItemActivityStat::class)); },
+            'itemActivityStats' => function (ParseNode $n) use ($currentObject) { $currentObject->setItemActivityStats($n->getCollectionOfObjectValues(ItemActivityStat::class)); },
+            'lastSevenDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastSevenDays($n->getObjectValue(ItemActivityStat::class)); },
         ]);
     }
 

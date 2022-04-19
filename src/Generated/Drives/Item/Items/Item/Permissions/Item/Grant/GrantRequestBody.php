@@ -48,9 +48,10 @@ class GrantRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'recipients' => function (self $o, ParseNode $n) { $o->setRecipients($n->getCollectionOfObjectValues(DriveRecipient::class)); },
-            'roles' => function (self $o, ParseNode $n) { $o->setRoles($n->getCollectionOfPrimitiveValues()); },
+            'recipients' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipients($n->getCollectionOfObjectValues(DriveRecipient::class)); },
+            'roles' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoles($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

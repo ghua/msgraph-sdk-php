@@ -35,9 +35,10 @@ class PlannerAssignedToTaskBoardTaskFormat extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'orderHintsByAssignee' => function (self $o, ParseNode $n) { $o->setOrderHintsByAssignee($n->getObjectValue(PlannerOrderHintsByAssignee::class)); },
-            'unassignedOrderHint' => function (self $o, ParseNode $n) { $o->setUnassignedOrderHint($n->getStringValue()); },
+            'orderHintsByAssignee' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrderHintsByAssignee($n->getObjectValue(PlannerOrderHintsByAssignee::class)); },
+            'unassignedOrderHint' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnassignedOrderHint($n->getStringValue()); },
         ]);
     }
 

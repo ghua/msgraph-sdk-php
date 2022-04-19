@@ -44,8 +44,9 @@ class PendingOperations implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'pendingContentUpdate' => function (self $o, ParseNode $n) { $o->setPendingContentUpdate($n->getObjectValue(PendingContentUpdate::class)); },
+            'pendingContentUpdate' => function (ParseNode $n) use ($currentObject) { $currentObject->setPendingContentUpdate($n->getObjectValue(PendingContentUpdate::class)); },
         ];
     }
 

@@ -86,15 +86,16 @@ class ConditionalAccessPolicy extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'conditions' => function (self $o, ParseNode $n) { $o->setConditions($n->getObjectValue(ConditionalAccessConditionSet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'grantControls' => function (self $o, ParseNode $n) { $o->setGrantControls($n->getObjectValue(ConditionalAccessGrantControls::class)); },
-            'modifiedDateTime' => function (self $o, ParseNode $n) { $o->setModifiedDateTime($n->getDateTimeValue()); },
-            'sessionControls' => function (self $o, ParseNode $n) { $o->setSessionControls($n->getObjectValue(ConditionalAccessSessionControls::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(ConditionalAccessPolicyState::class)); },
+            'conditions' => function (ParseNode $n) use ($currentObject) { $currentObject->setConditions($n->getObjectValue(ConditionalAccessConditionSet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'grantControls' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrantControls($n->getObjectValue(ConditionalAccessGrantControls::class)); },
+            'modifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setModifiedDateTime($n->getDateTimeValue()); },
+            'sessionControls' => function (ParseNode $n) use ($currentObject) { $currentObject->setSessionControls($n->getObjectValue(ConditionalAccessSessionControls::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(ConditionalAccessPolicyState::class)); },
         ]);
     }
 

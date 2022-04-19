@@ -32,7 +32,7 @@ class GetByPathWithPathRequestBuilder
      * @param string|null $path Usage: path='{path}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $path = null) {
-        $this->urlTemplate = '{+baseurl}/sites/{site_id}/microsoft.graph.getByPath(path=\'{path}\')';
+        $this->urlTemplate = '{+baseurl}/sites/{site%2Did}/microsoft.graph.getByPath(path=\'{path}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

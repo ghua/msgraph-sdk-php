@@ -65,12 +65,13 @@ class RecurrenceRange implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'endDate' => function (self $o, ParseNode $n) { $o->setEndDate($n->getDateValue()); },
-            'numberOfOccurrences' => function (self $o, ParseNode $n) { $o->setNumberOfOccurrences($n->getIntegerValue()); },
-            'recurrenceTimeZone' => function (self $o, ParseNode $n) { $o->setRecurrenceTimeZone($n->getStringValue()); },
-            'startDate' => function (self $o, ParseNode $n) { $o->setStartDate($n->getDateValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(RecurrenceRangeType::class)); },
+            'endDate' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDate($n->getDateValue()); },
+            'numberOfOccurrences' => function (ParseNode $n) use ($currentObject) { $currentObject->setNumberOfOccurrences($n->getIntegerValue()); },
+            'recurrenceTimeZone' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecurrenceTimeZone($n->getStringValue()); },
+            'startDate' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDate($n->getDateValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(RecurrenceRangeType::class)); },
         ];
     }
 

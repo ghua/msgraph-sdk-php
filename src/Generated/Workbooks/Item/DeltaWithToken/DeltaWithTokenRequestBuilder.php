@@ -31,7 +31,7 @@ class DeltaWithTokenRequestBuilder
      * @param string|null $token Usage: token='{token}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $token = null) {
-        $this->urlTemplate = '{+baseurl}/workbooks/{driveItem_id}/microsoft.graph.delta(token=\'{token}\')';
+        $this->urlTemplate = '{+baseurl}/workbooks/{driveItem%2Did}/microsoft.graph.delta(token=\'{token}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

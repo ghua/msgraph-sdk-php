@@ -89,15 +89,16 @@ class Location implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'address' => function (self $o, ParseNode $n) { $o->setAddress($n->getObjectValue(PhysicalAddress::class)); },
-            'coordinates' => function (self $o, ParseNode $n) { $o->setCoordinates($n->getObjectValue(OutlookGeoCoordinates::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'locationEmailAddress' => function (self $o, ParseNode $n) { $o->setLocationEmailAddress($n->getStringValue()); },
-            'locationType' => function (self $o, ParseNode $n) { $o->setLocationType($n->getEnumValue(LocationType::class)); },
-            'locationUri' => function (self $o, ParseNode $n) { $o->setLocationUri($n->getStringValue()); },
-            'uniqueId' => function (self $o, ParseNode $n) { $o->setUniqueId($n->getStringValue()); },
-            'uniqueIdType' => function (self $o, ParseNode $n) { $o->setUniqueIdType($n->getEnumValue(LocationUniqueIdType::class)); },
+            'address' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddress($n->getObjectValue(PhysicalAddress::class)); },
+            'coordinates' => function (ParseNode $n) use ($currentObject) { $currentObject->setCoordinates($n->getObjectValue(OutlookGeoCoordinates::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'locationEmailAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocationEmailAddress($n->getStringValue()); },
+            'locationType' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocationType($n->getEnumValue(LocationType::class)); },
+            'locationUri' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocationUri($n->getStringValue()); },
+            'uniqueId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUniqueId($n->getStringValue()); },
+            'uniqueIdType' => function (ParseNode $n) use ($currentObject) { $currentObject->setUniqueIdType($n->getEnumValue(LocationUniqueIdType::class)); },
         ];
     }
 

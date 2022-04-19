@@ -63,13 +63,14 @@ class WorkbookChartFont extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'bold' => function (self $o, ParseNode $n) { $o->setBold($n->getBooleanValue()); },
-            'color' => function (self $o, ParseNode $n) { $o->setColor($n->getStringValue()); },
-            'italic' => function (self $o, ParseNode $n) { $o->setItalic($n->getBooleanValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'size' => function (self $o, ParseNode $n) { $o->setSize($n->getFloatValue()); },
-            'underline' => function (self $o, ParseNode $n) { $o->setUnderline($n->getStringValue()); },
+            'bold' => function (ParseNode $n) use ($currentObject) { $currentObject->setBold($n->getBooleanValue()); },
+            'color' => function (ParseNode $n) use ($currentObject) { $currentObject->setColor($n->getStringValue()); },
+            'italic' => function (ParseNode $n) use ($currentObject) { $currentObject->setItalic($n->getBooleanValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'size' => function (ParseNode $n) use ($currentObject) { $currentObject->setSize($n->getFloatValue()); },
+            'underline' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnderline($n->getStringValue()); },
         ]);
     }
 

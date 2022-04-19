@@ -100,25 +100,26 @@ class DeviceAppManagement extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'androidManagedAppProtections' => function (self $o, ParseNode $n) { $o->setAndroidManagedAppProtections($n->getCollectionOfObjectValues(AndroidManagedAppProtection::class)); },
-            'defaultManagedAppProtections' => function (self $o, ParseNode $n) { $o->setDefaultManagedAppProtections($n->getCollectionOfObjectValues(DefaultManagedAppProtection::class)); },
-            'iosManagedAppProtections' => function (self $o, ParseNode $n) { $o->setIosManagedAppProtections($n->getCollectionOfObjectValues(IosManagedAppProtection::class)); },
-            'isEnabledForMicrosoftStoreForBusiness' => function (self $o, ParseNode $n) { $o->setIsEnabledForMicrosoftStoreForBusiness($n->getBooleanValue()); },
-            'managedAppPolicies' => function (self $o, ParseNode $n) { $o->setManagedAppPolicies($n->getCollectionOfObjectValues(ManagedAppPolicy::class)); },
-            'managedAppRegistrations' => function (self $o, ParseNode $n) { $o->setManagedAppRegistrations($n->getCollectionOfObjectValues(ManagedAppRegistration::class)); },
-            'managedAppStatuses' => function (self $o, ParseNode $n) { $o->setManagedAppStatuses($n->getCollectionOfObjectValues(ManagedAppStatus::class)); },
-            'managedEBooks' => function (self $o, ParseNode $n) { $o->setManagedEBooks($n->getCollectionOfObjectValues(ManagedEBook::class)); },
-            'mdmWindowsInformationProtectionPolicies' => function (self $o, ParseNode $n) { $o->setMdmWindowsInformationProtectionPolicies($n->getCollectionOfObjectValues(MdmWindowsInformationProtectionPolicy::class)); },
-            'microsoftStoreForBusinessLanguage' => function (self $o, ParseNode $n) { $o->setMicrosoftStoreForBusinessLanguage($n->getStringValue()); },
-            'microsoftStoreForBusinessLastCompletedApplicationSyncTime' => function (self $o, ParseNode $n) { $o->setMicrosoftStoreForBusinessLastCompletedApplicationSyncTime($n->getDateTimeValue()); },
-            'microsoftStoreForBusinessLastSuccessfulSyncDateTime' => function (self $o, ParseNode $n) { $o->setMicrosoftStoreForBusinessLastSuccessfulSyncDateTime($n->getDateTimeValue()); },
-            'mobileAppCategories' => function (self $o, ParseNode $n) { $o->setMobileAppCategories($n->getCollectionOfObjectValues(MobileAppCategory::class)); },
-            'mobileAppConfigurations' => function (self $o, ParseNode $n) { $o->setMobileAppConfigurations($n->getCollectionOfObjectValues(ManagedDeviceMobileAppConfiguration::class)); },
-            'mobileApps' => function (self $o, ParseNode $n) { $o->setMobileApps($n->getCollectionOfObjectValues(MobileApp::class)); },
-            'targetedManagedAppConfigurations' => function (self $o, ParseNode $n) { $o->setTargetedManagedAppConfigurations($n->getCollectionOfObjectValues(TargetedManagedAppConfiguration::class)); },
-            'vppTokens' => function (self $o, ParseNode $n) { $o->setVppTokens($n->getCollectionOfObjectValues(VppToken::class)); },
-            'windowsInformationProtectionPolicies' => function (self $o, ParseNode $n) { $o->setWindowsInformationProtectionPolicies($n->getCollectionOfObjectValues(WindowsInformationProtectionPolicy::class)); },
+            'androidManagedAppProtections' => function (ParseNode $n) use ($currentObject) { $currentObject->setAndroidManagedAppProtections($n->getCollectionOfObjectValues(AndroidManagedAppProtection::class)); },
+            'defaultManagedAppProtections' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultManagedAppProtections($n->getCollectionOfObjectValues(DefaultManagedAppProtection::class)); },
+            'iosManagedAppProtections' => function (ParseNode $n) use ($currentObject) { $currentObject->setIosManagedAppProtections($n->getCollectionOfObjectValues(IosManagedAppProtection::class)); },
+            'isEnabledForMicrosoftStoreForBusiness' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabledForMicrosoftStoreForBusiness($n->getBooleanValue()); },
+            'managedAppPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagedAppPolicies($n->getCollectionOfObjectValues(ManagedAppPolicy::class)); },
+            'managedAppRegistrations' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagedAppRegistrations($n->getCollectionOfObjectValues(ManagedAppRegistration::class)); },
+            'managedAppStatuses' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagedAppStatuses($n->getCollectionOfObjectValues(ManagedAppStatus::class)); },
+            'managedEBooks' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagedEBooks($n->getCollectionOfObjectValues(ManagedEBook::class)); },
+            'mdmWindowsInformationProtectionPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setMdmWindowsInformationProtectionPolicies($n->getCollectionOfObjectValues(MdmWindowsInformationProtectionPolicy::class)); },
+            'microsoftStoreForBusinessLanguage' => function (ParseNode $n) use ($currentObject) { $currentObject->setMicrosoftStoreForBusinessLanguage($n->getStringValue()); },
+            'microsoftStoreForBusinessLastCompletedApplicationSyncTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setMicrosoftStoreForBusinessLastCompletedApplicationSyncTime($n->getDateTimeValue()); },
+            'microsoftStoreForBusinessLastSuccessfulSyncDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setMicrosoftStoreForBusinessLastSuccessfulSyncDateTime($n->getDateTimeValue()); },
+            'mobileAppCategories' => function (ParseNode $n) use ($currentObject) { $currentObject->setMobileAppCategories($n->getCollectionOfObjectValues(MobileAppCategory::class)); },
+            'mobileAppConfigurations' => function (ParseNode $n) use ($currentObject) { $currentObject->setMobileAppConfigurations($n->getCollectionOfObjectValues(ManagedDeviceMobileAppConfiguration::class)); },
+            'mobileApps' => function (ParseNode $n) use ($currentObject) { $currentObject->setMobileApps($n->getCollectionOfObjectValues(MobileApp::class)); },
+            'targetedManagedAppConfigurations' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetedManagedAppConfigurations($n->getCollectionOfObjectValues(TargetedManagedAppConfiguration::class)); },
+            'vppTokens' => function (ParseNode $n) use ($currentObject) { $currentObject->setVppTokens($n->getCollectionOfObjectValues(VppToken::class)); },
+            'windowsInformationProtectionPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setWindowsInformationProtectionPolicies($n->getCollectionOfObjectValues(WindowsInformationProtectionPolicy::class)); },
         ]);
     }
 

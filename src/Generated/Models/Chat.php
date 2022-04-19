@@ -79,18 +79,19 @@ class Chat extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'chatType' => function (self $o, ParseNode $n) { $o->setChatType($n->getEnumValue(ChatType::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'installedApps' => function (self $o, ParseNode $n) { $o->setInstalledApps($n->getCollectionOfObjectValues(TeamsAppInstallation::class)); },
-            'lastUpdatedDateTime' => function (self $o, ParseNode $n) { $o->setLastUpdatedDateTime($n->getDateTimeValue()); },
-            'members' => function (self $o, ParseNode $n) { $o->setMembers($n->getCollectionOfObjectValues(ConversationMember::class)); },
-            'messages' => function (self $o, ParseNode $n) { $o->setMessages($n->getCollectionOfObjectValues(ChatMessage::class)); },
-            'onlineMeetingInfo' => function (self $o, ParseNode $n) { $o->setOnlineMeetingInfo($n->getObjectValue(TeamworkOnlineMeetingInfo::class)); },
-            'tabs' => function (self $o, ParseNode $n) { $o->setTabs($n->getCollectionOfObjectValues(TeamsTab::class)); },
-            'tenantId' => function (self $o, ParseNode $n) { $o->setTenantId($n->getStringValue()); },
-            'topic' => function (self $o, ParseNode $n) { $o->setTopic($n->getStringValue()); },
-            'webUrl' => function (self $o, ParseNode $n) { $o->setWebUrl($n->getStringValue()); },
+            'chatType' => function (ParseNode $n) use ($currentObject) { $currentObject->setChatType($n->getEnumValue(ChatType::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'installedApps' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstalledApps($n->getCollectionOfObjectValues(TeamsAppInstallation::class)); },
+            'lastUpdatedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastUpdatedDateTime($n->getDateTimeValue()); },
+            'members' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembers($n->getCollectionOfObjectValues(ConversationMember::class)); },
+            'messages' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessages($n->getCollectionOfObjectValues(ChatMessage::class)); },
+            'onlineMeetingInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnlineMeetingInfo($n->getObjectValue(TeamworkOnlineMeetingInfo::class)); },
+            'tabs' => function (ParseNode $n) use ($currentObject) { $currentObject->setTabs($n->getCollectionOfObjectValues(TeamsTab::class)); },
+            'tenantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTenantId($n->getStringValue()); },
+            'topic' => function (ParseNode $n) use ($currentObject) { $currentObject->setTopic($n->getStringValue()); },
+            'webUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebUrl($n->getStringValue()); },
         ]);
     }
 

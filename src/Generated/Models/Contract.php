@@ -73,11 +73,12 @@ class Contract extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'contractType' => function (self $o, ParseNode $n) { $o->setContractType($n->getStringValue()); },
-            'customerId' => function (self $o, ParseNode $n) { $o->setCustomerId($n->getStringValue()); },
-            'defaultDomainName' => function (self $o, ParseNode $n) { $o->setDefaultDomainName($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
+            'contractType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContractType($n->getStringValue()); },
+            'customerId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomerId($n->getStringValue()); },
+            'defaultDomainName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaultDomainName($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
         ]);
     }
 

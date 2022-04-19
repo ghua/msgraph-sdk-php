@@ -69,11 +69,12 @@ class SignInLocation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'city' => function (self $o, ParseNode $n) { $o->setCity($n->getStringValue()); },
-            'countryOrRegion' => function (self $o, ParseNode $n) { $o->setCountryOrRegion($n->getStringValue()); },
-            'geoCoordinates' => function (self $o, ParseNode $n) { $o->setGeoCoordinates($n->getObjectValue(GeoCoordinates::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getStringValue()); },
+            'city' => function (ParseNode $n) use ($currentObject) { $currentObject->setCity($n->getStringValue()); },
+            'countryOrRegion' => function (ParseNode $n) use ($currentObject) { $currentObject->setCountryOrRegion($n->getStringValue()); },
+            'geoCoordinates' => function (ParseNode $n) use ($currentObject) { $currentObject->setGeoCoordinates($n->getObjectValue(GeoCoordinates::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getStringValue()); },
         ];
     }
 

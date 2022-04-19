@@ -62,15 +62,16 @@ class DeviceManagementPartner extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isConfigured' => function (self $o, ParseNode $n) { $o->setIsConfigured($n->getBooleanValue()); },
-            'lastHeartbeatDateTime' => function (self $o, ParseNode $n) { $o->setLastHeartbeatDateTime($n->getDateTimeValue()); },
-            'partnerAppType' => function (self $o, ParseNode $n) { $o->setPartnerAppType($n->getEnumValue(DeviceManagementPartnerAppType::class)); },
-            'partnerState' => function (self $o, ParseNode $n) { $o->setPartnerState($n->getEnumValue(DeviceManagementPartnerTenantState::class)); },
-            'singleTenantAppId' => function (self $o, ParseNode $n) { $o->setSingleTenantAppId($n->getStringValue()); },
-            'whenPartnerDevicesWillBeMarkedAsNonCompliantDateTime' => function (self $o, ParseNode $n) { $o->setWhenPartnerDevicesWillBeMarkedAsNonCompliantDateTime($n->getDateTimeValue()); },
-            'whenPartnerDevicesWillBeRemovedDateTime' => function (self $o, ParseNode $n) { $o->setWhenPartnerDevicesWillBeRemovedDateTime($n->getDateTimeValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isConfigured' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsConfigured($n->getBooleanValue()); },
+            'lastHeartbeatDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastHeartbeatDateTime($n->getDateTimeValue()); },
+            'partnerAppType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPartnerAppType($n->getEnumValue(DeviceManagementPartnerAppType::class)); },
+            'partnerState' => function (ParseNode $n) use ($currentObject) { $currentObject->setPartnerState($n->getEnumValue(DeviceManagementPartnerTenantState::class)); },
+            'singleTenantAppId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSingleTenantAppId($n->getStringValue()); },
+            'whenPartnerDevicesWillBeMarkedAsNonCompliantDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setWhenPartnerDevicesWillBeMarkedAsNonCompliantDateTime($n->getDateTimeValue()); },
+            'whenPartnerDevicesWillBeRemovedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setWhenPartnerDevicesWillBeRemovedDateTime($n->getDateTimeValue()); },
         ]);
     }
 

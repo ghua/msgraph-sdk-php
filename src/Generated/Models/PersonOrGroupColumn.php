@@ -74,10 +74,11 @@ class PersonOrGroupColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowMultipleSelection' => function (self $o, ParseNode $n) { $o->setAllowMultipleSelection($n->getBooleanValue()); },
-            'chooseFromType' => function (self $o, ParseNode $n) { $o->setChooseFromType($n->getStringValue()); },
-            'displayAs' => function (self $o, ParseNode $n) { $o->setDisplayAs($n->getStringValue()); },
+            'allowMultipleSelection' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowMultipleSelection($n->getBooleanValue()); },
+            'chooseFromType' => function (ParseNode $n) use ($currentObject) { $currentObject->setChooseFromType($n->getStringValue()); },
+            'displayAs' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayAs($n->getStringValue()); },
         ];
     }
 

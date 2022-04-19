@@ -141,7 +141,7 @@ class EventItemRequestBuilder
     */
     public function attachmentsById(string $id): AttachmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['attachment_id'] = $id;
+        $urlTplParams['attachment%2Did'] = $id;
         return new AttachmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -151,7 +151,7 @@ class EventItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/calendar/calendarView/{event_id}{?startDateTime,endDateTime,select}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/calendar/calendarView/{event%2Did}{?startDateTime,endDateTime,%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -245,7 +245,7 @@ class EventItemRequestBuilder
     */
     public function extensionsById(string $id): ExtensionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['extension_id'] = $id;
+        $urlTplParams['extension%2Did'] = $id;
         return new ExtensionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -273,7 +273,7 @@ class EventItemRequestBuilder
     */
     public function instancesById(string $id): EventItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['event_id1'] = $id;
+        $urlTplParams['event%2Did1'] = $id;
         return new EventItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -284,7 +284,7 @@ class EventItemRequestBuilder
     */
     public function multiValueExtendedPropertiesById(string $id): MultiValueLegacyExtendedPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['multiValueLegacyExtendedProperty_id'] = $id;
+        $urlTplParams['multiValueLegacyExtendedProperty%2Did'] = $id;
         return new MultiValueLegacyExtendedPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -312,8 +312,22 @@ class EventItemRequestBuilder
     */
     public function singleValueExtendedPropertiesById(string $id): SingleValueLegacyExtendedPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['singleValueLegacyExtendedProperty_id'] = $id;
+        $urlTplParams['singleValueLegacyExtendedProperty%2Did'] = $id;
         return new SingleValueLegacyExtendedPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var string|null $endDateTime The end date and time of the time range, represented in ISO 8601 format. For example, 2019-11-08T20:00:00-08:00 */
+        public ?string $endDateTime = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+        /** @var string|null $startDateTime The start date and time of the time range, represented in ISO 8601 format. For example, 2019-11-08T19:00:00-08:00 */
+        public ?string $startDateTime = null;
+        
+    }
 }

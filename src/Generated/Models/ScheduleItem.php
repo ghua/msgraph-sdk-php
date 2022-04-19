@@ -67,13 +67,14 @@ class ScheduleItem implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'end' => function (self $o, ParseNode $n) { $o->setEnd($n->getObjectValue(DateTimeTimeZone::class)); },
-            'isPrivate' => function (self $o, ParseNode $n) { $o->setIsPrivate($n->getBooleanValue()); },
-            'location' => function (self $o, ParseNode $n) { $o->setLocation($n->getStringValue()); },
-            'start' => function (self $o, ParseNode $n) { $o->setStart($n->getObjectValue(DateTimeTimeZone::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(FreeBusyStatus::class)); },
-            'subject' => function (self $o, ParseNode $n) { $o->setSubject($n->getStringValue()); },
+            'end' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnd($n->getObjectValue(DateTimeTimeZone::class)); },
+            'isPrivate' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsPrivate($n->getBooleanValue()); },
+            'location' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocation($n->getStringValue()); },
+            'start' => function (ParseNode $n) use ($currentObject) { $currentObject->setStart($n->getObjectValue(DateTimeTimeZone::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(FreeBusyStatus::class)); },
+            'subject' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubject($n->getStringValue()); },
         ];
     }
 

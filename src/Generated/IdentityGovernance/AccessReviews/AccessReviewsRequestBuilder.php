@@ -50,7 +50,7 @@ class AccessReviewsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identityGovernance/accessReviews{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identityGovernance/accessReviews{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -128,7 +128,7 @@ class AccessReviewsRequestBuilder
     */
     public function definitionsById(string $id): AccessReviewScheduleDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['accessReviewScheduleDefinition_id'] = $id;
+        $urlTplParams['accessReviewScheduleDefinition%2Did'] = $id;
         return new AccessReviewScheduleDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -172,7 +172,7 @@ class AccessReviewsRequestBuilder
     */
     public function historyDefinitionsById(string $id): AccessReviewHistoryDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['accessReviewHistoryDefinition_id'] = $id;
+        $urlTplParams['accessReviewHistoryDefinition%2Did'] = $id;
         return new AccessReviewHistoryDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -193,4 +193,15 @@ class AccessReviewsRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

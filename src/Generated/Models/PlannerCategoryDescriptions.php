@@ -107,13 +107,14 @@ class PlannerCategoryDescriptions implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'category1' => function (self $o, ParseNode $n) { $o->setCategory1($n->getStringValue()); },
-            'category2' => function (self $o, ParseNode $n) { $o->setCategory2($n->getStringValue()); },
-            'category3' => function (self $o, ParseNode $n) { $o->setCategory3($n->getStringValue()); },
-            'category4' => function (self $o, ParseNode $n) { $o->setCategory4($n->getStringValue()); },
-            'category5' => function (self $o, ParseNode $n) { $o->setCategory5($n->getStringValue()); },
-            'category6' => function (self $o, ParseNode $n) { $o->setCategory6($n->getStringValue()); },
+            'category1' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory1($n->getStringValue()); },
+            'category2' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory2($n->getStringValue()); },
+            'category3' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory3($n->getStringValue()); },
+            'category4' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory4($n->getStringValue()); },
+            'category5' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory5($n->getStringValue()); },
+            'category6' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory6($n->getStringValue()); },
         ];
     }
 

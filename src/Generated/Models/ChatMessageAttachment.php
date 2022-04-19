@@ -83,13 +83,14 @@ class ChatMessageAttachment implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getStringValue()); },
-            'contentType' => function (self $o, ParseNode $n) { $o->setContentType($n->getStringValue()); },
-            'contentUrl' => function (self $o, ParseNode $n) { $o->setContentUrl($n->getStringValue()); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'thumbnailUrl' => function (self $o, ParseNode $n) { $o->setThumbnailUrl($n->getStringValue()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getStringValue()); },
+            'contentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentType($n->getStringValue()); },
+            'contentUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentUrl($n->getStringValue()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'thumbnailUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setThumbnailUrl($n->getStringValue()); },
         ];
     }
 

@@ -47,9 +47,10 @@ class KeyValue implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'key' => function (self $o, ParseNode $n) { $o->setKey($n->getStringValue()); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getStringValue()); },
+            'key' => function (ParseNode $n) use ($currentObject) { $currentObject->setKey($n->getStringValue()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getStringValue()); },
         ];
     }
 

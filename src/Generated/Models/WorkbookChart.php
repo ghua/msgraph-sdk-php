@@ -81,19 +81,20 @@ class WorkbookChart extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'axes' => function (self $o, ParseNode $n) { $o->setAxes($n->getObjectValue(WorkbookChartAxes::class)); },
-            'dataLabels' => function (self $o, ParseNode $n) { $o->setDataLabels($n->getObjectValue(WorkbookChartDataLabels::class)); },
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getObjectValue(WorkbookChartAreaFormat::class)); },
-            'height' => function (self $o, ParseNode $n) { $o->setHeight($n->getFloatValue()); },
-            'left' => function (self $o, ParseNode $n) { $o->setLeft($n->getFloatValue()); },
-            'legend' => function (self $o, ParseNode $n) { $o->setLegend($n->getObjectValue(WorkbookChartLegend::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'series' => function (self $o, ParseNode $n) { $o->setSeries($n->getCollectionOfObjectValues(WorkbookChartSeries::class)); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getObjectValue(WorkbookChartTitle::class)); },
-            'top' => function (self $o, ParseNode $n) { $o->setTop($n->getFloatValue()); },
-            'width' => function (self $o, ParseNode $n) { $o->setWidth($n->getFloatValue()); },
-            'worksheet' => function (self $o, ParseNode $n) { $o->setWorksheet($n->getObjectValue(WorkbookWorksheet::class)); },
+            'axes' => function (ParseNode $n) use ($currentObject) { $currentObject->setAxes($n->getObjectValue(WorkbookChartAxes::class)); },
+            'dataLabels' => function (ParseNode $n) use ($currentObject) { $currentObject->setDataLabels($n->getObjectValue(WorkbookChartDataLabels::class)); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getObjectValue(WorkbookChartAreaFormat::class)); },
+            'height' => function (ParseNode $n) use ($currentObject) { $currentObject->setHeight($n->getFloatValue()); },
+            'left' => function (ParseNode $n) use ($currentObject) { $currentObject->setLeft($n->getFloatValue()); },
+            'legend' => function (ParseNode $n) use ($currentObject) { $currentObject->setLegend($n->getObjectValue(WorkbookChartLegend::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'series' => function (ParseNode $n) use ($currentObject) { $currentObject->setSeries($n->getCollectionOfObjectValues(WorkbookChartSeries::class)); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getObjectValue(WorkbookChartTitle::class)); },
+            'top' => function (ParseNode $n) use ($currentObject) { $currentObject->setTop($n->getFloatValue()); },
+            'width' => function (ParseNode $n) use ($currentObject) { $currentObject->setWidth($n->getFloatValue()); },
+            'worksheet' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorksheet($n->getObjectValue(WorkbookWorksheet::class)); },
         ]);
     }
 

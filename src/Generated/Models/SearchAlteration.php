@@ -74,10 +74,11 @@ class SearchAlteration implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'alteredHighlightedQueryString' => function (self $o, ParseNode $n) { $o->setAlteredHighlightedQueryString($n->getStringValue()); },
-            'alteredQueryString' => function (self $o, ParseNode $n) { $o->setAlteredQueryString($n->getStringValue()); },
-            'alteredQueryTokens' => function (self $o, ParseNode $n) { $o->setAlteredQueryTokens($n->getCollectionOfObjectValues(AlteredQueryToken::class)); },
+            'alteredHighlightedQueryString' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlteredHighlightedQueryString($n->getStringValue()); },
+            'alteredQueryString' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlteredQueryString($n->getStringValue()); },
+            'alteredQueryTokens' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlteredQueryTokens($n->getCollectionOfObjectValues(AlteredQueryToken::class)); },
         ];
     }
 

@@ -42,7 +42,7 @@ class AuthenticationMethodsPolicyRequestBuilder
     */
     public function authenticationMethodConfigurationsById(string $id): AuthenticationMethodConfigurationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['authenticationMethodConfiguration_id'] = $id;
+        $urlTplParams['authenticationMethodConfiguration%2Did'] = $id;
         return new AuthenticationMethodConfigurationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -52,7 +52,7 @@ class AuthenticationMethodsPolicyRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/policies/authenticationMethodsPolicy{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/policies/authenticationMethodsPolicy{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -173,4 +173,15 @@ class AuthenticationMethodsPolicyRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

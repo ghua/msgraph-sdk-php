@@ -68,16 +68,17 @@ class HostSecurityState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'fqdn' => function (self $o, ParseNode $n) { $o->setFqdn($n->getStringValue()); },
-            'isAzureAdJoined' => function (self $o, ParseNode $n) { $o->setIsAzureAdJoined($n->getBooleanValue()); },
-            'isAzureAdRegistered' => function (self $o, ParseNode $n) { $o->setIsAzureAdRegistered($n->getBooleanValue()); },
-            'isHybridAzureDomainJoined' => function (self $o, ParseNode $n) { $o->setIsHybridAzureDomainJoined($n->getBooleanValue()); },
-            'netBiosName' => function (self $o, ParseNode $n) { $o->setNetBiosName($n->getStringValue()); },
-            'os' => function (self $o, ParseNode $n) { $o->setOs($n->getStringValue()); },
-            'privateIpAddress' => function (self $o, ParseNode $n) { $o->setPrivateIpAddress($n->getStringValue()); },
-            'publicIpAddress' => function (self $o, ParseNode $n) { $o->setPublicIpAddress($n->getStringValue()); },
-            'riskScore' => function (self $o, ParseNode $n) { $o->setRiskScore($n->getStringValue()); },
+            'fqdn' => function (ParseNode $n) use ($currentObject) { $currentObject->setFqdn($n->getStringValue()); },
+            'isAzureAdJoined' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAzureAdJoined($n->getBooleanValue()); },
+            'isAzureAdRegistered' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAzureAdRegistered($n->getBooleanValue()); },
+            'isHybridAzureDomainJoined' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsHybridAzureDomainJoined($n->getBooleanValue()); },
+            'netBiosName' => function (ParseNode $n) use ($currentObject) { $currentObject->setNetBiosName($n->getStringValue()); },
+            'os' => function (ParseNode $n) use ($currentObject) { $currentObject->setOs($n->getStringValue()); },
+            'privateIpAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrivateIpAddress($n->getStringValue()); },
+            'publicIpAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublicIpAddress($n->getStringValue()); },
+            'riskScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskScore($n->getStringValue()); },
         ];
     }
 

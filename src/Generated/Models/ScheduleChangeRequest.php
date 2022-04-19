@@ -62,15 +62,16 @@ class ScheduleChangeRequest extends ChangeTrackedEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignedTo' => function (self $o, ParseNode $n) { $o->setAssignedTo($n->getEnumValue(ScheduleChangeRequestActor::class)); },
-            'managerActionDateTime' => function (self $o, ParseNode $n) { $o->setManagerActionDateTime($n->getDateTimeValue()); },
-            'managerActionMessage' => function (self $o, ParseNode $n) { $o->setManagerActionMessage($n->getStringValue()); },
-            'managerUserId' => function (self $o, ParseNode $n) { $o->setManagerUserId($n->getStringValue()); },
-            'senderDateTime' => function (self $o, ParseNode $n) { $o->setSenderDateTime($n->getDateTimeValue()); },
-            'senderMessage' => function (self $o, ParseNode $n) { $o->setSenderMessage($n->getStringValue()); },
-            'senderUserId' => function (self $o, ParseNode $n) { $o->setSenderUserId($n->getStringValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(ScheduleChangeState::class)); },
+            'assignedTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedTo($n->getEnumValue(ScheduleChangeRequestActor::class)); },
+            'managerActionDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagerActionDateTime($n->getDateTimeValue()); },
+            'managerActionMessage' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagerActionMessage($n->getStringValue()); },
+            'managerUserId' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagerUserId($n->getStringValue()); },
+            'senderDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setSenderDateTime($n->getDateTimeValue()); },
+            'senderMessage' => function (ParseNode $n) use ($currentObject) { $currentObject->setSenderMessage($n->getStringValue()); },
+            'senderUserId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSenderUserId($n->getStringValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(ScheduleChangeState::class)); },
         ]);
     }
 

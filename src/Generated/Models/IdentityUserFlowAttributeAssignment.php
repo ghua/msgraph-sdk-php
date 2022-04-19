@@ -55,13 +55,14 @@ class IdentityUserFlowAttributeAssignment extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isOptional' => function (self $o, ParseNode $n) { $o->setIsOptional($n->getBooleanValue()); },
-            'requiresVerification' => function (self $o, ParseNode $n) { $o->setRequiresVerification($n->getBooleanValue()); },
-            'userAttribute' => function (self $o, ParseNode $n) { $o->setUserAttribute($n->getObjectValue(IdentityUserFlowAttribute::class)); },
-            'userAttributeValues' => function (self $o, ParseNode $n) { $o->setUserAttributeValues($n->getCollectionOfObjectValues(UserAttributeValuesItem::class)); },
-            'userInputType' => function (self $o, ParseNode $n) { $o->setUserInputType($n->getEnumValue(IdentityUserFlowAttributeInputType::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isOptional' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsOptional($n->getBooleanValue()); },
+            'requiresVerification' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequiresVerification($n->getBooleanValue()); },
+            'userAttribute' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserAttribute($n->getObjectValue(IdentityUserFlowAttribute::class)); },
+            'userAttributeValues' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserAttributeValues($n->getCollectionOfObjectValues(UserAttributeValuesItem::class)); },
+            'userInputType' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserInputType($n->getEnumValue(IdentityUserFlowAttributeInputType::class)); },
         ]);
     }
 

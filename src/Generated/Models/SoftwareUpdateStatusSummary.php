@@ -130,22 +130,23 @@ class SoftwareUpdateStatusSummary extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'compliantDeviceCount' => function (self $o, ParseNode $n) { $o->setCompliantDeviceCount($n->getIntegerValue()); },
-            'compliantUserCount' => function (self $o, ParseNode $n) { $o->setCompliantUserCount($n->getIntegerValue()); },
-            'conflictDeviceCount' => function (self $o, ParseNode $n) { $o->setConflictDeviceCount($n->getIntegerValue()); },
-            'conflictUserCount' => function (self $o, ParseNode $n) { $o->setConflictUserCount($n->getIntegerValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'errorDeviceCount' => function (self $o, ParseNode $n) { $o->setErrorDeviceCount($n->getIntegerValue()); },
-            'errorUserCount' => function (self $o, ParseNode $n) { $o->setErrorUserCount($n->getIntegerValue()); },
-            'nonCompliantDeviceCount' => function (self $o, ParseNode $n) { $o->setNonCompliantDeviceCount($n->getIntegerValue()); },
-            'nonCompliantUserCount' => function (self $o, ParseNode $n) { $o->setNonCompliantUserCount($n->getIntegerValue()); },
-            'notApplicableDeviceCount' => function (self $o, ParseNode $n) { $o->setNotApplicableDeviceCount($n->getIntegerValue()); },
-            'notApplicableUserCount' => function (self $o, ParseNode $n) { $o->setNotApplicableUserCount($n->getIntegerValue()); },
-            'remediatedDeviceCount' => function (self $o, ParseNode $n) { $o->setRemediatedDeviceCount($n->getIntegerValue()); },
-            'remediatedUserCount' => function (self $o, ParseNode $n) { $o->setRemediatedUserCount($n->getIntegerValue()); },
-            'unknownDeviceCount' => function (self $o, ParseNode $n) { $o->setUnknownDeviceCount($n->getIntegerValue()); },
-            'unknownUserCount' => function (self $o, ParseNode $n) { $o->setUnknownUserCount($n->getIntegerValue()); },
+            'compliantDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompliantDeviceCount($n->getIntegerValue()); },
+            'compliantUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompliantUserCount($n->getIntegerValue()); },
+            'conflictDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setConflictDeviceCount($n->getIntegerValue()); },
+            'conflictUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setConflictUserCount($n->getIntegerValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'errorDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorDeviceCount($n->getIntegerValue()); },
+            'errorUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorUserCount($n->getIntegerValue()); },
+            'nonCompliantDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNonCompliantDeviceCount($n->getIntegerValue()); },
+            'nonCompliantUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNonCompliantUserCount($n->getIntegerValue()); },
+            'notApplicableDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotApplicableDeviceCount($n->getIntegerValue()); },
+            'notApplicableUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotApplicableUserCount($n->getIntegerValue()); },
+            'remediatedDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemediatedDeviceCount($n->getIntegerValue()); },
+            'remediatedUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemediatedUserCount($n->getIntegerValue()); },
+            'unknownDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnknownDeviceCount($n->getIntegerValue()); },
+            'unknownUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnknownUserCount($n->getIntegerValue()); },
         ]);
     }
 

@@ -45,8 +45,9 @@ class ChangeScreenSharingRoleRequestBody implements AdditionalDataHolder, Parsab
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'role' => function (self $o, ParseNode $n) { $o->setRole($n->getEnumValue(ScreenSharingRole::class)); },
+            'role' => function (ParseNode $n) use ($currentObject) { $currentObject->setRole($n->getEnumValue(ScreenSharingRole::class)); },
         ];
     }
 

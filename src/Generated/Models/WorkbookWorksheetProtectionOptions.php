@@ -162,18 +162,19 @@ class WorkbookWorksheetProtectionOptions implements AdditionalDataHolder, Parsab
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowAutoFilter' => function (self $o, ParseNode $n) { $o->setAllowAutoFilter($n->getBooleanValue()); },
-            'allowDeleteColumns' => function (self $o, ParseNode $n) { $o->setAllowDeleteColumns($n->getBooleanValue()); },
-            'allowDeleteRows' => function (self $o, ParseNode $n) { $o->setAllowDeleteRows($n->getBooleanValue()); },
-            'allowFormatCells' => function (self $o, ParseNode $n) { $o->setAllowFormatCells($n->getBooleanValue()); },
-            'allowFormatColumns' => function (self $o, ParseNode $n) { $o->setAllowFormatColumns($n->getBooleanValue()); },
-            'allowFormatRows' => function (self $o, ParseNode $n) { $o->setAllowFormatRows($n->getBooleanValue()); },
-            'allowInsertColumns' => function (self $o, ParseNode $n) { $o->setAllowInsertColumns($n->getBooleanValue()); },
-            'allowInsertHyperlinks' => function (self $o, ParseNode $n) { $o->setAllowInsertHyperlinks($n->getBooleanValue()); },
-            'allowInsertRows' => function (self $o, ParseNode $n) { $o->setAllowInsertRows($n->getBooleanValue()); },
-            'allowPivotTables' => function (self $o, ParseNode $n) { $o->setAllowPivotTables($n->getBooleanValue()); },
-            'allowSort' => function (self $o, ParseNode $n) { $o->setAllowSort($n->getBooleanValue()); },
+            'allowAutoFilter' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowAutoFilter($n->getBooleanValue()); },
+            'allowDeleteColumns' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowDeleteColumns($n->getBooleanValue()); },
+            'allowDeleteRows' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowDeleteRows($n->getBooleanValue()); },
+            'allowFormatCells' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowFormatCells($n->getBooleanValue()); },
+            'allowFormatColumns' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowFormatColumns($n->getBooleanValue()); },
+            'allowFormatRows' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowFormatRows($n->getBooleanValue()); },
+            'allowInsertColumns' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowInsertColumns($n->getBooleanValue()); },
+            'allowInsertHyperlinks' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowInsertHyperlinks($n->getBooleanValue()); },
+            'allowInsertRows' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowInsertRows($n->getBooleanValue()); },
+            'allowPivotTables' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowPivotTables($n->getBooleanValue()); },
+            'allowSort' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowSort($n->getBooleanValue()); },
         ];
     }
 

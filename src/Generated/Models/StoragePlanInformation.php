@@ -44,8 +44,9 @@ class StoragePlanInformation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'upgradeAvailable' => function (self $o, ParseNode $n) { $o->setUpgradeAvailable($n->getBooleanValue()); },
+            'upgradeAvailable' => function (ParseNode $n) use ($currentObject) { $currentObject->setUpgradeAvailable($n->getBooleanValue()); },
         ];
     }
 

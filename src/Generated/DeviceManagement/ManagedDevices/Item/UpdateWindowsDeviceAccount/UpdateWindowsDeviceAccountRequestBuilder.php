@@ -30,7 +30,7 @@ class UpdateWindowsDeviceAccountRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/managedDevices/{managedDevice_id}/microsoft.graph.updateWindowsDeviceAccount';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/managedDevices/{managedDevice%2Did}/microsoft.graph.updateWindowsDeviceAccount';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

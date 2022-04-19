@@ -50,7 +50,7 @@ class IdentityProtectionRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identityProtection{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identityProtection{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -142,7 +142,7 @@ class IdentityProtectionRequestBuilder
     */
     public function riskDetectionsById(string $id): RiskDetectionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['riskDetection_id'] = $id;
+        $urlTplParams['riskDetection%2Did'] = $id;
         return new RiskDetectionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -153,8 +153,19 @@ class IdentityProtectionRequestBuilder
     */
     public function riskyUsersById(string $id): RiskyUserItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['riskyUser_id'] = $id;
+        $urlTplParams['riskyUser%2Did'] = $id;
         return new RiskyUserItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

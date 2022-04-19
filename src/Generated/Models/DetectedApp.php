@@ -60,12 +60,13 @@ class DetectedApp extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'deviceCount' => function (self $o, ParseNode $n) { $o->setDeviceCount($n->getIntegerValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'managedDevices' => function (self $o, ParseNode $n) { $o->setManagedDevices($n->getCollectionOfObjectValues(ManagedDevice::class)); },
-            'sizeInByte' => function (self $o, ParseNode $n) { $o->setSizeInByte($n->getIntegerValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'deviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceCount($n->getIntegerValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'managedDevices' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagedDevices($n->getCollectionOfObjectValues(ManagedDevice::class)); },
+            'sizeInByte' => function (ParseNode $n) use ($currentObject) { $currentObject->setSizeInByte($n->getIntegerValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

@@ -64,12 +64,13 @@ class VerifiedDomain implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'capabilities' => function (self $o, ParseNode $n) { $o->setCapabilities($n->getStringValue()); },
-            'isDefault' => function (self $o, ParseNode $n) { $o->setIsDefault($n->getBooleanValue()); },
-            'isInitial' => function (self $o, ParseNode $n) { $o->setIsInitial($n->getBooleanValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
+            'capabilities' => function (ParseNode $n) use ($currentObject) { $currentObject->setCapabilities($n->getStringValue()); },
+            'isDefault' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDefault($n->getBooleanValue()); },
+            'isInitial' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsInitial($n->getBooleanValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
         ];
     }
 

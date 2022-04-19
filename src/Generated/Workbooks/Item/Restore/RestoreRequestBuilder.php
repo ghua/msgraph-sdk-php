@@ -31,7 +31,7 @@ class RestoreRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/workbooks/{driveItem_id}/microsoft.graph.restore';
+        $this->urlTemplate = '{+baseurl}/workbooks/{driveItem%2Did}/microsoft.graph.restore';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

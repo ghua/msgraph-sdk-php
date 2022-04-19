@@ -59,14 +59,15 @@ class ImportedWindowsAutopilotDeviceIdentity extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignedUserPrincipalName' => function (self $o, ParseNode $n) { $o->setAssignedUserPrincipalName($n->getStringValue()); },
-            'groupTag' => function (self $o, ParseNode $n) { $o->setGroupTag($n->getStringValue()); },
-            'hardwareIdentifier' => function (self $o, ParseNode $n) { $o->setHardwareIdentifier($n->getBinaryContent()); },
-            'importId' => function (self $o, ParseNode $n) { $o->setImportId($n->getStringValue()); },
-            'productKey' => function (self $o, ParseNode $n) { $o->setProductKey($n->getStringValue()); },
-            'serialNumber' => function (self $o, ParseNode $n) { $o->setSerialNumber($n->getStringValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getObjectValue(ImportedWindowsAutopilotDeviceIdentityState::class)); },
+            'assignedUserPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedUserPrincipalName($n->getStringValue()); },
+            'groupTag' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupTag($n->getStringValue()); },
+            'hardwareIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setHardwareIdentifier($n->getBinaryContent()); },
+            'importId' => function (ParseNode $n) use ($currentObject) { $currentObject->setImportId($n->getStringValue()); },
+            'productKey' => function (ParseNode $n) use ($currentObject) { $currentObject->setProductKey($n->getStringValue()); },
+            'serialNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setSerialNumber($n->getStringValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getObjectValue(ImportedWindowsAutopilotDeviceIdentityState::class)); },
         ]);
     }
 

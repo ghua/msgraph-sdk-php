@@ -121,15 +121,16 @@ class Reminder implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'changeKey' => function (self $o, ParseNode $n) { $o->setChangeKey($n->getStringValue()); },
-            'eventEndTime' => function (self $o, ParseNode $n) { $o->setEventEndTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'eventId' => function (self $o, ParseNode $n) { $o->setEventId($n->getStringValue()); },
-            'eventLocation' => function (self $o, ParseNode $n) { $o->setEventLocation($n->getObjectValue(Location::class)); },
-            'eventStartTime' => function (self $o, ParseNode $n) { $o->setEventStartTime($n->getObjectValue(DateTimeTimeZone::class)); },
-            'eventSubject' => function (self $o, ParseNode $n) { $o->setEventSubject($n->getStringValue()); },
-            'eventWebLink' => function (self $o, ParseNode $n) { $o->setEventWebLink($n->getStringValue()); },
-            'reminderFireTime' => function (self $o, ParseNode $n) { $o->setReminderFireTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'changeKey' => function (ParseNode $n) use ($currentObject) { $currentObject->setChangeKey($n->getStringValue()); },
+            'eventEndTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEventEndTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'eventId' => function (ParseNode $n) use ($currentObject) { $currentObject->setEventId($n->getStringValue()); },
+            'eventLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setEventLocation($n->getObjectValue(Location::class)); },
+            'eventStartTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEventStartTime($n->getObjectValue(DateTimeTimeZone::class)); },
+            'eventSubject' => function (ParseNode $n) use ($currentObject) { $currentObject->setEventSubject($n->getStringValue()); },
+            'eventWebLink' => function (ParseNode $n) use ($currentObject) { $currentObject->setEventWebLink($n->getStringValue()); },
+            'reminderFireTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReminderFireTime($n->getObjectValue(DateTimeTimeZone::class)); },
         ];
     }
 

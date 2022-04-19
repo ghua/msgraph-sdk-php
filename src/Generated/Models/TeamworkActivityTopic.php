@@ -50,10 +50,11 @@ class TeamworkActivityTopic implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'source' => function (self $o, ParseNode $n) { $o->setSource($n->getEnumValue(TeamworkActivityTopicSource::class)); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getStringValue()); },
-            'webUrl' => function (self $o, ParseNode $n) { $o->setWebUrl($n->getStringValue()); },
+            'source' => function (ParseNode $n) use ($currentObject) { $currentObject->setSource($n->getEnumValue(TeamworkActivityTopicSource::class)); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getStringValue()); },
+            'webUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebUrl($n->getStringValue()); },
         ];
     }
 

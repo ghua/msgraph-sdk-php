@@ -47,9 +47,10 @@ class DefaultColumnValue implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'formula' => function (self $o, ParseNode $n) { $o->setFormula($n->getStringValue()); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getStringValue()); },
+            'formula' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormula($n->getStringValue()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getStringValue()); },
         ];
     }
 

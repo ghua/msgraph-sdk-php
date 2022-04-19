@@ -117,19 +117,20 @@ class SearchRequest implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'aggregationFilters' => function (self $o, ParseNode $n) { $o->setAggregationFilters($n->getCollectionOfPrimitiveValues()); },
-            'aggregations' => function (self $o, ParseNode $n) { $o->setAggregations($n->getCollectionOfObjectValues(AggregationOption::class)); },
-            'contentSources' => function (self $o, ParseNode $n) { $o->setContentSources($n->getCollectionOfPrimitiveValues()); },
-            'enableTopResults' => function (self $o, ParseNode $n) { $o->setEnableTopResults($n->getBooleanValue()); },
-            'entityTypes' => function (self $o, ParseNode $n) { $o->setEntityTypes($n->getCollectionOfEnumValues(EntityType::class)); },
-            'fields' => function (self $o, ParseNode $n) { $o->setFields($n->getCollectionOfPrimitiveValues()); },
-            'from' => function (self $o, ParseNode $n) { $o->setFrom($n->getIntegerValue()); },
-            'query' => function (self $o, ParseNode $n) { $o->setQuery($n->getObjectValue(SearchQuery::class)); },
-            'queryAlterationOptions' => function (self $o, ParseNode $n) { $o->setQueryAlterationOptions($n->getObjectValue(SearchAlterationOptions::class)); },
-            'resultTemplateOptions' => function (self $o, ParseNode $n) { $o->setResultTemplateOptions($n->getObjectValue(ResultTemplateOption::class)); },
-            'size' => function (self $o, ParseNode $n) { $o->setSize($n->getIntegerValue()); },
-            'sortProperties' => function (self $o, ParseNode $n) { $o->setSortProperties($n->getCollectionOfObjectValues(SortProperty::class)); },
+            'aggregationFilters' => function (ParseNode $n) use ($currentObject) { $currentObject->setAggregationFilters($n->getCollectionOfPrimitiveValues()); },
+            'aggregations' => function (ParseNode $n) use ($currentObject) { $currentObject->setAggregations($n->getCollectionOfObjectValues(AggregationOption::class)); },
+            'contentSources' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentSources($n->getCollectionOfPrimitiveValues()); },
+            'enableTopResults' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableTopResults($n->getBooleanValue()); },
+            'entityTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setEntityTypes($n->getCollectionOfEnumValues(EntityType::class)); },
+            'fields' => function (ParseNode $n) use ($currentObject) { $currentObject->setFields($n->getCollectionOfPrimitiveValues()); },
+            'from' => function (ParseNode $n) use ($currentObject) { $currentObject->setFrom($n->getIntegerValue()); },
+            'query' => function (ParseNode $n) use ($currentObject) { $currentObject->setQuery($n->getObjectValue(SearchQuery::class)); },
+            'queryAlterationOptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setQueryAlterationOptions($n->getObjectValue(SearchAlterationOptions::class)); },
+            'resultTemplateOptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setResultTemplateOptions($n->getObjectValue(ResultTemplateOption::class)); },
+            'size' => function (ParseNode $n) use ($currentObject) { $currentObject->setSize($n->getIntegerValue()); },
+            'sortProperties' => function (ParseNode $n) use ($currentObject) { $currentObject->setSortProperties($n->getCollectionOfObjectValues(SortProperty::class)); },
         ];
     }
 

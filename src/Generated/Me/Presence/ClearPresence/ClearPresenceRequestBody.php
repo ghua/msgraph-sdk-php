@@ -44,8 +44,9 @@ class ClearPresenceRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'sessionId' => function (self $o, ParseNode $n) { $o->setSessionId($n->getStringValue()); },
+            'sessionId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSessionId($n->getStringValue()); },
         ];
     }
 

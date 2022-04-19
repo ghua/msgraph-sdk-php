@@ -42,7 +42,7 @@ class CalendarGroupItemRequestBuilder
     */
     public function calendarsById(string $id): CalendarItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['calendar_id'] = $id;
+        $urlTplParams['calendar%2Did'] = $id;
         return new CalendarItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -52,7 +52,7 @@ class CalendarGroupItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/calendarGroups/{calendarGroup_id}{?select}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/calendarGroups/{calendarGroup%2Did}{?%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -173,4 +173,12 @@ class CalendarGroupItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

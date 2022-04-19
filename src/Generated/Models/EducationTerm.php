@@ -78,11 +78,12 @@ class EducationTerm implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'endDate' => function (self $o, ParseNode $n) { $o->setEndDate($n->getDateValue()); },
-            'externalId' => function (self $o, ParseNode $n) { $o->setExternalId($n->getStringValue()); },
-            'startDate' => function (self $o, ParseNode $n) { $o->setStartDate($n->getDateValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'endDate' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDate($n->getDateValue()); },
+            'externalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalId($n->getStringValue()); },
+            'startDate' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDate($n->getDateValue()); },
         ];
     }
 

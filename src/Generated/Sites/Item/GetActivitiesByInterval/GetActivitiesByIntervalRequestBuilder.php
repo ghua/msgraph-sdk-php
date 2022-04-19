@@ -30,7 +30,7 @@ class GetActivitiesByIntervalRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/sites/{site_id}/microsoft.graph.getActivitiesByInterval()';
+        $this->urlTemplate = '{+baseurl}/sites/{site%2Did}/microsoft.graph.getActivitiesByInterval()';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

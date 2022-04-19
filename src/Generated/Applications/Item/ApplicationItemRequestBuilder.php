@@ -181,7 +181,7 @@ class ApplicationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/applications/{application_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/applications/{application%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -275,7 +275,7 @@ class ApplicationItemRequestBuilder
     */
     public function extensionPropertiesById(string $id): ExtensionPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['extensionProperty_id'] = $id;
+        $urlTplParams['extensionProperty%2Did'] = $id;
         return new ExtensionPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -303,7 +303,7 @@ class ApplicationItemRequestBuilder
     */
     public function homeRealmDiscoveryPoliciesById(string $id): HomeRealmDiscoveryPolicyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['homeRealmDiscoveryPolicy_id'] = $id;
+        $urlTplParams['homeRealmDiscoveryPolicy%2Did'] = $id;
         return new HomeRealmDiscoveryPolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -314,7 +314,7 @@ class ApplicationItemRequestBuilder
     */
     public function ownersById(string $id): DirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new DirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -342,7 +342,7 @@ class ApplicationItemRequestBuilder
     */
     public function tokenIssuancePoliciesById(string $id): TokenIssuancePolicyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['tokenIssuancePolicy_id'] = $id;
+        $urlTplParams['tokenIssuancePolicy%2Did'] = $id;
         return new TokenIssuancePolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -353,8 +353,19 @@ class ApplicationItemRequestBuilder
     */
     public function tokenLifetimePoliciesById(string $id): TokenLifetimePolicyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['tokenLifetimePolicy_id'] = $id;
+        $urlTplParams['tokenLifetimePolicy%2Did'] = $id;
         return new TokenLifetimePolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

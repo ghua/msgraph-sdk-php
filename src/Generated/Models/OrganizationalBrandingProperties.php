@@ -108,17 +108,18 @@ class OrganizationalBrandingProperties extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'backgroundColor' => function (self $o, ParseNode $n) { $o->setBackgroundColor($n->getStringValue()); },
-            'backgroundImage' => function (self $o, ParseNode $n) { $o->setBackgroundImage($n->getBinaryContent()); },
-            'backgroundImageRelativeUrl' => function (self $o, ParseNode $n) { $o->setBackgroundImageRelativeUrl($n->getStringValue()); },
-            'bannerLogo' => function (self $o, ParseNode $n) { $o->setBannerLogo($n->getBinaryContent()); },
-            'bannerLogoRelativeUrl' => function (self $o, ParseNode $n) { $o->setBannerLogoRelativeUrl($n->getStringValue()); },
-            'cdnList' => function (self $o, ParseNode $n) { $o->setCdnList($n->getCollectionOfPrimitiveValues()); },
-            'signInPageText' => function (self $o, ParseNode $n) { $o->setSignInPageText($n->getStringValue()); },
-            'squareLogo' => function (self $o, ParseNode $n) { $o->setSquareLogo($n->getBinaryContent()); },
-            'squareLogoRelativeUrl' => function (self $o, ParseNode $n) { $o->setSquareLogoRelativeUrl($n->getStringValue()); },
-            'usernameHintText' => function (self $o, ParseNode $n) { $o->setUsernameHintText($n->getStringValue()); },
+            'backgroundColor' => function (ParseNode $n) use ($currentObject) { $currentObject->setBackgroundColor($n->getStringValue()); },
+            'backgroundImage' => function (ParseNode $n) use ($currentObject) { $currentObject->setBackgroundImage($n->getBinaryContent()); },
+            'backgroundImageRelativeUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setBackgroundImageRelativeUrl($n->getStringValue()); },
+            'bannerLogo' => function (ParseNode $n) use ($currentObject) { $currentObject->setBannerLogo($n->getBinaryContent()); },
+            'bannerLogoRelativeUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setBannerLogoRelativeUrl($n->getStringValue()); },
+            'cdnList' => function (ParseNode $n) use ($currentObject) { $currentObject->setCdnList($n->getCollectionOfPrimitiveValues()); },
+            'signInPageText' => function (ParseNode $n) use ($currentObject) { $currentObject->setSignInPageText($n->getStringValue()); },
+            'squareLogo' => function (ParseNode $n) use ($currentObject) { $currentObject->setSquareLogo($n->getBinaryContent()); },
+            'squareLogoRelativeUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setSquareLogoRelativeUrl($n->getStringValue()); },
+            'usernameHintText' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsernameHintText($n->getStringValue()); },
         ]);
     }
 

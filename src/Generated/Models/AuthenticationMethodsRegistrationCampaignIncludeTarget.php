@@ -50,10 +50,11 @@ class AuthenticationMethodsRegistrationCampaignIncludeTarget implements Addition
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'targetedAuthenticationMethod' => function (self $o, ParseNode $n) { $o->setTargetedAuthenticationMethod($n->getStringValue()); },
-            'targetType' => function (self $o, ParseNode $n) { $o->setTargetType($n->getEnumValue(AuthenticationMethodTargetType::class)); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'targetedAuthenticationMethod' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetedAuthenticationMethod($n->getStringValue()); },
+            'targetType' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetType($n->getEnumValue(AuthenticationMethodTargetType::class)); },
         ];
     }
 

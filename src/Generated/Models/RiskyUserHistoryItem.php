@@ -46,10 +46,11 @@ class RiskyUserHistoryItem extends RiskyUser
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activity' => function (self $o, ParseNode $n) { $o->setActivity($n->getObjectValue(RiskUserActivity::class)); },
-            'initiatedBy' => function (self $o, ParseNode $n) { $o->setInitiatedBy($n->getStringValue()); },
-            'userId' => function (self $o, ParseNode $n) { $o->setUserId($n->getStringValue()); },
+            'activity' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivity($n->getObjectValue(RiskUserActivity::class)); },
+            'initiatedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setInitiatedBy($n->getStringValue()); },
+            'userId' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserId($n->getStringValue()); },
         ]);
     }
 

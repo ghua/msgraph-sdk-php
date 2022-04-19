@@ -58,10 +58,11 @@ class TeamworkOnlineMeetingInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'calendarEventId' => function (self $o, ParseNode $n) { $o->setCalendarEventId($n->getStringValue()); },
-            'joinWebUrl' => function (self $o, ParseNode $n) { $o->setJoinWebUrl($n->getStringValue()); },
-            'organizer' => function (self $o, ParseNode $n) { $o->setOrganizer($n->getObjectValue(TeamworkUserIdentity::class)); },
+            'calendarEventId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalendarEventId($n->getStringValue()); },
+            'joinWebUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setJoinWebUrl($n->getStringValue()); },
+            'organizer' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrganizer($n->getObjectValue(TeamworkUserIdentity::class)); },
         ];
     }
 

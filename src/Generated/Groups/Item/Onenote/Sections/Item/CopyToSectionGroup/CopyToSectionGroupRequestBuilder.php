@@ -31,7 +31,7 @@ class CopyToSectionGroupRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/onenote/sections/{onenoteSection_id}/microsoft.graph.copyToSectionGroup';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/onenote/sections/{onenoteSection%2Did}/microsoft.graph.copyToSectionGroup';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

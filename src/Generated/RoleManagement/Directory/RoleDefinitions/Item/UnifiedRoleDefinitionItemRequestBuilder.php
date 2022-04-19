@@ -40,7 +40,7 @@ class UnifiedRoleDefinitionItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/roleManagement/directory/roleDefinitions/{unifiedRoleDefinition_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/roleManagement/directory/roleDefinitions/{unifiedRoleDefinition%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -151,7 +151,7 @@ class UnifiedRoleDefinitionItemRequestBuilder
     */
     public function inheritsPermissionsFromById(string $id): UnifiedRoleDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['unifiedRoleDefinition_id1'] = $id;
+        $urlTplParams['unifiedRoleDefinition%2Did1'] = $id;
         return new UnifiedRoleDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -172,4 +172,15 @@ class UnifiedRoleDefinitionItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

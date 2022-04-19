@@ -58,10 +58,11 @@ class GeoCoordinates implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'altitude' => function (self $o, ParseNode $n) { $o->setAltitude($n->getFloatValue()); },
-            'latitude' => function (self $o, ParseNode $n) { $o->setLatitude($n->getFloatValue()); },
-            'longitude' => function (self $o, ParseNode $n) { $o->setLongitude($n->getFloatValue()); },
+            'altitude' => function (ParseNode $n) use ($currentObject) { $currentObject->setAltitude($n->getFloatValue()); },
+            'latitude' => function (ParseNode $n) use ($currentObject) { $currentObject->setLatitude($n->getFloatValue()); },
+            'longitude' => function (ParseNode $n) use ($currentObject) { $currentObject->setLongitude($n->getFloatValue()); },
         ];
     }
 

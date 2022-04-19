@@ -43,9 +43,10 @@ class AccessReviewSet extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'definitions' => function (self $o, ParseNode $n) { $o->setDefinitions($n->getCollectionOfObjectValues(AccessReviewScheduleDefinition::class)); },
-            'historyDefinitions' => function (self $o, ParseNode $n) { $o->setHistoryDefinitions($n->getCollectionOfObjectValues(AccessReviewHistoryDefinition::class)); },
+            'definitions' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefinitions($n->getCollectionOfObjectValues(AccessReviewScheduleDefinition::class)); },
+            'historyDefinitions' => function (ParseNode $n) use ($currentObject) { $currentObject->setHistoryDefinitions($n->getCollectionOfObjectValues(AccessReviewHistoryDefinition::class)); },
         ]);
     }
 

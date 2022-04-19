@@ -41,6 +41,7 @@ class AccessReviewNotificationRecipientScope implements AdditionalDataHolder, Pa
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
         ];
     }

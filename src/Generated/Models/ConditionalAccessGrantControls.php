@@ -69,11 +69,12 @@ class ConditionalAccessGrantControls implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'builtInControls' => function (self $o, ParseNode $n) { $o->setBuiltInControls($n->getCollectionOfEnumValues(ConditionalAccessGrantControl::class)); },
-            'customAuthenticationFactors' => function (self $o, ParseNode $n) { $o->setCustomAuthenticationFactors($n->getCollectionOfPrimitiveValues()); },
-            'operator' => function (self $o, ParseNode $n) { $o->setOperator($n->getStringValue()); },
-            'termsOfUse' => function (self $o, ParseNode $n) { $o->setTermsOfUse($n->getCollectionOfPrimitiveValues()); },
+            'builtInControls' => function (ParseNode $n) use ($currentObject) { $currentObject->setBuiltInControls($n->getCollectionOfEnumValues(ConditionalAccessGrantControl::class)); },
+            'customAuthenticationFactors' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomAuthenticationFactors($n->getCollectionOfPrimitiveValues()); },
+            'operator' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperator($n->getStringValue()); },
+            'termsOfUse' => function (ParseNode $n) use ($currentObject) { $currentObject->setTermsOfUse($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

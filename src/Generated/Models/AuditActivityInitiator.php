@@ -55,9 +55,10 @@ class AuditActivityInitiator implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'app' => function (self $o, ParseNode $n) { $o->setApp($n->getObjectValue(AppIdentity::class)); },
-            'user' => function (self $o, ParseNode $n) { $o->setUser($n->getObjectValue(UserIdentity::class)); },
+            'app' => function (ParseNode $n) use ($currentObject) { $currentObject->setApp($n->getObjectValue(AppIdentity::class)); },
+            'user' => function (ParseNode $n) use ($currentObject) { $currentObject->setUser($n->getObjectValue(UserIdentity::class)); },
         ];
     }
 

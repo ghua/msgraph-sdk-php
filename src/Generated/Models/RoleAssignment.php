@@ -57,11 +57,12 @@ class RoleAssignment extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'resourceScopes' => function (self $o, ParseNode $n) { $o->setResourceScopes($n->getCollectionOfPrimitiveValues()); },
-            'roleDefinition' => function (self $o, ParseNode $n) { $o->setRoleDefinition($n->getObjectValue(RoleDefinition::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'resourceScopes' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceScopes($n->getCollectionOfPrimitiveValues()); },
+            'roleDefinition' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoleDefinition($n->getObjectValue(RoleDefinition::class)); },
         ]);
     }
 

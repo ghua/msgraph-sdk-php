@@ -55,9 +55,10 @@ class PrivacyProfile implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'contactEmail' => function (self $o, ParseNode $n) { $o->setContactEmail($n->getStringValue()); },
-            'statementUrl' => function (self $o, ParseNode $n) { $o->setStatementUrl($n->getStringValue()); },
+            'contactEmail' => function (ParseNode $n) use ($currentObject) { $currentObject->setContactEmail($n->getStringValue()); },
+            'statementUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatementUrl($n->getStringValue()); },
         ];
     }
 

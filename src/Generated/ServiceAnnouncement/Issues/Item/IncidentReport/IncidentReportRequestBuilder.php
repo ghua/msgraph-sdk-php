@@ -30,7 +30,7 @@ class IncidentReportRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/admin/serviceAnnouncement/issues/{serviceHealthIssue_id}/microsoft.graph.incidentReport()';
+        $this->urlTemplate = '{+baseurl}/admin/serviceAnnouncement/issues/{serviceHealthIssue%2Did}/microsoft.graph.incidentReport()';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

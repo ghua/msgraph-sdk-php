@@ -44,8 +44,9 @@ class Admin implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'serviceAnnouncement' => function (self $o, ParseNode $n) { $o->setServiceAnnouncement($n->getObjectValue(ServiceAnnouncement::class)); },
+            'serviceAnnouncement' => function (ParseNode $n) use ($currentObject) { $currentObject->setServiceAnnouncement($n->getObjectValue(ServiceAnnouncement::class)); },
         ];
     }
 

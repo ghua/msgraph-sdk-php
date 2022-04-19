@@ -47,9 +47,10 @@ class SectionLinks implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'oneNoteClientUrl' => function (self $o, ParseNode $n) { $o->setOneNoteClientUrl($n->getObjectValue(ExternalLink::class)); },
-            'oneNoteWebUrl' => function (self $o, ParseNode $n) { $o->setOneNoteWebUrl($n->getObjectValue(ExternalLink::class)); },
+            'oneNoteClientUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setOneNoteClientUrl($n->getObjectValue(ExternalLink::class)); },
+            'oneNoteWebUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setOneNoteWebUrl($n->getObjectValue(ExternalLink::class)); },
         ];
     }
 

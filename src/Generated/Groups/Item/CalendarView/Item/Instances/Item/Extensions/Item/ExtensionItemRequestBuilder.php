@@ -32,7 +32,7 @@ class ExtensionItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/calendarView/{event_id}/instances/{event_id1}/extensions/{extension_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/calendarView/{event%2Did}/instances/{event%2Did1}/extensions/{extension%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -153,4 +153,15 @@ class ExtensionItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }
