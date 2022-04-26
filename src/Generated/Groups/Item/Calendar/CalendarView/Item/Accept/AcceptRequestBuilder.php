@@ -30,7 +30,7 @@ class AcceptRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/calendar/calendarView/{event_id}/microsoft.graph.accept';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/calendar/calendarView/{event%2Did}/microsoft.graph.accept';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

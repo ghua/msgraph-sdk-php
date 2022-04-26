@@ -86,14 +86,15 @@ class DeviceDetail implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'browser' => function (self $o, ParseNode $n) { $o->setBrowser($n->getStringValue()); },
-            'deviceId' => function (self $o, ParseNode $n) { $o->setDeviceId($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isCompliant' => function (self $o, ParseNode $n) { $o->setIsCompliant($n->getBooleanValue()); },
-            'isManaged' => function (self $o, ParseNode $n) { $o->setIsManaged($n->getBooleanValue()); },
-            'operatingSystem' => function (self $o, ParseNode $n) { $o->setOperatingSystem($n->getStringValue()); },
-            'trustType' => function (self $o, ParseNode $n) { $o->setTrustType($n->getStringValue()); },
+            'browser' => function (ParseNode $n) use ($currentObject) { $currentObject->setBrowser($n->getStringValue()); },
+            'deviceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceId($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isCompliant' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsCompliant($n->getBooleanValue()); },
+            'isManaged' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsManaged($n->getBooleanValue()); },
+            'operatingSystem' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperatingSystem($n->getStringValue()); },
+            'trustType' => function (ParseNode $n) use ($currentObject) { $currentObject->setTrustType($n->getStringValue()); },
         ];
     }
 

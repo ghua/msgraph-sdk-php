@@ -79,13 +79,14 @@ class SendActivityNotificationRequestBody implements AdditionalDataHolder, Parsa
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'activityType' => function (self $o, ParseNode $n) { $o->setActivityType($n->getStringValue()); },
-            'chainId' => function (self $o, ParseNode $n) { $o->setChainId($n->getIntegerValue()); },
-            'previewText' => function (self $o, ParseNode $n) { $o->setPreviewText($n->getObjectValue(ItemBody::class)); },
-            'recipient' => function (self $o, ParseNode $n) { $o->setRecipient($n->getObjectValue(TeamworkNotificationRecipient::class)); },
-            'templateParameters' => function (self $o, ParseNode $n) { $o->setTemplateParameters($n->getCollectionOfObjectValues(KeyValuePair::class)); },
-            'topic' => function (self $o, ParseNode $n) { $o->setTopic($n->getObjectValue(TeamworkActivityTopic::class)); },
+            'activityType' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivityType($n->getStringValue()); },
+            'chainId' => function (ParseNode $n) use ($currentObject) { $currentObject->setChainId($n->getIntegerValue()); },
+            'previewText' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreviewText($n->getObjectValue(ItemBody::class)); },
+            'recipient' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipient($n->getObjectValue(TeamworkNotificationRecipient::class)); },
+            'templateParameters' => function (ParseNode $n) use ($currentObject) { $currentObject->setTemplateParameters($n->getCollectionOfObjectValues(KeyValuePair::class)); },
+            'topic' => function (ParseNode $n) use ($currentObject) { $currentObject->setTopic($n->getObjectValue(TeamworkActivityTopic::class)); },
         ];
     }
 

@@ -63,9 +63,10 @@ class TimeZoneInformation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'alias' => function (self $o, ParseNode $n) { $o->setAlias($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
+            'alias' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlias($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
         ];
     }
 

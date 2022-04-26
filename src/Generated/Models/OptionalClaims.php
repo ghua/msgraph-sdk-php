@@ -58,10 +58,11 @@ class OptionalClaims implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'accessToken' => function (self $o, ParseNode $n) { $o->setAccessToken($n->getCollectionOfObjectValues(OptionalClaim::class)); },
-            'idToken' => function (self $o, ParseNode $n) { $o->setIdToken($n->getCollectionOfObjectValues(OptionalClaim::class)); },
-            'saml2Token' => function (self $o, ParseNode $n) { $o->setSaml2Token($n->getCollectionOfObjectValues(OptionalClaim::class)); },
+            'accessToken' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessToken($n->getCollectionOfObjectValues(OptionalClaim::class)); },
+            'idToken' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdToken($n->getCollectionOfObjectValues(OptionalClaim::class)); },
+            'saml2Token' => function (ParseNode $n) use ($currentObject) { $currentObject->setSaml2Token($n->getCollectionOfObjectValues(OptionalClaim::class)); },
         ];
     }
 

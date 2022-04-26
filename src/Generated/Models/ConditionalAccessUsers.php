@@ -83,13 +83,14 @@ class ConditionalAccessUsers implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'excludeGroups' => function (self $o, ParseNode $n) { $o->setExcludeGroups($n->getCollectionOfPrimitiveValues()); },
-            'excludeRoles' => function (self $o, ParseNode $n) { $o->setExcludeRoles($n->getCollectionOfPrimitiveValues()); },
-            'excludeUsers' => function (self $o, ParseNode $n) { $o->setExcludeUsers($n->getCollectionOfPrimitiveValues()); },
-            'includeGroups' => function (self $o, ParseNode $n) { $o->setIncludeGroups($n->getCollectionOfPrimitiveValues()); },
-            'includeRoles' => function (self $o, ParseNode $n) { $o->setIncludeRoles($n->getCollectionOfPrimitiveValues()); },
-            'includeUsers' => function (self $o, ParseNode $n) { $o->setIncludeUsers($n->getCollectionOfPrimitiveValues()); },
+            'excludeGroups' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludeGroups($n->getCollectionOfPrimitiveValues()); },
+            'excludeRoles' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludeRoles($n->getCollectionOfPrimitiveValues()); },
+            'excludeUsers' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludeUsers($n->getCollectionOfPrimitiveValues()); },
+            'includeGroups' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeGroups($n->getCollectionOfPrimitiveValues()); },
+            'includeRoles' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeRoles($n->getCollectionOfPrimitiveValues()); },
+            'includeUsers' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludeUsers($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

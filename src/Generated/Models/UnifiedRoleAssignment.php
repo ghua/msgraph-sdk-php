@@ -96,16 +96,17 @@ class UnifiedRoleAssignment extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appScope' => function (self $o, ParseNode $n) { $o->setAppScope($n->getObjectValue(AppScope::class)); },
-            'appScopeId' => function (self $o, ParseNode $n) { $o->setAppScopeId($n->getStringValue()); },
-            'condition' => function (self $o, ParseNode $n) { $o->setCondition($n->getStringValue()); },
-            'directoryScope' => function (self $o, ParseNode $n) { $o->setDirectoryScope($n->getObjectValue(DirectoryObject::class)); },
-            'directoryScopeId' => function (self $o, ParseNode $n) { $o->setDirectoryScopeId($n->getStringValue()); },
-            'principal' => function (self $o, ParseNode $n) { $o->setPrincipal($n->getObjectValue(DirectoryObject::class)); },
-            'principalId' => function (self $o, ParseNode $n) { $o->setPrincipalId($n->getStringValue()); },
-            'roleDefinition' => function (self $o, ParseNode $n) { $o->setRoleDefinition($n->getObjectValue(UnifiedRoleDefinition::class)); },
-            'roleDefinitionId' => function (self $o, ParseNode $n) { $o->setRoleDefinitionId($n->getStringValue()); },
+            'appScope' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppScope($n->getObjectValue(AppScope::class)); },
+            'appScopeId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppScopeId($n->getStringValue()); },
+            'condition' => function (ParseNode $n) use ($currentObject) { $currentObject->setCondition($n->getStringValue()); },
+            'directoryScope' => function (ParseNode $n) use ($currentObject) { $currentObject->setDirectoryScope($n->getObjectValue(DirectoryObject::class)); },
+            'directoryScopeId' => function (ParseNode $n) use ($currentObject) { $currentObject->setDirectoryScopeId($n->getStringValue()); },
+            'principal' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipal($n->getObjectValue(DirectoryObject::class)); },
+            'principalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalId($n->getStringValue()); },
+            'roleDefinition' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoleDefinition($n->getObjectValue(UnifiedRoleDefinition::class)); },
+            'roleDefinitionId' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoleDefinitionId($n->getStringValue()); },
         ]);
     }
 

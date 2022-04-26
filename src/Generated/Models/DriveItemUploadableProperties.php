@@ -61,11 +61,12 @@ class DriveItemUploadableProperties implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'fileSize' => function (self $o, ParseNode $n) { $o->setFileSize($n->getIntegerValue()); },
-            'fileSystemInfo' => function (self $o, ParseNode $n) { $o->setFileSystemInfo($n->getObjectValue(FileSystemInfo::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'fileSize' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileSize($n->getIntegerValue()); },
+            'fileSystemInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileSystemInfo($n->getObjectValue(FileSystemInfo::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
         ];
     }
 

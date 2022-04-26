@@ -30,7 +30,7 @@ class RemovePasswordRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/servicePrincipals/{servicePrincipal_id}/microsoft.graph.removePassword';
+        $this->urlTemplate = '{+baseurl}/servicePrincipals/{servicePrincipal%2Did}/microsoft.graph.removePassword';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

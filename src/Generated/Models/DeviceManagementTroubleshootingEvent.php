@@ -52,9 +52,10 @@ class DeviceManagementTroubleshootingEvent extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'correlationId' => function (self $o, ParseNode $n) { $o->setCorrelationId($n->getStringValue()); },
-            'eventDateTime' => function (self $o, ParseNode $n) { $o->setEventDateTime($n->getDateTimeValue()); },
+            'correlationId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCorrelationId($n->getStringValue()); },
+            'eventDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEventDateTime($n->getDateTimeValue()); },
         ]);
     }
 

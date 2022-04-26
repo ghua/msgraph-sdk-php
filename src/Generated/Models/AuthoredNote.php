@@ -63,10 +63,11 @@ class AuthoredNote extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'author' => function (self $o, ParseNode $n) { $o->setAuthor($n->getObjectValue(Identity::class)); },
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getObjectValue(ItemBody::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
+            'author' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthor($n->getObjectValue(Identity::class)); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getObjectValue(ItemBody::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
         ]);
     }
 

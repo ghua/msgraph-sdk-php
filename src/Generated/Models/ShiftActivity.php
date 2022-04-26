@@ -84,13 +84,14 @@ class ShiftActivity implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'code' => function (self $o, ParseNode $n) { $o->setCode($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'isPaid' => function (self $o, ParseNode $n) { $o->setIsPaid($n->getBooleanValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
-            'theme' => function (self $o, ParseNode $n) { $o->setTheme($n->getEnumValue(ScheduleEntityTheme::class)); },
+            'code' => function (ParseNode $n) use ($currentObject) { $currentObject->setCode($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'isPaid' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsPaid($n->getBooleanValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
+            'theme' => function (ParseNode $n) use ($currentObject) { $currentObject->setTheme($n->getEnumValue(ScheduleEntityTheme::class)); },
         ];
     }
 

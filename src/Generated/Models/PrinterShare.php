@@ -77,12 +77,13 @@ class PrinterShare extends PrinterBase
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'allowAllUsers' => function (self $o, ParseNode $n) { $o->setAllowAllUsers($n->getBooleanValue()); },
-            'allowedGroups' => function (self $o, ParseNode $n) { $o->setAllowedGroups($n->getCollectionOfObjectValues(Group::class)); },
-            'allowedUsers' => function (self $o, ParseNode $n) { $o->setAllowedUsers($n->getCollectionOfObjectValues(User::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'printer' => function (self $o, ParseNode $n) { $o->setPrinter($n->getObjectValue(Printer::class)); },
+            'allowAllUsers' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowAllUsers($n->getBooleanValue()); },
+            'allowedGroups' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedGroups($n->getCollectionOfObjectValues(Group::class)); },
+            'allowedUsers' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedUsers($n->getCollectionOfObjectValues(User::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'printer' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrinter($n->getObjectValue(Printer::class)); },
         ]);
     }
 

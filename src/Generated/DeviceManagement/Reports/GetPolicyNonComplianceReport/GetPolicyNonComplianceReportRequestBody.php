@@ -68,16 +68,17 @@ class GetPolicyNonComplianceReportRequestBody implements AdditionalDataHolder, P
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'filter' => function (self $o, ParseNode $n) { $o->setFilter($n->getStringValue()); },
-            'groupBy' => function (self $o, ParseNode $n) { $o->setGroupBy($n->getCollectionOfPrimitiveValues()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'orderBy' => function (self $o, ParseNode $n) { $o->setOrderBy($n->getCollectionOfPrimitiveValues()); },
-            'search' => function (self $o, ParseNode $n) { $o->setSearch($n->getStringValue()); },
-            'select' => function (self $o, ParseNode $n) { $o->setSelect($n->getCollectionOfPrimitiveValues()); },
-            'sessionId' => function (self $o, ParseNode $n) { $o->setSessionId($n->getStringValue()); },
-            'skip' => function (self $o, ParseNode $n) { $o->setSkip($n->getIntegerValue()); },
-            'top' => function (self $o, ParseNode $n) { $o->setTop($n->getIntegerValue()); },
+            'filter' => function (ParseNode $n) use ($currentObject) { $currentObject->setFilter($n->getStringValue()); },
+            'groupBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupBy($n->getCollectionOfPrimitiveValues()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'orderBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrderBy($n->getCollectionOfPrimitiveValues()); },
+            'search' => function (ParseNode $n) use ($currentObject) { $currentObject->setSearch($n->getStringValue()); },
+            'select' => function (ParseNode $n) use ($currentObject) { $currentObject->setSelect($n->getCollectionOfPrimitiveValues()); },
+            'sessionId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSessionId($n->getStringValue()); },
+            'skip' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkip($n->getIntegerValue()); },
+            'top' => function (ParseNode $n) use ($currentObject) { $currentObject->setTop($n->getIntegerValue()); },
         ];
     }
 

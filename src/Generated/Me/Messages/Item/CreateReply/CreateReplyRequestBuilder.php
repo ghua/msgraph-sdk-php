@@ -31,7 +31,7 @@ class CreateReplyRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/messages/{message_id}/microsoft.graph.createReply';
+        $this->urlTemplate = '{+baseurl}/me/messages/{message%2Did}/microsoft.graph.createReply';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

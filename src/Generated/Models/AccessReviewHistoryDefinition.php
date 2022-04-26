@@ -30,7 +30,7 @@ class AccessReviewHistoryDefinition extends Entity
     /** @var DateTime|null $reviewHistoryPeriodStartDateTime A timestamp. Reviews starting on or before this date will be included in the fetched history data. Only required if scheduleSettings is not defined. */
     private ?DateTime $reviewHistoryPeriodStartDateTime = null;
     
-    /** @var AccessReviewHistoryScheduleSettings|null $scheduleSettings The settings for a recurring access review history definition series. Only required if reviewHistoryPeriodStartDateTime or reviewHistoryPeriodEndDateTime are not defined. */
+    /** @var AccessReviewHistoryScheduleSettings|null $scheduleSettings The settings for a recurring access review history definition series. Only required if reviewHistoryPeriodStartDateTime or reviewHistoryPeriodEndDateTime are not defined. Not supported yet. */
     private ?AccessReviewHistoryScheduleSettings $scheduleSettings = null;
     
     /** @var array<AccessReviewScope>|null $scopes Used to scope what reviews are included in the fetched history data. Fetches reviews whose scope matches with this provided scope. Required. */
@@ -92,17 +92,18 @@ class AccessReviewHistoryDefinition extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'decisions' => function (self $o, ParseNode $n) { $o->setDecisions($n->getCollectionOfEnumValues(AccessReviewHistoryDecisionFilter::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'instances' => function (self $o, ParseNode $n) { $o->setInstances($n->getCollectionOfObjectValues(AccessReviewHistoryInstance::class)); },
-            'reviewHistoryPeriodEndDateTime' => function (self $o, ParseNode $n) { $o->setReviewHistoryPeriodEndDateTime($n->getDateTimeValue()); },
-            'reviewHistoryPeriodStartDateTime' => function (self $o, ParseNode $n) { $o->setReviewHistoryPeriodStartDateTime($n->getDateTimeValue()); },
-            'scheduleSettings' => function (self $o, ParseNode $n) { $o->setScheduleSettings($n->getObjectValue(AccessReviewHistoryScheduleSettings::class)); },
-            'scopes' => function (self $o, ParseNode $n) { $o->setScopes($n->getCollectionOfObjectValues(AccessReviewScope::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(AccessReviewHistoryStatus::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(UserIdentity::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'decisions' => function (ParseNode $n) use ($currentObject) { $currentObject->setDecisions($n->getCollectionOfEnumValues(AccessReviewHistoryDecisionFilter::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'instances' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstances($n->getCollectionOfObjectValues(AccessReviewHistoryInstance::class)); },
+            'reviewHistoryPeriodEndDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewHistoryPeriodEndDateTime($n->getDateTimeValue()); },
+            'reviewHistoryPeriodStartDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewHistoryPeriodStartDateTime($n->getDateTimeValue()); },
+            'scheduleSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduleSettings($n->getObjectValue(AccessReviewHistoryScheduleSettings::class)); },
+            'scopes' => function (ParseNode $n) use ($currentObject) { $currentObject->setScopes($n->getCollectionOfObjectValues(AccessReviewScope::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(AccessReviewHistoryStatus::class)); },
         ]);
     }
 
@@ -131,7 +132,7 @@ class AccessReviewHistoryDefinition extends Entity
     }
 
     /**
-     * Gets the scheduleSettings property value. The settings for a recurring access review history definition series. Only required if reviewHistoryPeriodStartDateTime or reviewHistoryPeriodEndDateTime are not defined.
+     * Gets the scheduleSettings property value. The settings for a recurring access review history definition series. Only required if reviewHistoryPeriodStartDateTime or reviewHistoryPeriodEndDateTime are not defined. Not supported yet.
      * @return AccessReviewHistoryScheduleSettings|null
     */
     public function getScheduleSettings(): ?AccessReviewHistoryScheduleSettings {
@@ -229,7 +230,7 @@ class AccessReviewHistoryDefinition extends Entity
     }
 
     /**
-     * Sets the scheduleSettings property value. The settings for a recurring access review history definition series. Only required if reviewHistoryPeriodStartDateTime or reviewHistoryPeriodEndDateTime are not defined.
+     * Sets the scheduleSettings property value. The settings for a recurring access review history definition series. Only required if reviewHistoryPeriodStartDateTime or reviewHistoryPeriodEndDateTime are not defined. Not supported yet.
      *  @param AccessReviewHistoryScheduleSettings|null $value Value to set for the scheduleSettings property.
     */
     public function setScheduleSettings(?AccessReviewHistoryScheduleSettings $value ): void {

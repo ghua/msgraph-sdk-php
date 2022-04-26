@@ -62,12 +62,13 @@ class ServiceAnnouncementAttachment extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getBinaryContent()); },
-            'contentType' => function (self $o, ParseNode $n) { $o->setContentType($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'size' => function (self $o, ParseNode $n) { $o->setSize($n->getIntegerValue()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getBinaryContent()); },
+            'contentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentType($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'size' => function (ParseNode $n) use ($currentObject) { $currentObject->setSize($n->getIntegerValue()); },
         ]);
     }
 

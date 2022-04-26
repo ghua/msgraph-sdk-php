@@ -59,10 +59,11 @@ class UploadSession implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'nextExpectedRanges' => function (self $o, ParseNode $n) { $o->setNextExpectedRanges($n->getCollectionOfPrimitiveValues()); },
-            'uploadUrl' => function (self $o, ParseNode $n) { $o->setUploadUrl($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'nextExpectedRanges' => function (ParseNode $n) use ($currentObject) { $currentObject->setNextExpectedRanges($n->getCollectionOfPrimitiveValues()); },
+            'uploadUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setUploadUrl($n->getStringValue()); },
         ];
     }
 

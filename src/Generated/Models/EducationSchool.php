@@ -127,21 +127,22 @@ class EducationSchool extends EducationOrganization
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'address' => function (self $o, ParseNode $n) { $o->setAddress($n->getObjectValue(PhysicalAddress::class)); },
-            'administrativeUnit' => function (self $o, ParseNode $n) { $o->setAdministrativeUnit($n->getObjectValue(AdministrativeUnit::class)); },
-            'classes' => function (self $o, ParseNode $n) { $o->setClasses($n->getCollectionOfObjectValues(EducationClass::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'externalId' => function (self $o, ParseNode $n) { $o->setExternalId($n->getStringValue()); },
-            'externalPrincipalId' => function (self $o, ParseNode $n) { $o->setExternalPrincipalId($n->getStringValue()); },
-            'fax' => function (self $o, ParseNode $n) { $o->setFax($n->getStringValue()); },
-            'highestGrade' => function (self $o, ParseNode $n) { $o->setHighestGrade($n->getStringValue()); },
-            'lowestGrade' => function (self $o, ParseNode $n) { $o->setLowestGrade($n->getStringValue()); },
-            'phone' => function (self $o, ParseNode $n) { $o->setPhone($n->getStringValue()); },
-            'principalEmail' => function (self $o, ParseNode $n) { $o->setPrincipalEmail($n->getStringValue()); },
-            'principalName' => function (self $o, ParseNode $n) { $o->setPrincipalName($n->getStringValue()); },
-            'schoolNumber' => function (self $o, ParseNode $n) { $o->setSchoolNumber($n->getStringValue()); },
-            'users' => function (self $o, ParseNode $n) { $o->setUsers($n->getCollectionOfObjectValues(EducationUser::class)); },
+            'address' => function (ParseNode $n) use ($currentObject) { $currentObject->setAddress($n->getObjectValue(PhysicalAddress::class)); },
+            'administrativeUnit' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdministrativeUnit($n->getObjectValue(AdministrativeUnit::class)); },
+            'classes' => function (ParseNode $n) use ($currentObject) { $currentObject->setClasses($n->getCollectionOfObjectValues(EducationClass::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'externalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalId($n->getStringValue()); },
+            'externalPrincipalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalPrincipalId($n->getStringValue()); },
+            'fax' => function (ParseNode $n) use ($currentObject) { $currentObject->setFax($n->getStringValue()); },
+            'highestGrade' => function (ParseNode $n) use ($currentObject) { $currentObject->setHighestGrade($n->getStringValue()); },
+            'lowestGrade' => function (ParseNode $n) use ($currentObject) { $currentObject->setLowestGrade($n->getStringValue()); },
+            'phone' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhone($n->getStringValue()); },
+            'principalEmail' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalEmail($n->getStringValue()); },
+            'principalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalName($n->getStringValue()); },
+            'schoolNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchoolNumber($n->getStringValue()); },
+            'users' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsers($n->getCollectionOfObjectValues(EducationUser::class)); },
         ]);
     }
 

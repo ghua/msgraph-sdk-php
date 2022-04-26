@@ -77,11 +77,12 @@ class IdentityGovernance implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'accessReviews' => function (self $o, ParseNode $n) { $o->setAccessReviews($n->getObjectValue(AccessReviewSet::class)); },
-            'appConsent' => function (self $o, ParseNode $n) { $o->setAppConsent($n->getObjectValue(AppConsentApprovalRoute::class)); },
-            'entitlementManagement' => function (self $o, ParseNode $n) { $o->setEntitlementManagement($n->getObjectValue(EntitlementManagement::class)); },
-            'termsOfUse' => function (self $o, ParseNode $n) { $o->setTermsOfUse($n->getObjectValue(TermsOfUseContainer::class)); },
+            'accessReviews' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessReviews($n->getObjectValue(AccessReviewSet::class)); },
+            'appConsent' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppConsent($n->getObjectValue(AppConsentApprovalRoute::class)); },
+            'entitlementManagement' => function (ParseNode $n) use ($currentObject) { $currentObject->setEntitlementManagement($n->getObjectValue(EntitlementManagement::class)); },
+            'termsOfUse' => function (ParseNode $n) use ($currentObject) { $currentObject->setTermsOfUse($n->getObjectValue(TermsOfUseContainer::class)); },
         ];
     }
 

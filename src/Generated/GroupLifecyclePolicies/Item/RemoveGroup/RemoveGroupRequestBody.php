@@ -44,8 +44,9 @@ class RemoveGroupRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'groupId' => function (self $o, ParseNode $n) { $o->setGroupId($n->getStringValue()); },
+            'groupId' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupId($n->getStringValue()); },
         ];
     }
 

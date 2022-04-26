@@ -41,7 +41,7 @@ class RoleDefinitionItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/roleDefinitions/{roleDefinition_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/roleDefinitions/{roleDefinition%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -169,8 +169,19 @@ class RoleDefinitionItemRequestBuilder
     */
     public function roleAssignmentsById(string $id): RoleAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['roleAssignment_id'] = $id;
+        $urlTplParams['roleAssignment%2Did'] = $id;
         return new RoleAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

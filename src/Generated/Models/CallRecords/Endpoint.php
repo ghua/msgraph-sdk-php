@@ -44,8 +44,9 @@ class Endpoint implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'userAgent' => function (self $o, ParseNode $n) { $o->setUserAgent($n->getObjectValue(UserAgent::class)); },
+            'userAgent' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserAgent($n->getObjectValue(UserAgent::class)); },
         ];
     }
 

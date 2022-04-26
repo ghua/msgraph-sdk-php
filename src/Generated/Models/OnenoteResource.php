@@ -52,9 +52,10 @@ class OnenoteResource extends OnenoteEntityBaseModel
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getBinaryContent()); },
-            'contentUrl' => function (self $o, ParseNode $n) { $o->setContentUrl($n->getStringValue()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getBinaryContent()); },
+            'contentUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentUrl($n->getStringValue()); },
         ]);
     }
 

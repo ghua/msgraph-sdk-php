@@ -35,9 +35,10 @@ class DeviceComplianceScheduledActionForRule extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'ruleName' => function (self $o, ParseNode $n) { $o->setRuleName($n->getStringValue()); },
-            'scheduledActionConfigurations' => function (self $o, ParseNode $n) { $o->setScheduledActionConfigurations($n->getCollectionOfObjectValues(DeviceComplianceActionItem::class)); },
+            'ruleName' => function (ParseNode $n) use ($currentObject) { $currentObject->setRuleName($n->getStringValue()); },
+            'scheduledActionConfigurations' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduledActionConfigurations($n->getCollectionOfObjectValues(DeviceComplianceActionItem::class)); },
         ]);
     }
 

@@ -51,7 +51,7 @@ class DirectoryRequestBuilder
     */
     public function administrativeUnitsById(string $id): AdministrativeUnitItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['administrativeUnit_id'] = $id;
+        $urlTplParams['administrativeUnit%2Did'] = $id;
         return new AdministrativeUnitItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -61,7 +61,7 @@ class DirectoryRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/directory{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/directory{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -119,7 +119,7 @@ class DirectoryRequestBuilder
     */
     public function deletedItemsById(string $id): DirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new DirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -157,4 +157,15 @@ class DirectoryRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

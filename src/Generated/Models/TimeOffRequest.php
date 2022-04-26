@@ -47,10 +47,11 @@ class TimeOffRequest extends ScheduleChangeRequest
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
-            'timeOffReasonId' => function (self $o, ParseNode $n) { $o->setTimeOffReasonId($n->getStringValue()); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
+            'timeOffReasonId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeOffReasonId($n->getStringValue()); },
         ]);
     }
 

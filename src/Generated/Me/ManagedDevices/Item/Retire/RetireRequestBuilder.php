@@ -30,7 +30,7 @@ class RetireRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/managedDevices/{managedDevice_id}/microsoft.graph.retire';
+        $this->urlTemplate = '{+baseurl}/me/managedDevices/{managedDevice%2Did}/microsoft.graph.retire';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

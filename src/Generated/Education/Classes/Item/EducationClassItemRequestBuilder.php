@@ -102,7 +102,7 @@ class EducationClassItemRequestBuilder
     */
     public function assignmentCategoriesById(string $id): EducationCategoryItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationCategory_id'] = $id;
+        $urlTplParams['educationCategory%2Did'] = $id;
         return new EducationCategoryItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -113,7 +113,7 @@ class EducationClassItemRequestBuilder
     */
     public function assignmentsById(string $id): EducationAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationAssignment_id'] = $id;
+        $urlTplParams['educationAssignment%2Did'] = $id;
         return new EducationAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -123,7 +123,7 @@ class EducationClassItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/education/classes/{educationClass_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/education/classes/{educationClass%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -234,7 +234,7 @@ class EducationClassItemRequestBuilder
     */
     public function membersById(string $id): MicrosoftGraphGeneratedEducationClassesItemMembersItemEducationUserItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationUser_id'] = $id;
+        $urlTplParams['educationUser%2Did'] = $id;
         return new MicrosoftGraphGeneratedEducationClassesItemMembersItemEducationUserItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -262,7 +262,7 @@ class EducationClassItemRequestBuilder
     */
     public function schoolsById(string $id): EducationSchoolItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationSchool_id'] = $id;
+        $urlTplParams['educationSchool%2Did'] = $id;
         return new EducationSchoolItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -273,8 +273,19 @@ class EducationClassItemRequestBuilder
     */
     public function teachersById(string $id): MicrosoftGraphGeneratedEducationClassesItemTeachersItemEducationUserItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationUser_id'] = $id;
+        $urlTplParams['educationUser%2Did'] = $id;
         return new MicrosoftGraphGeneratedEducationClassesItemTeachersItemEducationUserItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

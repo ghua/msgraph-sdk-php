@@ -69,11 +69,12 @@ class NumberColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'decimalPlaces' => function (self $o, ParseNode $n) { $o->setDecimalPlaces($n->getStringValue()); },
-            'displayAs' => function (self $o, ParseNode $n) { $o->setDisplayAs($n->getStringValue()); },
-            'maximum' => function (self $o, ParseNode $n) { $o->setMaximum($n->getFloatValue()); },
-            'minimum' => function (self $o, ParseNode $n) { $o->setMinimum($n->getFloatValue()); },
+            'decimalPlaces' => function (ParseNode $n) use ($currentObject) { $currentObject->setDecimalPlaces($n->getStringValue()); },
+            'displayAs' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayAs($n->getStringValue()); },
+            'maximum' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaximum($n->getFloatValue()); },
+            'minimum' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimum($n->getFloatValue()); },
         ];
     }
 

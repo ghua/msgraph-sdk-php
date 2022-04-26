@@ -31,7 +31,7 @@ class SetUpResourcesFolderRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/education/me/assignments/{educationAssignment_id}/microsoft.graph.setUpResourcesFolder';
+        $this->urlTemplate = '{+baseurl}/education/me/assignments/{educationAssignment%2Did}/microsoft.graph.setUpResourcesFolder';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

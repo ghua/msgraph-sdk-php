@@ -49,7 +49,7 @@ class ParticipantsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/communications/calls/{call_id}/participants{?top,skip,search,filter,count,orderby,select,expand}';
+        $this->urlTemplate = '{+baseurl}/communications/calls/{call%2Did}/participants{?%24top,%24skip,%24search,%24filter,%24count,%24orderby,%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -134,4 +134,33 @@ class ParticipantsRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var bool|null $count Include count of items */
+        public ?bool $count = null;
+        
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var string|null $filter Filter items by property values */
+        public ?string $filter = null;
+        
+        /** @var array<string>|null $orderby Order items by property values */
+        public ?array $orderby = null;
+        
+        /** @var string|null $search Search items by search phrases */
+        public ?string $search = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+        /** @var int|null $skip Skip the first n items */
+        public ?int $skip = null;
+        
+        /** @var int|null $top Show only the first n items */
+        public ?int $top = null;
+        
+    }
 }

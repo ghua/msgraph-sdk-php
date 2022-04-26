@@ -121,7 +121,7 @@ class ScheduleRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team_id}/schedule{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team%2Did}/schedule{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -232,7 +232,7 @@ class ScheduleRequestBuilder
     */
     public function offerShiftRequestsById(string $id): OfferShiftRequestItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['offerShiftRequest_id'] = $id;
+        $urlTplParams['offerShiftRequest%2Did'] = $id;
         return new OfferShiftRequestItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -243,7 +243,7 @@ class ScheduleRequestBuilder
     */
     public function openShiftChangeRequestsById(string $id): OpenShiftChangeRequestItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['openShiftChangeRequest_id'] = $id;
+        $urlTplParams['openShiftChangeRequest%2Did'] = $id;
         return new OpenShiftChangeRequestItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -254,7 +254,7 @@ class ScheduleRequestBuilder
     */
     public function openShiftsById(string $id): OpenShiftItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['openShift_id'] = $id;
+        $urlTplParams['openShift%2Did'] = $id;
         return new OpenShiftItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -282,7 +282,7 @@ class ScheduleRequestBuilder
     */
     public function schedulingGroupsById(string $id): SchedulingGroupItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['schedulingGroup_id'] = $id;
+        $urlTplParams['schedulingGroup%2Did'] = $id;
         return new SchedulingGroupItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -293,7 +293,7 @@ class ScheduleRequestBuilder
     */
     public function shiftsById(string $id): ShiftItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['shift_id'] = $id;
+        $urlTplParams['shift%2Did'] = $id;
         return new ShiftItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -304,7 +304,7 @@ class ScheduleRequestBuilder
     */
     public function swapShiftsChangeRequestsById(string $id): SwapShiftsChangeRequestItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['swapShiftsChangeRequest_id'] = $id;
+        $urlTplParams['swapShiftsChangeRequest%2Did'] = $id;
         return new SwapShiftsChangeRequestItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -315,7 +315,7 @@ class ScheduleRequestBuilder
     */
     public function timeOffReasonsById(string $id): TimeOffReasonItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['timeOffReason_id'] = $id;
+        $urlTplParams['timeOffReason%2Did'] = $id;
         return new TimeOffReasonItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -326,7 +326,7 @@ class ScheduleRequestBuilder
     */
     public function timeOffRequestsById(string $id): TimeOffRequestItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['timeOffRequest_id'] = $id;
+        $urlTplParams['timeOffRequest%2Did'] = $id;
         return new TimeOffRequestItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -337,8 +337,19 @@ class ScheduleRequestBuilder
     */
     public function timesOffById(string $id): TimeOffItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['timeOff_id'] = $id;
+        $urlTplParams['timeOff%2Did'] = $id;
         return new TimeOffItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

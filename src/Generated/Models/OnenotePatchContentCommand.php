@@ -69,11 +69,12 @@ class OnenotePatchContentCommand implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'action' => function (self $o, ParseNode $n) { $o->setAction($n->getEnumValue(OnenotePatchActionType::class)); },
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getStringValue()); },
-            'position' => function (self $o, ParseNode $n) { $o->setPosition($n->getEnumValue(OnenotePatchInsertPosition::class)); },
-            'target' => function (self $o, ParseNode $n) { $o->setTarget($n->getStringValue()); },
+            'action' => function (ParseNode $n) use ($currentObject) { $currentObject->setAction($n->getEnumValue(OnenotePatchActionType::class)); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getStringValue()); },
+            'position' => function (ParseNode $n) use ($currentObject) { $currentObject->setPosition($n->getEnumValue(OnenotePatchInsertPosition::class)); },
+            'target' => function (ParseNode $n) use ($currentObject) { $currentObject->setTarget($n->getStringValue()); },
         ];
     }
 

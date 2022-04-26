@@ -8,16 +8,16 @@ use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 
 class EducationClass extends Entity 
 {
-    /** @var array<EducationCategory>|null $assignmentCategories The assignmentCategories property */
+    /** @var array<EducationCategory>|null $assignmentCategories All categories associated with this class. Nullable. */
     private ?array $assignmentCategories = null;
     
-    /** @var EducationAssignmentDefaults|null $assignmentDefaults The assignmentDefaults property */
+    /** @var EducationAssignmentDefaults|null $assignmentDefaults Specifies class-level defaults respected by new assignments created in the class. */
     private ?EducationAssignmentDefaults $assignmentDefaults = null;
     
     /** @var array<EducationAssignment>|null $assignments All assignments associated with this class. Nullable. */
     private ?array $assignments = null;
     
-    /** @var EducationAssignmentSettings|null $assignmentSettings The assignmentSettings property */
+    /** @var EducationAssignmentSettings|null $assignmentSettings Specifies class-level assignments settings. */
     private ?EducationAssignmentSettings $assignmentSettings = null;
     
     /** @var string|null $classCode Class code used by the school to identify the class. */
@@ -85,7 +85,7 @@ class EducationClass extends Entity
     }
 
     /**
-     * Gets the assignmentCategories property value. The assignmentCategories property
+     * Gets the assignmentCategories property value. All categories associated with this class. Nullable.
      * @return array<EducationCategory>|null
     */
     public function getAssignmentCategories(): ?array {
@@ -93,7 +93,7 @@ class EducationClass extends Entity
     }
 
     /**
-     * Gets the assignmentDefaults property value. The assignmentDefaults property
+     * Gets the assignmentDefaults property value. Specifies class-level defaults respected by new assignments created in the class.
      * @return EducationAssignmentDefaults|null
     */
     public function getAssignmentDefaults(): ?EducationAssignmentDefaults {
@@ -109,7 +109,7 @@ class EducationClass extends Entity
     }
 
     /**
-     * Gets the assignmentSettings property value. The assignmentSettings property
+     * Gets the assignmentSettings property value. Specifies class-level assignments settings.
      * @return EducationAssignmentSettings|null
     */
     public function getAssignmentSettings(): ?EducationAssignmentSettings {
@@ -193,27 +193,28 @@ class EducationClass extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignmentCategories' => function (self $o, ParseNode $n) { $o->setAssignmentCategories($n->getCollectionOfObjectValues(EducationCategory::class)); },
-            'assignmentDefaults' => function (self $o, ParseNode $n) { $o->setAssignmentDefaults($n->getObjectValue(EducationAssignmentDefaults::class)); },
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(EducationAssignment::class)); },
-            'assignmentSettings' => function (self $o, ParseNode $n) { $o->setAssignmentSettings($n->getObjectValue(EducationAssignmentSettings::class)); },
-            'classCode' => function (self $o, ParseNode $n) { $o->setClassCode($n->getStringValue()); },
-            'course' => function (self $o, ParseNode $n) { $o->setCourse($n->getObjectValue(EducationCourse::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'externalId' => function (self $o, ParseNode $n) { $o->setExternalId($n->getStringValue()); },
-            'externalName' => function (self $o, ParseNode $n) { $o->setExternalName($n->getStringValue()); },
-            'externalSource' => function (self $o, ParseNode $n) { $o->setExternalSource($n->getEnumValue(EducationExternalSource::class)); },
-            'externalSourceDetail' => function (self $o, ParseNode $n) { $o->setExternalSourceDetail($n->getStringValue()); },
-            'grade' => function (self $o, ParseNode $n) { $o->setGrade($n->getStringValue()); },
-            'group' => function (self $o, ParseNode $n) { $o->setGroup($n->getObjectValue(Group::class)); },
-            'mailNickname' => function (self $o, ParseNode $n) { $o->setMailNickname($n->getStringValue()); },
-            'members' => function (self $o, ParseNode $n) { $o->setMembers($n->getCollectionOfObjectValues(EducationUser::class)); },
-            'schools' => function (self $o, ParseNode $n) { $o->setSchools($n->getCollectionOfObjectValues(EducationSchool::class)); },
-            'teachers' => function (self $o, ParseNode $n) { $o->setTeachers($n->getCollectionOfObjectValues(EducationUser::class)); },
-            'term' => function (self $o, ParseNode $n) { $o->setTerm($n->getObjectValue(EducationTerm::class)); },
+            'assignmentCategories' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignmentCategories($n->getCollectionOfObjectValues(EducationCategory::class)); },
+            'assignmentDefaults' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignmentDefaults($n->getObjectValue(EducationAssignmentDefaults::class)); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(EducationAssignment::class)); },
+            'assignmentSettings' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignmentSettings($n->getObjectValue(EducationAssignmentSettings::class)); },
+            'classCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setClassCode($n->getStringValue()); },
+            'course' => function (ParseNode $n) use ($currentObject) { $currentObject->setCourse($n->getObjectValue(EducationCourse::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'externalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalId($n->getStringValue()); },
+            'externalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalName($n->getStringValue()); },
+            'externalSource' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalSource($n->getEnumValue(EducationExternalSource::class)); },
+            'externalSourceDetail' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalSourceDetail($n->getStringValue()); },
+            'grade' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrade($n->getStringValue()); },
+            'group' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroup($n->getObjectValue(Group::class)); },
+            'mailNickname' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailNickname($n->getStringValue()); },
+            'members' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembers($n->getCollectionOfObjectValues(EducationUser::class)); },
+            'schools' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchools($n->getCollectionOfObjectValues(EducationSchool::class)); },
+            'teachers' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeachers($n->getCollectionOfObjectValues(EducationUser::class)); },
+            'term' => function (ParseNode $n) use ($currentObject) { $currentObject->setTerm($n->getObjectValue(EducationTerm::class)); },
         ]);
     }
 
@@ -302,7 +303,7 @@ class EducationClass extends Entity
     }
 
     /**
-     * Sets the assignmentCategories property value. The assignmentCategories property
+     * Sets the assignmentCategories property value. All categories associated with this class. Nullable.
      *  @param array<EducationCategory>|null $value Value to set for the assignmentCategories property.
     */
     public function setAssignmentCategories(?array $value ): void {
@@ -310,7 +311,7 @@ class EducationClass extends Entity
     }
 
     /**
-     * Sets the assignmentDefaults property value. The assignmentDefaults property
+     * Sets the assignmentDefaults property value. Specifies class-level defaults respected by new assignments created in the class.
      *  @param EducationAssignmentDefaults|null $value Value to set for the assignmentDefaults property.
     */
     public function setAssignmentDefaults(?EducationAssignmentDefaults $value ): void {
@@ -326,7 +327,7 @@ class EducationClass extends Entity
     }
 
     /**
-     * Sets the assignmentSettings property value. The assignmentSettings property
+     * Sets the assignmentSettings property value. Specifies class-level assignments settings.
      *  @param EducationAssignmentSettings|null $value Value to set for the assignmentSettings property.
     */
     public function setAssignmentSettings(?EducationAssignmentSettings $value ): void {

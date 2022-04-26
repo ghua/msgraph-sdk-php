@@ -45,8 +45,9 @@ class GetApplicablePolicyRequirementsResponse implements AdditionalDataHolder, P
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getCollectionOfObjectValues(AccessPackageAssignmentRequestRequirements::class)); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getCollectionOfObjectValues(AccessPackageAssignmentRequestRequirements::class)); },
         ];
     }
 

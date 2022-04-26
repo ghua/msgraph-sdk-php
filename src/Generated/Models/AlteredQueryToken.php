@@ -50,10 +50,11 @@ class AlteredQueryToken implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'length' => function (self $o, ParseNode $n) { $o->setLength($n->getIntegerValue()); },
-            'offset' => function (self $o, ParseNode $n) { $o->setOffset($n->getIntegerValue()); },
-            'suggestion' => function (self $o, ParseNode $n) { $o->setSuggestion($n->getStringValue()); },
+            'length' => function (ParseNode $n) use ($currentObject) { $currentObject->setLength($n->getIntegerValue()); },
+            'offset' => function (ParseNode $n) use ($currentObject) { $currentObject->setOffset($n->getIntegerValue()); },
+            'suggestion' => function (ParseNode $n) use ($currentObject) { $currentObject->setSuggestion($n->getStringValue()); },
         ];
     }
 

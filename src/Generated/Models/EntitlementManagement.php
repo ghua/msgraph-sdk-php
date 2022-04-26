@@ -109,15 +109,16 @@ class EntitlementManagement extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'accessPackageAssignmentApprovals' => function (self $o, ParseNode $n) { $o->setAccessPackageAssignmentApprovals($n->getCollectionOfObjectValues(Approval::class)); },
-            'accessPackages' => function (self $o, ParseNode $n) { $o->setAccessPackages($n->getCollectionOfObjectValues(AccessPackage::class)); },
-            'assignmentPolicies' => function (self $o, ParseNode $n) { $o->setAssignmentPolicies($n->getCollectionOfObjectValues(AccessPackageAssignmentPolicy::class)); },
-            'assignmentRequests' => function (self $o, ParseNode $n) { $o->setAssignmentRequests($n->getCollectionOfObjectValues(AccessPackageAssignmentRequest::class)); },
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(AccessPackageAssignment::class)); },
-            'catalogs' => function (self $o, ParseNode $n) { $o->setCatalogs($n->getCollectionOfObjectValues(AccessPackageCatalog::class)); },
-            'connectedOrganizations' => function (self $o, ParseNode $n) { $o->setConnectedOrganizations($n->getCollectionOfObjectValues(ConnectedOrganization::class)); },
-            'settings' => function (self $o, ParseNode $n) { $o->setSettings($n->getObjectValue(EntitlementManagementSettings::class)); },
+            'accessPackageAssignmentApprovals' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessPackageAssignmentApprovals($n->getCollectionOfObjectValues(Approval::class)); },
+            'accessPackages' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessPackages($n->getCollectionOfObjectValues(AccessPackage::class)); },
+            'assignmentPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignmentPolicies($n->getCollectionOfObjectValues(AccessPackageAssignmentPolicy::class)); },
+            'assignmentRequests' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignmentRequests($n->getCollectionOfObjectValues(AccessPackageAssignmentRequest::class)); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(AccessPackageAssignment::class)); },
+            'catalogs' => function (ParseNode $n) use ($currentObject) { $currentObject->setCatalogs($n->getCollectionOfObjectValues(AccessPackageCatalog::class)); },
+            'connectedOrganizations' => function (ParseNode $n) use ($currentObject) { $currentObject->setConnectedOrganizations($n->getCollectionOfObjectValues(ConnectedOrganization::class)); },
+            'settings' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettings($n->getObjectValue(EntitlementManagementSettings::class)); },
         ]);
     }
 

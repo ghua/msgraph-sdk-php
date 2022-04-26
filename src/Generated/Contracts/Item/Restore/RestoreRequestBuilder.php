@@ -31,7 +31,7 @@ class RestoreRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/contracts/{contract_id}/microsoft.graph.restore';
+        $this->urlTemplate = '{+baseurl}/contracts/{contract%2Did}/microsoft.graph.restore';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

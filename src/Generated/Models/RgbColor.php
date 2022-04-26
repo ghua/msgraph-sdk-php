@@ -58,10 +58,11 @@ class RgbColor implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'b' => function (self $o, ParseNode $n) { $o->setB($n->getObjectValue(Byte::class)); },
-            'g' => function (self $o, ParseNode $n) { $o->setG($n->getObjectValue(Byte::class)); },
-            'r' => function (self $o, ParseNode $n) { $o->setR($n->getObjectValue(Byte::class)); },
+            'b' => function (ParseNode $n) use ($currentObject) { $currentObject->setB($n->getObjectValue(Byte::class)); },
+            'g' => function (ParseNode $n) use ($currentObject) { $currentObject->setG($n->getObjectValue(Byte::class)); },
+            'r' => function (ParseNode $n) use ($currentObject) { $currentObject->setR($n->getObjectValue(Byte::class)); },
         ];
     }
 

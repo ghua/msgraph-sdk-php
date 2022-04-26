@@ -55,9 +55,10 @@ class AssignedLabel implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'labelId' => function (self $o, ParseNode $n) { $o->setLabelId($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'labelId' => function (ParseNode $n) use ($currentObject) { $currentObject->setLabelId($n->getStringValue()); },
         ];
     }
 

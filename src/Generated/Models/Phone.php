@@ -53,11 +53,12 @@ class Phone implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'language' => function (self $o, ParseNode $n) { $o->setLanguage($n->getStringValue()); },
-            'number' => function (self $o, ParseNode $n) { $o->setNumber($n->getStringValue()); },
-            'region' => function (self $o, ParseNode $n) { $o->setRegion($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(PhoneType::class)); },
+            'language' => function (ParseNode $n) use ($currentObject) { $currentObject->setLanguage($n->getStringValue()); },
+            'number' => function (ParseNode $n) use ($currentObject) { $currentObject->setNumber($n->getStringValue()); },
+            'region' => function (ParseNode $n) use ($currentObject) { $currentObject->setRegion($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(PhoneType::class)); },
         ];
     }
 

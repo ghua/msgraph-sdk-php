@@ -80,12 +80,13 @@ class RubricQuality implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'criteria' => function (self $o, ParseNode $n) { $o->setCriteria($n->getCollectionOfObjectValues(RubricCriterion::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getObjectValue(EducationItemBody::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'qualityId' => function (self $o, ParseNode $n) { $o->setQualityId($n->getStringValue()); },
-            'weight' => function (self $o, ParseNode $n) { $o->setWeight($n->getFloatValue()); },
+            'criteria' => function (ParseNode $n) use ($currentObject) { $currentObject->setCriteria($n->getCollectionOfObjectValues(RubricCriterion::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getObjectValue(EducationItemBody::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'qualityId' => function (ParseNode $n) use ($currentObject) { $currentObject->setQualityId($n->getStringValue()); },
+            'weight' => function (ParseNode $n) use ($currentObject) { $currentObject->setWeight($n->getFloatValue()); },
         ];
     }
 

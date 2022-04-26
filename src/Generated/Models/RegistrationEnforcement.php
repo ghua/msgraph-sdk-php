@@ -52,8 +52,9 @@ class RegistrationEnforcement implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'authenticationMethodsRegistrationCampaign' => function (self $o, ParseNode $n) { $o->setAuthenticationMethodsRegistrationCampaign($n->getObjectValue(AuthenticationMethodsRegistrationCampaign::class)); },
+            'authenticationMethodsRegistrationCampaign' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthenticationMethodsRegistrationCampaign($n->getObjectValue(AuthenticationMethodsRegistrationCampaign::class)); },
         ];
     }
 

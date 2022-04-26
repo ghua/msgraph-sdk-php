@@ -83,12 +83,13 @@ class AnswerRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'acceptedModalities' => function (self $o, ParseNode $n) { $o->setAcceptedModalities($n->getCollectionOfEnumValues(Modality::class)); },
-            'callbackUri' => function (self $o, ParseNode $n) { $o->setCallbackUri($n->getStringValue()); },
-            'callOptions' => function (self $o, ParseNode $n) { $o->setCallOptions($n->getObjectValue(IncomingCallOptions::class)); },
-            'mediaConfig' => function (self $o, ParseNode $n) { $o->setMediaConfig($n->getObjectValue(MediaConfig::class)); },
-            'participantCapacity' => function (self $o, ParseNode $n) { $o->setParticipantCapacity($n->getIntegerValue()); },
+            'acceptedModalities' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcceptedModalities($n->getCollectionOfEnumValues(Modality::class)); },
+            'callbackUri' => function (ParseNode $n) use ($currentObject) { $currentObject->setCallbackUri($n->getStringValue()); },
+            'callOptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setCallOptions($n->getObjectValue(IncomingCallOptions::class)); },
+            'mediaConfig' => function (ParseNode $n) use ($currentObject) { $currentObject->setMediaConfig($n->getObjectValue(MediaConfig::class)); },
+            'participantCapacity' => function (ParseNode $n) use ($currentObject) { $currentObject->setParticipantCapacity($n->getIntegerValue()); },
         ];
     }
 

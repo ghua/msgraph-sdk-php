@@ -61,11 +61,12 @@ class PrintMargin implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'bottom' => function (self $o, ParseNode $n) { $o->setBottom($n->getIntegerValue()); },
-            'left' => function (self $o, ParseNode $n) { $o->setLeft($n->getIntegerValue()); },
-            'right' => function (self $o, ParseNode $n) { $o->setRight($n->getIntegerValue()); },
-            'top' => function (self $o, ParseNode $n) { $o->setTop($n->getIntegerValue()); },
+            'bottom' => function (ParseNode $n) use ($currentObject) { $currentObject->setBottom($n->getIntegerValue()); },
+            'left' => function (ParseNode $n) use ($currentObject) { $currentObject->setLeft($n->getIntegerValue()); },
+            'right' => function (ParseNode $n) use ($currentObject) { $currentObject->setRight($n->getIntegerValue()); },
+            'top' => function (ParseNode $n) use ($currentObject) { $currentObject->setTop($n->getIntegerValue()); },
         ];
     }
 

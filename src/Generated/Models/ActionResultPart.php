@@ -52,8 +52,9 @@ class ActionResultPart implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'error' => function (self $o, ParseNode $n) { $o->setError($n->getObjectValue(PublicError::class)); },
+            'error' => function (ParseNode $n) use ($currentObject) { $currentObject->setError($n->getObjectValue(PublicError::class)); },
         ];
     }
 

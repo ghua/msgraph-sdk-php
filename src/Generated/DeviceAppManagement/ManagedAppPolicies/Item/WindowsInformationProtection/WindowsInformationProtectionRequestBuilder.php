@@ -29,7 +29,7 @@ class WindowsInformationProtectionRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedAppPolicies/{managedAppPolicy_id}/microsoft.graph.windowsInformationProtection';
+        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedAppPolicies/{managedAppPolicy%2Did}/microsoft.graph.windowsInformationProtection';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

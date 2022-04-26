@@ -64,12 +64,13 @@ class MediaStream implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'direction' => function (self $o, ParseNode $n) { $o->setDirection($n->getEnumValue(MediaDirection::class)); },
-            'label' => function (self $o, ParseNode $n) { $o->setLabel($n->getStringValue()); },
-            'mediaType' => function (self $o, ParseNode $n) { $o->setMediaType($n->getEnumValue(Modality::class)); },
-            'serverMuted' => function (self $o, ParseNode $n) { $o->setServerMuted($n->getBooleanValue()); },
-            'sourceId' => function (self $o, ParseNode $n) { $o->setSourceId($n->getStringValue()); },
+            'direction' => function (ParseNode $n) use ($currentObject) { $currentObject->setDirection($n->getEnumValue(MediaDirection::class)); },
+            'label' => function (ParseNode $n) use ($currentObject) { $currentObject->setLabel($n->getStringValue()); },
+            'mediaType' => function (ParseNode $n) use ($currentObject) { $currentObject->setMediaType($n->getEnumValue(Modality::class)); },
+            'serverMuted' => function (ParseNode $n) use ($currentObject) { $currentObject->setServerMuted($n->getBooleanValue()); },
+            'sourceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceId($n->getStringValue()); },
         ];
     }
 

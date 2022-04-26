@@ -40,8 +40,9 @@ class CertificateBasedAuthConfiguration extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'certificateAuthorities' => function (self $o, ParseNode $n) { $o->setCertificateAuthorities($n->getCollectionOfObjectValues(CertificateAuthority::class)); },
+            'certificateAuthorities' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificateAuthorities($n->getCollectionOfObjectValues(CertificateAuthority::class)); },
         ]);
     }
 

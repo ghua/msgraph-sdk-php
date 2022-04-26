@@ -30,7 +30,7 @@ class ForceDeleteRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/domains/{domain_id}/microsoft.graph.forceDelete';
+        $this->urlTemplate = '{+baseurl}/domains/{domain%2Did}/microsoft.graph.forceDelete';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

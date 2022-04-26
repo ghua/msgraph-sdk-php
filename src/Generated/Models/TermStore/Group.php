@@ -73,13 +73,14 @@ class Group extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'parentSiteId' => function (self $o, ParseNode $n) { $o->setParentSiteId($n->getStringValue()); },
-            'scope' => function (self $o, ParseNode $n) { $o->setScope($n->getEnumValue(TermGroupScope::class)); },
-            'sets' => function (self $o, ParseNode $n) { $o->setSets($n->getCollectionOfObjectValues(Set::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'parentSiteId' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentSiteId($n->getStringValue()); },
+            'scope' => function (ParseNode $n) use ($currentObject) { $currentObject->setScope($n->getEnumValue(TermGroupScope::class)); },
+            'sets' => function (ParseNode $n) use ($currentObject) { $currentObject->setSets($n->getCollectionOfObjectValues(Set::class)); },
         ]);
     }
 

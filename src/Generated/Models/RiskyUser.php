@@ -57,16 +57,17 @@ class RiskyUser extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'history' => function (self $o, ParseNode $n) { $o->setHistory($n->getCollectionOfObjectValues(RiskyUserHistoryItem::class)); },
-            'isDeleted' => function (self $o, ParseNode $n) { $o->setIsDeleted($n->getBooleanValue()); },
-            'isProcessing' => function (self $o, ParseNode $n) { $o->setIsProcessing($n->getBooleanValue()); },
-            'riskDetail' => function (self $o, ParseNode $n) { $o->setRiskDetail($n->getEnumValue(RiskDetail::class)); },
-            'riskLastUpdatedDateTime' => function (self $o, ParseNode $n) { $o->setRiskLastUpdatedDateTime($n->getDateTimeValue()); },
-            'riskLevel' => function (self $o, ParseNode $n) { $o->setRiskLevel($n->getEnumValue(RiskLevel::class)); },
-            'riskState' => function (self $o, ParseNode $n) { $o->setRiskState($n->getEnumValue(RiskState::class)); },
-            'userDisplayName' => function (self $o, ParseNode $n) { $o->setUserDisplayName($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'history' => function (ParseNode $n) use ($currentObject) { $currentObject->setHistory($n->getCollectionOfObjectValues(RiskyUserHistoryItem::class)); },
+            'isDeleted' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDeleted($n->getBooleanValue()); },
+            'isProcessing' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsProcessing($n->getBooleanValue()); },
+            'riskDetail' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskDetail($n->getEnumValue(RiskDetail::class)); },
+            'riskLastUpdatedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskLastUpdatedDateTime($n->getDateTimeValue()); },
+            'riskLevel' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskLevel($n->getEnumValue(RiskLevel::class)); },
+            'riskState' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskState($n->getEnumValue(RiskState::class)); },
+            'userDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserDisplayName($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ]);
     }
 

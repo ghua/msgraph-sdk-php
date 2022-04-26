@@ -41,11 +41,12 @@ class ThumbnailSet extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'large' => function (self $o, ParseNode $n) { $o->setLarge($n->getObjectValue(Thumbnail::class)); },
-            'medium' => function (self $o, ParseNode $n) { $o->setMedium($n->getObjectValue(Thumbnail::class)); },
-            'small' => function (self $o, ParseNode $n) { $o->setSmall($n->getObjectValue(Thumbnail::class)); },
-            'source' => function (self $o, ParseNode $n) { $o->setSource($n->getObjectValue(Thumbnail::class)); },
+            'large' => function (ParseNode $n) use ($currentObject) { $currentObject->setLarge($n->getObjectValue(Thumbnail::class)); },
+            'medium' => function (ParseNode $n) use ($currentObject) { $currentObject->setMedium($n->getObjectValue(Thumbnail::class)); },
+            'small' => function (ParseNode $n) use ($currentObject) { $currentObject->setSmall($n->getObjectValue(Thumbnail::class)); },
+            'source' => function (ParseNode $n) use ($currentObject) { $currentObject->setSource($n->getObjectValue(Thumbnail::class)); },
         ]);
     }
 

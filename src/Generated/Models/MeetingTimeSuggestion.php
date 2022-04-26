@@ -78,14 +78,15 @@ class MeetingTimeSuggestion implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'attendeeAvailability' => function (self $o, ParseNode $n) { $o->setAttendeeAvailability($n->getCollectionOfObjectValues(AttendeeAvailability::class)); },
-            'confidence' => function (self $o, ParseNode $n) { $o->setConfidence($n->getFloatValue()); },
-            'locations' => function (self $o, ParseNode $n) { $o->setLocations($n->getCollectionOfObjectValues(Location::class)); },
-            'meetingTimeSlot' => function (self $o, ParseNode $n) { $o->setMeetingTimeSlot($n->getObjectValue(TimeSlot::class)); },
-            'order' => function (self $o, ParseNode $n) { $o->setOrder($n->getIntegerValue()); },
-            'organizerAvailability' => function (self $o, ParseNode $n) { $o->setOrganizerAvailability($n->getEnumValue(FreeBusyStatus::class)); },
-            'suggestionReason' => function (self $o, ParseNode $n) { $o->setSuggestionReason($n->getStringValue()); },
+            'attendeeAvailability' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttendeeAvailability($n->getCollectionOfObjectValues(AttendeeAvailability::class)); },
+            'confidence' => function (ParseNode $n) use ($currentObject) { $currentObject->setConfidence($n->getFloatValue()); },
+            'locations' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocations($n->getCollectionOfObjectValues(Location::class)); },
+            'meetingTimeSlot' => function (ParseNode $n) use ($currentObject) { $currentObject->setMeetingTimeSlot($n->getObjectValue(TimeSlot::class)); },
+            'order' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrder($n->getIntegerValue()); },
+            'organizerAvailability' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrganizerAvailability($n->getEnumValue(FreeBusyStatus::class)); },
+            'suggestionReason' => function (ParseNode $n) use ($currentObject) { $currentObject->setSuggestionReason($n->getStringValue()); },
         ];
     }
 

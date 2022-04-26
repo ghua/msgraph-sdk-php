@@ -31,7 +31,7 @@ class AddCopyRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/drives/{drive_id}/list/contentTypes/microsoft.graph.addCopy';
+        $this->urlTemplate = '{+baseurl}/me/drives/{drive%2Did}/list/contentTypes/microsoft.graph.addCopy';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

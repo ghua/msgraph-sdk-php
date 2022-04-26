@@ -64,9 +64,10 @@ class StartHoldMusicRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'clientContext' => function (self $o, ParseNode $n) { $o->setClientContext($n->getStringValue()); },
-            'customPrompt' => function (self $o, ParseNode $n) { $o->setCustomPrompt($n->getObjectValue(Prompt::class)); },
+            'clientContext' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientContext($n->getStringValue()); },
+            'customPrompt' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomPrompt($n->getObjectValue(Prompt::class)); },
         ];
     }
 

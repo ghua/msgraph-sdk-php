@@ -50,7 +50,7 @@ class TermStoreRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/sites/{site_id}/termStore{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/sites/{site%2Did}/termStore{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -161,7 +161,7 @@ class TermStoreRequestBuilder
     */
     public function groupsById(string $id): GroupItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['group_id'] = $id;
+        $urlTplParams['group%2Did'] = $id;
         return new GroupItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -189,8 +189,19 @@ class TermStoreRequestBuilder
     */
     public function setsById(string $id): SetItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['set_id'] = $id;
+        $urlTplParams['set%2Did'] = $id;
         return new SetItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

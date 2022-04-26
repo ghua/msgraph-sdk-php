@@ -30,7 +30,7 @@ class ArchiveRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/teams/{team_id}/microsoft.graph.archive';
+        $this->urlTemplate = '{+baseurl}/teams/{team%2Did}/microsoft.graph.archive';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

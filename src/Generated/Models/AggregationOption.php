@@ -66,10 +66,11 @@ class AggregationOption implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'bucketDefinition' => function (self $o, ParseNode $n) { $o->setBucketDefinition($n->getObjectValue(BucketAggregationDefinition::class)); },
-            'field' => function (self $o, ParseNode $n) { $o->setField($n->getStringValue()); },
-            'size' => function (self $o, ParseNode $n) { $o->setSize($n->getIntegerValue()); },
+            'bucketDefinition' => function (ParseNode $n) use ($currentObject) { $currentObject->setBucketDefinition($n->getObjectValue(BucketAggregationDefinition::class)); },
+            'field' => function (ParseNode $n) use ($currentObject) { $currentObject->setField($n->getStringValue()); },
+            'size' => function (ParseNode $n) use ($currentObject) { $currentObject->setSize($n->getIntegerValue()); },
         ];
     }
 

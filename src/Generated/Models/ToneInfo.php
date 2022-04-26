@@ -47,9 +47,10 @@ class ToneInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'sequenceId' => function (self $o, ParseNode $n) { $o->setSequenceId($n->getIntegerValue()); },
-            'tone' => function (self $o, ParseNode $n) { $o->setTone($n->getEnumValue(Tone::class)); },
+            'sequenceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSequenceId($n->getIntegerValue()); },
+            'tone' => function (ParseNode $n) use ($currentObject) { $currentObject->setTone($n->getEnumValue(Tone::class)); },
         ];
     }
 

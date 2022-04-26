@@ -30,7 +30,7 @@ class ExportPersonalDataRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/microsoft.graph.exportPersonalData';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/microsoft.graph.exportPersonalData';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

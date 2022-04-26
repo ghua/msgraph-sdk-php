@@ -78,14 +78,15 @@ class RecurrencePattern implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'dayOfMonth' => function (self $o, ParseNode $n) { $o->setDayOfMonth($n->getIntegerValue()); },
-            'daysOfWeek' => function (self $o, ParseNode $n) { $o->setDaysOfWeek($n->getCollectionOfEnumValues(DayOfWeek::class)); },
-            'firstDayOfWeek' => function (self $o, ParseNode $n) { $o->setFirstDayOfWeek($n->getEnumValue(DayOfWeek::class)); },
-            'index' => function (self $o, ParseNode $n) { $o->setIndex($n->getEnumValue(WeekIndex::class)); },
-            'interval' => function (self $o, ParseNode $n) { $o->setInterval($n->getIntegerValue()); },
-            'month' => function (self $o, ParseNode $n) { $o->setMonth($n->getIntegerValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(RecurrencePatternType::class)); },
+            'dayOfMonth' => function (ParseNode $n) use ($currentObject) { $currentObject->setDayOfMonth($n->getIntegerValue()); },
+            'daysOfWeek' => function (ParseNode $n) use ($currentObject) { $currentObject->setDaysOfWeek($n->getCollectionOfEnumValues(DayOfWeek::class)); },
+            'firstDayOfWeek' => function (ParseNode $n) use ($currentObject) { $currentObject->setFirstDayOfWeek($n->getEnumValue(DayOfWeek::class)); },
+            'index' => function (ParseNode $n) use ($currentObject) { $currentObject->setIndex($n->getEnumValue(WeekIndex::class)); },
+            'interval' => function (ParseNode $n) use ($currentObject) { $currentObject->setInterval($n->getIntegerValue()); },
+            'month' => function (ParseNode $n) use ($currentObject) { $currentObject->setMonth($n->getIntegerValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(RecurrencePatternType::class)); },
         ];
     }
 

@@ -18,7 +18,7 @@ class EducationUser extends Entity
     /** @var array<AssignedPlan>|null $assignedPlans The plans that are assigned to the user. Read-only. Not nullable. */
     private ?array $assignedPlans = null;
     
-    /** @var array<EducationAssignment>|null $assignments Assignments that belongs to the user. */
+    /** @var array<EducationAssignment>|null $assignments Assignments belonging to the user. */
     private ?array $assignments = null;
     
     /** @var array<string>|null $businessPhones The telephone numbers for the user. Note: Although this is a string collection, only one number can be set for this property. */
@@ -90,7 +90,7 @@ class EducationUser extends Entity
     /** @var PhysicalAddress|null $residenceAddress The address where the user lives. */
     private ?PhysicalAddress $residenceAddress = null;
     
-    /** @var array<EducationRubric>|null $rubrics The rubrics property */
+    /** @var array<EducationRubric>|null $rubrics When set, the grading rubric attached to the assignment. */
     private ?array $rubrics = null;
     
     /** @var array<EducationSchool>|null $schools Schools to which the user belongs. Nullable. */
@@ -164,7 +164,7 @@ class EducationUser extends Entity
     }
 
     /**
-     * Gets the assignments property value. Assignments that belongs to the user.
+     * Gets the assignments property value. Assignments belonging to the user.
      * @return array<EducationAssignment>|null
     */
     public function getAssignments(): ?array {
@@ -232,45 +232,46 @@ class EducationUser extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'accountEnabled' => function (self $o, ParseNode $n) { $o->setAccountEnabled($n->getBooleanValue()); },
-            'assignedLicenses' => function (self $o, ParseNode $n) { $o->setAssignedLicenses($n->getCollectionOfObjectValues(AssignedLicense::class)); },
-            'assignedPlans' => function (self $o, ParseNode $n) { $o->setAssignedPlans($n->getCollectionOfObjectValues(AssignedPlan::class)); },
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(EducationAssignment::class)); },
-            'businessPhones' => function (self $o, ParseNode $n) { $o->setBusinessPhones($n->getCollectionOfPrimitiveValues()); },
-            'classes' => function (self $o, ParseNode $n) { $o->setClasses($n->getCollectionOfObjectValues(EducationClass::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'department' => function (self $o, ParseNode $n) { $o->setDepartment($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'externalSource' => function (self $o, ParseNode $n) { $o->setExternalSource($n->getEnumValue(EducationExternalSource::class)); },
-            'externalSourceDetail' => function (self $o, ParseNode $n) { $o->setExternalSourceDetail($n->getStringValue()); },
-            'givenName' => function (self $o, ParseNode $n) { $o->setGivenName($n->getStringValue()); },
-            'mail' => function (self $o, ParseNode $n) { $o->setMail($n->getStringValue()); },
-            'mailingAddress' => function (self $o, ParseNode $n) { $o->setMailingAddress($n->getObjectValue(PhysicalAddress::class)); },
-            'mailNickname' => function (self $o, ParseNode $n) { $o->setMailNickname($n->getStringValue()); },
-            'middleName' => function (self $o, ParseNode $n) { $o->setMiddleName($n->getStringValue()); },
-            'mobilePhone' => function (self $o, ParseNode $n) { $o->setMobilePhone($n->getStringValue()); },
-            'officeLocation' => function (self $o, ParseNode $n) { $o->setOfficeLocation($n->getStringValue()); },
-            'onPremisesInfo' => function (self $o, ParseNode $n) { $o->setOnPremisesInfo($n->getObjectValue(EducationOnPremisesInfo::class)); },
-            'passwordPolicies' => function (self $o, ParseNode $n) { $o->setPasswordPolicies($n->getStringValue()); },
-            'passwordProfile' => function (self $o, ParseNode $n) { $o->setPasswordProfile($n->getObjectValue(PasswordProfile::class)); },
-            'preferredLanguage' => function (self $o, ParseNode $n) { $o->setPreferredLanguage($n->getStringValue()); },
-            'primaryRole' => function (self $o, ParseNode $n) { $o->setPrimaryRole($n->getEnumValue(EducationUserRole::class)); },
-            'provisionedPlans' => function (self $o, ParseNode $n) { $o->setProvisionedPlans($n->getCollectionOfObjectValues(ProvisionedPlan::class)); },
-            'refreshTokensValidFromDateTime' => function (self $o, ParseNode $n) { $o->setRefreshTokensValidFromDateTime($n->getDateTimeValue()); },
-            'relatedContacts' => function (self $o, ParseNode $n) { $o->setRelatedContacts($n->getCollectionOfObjectValues(RelatedContact::class)); },
-            'residenceAddress' => function (self $o, ParseNode $n) { $o->setResidenceAddress($n->getObjectValue(PhysicalAddress::class)); },
-            'rubrics' => function (self $o, ParseNode $n) { $o->setRubrics($n->getCollectionOfObjectValues(EducationRubric::class)); },
-            'schools' => function (self $o, ParseNode $n) { $o->setSchools($n->getCollectionOfObjectValues(EducationSchool::class)); },
-            'showInAddressList' => function (self $o, ParseNode $n) { $o->setShowInAddressList($n->getBooleanValue()); },
-            'student' => function (self $o, ParseNode $n) { $o->setStudent($n->getObjectValue(EducationStudent::class)); },
-            'surname' => function (self $o, ParseNode $n) { $o->setSurname($n->getStringValue()); },
-            'taughtClasses' => function (self $o, ParseNode $n) { $o->setTaughtClasses($n->getCollectionOfObjectValues(EducationClass::class)); },
-            'teacher' => function (self $o, ParseNode $n) { $o->setTeacher($n->getObjectValue(EducationTeacher::class)); },
-            'usageLocation' => function (self $o, ParseNode $n) { $o->setUsageLocation($n->getStringValue()); },
-            'user' => function (self $o, ParseNode $n) { $o->setUser($n->getObjectValue(User::class)); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
-            'userType' => function (self $o, ParseNode $n) { $o->setUserType($n->getStringValue()); },
+            'accountEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccountEnabled($n->getBooleanValue()); },
+            'assignedLicenses' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedLicenses($n->getCollectionOfObjectValues(AssignedLicense::class)); },
+            'assignedPlans' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedPlans($n->getCollectionOfObjectValues(AssignedPlan::class)); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(EducationAssignment::class)); },
+            'businessPhones' => function (ParseNode $n) use ($currentObject) { $currentObject->setBusinessPhones($n->getCollectionOfPrimitiveValues()); },
+            'classes' => function (ParseNode $n) use ($currentObject) { $currentObject->setClasses($n->getCollectionOfObjectValues(EducationClass::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'department' => function (ParseNode $n) use ($currentObject) { $currentObject->setDepartment($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'externalSource' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalSource($n->getEnumValue(EducationExternalSource::class)); },
+            'externalSourceDetail' => function (ParseNode $n) use ($currentObject) { $currentObject->setExternalSourceDetail($n->getStringValue()); },
+            'givenName' => function (ParseNode $n) use ($currentObject) { $currentObject->setGivenName($n->getStringValue()); },
+            'mail' => function (ParseNode $n) use ($currentObject) { $currentObject->setMail($n->getStringValue()); },
+            'mailingAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailingAddress($n->getObjectValue(PhysicalAddress::class)); },
+            'mailNickname' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailNickname($n->getStringValue()); },
+            'middleName' => function (ParseNode $n) use ($currentObject) { $currentObject->setMiddleName($n->getStringValue()); },
+            'mobilePhone' => function (ParseNode $n) use ($currentObject) { $currentObject->setMobilePhone($n->getStringValue()); },
+            'officeLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setOfficeLocation($n->getStringValue()); },
+            'onPremisesInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesInfo($n->getObjectValue(EducationOnPremisesInfo::class)); },
+            'passwordPolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setPasswordPolicies($n->getStringValue()); },
+            'passwordProfile' => function (ParseNode $n) use ($currentObject) { $currentObject->setPasswordProfile($n->getObjectValue(PasswordProfile::class)); },
+            'preferredLanguage' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreferredLanguage($n->getStringValue()); },
+            'primaryRole' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrimaryRole($n->getEnumValue(EducationUserRole::class)); },
+            'provisionedPlans' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisionedPlans($n->getCollectionOfObjectValues(ProvisionedPlan::class)); },
+            'refreshTokensValidFromDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRefreshTokensValidFromDateTime($n->getDateTimeValue()); },
+            'relatedContacts' => function (ParseNode $n) use ($currentObject) { $currentObject->setRelatedContacts($n->getCollectionOfObjectValues(RelatedContact::class)); },
+            'residenceAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setResidenceAddress($n->getObjectValue(PhysicalAddress::class)); },
+            'rubrics' => function (ParseNode $n) use ($currentObject) { $currentObject->setRubrics($n->getCollectionOfObjectValues(EducationRubric::class)); },
+            'schools' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchools($n->getCollectionOfObjectValues(EducationSchool::class)); },
+            'showInAddressList' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowInAddressList($n->getBooleanValue()); },
+            'student' => function (ParseNode $n) use ($currentObject) { $currentObject->setStudent($n->getObjectValue(EducationStudent::class)); },
+            'surname' => function (ParseNode $n) use ($currentObject) { $currentObject->setSurname($n->getStringValue()); },
+            'taughtClasses' => function (ParseNode $n) use ($currentObject) { $currentObject->setTaughtClasses($n->getCollectionOfObjectValues(EducationClass::class)); },
+            'teacher' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeacher($n->getObjectValue(EducationTeacher::class)); },
+            'usageLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsageLocation($n->getStringValue()); },
+            'user' => function (ParseNode $n) use ($currentObject) { $currentObject->setUser($n->getObjectValue(User::class)); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
+            'userType' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserType($n->getStringValue()); },
         ]);
     }
 
@@ -403,7 +404,7 @@ class EducationUser extends Entity
     }
 
     /**
-     * Gets the rubrics property value. The rubrics property
+     * Gets the rubrics property value. When set, the grading rubric attached to the assignment.
      * @return array<EducationRubric>|null
     */
     public function getRubrics(): ?array {
@@ -561,7 +562,7 @@ class EducationUser extends Entity
     }
 
     /**
-     * Sets the assignments property value. Assignments that belongs to the user.
+     * Sets the assignments property value. Assignments belonging to the user.
      *  @param array<EducationAssignment>|null $value Value to set for the assignments property.
     */
     public function setAssignments(?array $value ): void {
@@ -753,7 +754,7 @@ class EducationUser extends Entity
     }
 
     /**
-     * Sets the rubrics property value. The rubrics property
+     * Sets the rubrics property value. When set, the grading rubric attached to the assignment.
      *  @param array<EducationRubric>|null $value Value to set for the rubrics property.
     */
     public function setRubrics(?array $value ): void {

@@ -30,7 +30,7 @@ class AssignUserToDeviceRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/windowsAutopilotDeviceIdentities/{windowsAutopilotDeviceIdentity_id}/microsoft.graph.assignUserToDevice';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/windowsAutopilotDeviceIdentities/{windowsAutopilotDeviceIdentity%2Did}/microsoft.graph.assignUserToDevice';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

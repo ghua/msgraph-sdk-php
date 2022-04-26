@@ -169,7 +169,7 @@ class ReportsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/reports{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/reports{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -263,7 +263,7 @@ class ReportsRequestBuilder
     */
     public function exportJobsById(string $id): DeviceManagementExportJobItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceManagementExportJob_id'] = $id;
+        $urlTplParams['deviceManagementExportJob%2Did'] = $id;
         return new DeviceManagementExportJobItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -301,4 +301,15 @@ class ReportsRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

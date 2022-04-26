@@ -72,12 +72,13 @@ class ScheduleInformation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'availabilityView' => function (self $o, ParseNode $n) { $o->setAvailabilityView($n->getStringValue()); },
-            'error' => function (self $o, ParseNode $n) { $o->setError($n->getObjectValue(FreeBusyError::class)); },
-            'scheduleId' => function (self $o, ParseNode $n) { $o->setScheduleId($n->getStringValue()); },
-            'scheduleItems' => function (self $o, ParseNode $n) { $o->setScheduleItems($n->getCollectionOfObjectValues(ScheduleItem::class)); },
-            'workingHours' => function (self $o, ParseNode $n) { $o->setWorkingHours($n->getObjectValue(WorkingHours::class)); },
+            'availabilityView' => function (ParseNode $n) use ($currentObject) { $currentObject->setAvailabilityView($n->getStringValue()); },
+            'error' => function (ParseNode $n) use ($currentObject) { $currentObject->setError($n->getObjectValue(FreeBusyError::class)); },
+            'scheduleId' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduleId($n->getStringValue()); },
+            'scheduleItems' => function (ParseNode $n) use ($currentObject) { $currentObject->setScheduleItems($n->getCollectionOfObjectValues(ScheduleItem::class)); },
+            'workingHours' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorkingHours($n->getObjectValue(WorkingHours::class)); },
         ];
     }
 

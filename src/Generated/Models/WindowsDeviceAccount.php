@@ -44,8 +44,9 @@ class WindowsDeviceAccount implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'password' => function (self $o, ParseNode $n) { $o->setPassword($n->getStringValue()); },
+            'password' => function (ParseNode $n) use ($currentObject) { $currentObject->setPassword($n->getStringValue()); },
         ];
     }
 

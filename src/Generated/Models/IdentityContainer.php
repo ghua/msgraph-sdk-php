@@ -68,12 +68,13 @@ class IdentityContainer extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'apiConnectors' => function (self $o, ParseNode $n) { $o->setApiConnectors($n->getCollectionOfObjectValues(IdentityApiConnector::class)); },
-            'b2xUserFlows' => function (self $o, ParseNode $n) { $o->setB2xUserFlows($n->getCollectionOfObjectValues(B2xIdentityUserFlow::class)); },
-            'conditionalAccess' => function (self $o, ParseNode $n) { $o->setConditionalAccess($n->getObjectValue(ConditionalAccessRoot::class)); },
-            'identityProviders' => function (self $o, ParseNode $n) { $o->setIdentityProviders($n->getCollectionOfObjectValues(IdentityProviderBase::class)); },
-            'userFlowAttributes' => function (self $o, ParseNode $n) { $o->setUserFlowAttributes($n->getCollectionOfObjectValues(IdentityUserFlowAttribute::class)); },
+            'apiConnectors' => function (ParseNode $n) use ($currentObject) { $currentObject->setApiConnectors($n->getCollectionOfObjectValues(IdentityApiConnector::class)); },
+            'b2xUserFlows' => function (ParseNode $n) use ($currentObject) { $currentObject->setB2xUserFlows($n->getCollectionOfObjectValues(B2xIdentityUserFlow::class)); },
+            'conditionalAccess' => function (ParseNode $n) use ($currentObject) { $currentObject->setConditionalAccess($n->getObjectValue(ConditionalAccessRoot::class)); },
+            'identityProviders' => function (ParseNode $n) use ($currentObject) { $currentObject->setIdentityProviders($n->getCollectionOfObjectValues(IdentityProviderBase::class)); },
+            'userFlowAttributes' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserFlowAttributes($n->getCollectionOfObjectValues(IdentityUserFlowAttribute::class)); },
         ]);
     }
 

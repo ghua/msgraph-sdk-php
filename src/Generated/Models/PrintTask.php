@@ -49,11 +49,12 @@ class PrintTask extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'definition' => function (self $o, ParseNode $n) { $o->setDefinition($n->getObjectValue(PrintTaskDefinition::class)); },
-            'parentUrl' => function (self $o, ParseNode $n) { $o->setParentUrl($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getObjectValue(PrintTaskStatus::class)); },
-            'trigger' => function (self $o, ParseNode $n) { $o->setTrigger($n->getObjectValue(PrintTaskTrigger::class)); },
+            'definition' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefinition($n->getObjectValue(PrintTaskDefinition::class)); },
+            'parentUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentUrl($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getObjectValue(PrintTaskStatus::class)); },
+            'trigger' => function (ParseNode $n) use ($currentObject) { $currentObject->setTrigger($n->getObjectValue(PrintTaskTrigger::class)); },
         ]);
     }
 

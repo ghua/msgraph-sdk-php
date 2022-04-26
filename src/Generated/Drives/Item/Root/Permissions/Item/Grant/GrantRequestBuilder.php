@@ -30,7 +30,7 @@ class GrantRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/drives/{drive_id}/root/permissions/{permission_id}/microsoft.graph.grant';
+        $this->urlTemplate = '{+baseurl}/drives/{drive%2Did}/root/permissions/{permission%2Did}/microsoft.graph.grant';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

@@ -30,7 +30,7 @@ class RecentRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/activities/microsoft.graph.recent()';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/activities/microsoft.graph.recent()';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

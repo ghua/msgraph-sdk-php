@@ -58,7 +58,7 @@ class NotebookItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/sites/{site_id}/onenote/notebooks/{notebook_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/sites/{site%2Did}/onenote/notebooks/{notebook%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -186,7 +186,7 @@ class NotebookItemRequestBuilder
     */
     public function sectionGroupsById(string $id): SectionGroupItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['sectionGroup_id'] = $id;
+        $urlTplParams['sectionGroup%2Did'] = $id;
         return new SectionGroupItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -197,8 +197,19 @@ class NotebookItemRequestBuilder
     */
     public function sectionsById(string $id): OnenoteSectionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['onenoteSection_id'] = $id;
+        $urlTplParams['onenoteSection%2Did'] = $id;
         return new OnenoteSectionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

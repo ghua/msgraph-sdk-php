@@ -47,13 +47,14 @@ class AdminConsentRequestPolicy extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'isEnabled' => function (self $o, ParseNode $n) { $o->setIsEnabled($n->getBooleanValue()); },
-            'notifyReviewers' => function (self $o, ParseNode $n) { $o->setNotifyReviewers($n->getBooleanValue()); },
-            'remindersEnabled' => function (self $o, ParseNode $n) { $o->setRemindersEnabled($n->getBooleanValue()); },
-            'requestDurationInDays' => function (self $o, ParseNode $n) { $o->setRequestDurationInDays($n->getIntegerValue()); },
-            'reviewers' => function (self $o, ParseNode $n) { $o->setReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getIntegerValue()); },
+            'isEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabled($n->getBooleanValue()); },
+            'notifyReviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotifyReviewers($n->getBooleanValue()); },
+            'remindersEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemindersEnabled($n->getBooleanValue()); },
+            'requestDurationInDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequestDurationInDays($n->getIntegerValue()); },
+            'reviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getIntegerValue()); },
         ]);
     }
 

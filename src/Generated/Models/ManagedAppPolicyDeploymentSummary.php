@@ -69,12 +69,13 @@ class ManagedAppPolicyDeploymentSummary extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'configurationDeployedUserCount' => function (self $o, ParseNode $n) { $o->setConfigurationDeployedUserCount($n->getIntegerValue()); },
-            'configurationDeploymentSummaryPerApp' => function (self $o, ParseNode $n) { $o->setConfigurationDeploymentSummaryPerApp($n->getCollectionOfObjectValues(ManagedAppPolicyDeploymentSummaryPerApp::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastRefreshTime' => function (self $o, ParseNode $n) { $o->setLastRefreshTime($n->getDateTimeValue()); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'configurationDeployedUserCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setConfigurationDeployedUserCount($n->getIntegerValue()); },
+            'configurationDeploymentSummaryPerApp' => function (ParseNode $n) use ($currentObject) { $currentObject->setConfigurationDeploymentSummaryPerApp($n->getCollectionOfObjectValues(ManagedAppPolicyDeploymentSummaryPerApp::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastRefreshTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastRefreshTime($n->getDateTimeValue()); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

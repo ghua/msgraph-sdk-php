@@ -47,9 +47,10 @@ class ProxiedDomain implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'ipAddressOrFQDN' => function (self $o, ParseNode $n) { $o->setIpAddressOrFQDN($n->getStringValue()); },
-            'proxy' => function (self $o, ParseNode $n) { $o->setProxy($n->getStringValue()); },
+            'ipAddressOrFQDN' => function (ParseNode $n) use ($currentObject) { $currentObject->setIpAddressOrFQDN($n->getStringValue()); },
+            'proxy' => function (ParseNode $n) use ($currentObject) { $currentObject->setProxy($n->getStringValue()); },
         ];
     }
 

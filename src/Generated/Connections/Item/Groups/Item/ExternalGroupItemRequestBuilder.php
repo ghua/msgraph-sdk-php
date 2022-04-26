@@ -41,7 +41,7 @@ class ExternalGroupItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/connections/{externalConnection_id}/groups/{externalGroup_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/connections/{externalConnection%2Did}/groups/{externalGroup%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -152,7 +152,7 @@ class ExternalGroupItemRequestBuilder
     */
     public function membersById(string $id): IdentityItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['identity_id'] = $id;
+        $urlTplParams['identity%2Did'] = $id;
         return new IdentityItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -173,4 +173,15 @@ class ExternalGroupItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

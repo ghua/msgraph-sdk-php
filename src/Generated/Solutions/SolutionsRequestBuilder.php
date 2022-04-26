@@ -51,7 +51,7 @@ class SolutionsRequestBuilder
     */
     public function bookingBusinessesById(string $id): BookingBusinessItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['bookingBusiness_id'] = $id;
+        $urlTplParams['bookingBusiness%2Did'] = $id;
         return new BookingBusinessItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -62,7 +62,7 @@ class SolutionsRequestBuilder
     */
     public function bookingCurrenciesById(string $id): BookingCurrencyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['bookingCurrency_id'] = $id;
+        $urlTplParams['bookingCurrency%2Did'] = $id;
         return new BookingCurrencyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -72,7 +72,7 @@ class SolutionsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/solutions{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/solutions{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -157,4 +157,15 @@ class SolutionsRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

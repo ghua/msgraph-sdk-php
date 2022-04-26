@@ -144,21 +144,22 @@ class UserActivity extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activationUrl' => function (self $o, ParseNode $n) { $o->setActivationUrl($n->getStringValue()); },
-            'activitySourceHost' => function (self $o, ParseNode $n) { $o->setActivitySourceHost($n->getStringValue()); },
-            'appActivityId' => function (self $o, ParseNode $n) { $o->setAppActivityId($n->getStringValue()); },
-            'appDisplayName' => function (self $o, ParseNode $n) { $o->setAppDisplayName($n->getStringValue()); },
-            'contentInfo' => function (self $o, ParseNode $n) { $o->setContentInfo($n->getObjectValue(Json::class)); },
-            'contentUrl' => function (self $o, ParseNode $n) { $o->setContentUrl($n->getStringValue()); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'fallbackUrl' => function (self $o, ParseNode $n) { $o->setFallbackUrl($n->getStringValue()); },
-            'historyItems' => function (self $o, ParseNode $n) { $o->setHistoryItems($n->getCollectionOfObjectValues(ActivityHistoryItem::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(Status::class)); },
-            'userTimezone' => function (self $o, ParseNode $n) { $o->setUserTimezone($n->getStringValue()); },
-            'visualElements' => function (self $o, ParseNode $n) { $o->setVisualElements($n->getObjectValue(VisualInfo::class)); },
+            'activationUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivationUrl($n->getStringValue()); },
+            'activitySourceHost' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivitySourceHost($n->getStringValue()); },
+            'appActivityId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppActivityId($n->getStringValue()); },
+            'appDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppDisplayName($n->getStringValue()); },
+            'contentInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentInfo($n->getObjectValue(Json::class)); },
+            'contentUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentUrl($n->getStringValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'fallbackUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setFallbackUrl($n->getStringValue()); },
+            'historyItems' => function (ParseNode $n) use ($currentObject) { $currentObject->setHistoryItems($n->getCollectionOfObjectValues(ActivityHistoryItem::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(Status::class)); },
+            'userTimezone' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserTimezone($n->getStringValue()); },
+            'visualElements' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisualElements($n->getObjectValue(VisualInfo::class)); },
         ]);
     }
 

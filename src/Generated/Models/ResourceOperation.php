@@ -54,10 +54,11 @@ class ResourceOperation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'actionName' => function (self $o, ParseNode $n) { $o->setActionName($n->getStringValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'resourceName' => function (self $o, ParseNode $n) { $o->setResourceName($n->getStringValue()); },
+            'actionName' => function (ParseNode $n) use ($currentObject) { $currentObject->setActionName($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'resourceName' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceName($n->getStringValue()); },
         ]);
     }
 

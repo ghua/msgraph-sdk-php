@@ -44,8 +44,9 @@ class CleanWindowsDeviceRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'keepUserData' => function (self $o, ParseNode $n) { $o->setKeepUserData($n->getBooleanValue()); },
+            'keepUserData' => function (ParseNode $n) use ($currentObject) { $currentObject->setKeepUserData($n->getBooleanValue()); },
         ];
     }
 

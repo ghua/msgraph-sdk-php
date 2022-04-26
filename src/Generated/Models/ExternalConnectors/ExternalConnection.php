@@ -70,15 +70,16 @@ class ExternalConnection extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'configuration' => function (self $o, ParseNode $n) { $o->setConfiguration($n->getObjectValue(Configuration::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'groups' => function (self $o, ParseNode $n) { $o->setGroups($n->getCollectionOfObjectValues(ExternalGroup::class)); },
-            'items' => function (self $o, ParseNode $n) { $o->setItems($n->getCollectionOfObjectValues(ExternalItem::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'operations' => function (self $o, ParseNode $n) { $o->setOperations($n->getCollectionOfObjectValues(ConnectionOperation::class)); },
-            'schema' => function (self $o, ParseNode $n) { $o->setSchema($n->getObjectValue(Schema::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(ConnectionState::class)); },
+            'configuration' => function (ParseNode $n) use ($currentObject) { $currentObject->setConfiguration($n->getObjectValue(Configuration::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'groups' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroups($n->getCollectionOfObjectValues(ExternalGroup::class)); },
+            'items' => function (ParseNode $n) use ($currentObject) { $currentObject->setItems($n->getCollectionOfObjectValues(ExternalItem::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'operations' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperations($n->getCollectionOfObjectValues(ConnectionOperation::class)); },
+            'schema' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchema($n->getObjectValue(Schema::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(ConnectionState::class)); },
         ]);
     }
 

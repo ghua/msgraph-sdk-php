@@ -63,9 +63,10 @@ class SearchAlterationOptions implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'enableModification' => function (self $o, ParseNode $n) { $o->setEnableModification($n->getBooleanValue()); },
-            'enableSuggestion' => function (self $o, ParseNode $n) { $o->setEnableSuggestion($n->getBooleanValue()); },
+            'enableModification' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableModification($n->getBooleanValue()); },
+            'enableSuggestion' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnableSuggestion($n->getBooleanValue()); },
         ];
     }
 

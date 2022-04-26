@@ -110,23 +110,24 @@ class ProvisioningObjectSummary extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activityDateTime' => function (self $o, ParseNode $n) { $o->setActivityDateTime($n->getDateTimeValue()); },
-            'changeId' => function (self $o, ParseNode $n) { $o->setChangeId($n->getStringValue()); },
-            'cycleId' => function (self $o, ParseNode $n) { $o->setCycleId($n->getStringValue()); },
-            'durationInMilliseconds' => function (self $o, ParseNode $n) { $o->setDurationInMilliseconds($n->getIntegerValue()); },
-            'initiatedBy' => function (self $o, ParseNode $n) { $o->setInitiatedBy($n->getObjectValue(Initiator::class)); },
-            'jobId' => function (self $o, ParseNode $n) { $o->setJobId($n->getStringValue()); },
-            'modifiedProperties' => function (self $o, ParseNode $n) { $o->setModifiedProperties($n->getCollectionOfObjectValues(ModifiedProperty::class)); },
-            'provisioningAction' => function (self $o, ParseNode $n) { $o->setProvisioningAction($n->getEnumValue(ProvisioningAction::class)); },
-            'provisioningStatusInfo' => function (self $o, ParseNode $n) { $o->setProvisioningStatusInfo($n->getObjectValue(ProvisioningStatusInfo::class)); },
-            'provisioningSteps' => function (self $o, ParseNode $n) { $o->setProvisioningSteps($n->getCollectionOfObjectValues(ProvisioningStep::class)); },
-            'servicePrincipal' => function (self $o, ParseNode $n) { $o->setServicePrincipal($n->getObjectValue(ProvisioningServicePrincipal::class)); },
-            'sourceIdentity' => function (self $o, ParseNode $n) { $o->setSourceIdentity($n->getObjectValue(ProvisionedIdentity::class)); },
-            'sourceSystem' => function (self $o, ParseNode $n) { $o->setSourceSystem($n->getObjectValue(ProvisioningSystem::class)); },
-            'targetIdentity' => function (self $o, ParseNode $n) { $o->setTargetIdentity($n->getObjectValue(ProvisionedIdentity::class)); },
-            'targetSystem' => function (self $o, ParseNode $n) { $o->setTargetSystem($n->getObjectValue(ProvisioningSystem::class)); },
-            'tenantId' => function (self $o, ParseNode $n) { $o->setTenantId($n->getStringValue()); },
+            'activityDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivityDateTime($n->getDateTimeValue()); },
+            'changeId' => function (ParseNode $n) use ($currentObject) { $currentObject->setChangeId($n->getStringValue()); },
+            'cycleId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCycleId($n->getStringValue()); },
+            'durationInMilliseconds' => function (ParseNode $n) use ($currentObject) { $currentObject->setDurationInMilliseconds($n->getIntegerValue()); },
+            'initiatedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setInitiatedBy($n->getObjectValue(Initiator::class)); },
+            'jobId' => function (ParseNode $n) use ($currentObject) { $currentObject->setJobId($n->getStringValue()); },
+            'modifiedProperties' => function (ParseNode $n) use ($currentObject) { $currentObject->setModifiedProperties($n->getCollectionOfObjectValues(ModifiedProperty::class)); },
+            'provisioningAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisioningAction($n->getEnumValue(ProvisioningAction::class)); },
+            'provisioningStatusInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisioningStatusInfo($n->getObjectValue(ProvisioningStatusInfo::class)); },
+            'provisioningSteps' => function (ParseNode $n) use ($currentObject) { $currentObject->setProvisioningSteps($n->getCollectionOfObjectValues(ProvisioningStep::class)); },
+            'servicePrincipal' => function (ParseNode $n) use ($currentObject) { $currentObject->setServicePrincipal($n->getObjectValue(ProvisioningServicePrincipal::class)); },
+            'sourceIdentity' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceIdentity($n->getObjectValue(ProvisionedIdentity::class)); },
+            'sourceSystem' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceSystem($n->getObjectValue(ProvisioningSystem::class)); },
+            'targetIdentity' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetIdentity($n->getObjectValue(ProvisionedIdentity::class)); },
+            'targetSystem' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetSystem($n->getObjectValue(ProvisioningSystem::class)); },
+            'tenantId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTenantId($n->getStringValue()); },
         ]);
     }
 

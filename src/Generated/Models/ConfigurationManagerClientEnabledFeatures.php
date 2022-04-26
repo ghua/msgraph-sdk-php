@@ -75,13 +75,14 @@ class ConfigurationManagerClientEnabledFeatures implements AdditionalDataHolder,
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'compliancePolicy' => function (self $o, ParseNode $n) { $o->setCompliancePolicy($n->getBooleanValue()); },
-            'deviceConfiguration' => function (self $o, ParseNode $n) { $o->setDeviceConfiguration($n->getBooleanValue()); },
-            'inventory' => function (self $o, ParseNode $n) { $o->setInventory($n->getBooleanValue()); },
-            'modernApps' => function (self $o, ParseNode $n) { $o->setModernApps($n->getBooleanValue()); },
-            'resourceAccess' => function (self $o, ParseNode $n) { $o->setResourceAccess($n->getBooleanValue()); },
-            'windowsUpdateForBusiness' => function (self $o, ParseNode $n) { $o->setWindowsUpdateForBusiness($n->getBooleanValue()); },
+            'compliancePolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompliancePolicy($n->getBooleanValue()); },
+            'deviceConfiguration' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceConfiguration($n->getBooleanValue()); },
+            'inventory' => function (ParseNode $n) use ($currentObject) { $currentObject->setInventory($n->getBooleanValue()); },
+            'modernApps' => function (ParseNode $n) use ($currentObject) { $currentObject->setModernApps($n->getBooleanValue()); },
+            'resourceAccess' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceAccess($n->getBooleanValue()); },
+            'windowsUpdateForBusiness' => function (ParseNode $n) use ($currentObject) { $currentObject->setWindowsUpdateForBusiness($n->getBooleanValue()); },
         ];
     }
 

@@ -31,7 +31,7 @@ class CreateUploadSessionRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/messages/{message_id}/attachments/microsoft.graph.createUploadSession';
+        $this->urlTemplate = '{+baseurl}/me/messages/{message%2Did}/attachments/microsoft.graph.createUploadSession';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

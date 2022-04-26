@@ -70,14 +70,15 @@ class SubjectRightsRequestDetail implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'excludedItemCount' => function (self $o, ParseNode $n) { $o->setExcludedItemCount($n->getIntegerValue()); },
-            'insightCounts' => function (self $o, ParseNode $n) { $o->setInsightCounts($n->getCollectionOfObjectValues(KeyValuePair::class)); },
-            'itemCount' => function (self $o, ParseNode $n) { $o->setItemCount($n->getIntegerValue()); },
-            'itemNeedReview' => function (self $o, ParseNode $n) { $o->setItemNeedReview($n->getIntegerValue()); },
-            'productItemCounts' => function (self $o, ParseNode $n) { $o->setProductItemCounts($n->getCollectionOfObjectValues(KeyValuePair::class)); },
-            'signedOffItemCount' => function (self $o, ParseNode $n) { $o->setSignedOffItemCount($n->getIntegerValue()); },
-            'totalItemSize' => function (self $o, ParseNode $n) { $o->setTotalItemSize($n->getIntegerValue()); },
+            'excludedItemCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludedItemCount($n->getIntegerValue()); },
+            'insightCounts' => function (ParseNode $n) use ($currentObject) { $currentObject->setInsightCounts($n->getCollectionOfObjectValues(KeyValuePair::class)); },
+            'itemCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setItemCount($n->getIntegerValue()); },
+            'itemNeedReview' => function (ParseNode $n) use ($currentObject) { $currentObject->setItemNeedReview($n->getIntegerValue()); },
+            'productItemCounts' => function (ParseNode $n) use ($currentObject) { $currentObject->setProductItemCounts($n->getCollectionOfObjectValues(KeyValuePair::class)); },
+            'signedOffItemCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setSignedOffItemCount($n->getIntegerValue()); },
+            'totalItemSize' => function (ParseNode $n) use ($currentObject) { $currentObject->setTotalItemSize($n->getIntegerValue()); },
         ];
     }
 

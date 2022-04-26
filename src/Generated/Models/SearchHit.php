@@ -67,13 +67,14 @@ class SearchHit implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'contentSource' => function (self $o, ParseNode $n) { $o->setContentSource($n->getStringValue()); },
-            'hitId' => function (self $o, ParseNode $n) { $o->setHitId($n->getStringValue()); },
-            'rank' => function (self $o, ParseNode $n) { $o->setRank($n->getIntegerValue()); },
-            'resource' => function (self $o, ParseNode $n) { $o->setResource($n->getObjectValue(Entity::class)); },
-            'resultTemplateId' => function (self $o, ParseNode $n) { $o->setResultTemplateId($n->getStringValue()); },
-            'summary' => function (self $o, ParseNode $n) { $o->setSummary($n->getStringValue()); },
+            'contentSource' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentSource($n->getStringValue()); },
+            'hitId' => function (ParseNode $n) use ($currentObject) { $currentObject->setHitId($n->getStringValue()); },
+            'rank' => function (ParseNode $n) use ($currentObject) { $currentObject->setRank($n->getIntegerValue()); },
+            'resource' => function (ParseNode $n) use ($currentObject) { $currentObject->setResource($n->getObjectValue(Entity::class)); },
+            'resultTemplateId' => function (ParseNode $n) use ($currentObject) { $currentObject->setResultTemplateId($n->getStringValue()); },
+            'summary' => function (ParseNode $n) use ($currentObject) { $currentObject->setSummary($n->getStringValue()); },
         ];
     }
 

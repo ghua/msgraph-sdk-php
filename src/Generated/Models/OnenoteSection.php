@@ -47,13 +47,14 @@ class OnenoteSection extends OnenoteEntityHierarchyModel
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'isDefault' => function (self $o, ParseNode $n) { $o->setIsDefault($n->getBooleanValue()); },
-            'links' => function (self $o, ParseNode $n) { $o->setLinks($n->getObjectValue(SectionLinks::class)); },
-            'pages' => function (self $o, ParseNode $n) { $o->setPages($n->getCollectionOfObjectValues(OnenotePage::class)); },
-            'pagesUrl' => function (self $o, ParseNode $n) { $o->setPagesUrl($n->getStringValue()); },
-            'parentNotebook' => function (self $o, ParseNode $n) { $o->setParentNotebook($n->getObjectValue(Notebook::class)); },
-            'parentSectionGroup' => function (self $o, ParseNode $n) { $o->setParentSectionGroup($n->getObjectValue(SectionGroup::class)); },
+            'isDefault' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDefault($n->getBooleanValue()); },
+            'links' => function (ParseNode $n) use ($currentObject) { $currentObject->setLinks($n->getObjectValue(SectionLinks::class)); },
+            'pages' => function (ParseNode $n) use ($currentObject) { $currentObject->setPages($n->getCollectionOfObjectValues(OnenotePage::class)); },
+            'pagesUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setPagesUrl($n->getStringValue()); },
+            'parentNotebook' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentNotebook($n->getObjectValue(Notebook::class)); },
+            'parentSectionGroup' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentSectionGroup($n->getObjectValue(SectionGroup::class)); },
         ]);
     }
 

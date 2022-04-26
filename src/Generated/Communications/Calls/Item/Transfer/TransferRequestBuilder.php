@@ -30,7 +30,7 @@ class TransferRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/communications/calls/{call_id}/microsoft.graph.transfer';
+        $this->urlTemplate = '{+baseurl}/communications/calls/{call%2Did}/microsoft.graph.transfer';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

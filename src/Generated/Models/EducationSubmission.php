@@ -72,21 +72,22 @@ class EducationSubmission extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'outcomes' => function (self $o, ParseNode $n) { $o->setOutcomes($n->getCollectionOfObjectValues(EducationOutcome::class)); },
-            'reassignedBy' => function (self $o, ParseNode $n) { $o->setReassignedBy($n->getObjectValue(IdentitySet::class)); },
-            'reassignedDateTime' => function (self $o, ParseNode $n) { $o->setReassignedDateTime($n->getDateTimeValue()); },
-            'recipient' => function (self $o, ParseNode $n) { $o->setRecipient($n->getObjectValue(EducationSubmissionRecipient::class)); },
-            'resources' => function (self $o, ParseNode $n) { $o->setResources($n->getCollectionOfObjectValues(EducationSubmissionResource::class)); },
-            'resourcesFolderUrl' => function (self $o, ParseNode $n) { $o->setResourcesFolderUrl($n->getStringValue()); },
-            'returnedBy' => function (self $o, ParseNode $n) { $o->setReturnedBy($n->getObjectValue(IdentitySet::class)); },
-            'returnedDateTime' => function (self $o, ParseNode $n) { $o->setReturnedDateTime($n->getDateTimeValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(EducationSubmissionStatus::class)); },
-            'submittedBy' => function (self $o, ParseNode $n) { $o->setSubmittedBy($n->getObjectValue(IdentitySet::class)); },
-            'submittedDateTime' => function (self $o, ParseNode $n) { $o->setSubmittedDateTime($n->getDateTimeValue()); },
-            'submittedResources' => function (self $o, ParseNode $n) { $o->setSubmittedResources($n->getCollectionOfObjectValues(EducationSubmissionResource::class)); },
-            'unsubmittedBy' => function (self $o, ParseNode $n) { $o->setUnsubmittedBy($n->getObjectValue(IdentitySet::class)); },
-            'unsubmittedDateTime' => function (self $o, ParseNode $n) { $o->setUnsubmittedDateTime($n->getDateTimeValue()); },
+            'outcomes' => function (ParseNode $n) use ($currentObject) { $currentObject->setOutcomes($n->getCollectionOfObjectValues(EducationOutcome::class)); },
+            'reassignedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setReassignedBy($n->getObjectValue(IdentitySet::class)); },
+            'reassignedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReassignedDateTime($n->getDateTimeValue()); },
+            'recipient' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipient($n->getObjectValue(EducationSubmissionRecipient::class)); },
+            'resources' => function (ParseNode $n) use ($currentObject) { $currentObject->setResources($n->getCollectionOfObjectValues(EducationSubmissionResource::class)); },
+            'resourcesFolderUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourcesFolderUrl($n->getStringValue()); },
+            'returnedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setReturnedBy($n->getObjectValue(IdentitySet::class)); },
+            'returnedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReturnedDateTime($n->getDateTimeValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(EducationSubmissionStatus::class)); },
+            'submittedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubmittedBy($n->getObjectValue(IdentitySet::class)); },
+            'submittedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubmittedDateTime($n->getDateTimeValue()); },
+            'submittedResources' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubmittedResources($n->getCollectionOfObjectValues(EducationSubmissionResource::class)); },
+            'unsubmittedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnsubmittedBy($n->getObjectValue(IdentitySet::class)); },
+            'unsubmittedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnsubmittedDateTime($n->getDateTimeValue()); },
         ]);
     }
 

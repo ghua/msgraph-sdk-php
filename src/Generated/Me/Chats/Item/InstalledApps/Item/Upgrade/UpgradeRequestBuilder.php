@@ -30,7 +30,7 @@ class UpgradeRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/chats/{chat_id}/installedApps/{teamsAppInstallation_id}/microsoft.graph.upgrade';
+        $this->urlTemplate = '{+baseurl}/me/chats/{chat%2Did}/installedApps/{teamsAppInstallation%2Did}/microsoft.graph.upgrade';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

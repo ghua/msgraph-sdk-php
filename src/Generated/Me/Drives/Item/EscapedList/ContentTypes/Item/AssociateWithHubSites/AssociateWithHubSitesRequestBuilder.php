@@ -30,7 +30,7 @@ class AssociateWithHubSitesRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/drives/{drive_id}/list/contentTypes/{contentType_id}/microsoft.graph.associateWithHubSites';
+        $this->urlTemplate = '{+baseurl}/me/drives/{drive%2Did}/list/contentTypes/{contentType%2Did}/microsoft.graph.associateWithHubSites';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

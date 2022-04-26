@@ -30,7 +30,7 @@ class GetMemberGroupsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groupSettingTemplates/{groupSettingTemplate_id}/microsoft.graph.getMemberGroups';
+        $this->urlTemplate = '{+baseurl}/groupSettingTemplates/{groupSettingTemplate%2Did}/microsoft.graph.getMemberGroups';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

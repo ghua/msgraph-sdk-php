@@ -71,13 +71,14 @@ class ListItem extends BaseItem
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'analytics' => function (self $o, ParseNode $n) { $o->setAnalytics($n->getObjectValue(ItemAnalytics::class)); },
-            'contentType' => function (self $o, ParseNode $n) { $o->setContentType($n->getObjectValue(ContentTypeInfo::class)); },
-            'driveItem' => function (self $o, ParseNode $n) { $o->setDriveItem($n->getObjectValue(DriveItem::class)); },
-            'fields' => function (self $o, ParseNode $n) { $o->setFields($n->getObjectValue(FieldValueSet::class)); },
-            'sharepointIds' => function (self $o, ParseNode $n) { $o->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
-            'versions' => function (self $o, ParseNode $n) { $o->setVersions($n->getCollectionOfObjectValues(ListItemVersion::class)); },
+            'analytics' => function (ParseNode $n) use ($currentObject) { $currentObject->setAnalytics($n->getObjectValue(ItemAnalytics::class)); },
+            'contentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentType($n->getObjectValue(ContentTypeInfo::class)); },
+            'driveItem' => function (ParseNode $n) use ($currentObject) { $currentObject->setDriveItem($n->getObjectValue(DriveItem::class)); },
+            'fields' => function (ParseNode $n) use ($currentObject) { $currentObject->setFields($n->getObjectValue(FieldValueSet::class)); },
+            'sharepointIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
+            'versions' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersions($n->getCollectionOfObjectValues(ListItemVersion::class)); },
         ]);
     }
 

@@ -31,7 +31,7 @@ class CountRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/drives/{drive_id}/items/{driveItem_id}/thumbnails/$count';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/drives/{drive%2Did}/items/{driveItem%2Did}/thumbnails/$count';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

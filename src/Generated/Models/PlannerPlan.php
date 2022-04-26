@@ -12,6 +12,9 @@ class PlannerPlan extends Entity
     /** @var array<PlannerBucket>|null $buckets Read-only. Nullable. Collection of buckets in the plan. */
     private ?array $buckets = null;
     
+    /** @var PlannerPlanContainer|null $container Identifies the container of the plan. After it is set, this property can’t be updated. Required. */
+    private ?PlannerPlanContainer $container = null;
+    
     /** @var IdentitySet|null $createdBy Read-only. The user who created the plan. */
     private ?IdentitySet $createdBy = null;
     
@@ -55,6 +58,14 @@ class PlannerPlan extends Entity
     }
 
     /**
+     * Gets the container property value. Identifies the container of the plan. After it is set, this property can’t be updated. Required.
+     * @return PlannerPlanContainer|null
+    */
+    public function getContainer(): ?PlannerPlanContainer {
+        return $this->container;
+    }
+
+    /**
      * Gets the createdBy property value. Read-only. The user who created the plan.
      * @return IdentitySet|null
     */
@@ -83,14 +94,16 @@ class PlannerPlan extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'buckets' => function (self $o, ParseNode $n) { $o->setBuckets($n->getCollectionOfObjectValues(PlannerBucket::class)); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'details' => function (self $o, ParseNode $n) { $o->setDetails($n->getObjectValue(PlannerPlanDetails::class)); },
-            'owner' => function (self $o, ParseNode $n) { $o->setOwner($n->getStringValue()); },
-            'tasks' => function (self $o, ParseNode $n) { $o->setTasks($n->getCollectionOfObjectValues(PlannerTask::class)); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
+            'buckets' => function (ParseNode $n) use ($currentObject) { $currentObject->setBuckets($n->getCollectionOfObjectValues(PlannerBucket::class)); },
+            'container' => function (ParseNode $n) use ($currentObject) { $currentObject->setContainer($n->getObjectValue(PlannerPlanContainer::class)); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'details' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetails($n->getObjectValue(PlannerPlanDetails::class)); },
+            'owner' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwner($n->getStringValue()); },
+            'tasks' => function (ParseNode $n) use ($currentObject) { $currentObject->setTasks($n->getCollectionOfObjectValues(PlannerTask::class)); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
         ]);
     }
 
@@ -125,6 +138,7 @@ class PlannerPlan extends Entity
     public function serialize(SerializationWriter $writer): void {
         parent::serialize($writer);
         $writer->writeCollectionOfObjectValues('buckets', $this->buckets);
+        $writer->writeObjectValue('container', $this->container);
         $writer->writeObjectValue('createdBy', $this->createdBy);
         $writer->writeDateTimeValue('createdDateTime', $this->createdDateTime);
         $writer->writeObjectValue('details', $this->details);
@@ -139,6 +153,14 @@ class PlannerPlan extends Entity
     */
     public function setBuckets(?array $value ): void {
         $this->buckets = $value;
+    }
+
+    /**
+     * Sets the container property value. Identifies the container of the plan. After it is set, this property can’t be updated. Required.
+     *  @param PlannerPlanContainer|null $value Value to set for the container property.
+    */
+    public function setContainer(?PlannerPlanContainer $value ): void {
+        $this->container = $value;
     }
 
     /**

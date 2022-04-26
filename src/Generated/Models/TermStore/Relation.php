@@ -42,11 +42,12 @@ class Relation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'fromTerm' => function (self $o, ParseNode $n) { $o->setFromTerm($n->getObjectValue(Term::class)); },
-            'relationship' => function (self $o, ParseNode $n) { $o->setRelationship($n->getEnumValue(RelationType::class)); },
-            'set' => function (self $o, ParseNode $n) { $o->setSet($n->getObjectValue(Set::class)); },
-            'toTerm' => function (self $o, ParseNode $n) { $o->setToTerm($n->getObjectValue(Term::class)); },
+            'fromTerm' => function (ParseNode $n) use ($currentObject) { $currentObject->setFromTerm($n->getObjectValue(Term::class)); },
+            'relationship' => function (ParseNode $n) use ($currentObject) { $currentObject->setRelationship($n->getEnumValue(RelationType::class)); },
+            'set' => function (ParseNode $n) use ($currentObject) { $currentObject->setSet($n->getObjectValue(Set::class)); },
+            'toTerm' => function (ParseNode $n) use ($currentObject) { $currentObject->setToTerm($n->getObjectValue(Term::class)); },
         ]);
     }
 

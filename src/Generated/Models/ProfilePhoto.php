@@ -35,9 +35,10 @@ class ProfilePhoto extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'height' => function (self $o, ParseNode $n) { $o->setHeight($n->getIntegerValue()); },
-            'width' => function (self $o, ParseNode $n) { $o->setWidth($n->getIntegerValue()); },
+            'height' => function (ParseNode $n) use ($currentObject) { $currentObject->setHeight($n->getIntegerValue()); },
+            'width' => function (ParseNode $n) use ($currentObject) { $currentObject->setWidth($n->getIntegerValue()); },
         ]);
     }
 

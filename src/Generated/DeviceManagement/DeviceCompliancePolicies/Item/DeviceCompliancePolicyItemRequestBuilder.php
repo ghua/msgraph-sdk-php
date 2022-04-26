@@ -110,7 +110,7 @@ class DeviceCompliancePolicyItemRequestBuilder
     */
     public function assignmentsById(string $id): DeviceCompliancePolicyAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceCompliancePolicyAssignment_id'] = $id;
+        $urlTplParams['deviceCompliancePolicyAssignment%2Did'] = $id;
         return new DeviceCompliancePolicyAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -120,7 +120,7 @@ class DeviceCompliancePolicyItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceCompliancePolicies/{deviceCompliancePolicy_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceCompliancePolicies/{deviceCompliancePolicy%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -214,7 +214,7 @@ class DeviceCompliancePolicyItemRequestBuilder
     */
     public function deviceSettingStateSummariesById(string $id): SettingStateDeviceSummaryItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['settingStateDeviceSummary_id'] = $id;
+        $urlTplParams['settingStateDeviceSummary%2Did'] = $id;
         return new SettingStateDeviceSummaryItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -225,7 +225,7 @@ class DeviceCompliancePolicyItemRequestBuilder
     */
     public function deviceStatusesById(string $id): DeviceComplianceDeviceStatusItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceComplianceDeviceStatus_id'] = $id;
+        $urlTplParams['deviceComplianceDeviceStatus%2Did'] = $id;
         return new DeviceComplianceDeviceStatusItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -270,7 +270,7 @@ class DeviceCompliancePolicyItemRequestBuilder
     */
     public function scheduledActionsForRuleById(string $id): DeviceComplianceScheduledActionForRuleItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceComplianceScheduledActionForRule_id'] = $id;
+        $urlTplParams['deviceComplianceScheduledActionForRule%2Did'] = $id;
         return new DeviceComplianceScheduledActionForRuleItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -281,8 +281,19 @@ class DeviceCompliancePolicyItemRequestBuilder
     */
     public function userStatusesById(string $id): DeviceComplianceUserStatusItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceComplianceUserStatus_id'] = $id;
+        $urlTplParams['deviceComplianceUserStatus%2Did'] = $id;
         return new DeviceComplianceUserStatusItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

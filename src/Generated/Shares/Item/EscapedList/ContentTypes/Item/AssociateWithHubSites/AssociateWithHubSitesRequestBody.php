@@ -47,9 +47,10 @@ class AssociateWithHubSitesRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'hubSiteUrls' => function (self $o, ParseNode $n) { $o->setHubSiteUrls($n->getCollectionOfPrimitiveValues()); },
-            'propagateToExistingLists' => function (self $o, ParseNode $n) { $o->setPropagateToExistingLists($n->getBooleanValue()); },
+            'hubSiteUrls' => function (ParseNode $n) use ($currentObject) { $currentObject->setHubSiteUrls($n->getCollectionOfPrimitiveValues()); },
+            'propagateToExistingLists' => function (ParseNode $n) use ($currentObject) { $currentObject->setPropagateToExistingLists($n->getBooleanValue()); },
         ];
     }
 

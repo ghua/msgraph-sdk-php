@@ -79,11 +79,12 @@ class WindowsInformationProtectionDataRecoveryCertificate implements AdditionalD
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'certificate' => function (self $o, ParseNode $n) { $o->setCertificate($n->getBinaryContent()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'subjectName' => function (self $o, ParseNode $n) { $o->setSubjectName($n->getStringValue()); },
+            'certificate' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificate($n->getBinaryContent()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'subjectName' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubjectName($n->getStringValue()); },
         ];
     }
 

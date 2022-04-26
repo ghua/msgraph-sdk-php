@@ -30,7 +30,7 @@ class DismissReminderRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/calendarView/{event_id}/instances/{event_id1}/microsoft.graph.dismissReminder';
+        $this->urlTemplate = '{+baseurl}/me/calendarView/{event%2Did}/instances/{event%2Did1}/microsoft.graph.dismissReminder';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

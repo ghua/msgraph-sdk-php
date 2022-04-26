@@ -103,18 +103,19 @@ class BaseItem extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdByUser' => function (self $o, ParseNode $n) { $o->setCreatedByUser($n->getObjectValue(User::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'eTag' => function (self $o, ParseNode $n) { $o->setETag($n->getStringValue()); },
-            'lastModifiedBy' => function (self $o, ParseNode $n) { $o->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
-            'lastModifiedByUser' => function (self $o, ParseNode $n) { $o->setLastModifiedByUser($n->getObjectValue(User::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'parentReference' => function (self $o, ParseNode $n) { $o->setParentReference($n->getObjectValue(ItemReference::class)); },
-            'webUrl' => function (self $o, ParseNode $n) { $o->setWebUrl($n->getStringValue()); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdByUser' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedByUser($n->getObjectValue(User::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'eTag' => function (ParseNode $n) use ($currentObject) { $currentObject->setETag($n->getStringValue()); },
+            'lastModifiedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
+            'lastModifiedByUser' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedByUser($n->getObjectValue(User::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'parentReference' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentReference($n->getObjectValue(ItemReference::class)); },
+            'webUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebUrl($n->getStringValue()); },
         ]);
     }
 

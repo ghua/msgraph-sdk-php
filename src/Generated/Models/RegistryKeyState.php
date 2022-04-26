@@ -71,17 +71,18 @@ class RegistryKeyState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'hive' => function (self $o, ParseNode $n) { $o->setHive($n->getEnumValue(RegistryHive::class)); },
-            'key' => function (self $o, ParseNode $n) { $o->setKey($n->getStringValue()); },
-            'oldKey' => function (self $o, ParseNode $n) { $o->setOldKey($n->getStringValue()); },
-            'oldValueData' => function (self $o, ParseNode $n) { $o->setOldValueData($n->getStringValue()); },
-            'oldValueName' => function (self $o, ParseNode $n) { $o->setOldValueName($n->getStringValue()); },
-            'operation' => function (self $o, ParseNode $n) { $o->setOperation($n->getEnumValue(RegistryOperation::class)); },
-            'processId' => function (self $o, ParseNode $n) { $o->setProcessId($n->getIntegerValue()); },
-            'valueData' => function (self $o, ParseNode $n) { $o->setValueData($n->getStringValue()); },
-            'valueName' => function (self $o, ParseNode $n) { $o->setValueName($n->getStringValue()); },
-            'valueType' => function (self $o, ParseNode $n) { $o->setValueType($n->getEnumValue(RegistryValueType::class)); },
+            'hive' => function (ParseNode $n) use ($currentObject) { $currentObject->setHive($n->getEnumValue(RegistryHive::class)); },
+            'key' => function (ParseNode $n) use ($currentObject) { $currentObject->setKey($n->getStringValue()); },
+            'oldKey' => function (ParseNode $n) use ($currentObject) { $currentObject->setOldKey($n->getStringValue()); },
+            'oldValueData' => function (ParseNode $n) use ($currentObject) { $currentObject->setOldValueData($n->getStringValue()); },
+            'oldValueName' => function (ParseNode $n) use ($currentObject) { $currentObject->setOldValueName($n->getStringValue()); },
+            'operation' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperation($n->getEnumValue(RegistryOperation::class)); },
+            'processId' => function (ParseNode $n) use ($currentObject) { $currentObject->setProcessId($n->getIntegerValue()); },
+            'valueData' => function (ParseNode $n) use ($currentObject) { $currentObject->setValueData($n->getStringValue()); },
+            'valueName' => function (ParseNode $n) use ($currentObject) { $currentObject->setValueName($n->getStringValue()); },
+            'valueType' => function (ParseNode $n) use ($currentObject) { $currentObject->setValueType($n->getEnumValue(RegistryValueType::class)); },
         ];
     }
 

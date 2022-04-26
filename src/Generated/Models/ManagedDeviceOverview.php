@@ -76,12 +76,13 @@ class ManagedDeviceOverview extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'deviceExchangeAccessStateSummary' => function (self $o, ParseNode $n) { $o->setDeviceExchangeAccessStateSummary($n->getObjectValue(DeviceExchangeAccessStateSummary::class)); },
-            'deviceOperatingSystemSummary' => function (self $o, ParseNode $n) { $o->setDeviceOperatingSystemSummary($n->getObjectValue(DeviceOperatingSystemSummary::class)); },
-            'dualEnrolledDeviceCount' => function (self $o, ParseNode $n) { $o->setDualEnrolledDeviceCount($n->getIntegerValue()); },
-            'enrolledDeviceCount' => function (self $o, ParseNode $n) { $o->setEnrolledDeviceCount($n->getIntegerValue()); },
-            'mdmEnrolledCount' => function (self $o, ParseNode $n) { $o->setMdmEnrolledCount($n->getIntegerValue()); },
+            'deviceExchangeAccessStateSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceExchangeAccessStateSummary($n->getObjectValue(DeviceExchangeAccessStateSummary::class)); },
+            'deviceOperatingSystemSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceOperatingSystemSummary($n->getObjectValue(DeviceOperatingSystemSummary::class)); },
+            'dualEnrolledDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDualEnrolledDeviceCount($n->getIntegerValue()); },
+            'enrolledDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnrolledDeviceCount($n->getIntegerValue()); },
+            'mdmEnrolledCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setMdmEnrolledCount($n->getIntegerValue()); },
         ]);
     }
 

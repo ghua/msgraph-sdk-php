@@ -88,7 +88,7 @@ class DriveRequestBuilder
     */
     public function bundlesById(string $id): MicrosoftGraphGeneratedDriveBundlesItemDriveItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['driveItem_id'] = $id;
+        $urlTplParams['driveItem%2Did'] = $id;
         return new MicrosoftGraphGeneratedDriveBundlesItemDriveItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -98,7 +98,7 @@ class DriveRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/drive{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/drive{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -156,7 +156,7 @@ class DriveRequestBuilder
     */
     public function followingById(string $id): MicrosoftGraphGeneratedDriveFollowingItemDriveItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['driveItem_id'] = $id;
+        $urlTplParams['driveItem%2Did'] = $id;
         return new MicrosoftGraphGeneratedDriveFollowingItemDriveItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -184,7 +184,7 @@ class DriveRequestBuilder
     */
     public function itemsById(string $id): MicrosoftGraphGeneratedDriveItemsItemDriveItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['driveItem_id'] = $id;
+        $urlTplParams['driveItem%2Did'] = $id;
         return new MicrosoftGraphGeneratedDriveItemsItemDriveItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -237,8 +237,19 @@ class DriveRequestBuilder
     */
     public function specialById(string $id): MicrosoftGraphGeneratedDriveSpecialItemDriveItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['driveItem_id'] = $id;
+        $urlTplParams['driveItem%2Did'] = $id;
         return new MicrosoftGraphGeneratedDriveSpecialItemDriveItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

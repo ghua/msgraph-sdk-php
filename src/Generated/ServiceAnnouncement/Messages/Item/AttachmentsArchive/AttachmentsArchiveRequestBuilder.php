@@ -32,7 +32,7 @@ class AttachmentsArchiveRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/admin/serviceAnnouncement/messages/{serviceUpdateMessage_id}/attachmentsArchive';
+        $this->urlTemplate = '{+baseurl}/admin/serviceAnnouncement/messages/{serviceUpdateMessage%2Did}/attachmentsArchive';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

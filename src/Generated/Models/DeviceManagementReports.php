@@ -40,8 +40,9 @@ class DeviceManagementReports extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'exportJobs' => function (self $o, ParseNode $n) { $o->setExportJobs($n->getCollectionOfObjectValues(DeviceManagementExportJob::class)); },
+            'exportJobs' => function (ParseNode $n) use ($currentObject) { $currentObject->setExportJobs($n->getCollectionOfObjectValues(DeviceManagementExportJob::class)); },
         ]);
     }
 

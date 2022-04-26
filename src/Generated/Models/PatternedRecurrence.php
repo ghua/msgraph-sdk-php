@@ -47,9 +47,10 @@ class PatternedRecurrence implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'pattern' => function (self $o, ParseNode $n) { $o->setPattern($n->getObjectValue(RecurrencePattern::class)); },
-            'range' => function (self $o, ParseNode $n) { $o->setRange($n->getObjectValue(RecurrenceRange::class)); },
+            'pattern' => function (ParseNode $n) use ($currentObject) { $currentObject->setPattern($n->getObjectValue(RecurrencePattern::class)); },
+            'range' => function (ParseNode $n) use ($currentObject) { $currentObject->setRange($n->getObjectValue(RecurrenceRange::class)); },
         ];
     }
 

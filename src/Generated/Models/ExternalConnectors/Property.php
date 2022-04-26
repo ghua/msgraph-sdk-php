@@ -73,15 +73,16 @@ class Property implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'aliases' => function (self $o, ParseNode $n) { $o->setAliases($n->getCollectionOfPrimitiveValues()); },
-            'isQueryable' => function (self $o, ParseNode $n) { $o->setIsQueryable($n->getBooleanValue()); },
-            'isRefinable' => function (self $o, ParseNode $n) { $o->setIsRefinable($n->getBooleanValue()); },
-            'isRetrievable' => function (self $o, ParseNode $n) { $o->setIsRetrievable($n->getBooleanValue()); },
-            'isSearchable' => function (self $o, ParseNode $n) { $o->setIsSearchable($n->getBooleanValue()); },
-            'labels' => function (self $o, ParseNode $n) { $o->setLabels($n->getCollectionOfEnumValues(Label::class)); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(PropertyType::class)); },
+            'aliases' => function (ParseNode $n) use ($currentObject) { $currentObject->setAliases($n->getCollectionOfPrimitiveValues()); },
+            'isQueryable' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsQueryable($n->getBooleanValue()); },
+            'isRefinable' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsRefinable($n->getBooleanValue()); },
+            'isRetrievable' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsRetrievable($n->getBooleanValue()); },
+            'isSearchable' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsSearchable($n->getBooleanValue()); },
+            'labels' => function (ParseNode $n) use ($currentObject) { $currentObject->setLabels($n->getCollectionOfEnumValues(Label::class)); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(PropertyType::class)); },
         ];
     }
 

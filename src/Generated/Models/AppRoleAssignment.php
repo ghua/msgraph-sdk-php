@@ -67,14 +67,15 @@ class AppRoleAssignment extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'appRoleId' => function (self $o, ParseNode $n) { $o->setAppRoleId($n->getStringValue()); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'principalDisplayName' => function (self $o, ParseNode $n) { $o->setPrincipalDisplayName($n->getStringValue()); },
-            'principalId' => function (self $o, ParseNode $n) { $o->setPrincipalId($n->getStringValue()); },
-            'principalType' => function (self $o, ParseNode $n) { $o->setPrincipalType($n->getStringValue()); },
-            'resourceDisplayName' => function (self $o, ParseNode $n) { $o->setResourceDisplayName($n->getStringValue()); },
-            'resourceId' => function (self $o, ParseNode $n) { $o->setResourceId($n->getStringValue()); },
+            'appRoleId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppRoleId($n->getStringValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'principalDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalDisplayName($n->getStringValue()); },
+            'principalId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalId($n->getStringValue()); },
+            'principalType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrincipalType($n->getStringValue()); },
+            'resourceDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceDisplayName($n->getStringValue()); },
+            'resourceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceId($n->getStringValue()); },
         ]);
     }
 

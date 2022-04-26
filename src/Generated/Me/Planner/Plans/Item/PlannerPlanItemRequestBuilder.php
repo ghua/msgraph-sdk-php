@@ -59,7 +59,7 @@ class PlannerPlanItemRequestBuilder
     */
     public function bucketsById(string $id): PlannerBucketItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['plannerBucket_id'] = $id;
+        $urlTplParams['plannerBucket%2Did'] = $id;
         return new PlannerBucketItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -69,7 +69,7 @@ class PlannerPlanItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/planner/plans/{plannerPlan_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/me/planner/plans/{plannerPlan%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -197,8 +197,19 @@ class PlannerPlanItemRequestBuilder
     */
     public function tasksById(string $id): PlannerTaskItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['plannerTask_id'] = $id;
+        $urlTplParams['plannerTask%2Did'] = $id;
         return new PlannerTaskItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

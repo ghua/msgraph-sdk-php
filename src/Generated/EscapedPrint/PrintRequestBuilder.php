@@ -87,7 +87,7 @@ class PrintRequestBuilder
     */
     public function connectorsById(string $id): PrintConnectorItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printConnector_id'] = $id;
+        $urlTplParams['printConnector%2Did'] = $id;
         return new PrintConnectorItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -97,7 +97,7 @@ class PrintRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/print{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/print{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -172,7 +172,7 @@ class PrintRequestBuilder
     */
     public function operationsById(string $id): PrintOperationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printOperation_id'] = $id;
+        $urlTplParams['printOperation%2Did'] = $id;
         return new PrintOperationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -200,7 +200,7 @@ class PrintRequestBuilder
     */
     public function printersById(string $id): PrinterItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printer_id'] = $id;
+        $urlTplParams['printer%2Did'] = $id;
         return new PrinterItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -211,7 +211,7 @@ class PrintRequestBuilder
     */
     public function servicesById(string $id): PrintServiceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printService_id'] = $id;
+        $urlTplParams['printService%2Did'] = $id;
         return new PrintServiceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -222,7 +222,7 @@ class PrintRequestBuilder
     */
     public function sharesById(string $id): PrinterShareItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printerShare_id'] = $id;
+        $urlTplParams['printerShare%2Did'] = $id;
         return new PrinterShareItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -233,8 +233,19 @@ class PrintRequestBuilder
     */
     public function taskDefinitionsById(string $id): PrintTaskDefinitionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printTaskDefinition_id'] = $id;
+        $urlTplParams['printTaskDefinition%2Did'] = $id;
         return new PrintTaskDefinitionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

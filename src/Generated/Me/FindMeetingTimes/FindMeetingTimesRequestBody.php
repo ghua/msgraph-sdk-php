@@ -77,15 +77,16 @@ class FindMeetingTimesRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'attendees' => function (self $o, ParseNode $n) { $o->setAttendees($n->getCollectionOfObjectValues(AttendeeBase::class)); },
-            'isOrganizerOptional' => function (self $o, ParseNode $n) { $o->setIsOrganizerOptional($n->getBooleanValue()); },
-            'locationConstraint' => function (self $o, ParseNode $n) { $o->setLocationConstraint($n->getObjectValue(LocationConstraint::class)); },
-            'maxCandidates' => function (self $o, ParseNode $n) { $o->setMaxCandidates($n->getIntegerValue()); },
-            'meetingDuration' => function (self $o, ParseNode $n) { $o->setMeetingDuration($n->getDateIntervalValue()); },
-            'minimumAttendeePercentage' => function (self $o, ParseNode $n) { $o->setMinimumAttendeePercentage($n->getFloatValue()); },
-            'returnSuggestionReasons' => function (self $o, ParseNode $n) { $o->setReturnSuggestionReasons($n->getBooleanValue()); },
-            'timeConstraint' => function (self $o, ParseNode $n) { $o->setTimeConstraint($n->getObjectValue(TimeConstraint::class)); },
+            'attendees' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttendees($n->getCollectionOfObjectValues(AttendeeBase::class)); },
+            'isOrganizerOptional' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsOrganizerOptional($n->getBooleanValue()); },
+            'locationConstraint' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocationConstraint($n->getObjectValue(LocationConstraint::class)); },
+            'maxCandidates' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaxCandidates($n->getIntegerValue()); },
+            'meetingDuration' => function (ParseNode $n) use ($currentObject) { $currentObject->setMeetingDuration($n->getDateIntervalValue()); },
+            'minimumAttendeePercentage' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumAttendeePercentage($n->getFloatValue()); },
+            'returnSuggestionReasons' => function (ParseNode $n) use ($currentObject) { $currentObject->setReturnSuggestionReasons($n->getBooleanValue()); },
+            'timeConstraint' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeConstraint($n->getObjectValue(TimeConstraint::class)); },
         ];
     }
 

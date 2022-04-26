@@ -116,21 +116,22 @@ class UserSecurityState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'aadUserId' => function (self $o, ParseNode $n) { $o->setAadUserId($n->getStringValue()); },
-            'accountName' => function (self $o, ParseNode $n) { $o->setAccountName($n->getStringValue()); },
-            'domainName' => function (self $o, ParseNode $n) { $o->setDomainName($n->getStringValue()); },
-            'emailRole' => function (self $o, ParseNode $n) { $o->setEmailRole($n->getEnumValue(EmailRole::class)); },
-            'isVpn' => function (self $o, ParseNode $n) { $o->setIsVpn($n->getBooleanValue()); },
-            'logonDateTime' => function (self $o, ParseNode $n) { $o->setLogonDateTime($n->getDateTimeValue()); },
-            'logonId' => function (self $o, ParseNode $n) { $o->setLogonId($n->getStringValue()); },
-            'logonIp' => function (self $o, ParseNode $n) { $o->setLogonIp($n->getStringValue()); },
-            'logonLocation' => function (self $o, ParseNode $n) { $o->setLogonLocation($n->getStringValue()); },
-            'logonType' => function (self $o, ParseNode $n) { $o->setLogonType($n->getEnumValue(LogonType::class)); },
-            'onPremisesSecurityIdentifier' => function (self $o, ParseNode $n) { $o->setOnPremisesSecurityIdentifier($n->getStringValue()); },
-            'riskScore' => function (self $o, ParseNode $n) { $o->setRiskScore($n->getStringValue()); },
-            'userAccountType' => function (self $o, ParseNode $n) { $o->setUserAccountType($n->getEnumValue(UserAccountSecurityType::class)); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'aadUserId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAadUserId($n->getStringValue()); },
+            'accountName' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccountName($n->getStringValue()); },
+            'domainName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDomainName($n->getStringValue()); },
+            'emailRole' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmailRole($n->getEnumValue(EmailRole::class)); },
+            'isVpn' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsVpn($n->getBooleanValue()); },
+            'logonDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLogonDateTime($n->getDateTimeValue()); },
+            'logonId' => function (ParseNode $n) use ($currentObject) { $currentObject->setLogonId($n->getStringValue()); },
+            'logonIp' => function (ParseNode $n) use ($currentObject) { $currentObject->setLogonIp($n->getStringValue()); },
+            'logonLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setLogonLocation($n->getStringValue()); },
+            'logonType' => function (ParseNode $n) use ($currentObject) { $currentObject->setLogonType($n->getEnumValue(LogonType::class)); },
+            'onPremisesSecurityIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesSecurityIdentifier($n->getStringValue()); },
+            'riskScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskScore($n->getStringValue()); },
+            'userAccountType' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserAccountType($n->getEnumValue(UserAccountSecurityType::class)); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ];
     }
 

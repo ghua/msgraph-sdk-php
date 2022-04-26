@@ -69,11 +69,12 @@ class TeamsTabConfiguration implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'contentUrl' => function (self $o, ParseNode $n) { $o->setContentUrl($n->getStringValue()); },
-            'entityId' => function (self $o, ParseNode $n) { $o->setEntityId($n->getStringValue()); },
-            'removeUrl' => function (self $o, ParseNode $n) { $o->setRemoveUrl($n->getStringValue()); },
-            'websiteUrl' => function (self $o, ParseNode $n) { $o->setWebsiteUrl($n->getStringValue()); },
+            'contentUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentUrl($n->getStringValue()); },
+            'entityId' => function (ParseNode $n) use ($currentObject) { $currentObject->setEntityId($n->getStringValue()); },
+            'removeUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemoveUrl($n->getStringValue()); },
+            'websiteUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setWebsiteUrl($n->getStringValue()); },
         ];
     }
 

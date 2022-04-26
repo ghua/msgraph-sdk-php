@@ -67,14 +67,15 @@ class AccessReviewHistoryInstance extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'downloadUri' => function (self $o, ParseNode $n) { $o->setDownloadUri($n->getStringValue()); },
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'fulfilledDateTime' => function (self $o, ParseNode $n) { $o->setFulfilledDateTime($n->getDateTimeValue()); },
-            'reviewHistoryPeriodEndDateTime' => function (self $o, ParseNode $n) { $o->setReviewHistoryPeriodEndDateTime($n->getDateTimeValue()); },
-            'reviewHistoryPeriodStartDateTime' => function (self $o, ParseNode $n) { $o->setReviewHistoryPeriodStartDateTime($n->getDateTimeValue()); },
-            'runDateTime' => function (self $o, ParseNode $n) { $o->setRunDateTime($n->getDateTimeValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(AccessReviewHistoryStatus::class)); },
+            'downloadUri' => function (ParseNode $n) use ($currentObject) { $currentObject->setDownloadUri($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'fulfilledDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setFulfilledDateTime($n->getDateTimeValue()); },
+            'reviewHistoryPeriodEndDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewHistoryPeriodEndDateTime($n->getDateTimeValue()); },
+            'reviewHistoryPeriodStartDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewHistoryPeriodStartDateTime($n->getDateTimeValue()); },
+            'runDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRunDateTime($n->getDateTimeValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(AccessReviewHistoryStatus::class)); },
         ]);
     }
 

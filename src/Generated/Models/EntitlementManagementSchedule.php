@@ -16,7 +16,7 @@ class EntitlementManagementSchedule implements AdditionalDataHolder, Parsable
     /** @var ExpirationPattern|null $expiration When the access should expire. */
     private ?ExpirationPattern $expiration = null;
     
-    /** @var PatternedRecurrence|null $recurrence For recurring access. Not used at present. */
+    /** @var PatternedRecurrence|null $recurrence For recurring access reviews.  Not used in access requests. */
     private ?PatternedRecurrence $recurrence = null;
     
     /** @var DateTime|null $startDateTime The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. */
@@ -59,15 +59,16 @@ class EntitlementManagementSchedule implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'expiration' => function (self $o, ParseNode $n) { $o->setExpiration($n->getObjectValue(ExpirationPattern::class)); },
-            'recurrence' => function (self $o, ParseNode $n) { $o->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
+            'expiration' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpiration($n->getObjectValue(ExpirationPattern::class)); },
+            'recurrence' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
         ];
     }
 
     /**
-     * Gets the recurrence property value. For recurring access. Not used at present.
+     * Gets the recurrence property value. For recurring access reviews.  Not used in access requests.
      * @return PatternedRecurrence|null
     */
     public function getRecurrence(): ?PatternedRecurrence {
@@ -110,7 +111,7 @@ class EntitlementManagementSchedule implements AdditionalDataHolder, Parsable
     }
 
     /**
-     * Sets the recurrence property value. For recurring access. Not used at present.
+     * Sets the recurrence property value. For recurring access reviews.  Not used in access requests.
      *  @param PatternedRecurrence|null $value Value to set for the recurrence property.
     */
     public function setRecurrence(?PatternedRecurrence $value ): void {

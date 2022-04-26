@@ -41,11 +41,12 @@ class UsedInsight extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'lastUsed' => function (self $o, ParseNode $n) { $o->setLastUsed($n->getObjectValue(UsageDetails::class)); },
-            'resource' => function (self $o, ParseNode $n) { $o->setResource($n->getObjectValue(Entity::class)); },
-            'resourceReference' => function (self $o, ParseNode $n) { $o->setResourceReference($n->getObjectValue(ResourceReference::class)); },
-            'resourceVisualization' => function (self $o, ParseNode $n) { $o->setResourceVisualization($n->getObjectValue(ResourceVisualization::class)); },
+            'lastUsed' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastUsed($n->getObjectValue(UsageDetails::class)); },
+            'resource' => function (ParseNode $n) use ($currentObject) { $currentObject->setResource($n->getObjectValue(Entity::class)); },
+            'resourceReference' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceReference($n->getObjectValue(ResourceReference::class)); },
+            'resourceVisualization' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceVisualization($n->getObjectValue(ResourceVisualization::class)); },
         ]);
     }
 

@@ -47,9 +47,10 @@ class SortProperty implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'isDescending' => function (self $o, ParseNode $n) { $o->setIsDescending($n->getBooleanValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
+            'isDescending' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDescending($n->getBooleanValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
         ];
     }
 

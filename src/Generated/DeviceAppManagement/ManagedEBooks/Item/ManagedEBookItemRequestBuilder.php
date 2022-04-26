@@ -76,7 +76,7 @@ class ManagedEBookItemRequestBuilder
     */
     public function assignmentsById(string $id): ManagedEBookAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['managedEBookAssignment_id'] = $id;
+        $urlTplParams['managedEBookAssignment%2Did'] = $id;
         return new ManagedEBookAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -86,7 +86,7 @@ class ManagedEBookItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedEBooks/{managedEBook_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceAppManagement/managedEBooks/{managedEBook%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -180,7 +180,7 @@ class ManagedEBookItemRequestBuilder
     */
     public function deviceStatesById(string $id): DeviceInstallStateItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceInstallState_id'] = $id;
+        $urlTplParams['deviceInstallState%2Did'] = $id;
         return new DeviceInstallStateItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -225,8 +225,19 @@ class ManagedEBookItemRequestBuilder
     */
     public function userStateSummaryById(string $id): UserInstallStateSummaryItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['userInstallStateSummary_id'] = $id;
+        $urlTplParams['userInstallStateSummary%2Did'] = $id;
         return new UserInstallStateSummaryItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

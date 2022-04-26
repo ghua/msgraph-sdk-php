@@ -40,8 +40,9 @@ class ShiftPreferences extends ChangeTrackedEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'availability' => function (self $o, ParseNode $n) { $o->setAvailability($n->getCollectionOfObjectValues(ShiftAvailability::class)); },
+            'availability' => function (ParseNode $n) use ($currentObject) { $currentObject->setAvailability($n->getCollectionOfObjectValues(ShiftAvailability::class)); },
         ]);
     }
 

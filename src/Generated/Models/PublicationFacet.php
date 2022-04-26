@@ -47,9 +47,10 @@ class PublicationFacet implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'level' => function (self $o, ParseNode $n) { $o->setLevel($n->getStringValue()); },
-            'versionId' => function (self $o, ParseNode $n) { $o->setVersionId($n->getStringValue()); },
+            'level' => function (ParseNode $n) use ($currentObject) { $currentObject->setLevel($n->getStringValue()); },
+            'versionId' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersionId($n->getStringValue()); },
         ];
     }
 

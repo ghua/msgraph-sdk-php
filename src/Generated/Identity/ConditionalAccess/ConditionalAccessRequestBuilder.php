@@ -50,7 +50,7 @@ class ConditionalAccessRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identity/conditionalAccess{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identity/conditionalAccess{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -161,7 +161,7 @@ class ConditionalAccessRequestBuilder
     */
     public function namedLocationsById(string $id): NamedLocationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['namedLocation_id'] = $id;
+        $urlTplParams['namedLocation%2Did'] = $id;
         return new NamedLocationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -189,8 +189,19 @@ class ConditionalAccessRequestBuilder
     */
     public function policiesById(string $id): ConditionalAccessPolicyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['conditionalAccessPolicy_id'] = $id;
+        $urlTplParams['conditionalAccessPolicy%2Did'] = $id;
         return new ConditionalAccessPolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

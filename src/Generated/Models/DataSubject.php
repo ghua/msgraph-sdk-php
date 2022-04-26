@@ -61,11 +61,12 @@ class DataSubject implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'email' => function (self $o, ParseNode $n) { $o->setEmail($n->getStringValue()); },
-            'firstName' => function (self $o, ParseNode $n) { $o->setFirstName($n->getStringValue()); },
-            'lastName' => function (self $o, ParseNode $n) { $o->setLastName($n->getStringValue()); },
-            'residency' => function (self $o, ParseNode $n) { $o->setResidency($n->getStringValue()); },
+            'email' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmail($n->getStringValue()); },
+            'firstName' => function (ParseNode $n) use ($currentObject) { $currentObject->setFirstName($n->getStringValue()); },
+            'lastName' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastName($n->getStringValue()); },
+            'residency' => function (ParseNode $n) use ($currentObject) { $currentObject->setResidency($n->getStringValue()); },
         ];
     }
 

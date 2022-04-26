@@ -47,9 +47,10 @@ class FreeBusyError implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
-            'responseCode' => function (self $o, ParseNode $n) { $o->setResponseCode($n->getStringValue()); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
+            'responseCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setResponseCode($n->getStringValue()); },
         ];
     }
 

@@ -63,11 +63,12 @@ class TermColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowMultipleValues' => function (self $o, ParseNode $n) { $o->setAllowMultipleValues($n->getBooleanValue()); },
-            'parentTerm' => function (self $o, ParseNode $n) { $o->setParentTerm($n->getObjectValue(Term::class)); },
-            'showFullyQualifiedName' => function (self $o, ParseNode $n) { $o->setShowFullyQualifiedName($n->getBooleanValue()); },
-            'termSet' => function (self $o, ParseNode $n) { $o->setTermSet($n->getObjectValue(Set::class)); },
+            'allowMultipleValues' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowMultipleValues($n->getBooleanValue()); },
+            'parentTerm' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentTerm($n->getObjectValue(Term::class)); },
+            'showFullyQualifiedName' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowFullyQualifiedName($n->getBooleanValue()); },
+            'termSet' => function (ParseNode $n) use ($currentObject) { $currentObject->setTermSet($n->getObjectValue(Set::class)); },
         ];
     }
 

@@ -44,8 +44,9 @@ class ArchiveRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'shouldSetSpoSiteReadOnlyForMembers' => function (self $o, ParseNode $n) { $o->setShouldSetSpoSiteReadOnlyForMembers($n->getBooleanValue()); },
+            'shouldSetSpoSiteReadOnlyForMembers' => function (ParseNode $n) use ($currentObject) { $currentObject->setShouldSetSpoSiteReadOnlyForMembers($n->getBooleanValue()); },
         ];
     }
 

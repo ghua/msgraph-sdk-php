@@ -59,7 +59,7 @@ class AgreementItemRequestBuilder
     */
     public function acceptancesById(string $id): AgreementAcceptanceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['agreementAcceptance_id'] = $id;
+        $urlTplParams['agreementAcceptance%2Did'] = $id;
         return new AgreementAcceptanceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -69,7 +69,7 @@ class AgreementItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identityGovernance/termsOfUse/agreements/{agreement_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identityGovernance/termsOfUse/agreements/{agreement%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -163,7 +163,7 @@ class AgreementItemRequestBuilder
     */
     public function filesById(string $id): AgreementFileLocalizationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['agreementFileLocalization_id'] = $id;
+        $urlTplParams['agreementFileLocalization%2Did'] = $id;
         return new AgreementFileLocalizationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -201,4 +201,15 @@ class AgreementItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

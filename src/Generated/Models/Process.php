@@ -102,19 +102,20 @@ class Process implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'accountName' => function (self $o, ParseNode $n) { $o->setAccountName($n->getStringValue()); },
-            'commandLine' => function (self $o, ParseNode $n) { $o->setCommandLine($n->getStringValue()); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'fileHash' => function (self $o, ParseNode $n) { $o->setFileHash($n->getObjectValue(FileHash::class)); },
-            'integrityLevel' => function (self $o, ParseNode $n) { $o->setIntegrityLevel($n->getEnumValue(ProcessIntegrityLevel::class)); },
-            'isElevated' => function (self $o, ParseNode $n) { $o->setIsElevated($n->getBooleanValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'parentProcessCreatedDateTime' => function (self $o, ParseNode $n) { $o->setParentProcessCreatedDateTime($n->getDateTimeValue()); },
-            'parentProcessId' => function (self $o, ParseNode $n) { $o->setParentProcessId($n->getIntegerValue()); },
-            'parentProcessName' => function (self $o, ParseNode $n) { $o->setParentProcessName($n->getStringValue()); },
-            'path' => function (self $o, ParseNode $n) { $o->setPath($n->getStringValue()); },
-            'processId' => function (self $o, ParseNode $n) { $o->setProcessId($n->getIntegerValue()); },
+            'accountName' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccountName($n->getStringValue()); },
+            'commandLine' => function (ParseNode $n) use ($currentObject) { $currentObject->setCommandLine($n->getStringValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'fileHash' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileHash($n->getObjectValue(FileHash::class)); },
+            'integrityLevel' => function (ParseNode $n) use ($currentObject) { $currentObject->setIntegrityLevel($n->getEnumValue(ProcessIntegrityLevel::class)); },
+            'isElevated' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsElevated($n->getBooleanValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'parentProcessCreatedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentProcessCreatedDateTime($n->getDateTimeValue()); },
+            'parentProcessId' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentProcessId($n->getIntegerValue()); },
+            'parentProcessName' => function (ParseNode $n) use ($currentObject) { $currentObject->setParentProcessName($n->getStringValue()); },
+            'path' => function (ParseNode $n) use ($currentObject) { $currentObject->setPath($n->getStringValue()); },
+            'processId' => function (ParseNode $n) use ($currentObject) { $currentObject->setProcessId($n->getIntegerValue()); },
         ];
     }
 

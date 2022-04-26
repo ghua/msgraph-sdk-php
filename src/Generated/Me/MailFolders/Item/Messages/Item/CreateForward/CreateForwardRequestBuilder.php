@@ -31,7 +31,7 @@ class CreateForwardRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/mailFolders/{mailFolder_id}/messages/{message_id}/microsoft.graph.createForward';
+        $this->urlTemplate = '{+baseurl}/me/mailFolders/{mailFolder%2Did}/messages/{message%2Did}/microsoft.graph.createForward';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

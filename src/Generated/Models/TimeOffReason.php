@@ -46,10 +46,11 @@ class TimeOffReason extends ChangeTrackedEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'iconType' => function (self $o, ParseNode $n) { $o->setIconType($n->getEnumValue(TimeOffReasonIconType::class)); },
-            'isActive' => function (self $o, ParseNode $n) { $o->setIsActive($n->getBooleanValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'iconType' => function (ParseNode $n) use ($currentObject) { $currentObject->setIconType($n->getEnumValue(TimeOffReasonIconType::class)); },
+            'isActive' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsActive($n->getBooleanValue()); },
         ]);
     }
 

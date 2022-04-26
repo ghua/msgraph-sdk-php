@@ -96,12 +96,13 @@ class VisualInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'attribution' => function (self $o, ParseNode $n) { $o->setAttribution($n->getObjectValue(ImageInfo::class)); },
-            'backgroundColor' => function (self $o, ParseNode $n) { $o->setBackgroundColor($n->getStringValue()); },
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getObjectValue(Json::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayText' => function (self $o, ParseNode $n) { $o->setDisplayText($n->getStringValue()); },
+            'attribution' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttribution($n->getObjectValue(ImageInfo::class)); },
+            'backgroundColor' => function (ParseNode $n) use ($currentObject) { $currentObject->setBackgroundColor($n->getStringValue()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getObjectValue(Json::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayText' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayText($n->getStringValue()); },
         ];
     }
 

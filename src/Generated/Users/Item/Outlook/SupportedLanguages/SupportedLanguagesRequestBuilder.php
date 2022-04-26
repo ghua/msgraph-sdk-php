@@ -30,7 +30,7 @@ class SupportedLanguagesRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/outlook/microsoft.graph.supportedLanguages()';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/outlook/microsoft.graph.supportedLanguages()';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

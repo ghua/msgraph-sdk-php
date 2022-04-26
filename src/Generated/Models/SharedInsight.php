@@ -47,13 +47,14 @@ class SharedInsight extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'lastShared' => function (self $o, ParseNode $n) { $o->setLastShared($n->getObjectValue(SharingDetail::class)); },
-            'lastSharedMethod' => function (self $o, ParseNode $n) { $o->setLastSharedMethod($n->getObjectValue(Entity::class)); },
-            'resource' => function (self $o, ParseNode $n) { $o->setResource($n->getObjectValue(Entity::class)); },
-            'resourceReference' => function (self $o, ParseNode $n) { $o->setResourceReference($n->getObjectValue(ResourceReference::class)); },
-            'resourceVisualization' => function (self $o, ParseNode $n) { $o->setResourceVisualization($n->getObjectValue(ResourceVisualization::class)); },
-            'sharingHistory' => function (self $o, ParseNode $n) { $o->setSharingHistory($n->getCollectionOfObjectValues(SharingDetail::class)); },
+            'lastShared' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastShared($n->getObjectValue(SharingDetail::class)); },
+            'lastSharedMethod' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastSharedMethod($n->getObjectValue(Entity::class)); },
+            'resource' => function (ParseNode $n) use ($currentObject) { $currentObject->setResource($n->getObjectValue(Entity::class)); },
+            'resourceReference' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceReference($n->getObjectValue(ResourceReference::class)); },
+            'resourceVisualization' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceVisualization($n->getObjectValue(ResourceVisualization::class)); },
+            'sharingHistory' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharingHistory($n->getCollectionOfObjectValues(SharingDetail::class)); },
         ]);
     }
 

@@ -55,9 +55,10 @@ class AssignedLicense implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'disabledPlans' => function (self $o, ParseNode $n) { $o->setDisabledPlans($n->getCollectionOfPrimitiveValues()); },
-            'skuId' => function (self $o, ParseNode $n) { $o->setSkuId($n->getStringValue()); },
+            'disabledPlans' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisabledPlans($n->getCollectionOfPrimitiveValues()); },
+            'skuId' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkuId($n->getStringValue()); },
         ];
     }
 

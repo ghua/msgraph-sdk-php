@@ -38,10 +38,11 @@ class SharePointIdentitySet extends IdentitySet
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'group' => function (self $o, ParseNode $n) { $o->setGroup($n->getObjectValue(Identity::class)); },
-            'siteGroup' => function (self $o, ParseNode $n) { $o->setSiteGroup($n->getObjectValue(SharePointIdentity::class)); },
-            'siteUser' => function (self $o, ParseNode $n) { $o->setSiteUser($n->getObjectValue(SharePointIdentity::class)); },
+            'group' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroup($n->getObjectValue(Identity::class)); },
+            'siteGroup' => function (ParseNode $n) use ($currentObject) { $currentObject->setSiteGroup($n->getObjectValue(SharePointIdentity::class)); },
+            'siteUser' => function (ParseNode $n) use ($currentObject) { $currentObject->setSiteUser($n->getObjectValue(SharePointIdentity::class)); },
         ]);
     }
 

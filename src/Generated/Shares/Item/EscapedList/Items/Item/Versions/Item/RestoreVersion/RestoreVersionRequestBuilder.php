@@ -30,7 +30,7 @@ class RestoreVersionRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/shares/{sharedDriveItem_id}/list/items/{listItem_id}/versions/{listItemVersion_id}/microsoft.graph.restoreVersion';
+        $this->urlTemplate = '{+baseurl}/shares/{sharedDriveItem%2Did}/list/items/{listItem%2Did}/versions/{listItemVersion%2Did}/microsoft.graph.restoreVersion';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

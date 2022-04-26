@@ -69,11 +69,12 @@ class OptionalClaim implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'additionalProperties' => function (self $o, ParseNode $n) { $o->setAdditionalProperties($n->getCollectionOfPrimitiveValues()); },
-            'essential' => function (self $o, ParseNode $n) { $o->setEssential($n->getBooleanValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'source' => function (self $o, ParseNode $n) { $o->setSource($n->getStringValue()); },
+            'additionalProperties' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdditionalProperties($n->getCollectionOfPrimitiveValues()); },
+            'essential' => function (ParseNode $n) use ($currentObject) { $currentObject->setEssential($n->getBooleanValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'source' => function (ParseNode $n) use ($currentObject) { $currentObject->setSource($n->getStringValue()); },
         ];
     }
 

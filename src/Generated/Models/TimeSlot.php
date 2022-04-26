@@ -55,9 +55,10 @@ class TimeSlot implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'end' => function (self $o, ParseNode $n) { $o->setEnd($n->getObjectValue(DateTimeTimeZone::class)); },
-            'start' => function (self $o, ParseNode $n) { $o->setStart($n->getObjectValue(DateTimeTimeZone::class)); },
+            'end' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnd($n->getObjectValue(DateTimeTimeZone::class)); },
+            'start' => function (ParseNode $n) use ($currentObject) { $currentObject->setStart($n->getObjectValue(DateTimeTimeZone::class)); },
         ];
     }
 

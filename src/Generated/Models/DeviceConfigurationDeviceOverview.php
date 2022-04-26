@@ -75,14 +75,15 @@ class DeviceConfigurationDeviceOverview extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'configurationVersion' => function (self $o, ParseNode $n) { $o->setConfigurationVersion($n->getIntegerValue()); },
-            'errorCount' => function (self $o, ParseNode $n) { $o->setErrorCount($n->getIntegerValue()); },
-            'failedCount' => function (self $o, ParseNode $n) { $o->setFailedCount($n->getIntegerValue()); },
-            'lastUpdateDateTime' => function (self $o, ParseNode $n) { $o->setLastUpdateDateTime($n->getDateTimeValue()); },
-            'notApplicableCount' => function (self $o, ParseNode $n) { $o->setNotApplicableCount($n->getIntegerValue()); },
-            'pendingCount' => function (self $o, ParseNode $n) { $o->setPendingCount($n->getIntegerValue()); },
-            'successCount' => function (self $o, ParseNode $n) { $o->setSuccessCount($n->getIntegerValue()); },
+            'configurationVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setConfigurationVersion($n->getIntegerValue()); },
+            'errorCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorCount($n->getIntegerValue()); },
+            'failedCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setFailedCount($n->getIntegerValue()); },
+            'lastUpdateDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastUpdateDateTime($n->getDateTimeValue()); },
+            'notApplicableCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotApplicableCount($n->getIntegerValue()); },
+            'pendingCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setPendingCount($n->getIntegerValue()); },
+            'successCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setSuccessCount($n->getIntegerValue()); },
         ]);
     }
 

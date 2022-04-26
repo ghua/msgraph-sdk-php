@@ -35,9 +35,10 @@ class WorkbookWorksheetProtection extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'protected' => function (self $o, ParseNode $n) { $o->setEscapedProtected($n->getBooleanValue()); },
-            'options' => function (self $o, ParseNode $n) { $o->setOptions($n->getObjectValue(WorkbookWorksheetProtectionOptions::class)); },
+            'protected' => function (ParseNode $n) use ($currentObject) { $currentObject->setEscapedProtected($n->getBooleanValue()); },
+            'options' => function (ParseNode $n) use ($currentObject) { $currentObject->setOptions($n->getObjectValue(WorkbookWorksheetProtectionOptions::class)); },
         ]);
     }
 

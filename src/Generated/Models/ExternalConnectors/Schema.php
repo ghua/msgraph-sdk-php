@@ -44,9 +44,10 @@ class Schema extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'baseType' => function (self $o, ParseNode $n) { $o->setBaseType($n->getStringValue()); },
-            'properties' => function (self $o, ParseNode $n) { $o->setProperties($n->getCollectionOfObjectValues(Property::class)); },
+            'baseType' => function (ParseNode $n) use ($currentObject) { $currentObject->setBaseType($n->getStringValue()); },
+            'properties' => function (ParseNode $n) use ($currentObject) { $currentObject->setProperties($n->getCollectionOfObjectValues(Property::class)); },
         ]);
     }
 

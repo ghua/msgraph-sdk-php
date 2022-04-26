@@ -52,8 +52,9 @@ class External implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'connections' => function (self $o, ParseNode $n) { $o->setConnections($n->getCollectionOfObjectValues(ExternalConnection::class)); },
+            'connections' => function (ParseNode $n) use ($currentObject) { $currentObject->setConnections($n->getCollectionOfObjectValues(ExternalConnection::class)); },
         ];
     }
 

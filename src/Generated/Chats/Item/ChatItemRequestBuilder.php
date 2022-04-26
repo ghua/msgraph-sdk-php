@@ -76,7 +76,7 @@ class ChatItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/chats/{chat_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/chats/{chat%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -187,7 +187,7 @@ class ChatItemRequestBuilder
     */
     public function installedAppsById(string $id): TeamsAppInstallationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['teamsAppInstallation_id'] = $id;
+        $urlTplParams['teamsAppInstallation%2Did'] = $id;
         return new TeamsAppInstallationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -198,7 +198,7 @@ class ChatItemRequestBuilder
     */
     public function membersById(string $id): ConversationMemberItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['conversationMember_id'] = $id;
+        $urlTplParams['conversationMember%2Did'] = $id;
         return new ConversationMemberItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -209,7 +209,7 @@ class ChatItemRequestBuilder
     */
     public function messagesById(string $id): ChatMessageItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['chatMessage_id'] = $id;
+        $urlTplParams['chatMessage%2Did'] = $id;
         return new ChatMessageItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -237,8 +237,19 @@ class ChatItemRequestBuilder
     */
     public function tabsById(string $id): TeamsTabItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['teamsTab_id'] = $id;
+        $urlTplParams['teamsTab%2Did'] = $id;
         return new TeamsTabItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

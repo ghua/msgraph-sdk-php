@@ -55,9 +55,10 @@ class MeetingParticipants implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'attendees' => function (self $o, ParseNode $n) { $o->setAttendees($n->getCollectionOfObjectValues(MeetingParticipantInfo::class)); },
-            'organizer' => function (self $o, ParseNode $n) { $o->setOrganizer($n->getObjectValue(MeetingParticipantInfo::class)); },
+            'attendees' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttendees($n->getCollectionOfObjectValues(MeetingParticipantInfo::class)); },
+            'organizer' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrganizer($n->getObjectValue(MeetingParticipantInfo::class)); },
         ];
     }
 

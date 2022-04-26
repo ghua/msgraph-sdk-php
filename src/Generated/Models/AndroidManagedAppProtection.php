@@ -115,17 +115,18 @@ class AndroidManagedAppProtection extends TargetedManagedAppProtection
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'apps' => function (self $o, ParseNode $n) { $o->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
-            'customBrowserDisplayName' => function (self $o, ParseNode $n) { $o->setCustomBrowserDisplayName($n->getStringValue()); },
-            'customBrowserPackageId' => function (self $o, ParseNode $n) { $o->setCustomBrowserPackageId($n->getStringValue()); },
-            'deployedAppCount' => function (self $o, ParseNode $n) { $o->setDeployedAppCount($n->getIntegerValue()); },
-            'deploymentSummary' => function (self $o, ParseNode $n) { $o->setDeploymentSummary($n->getObjectValue(ManagedAppPolicyDeploymentSummary::class)); },
-            'disableAppEncryptionIfDeviceEncryptionIsEnabled' => function (self $o, ParseNode $n) { $o->setDisableAppEncryptionIfDeviceEncryptionIsEnabled($n->getBooleanValue()); },
-            'encryptAppData' => function (self $o, ParseNode $n) { $o->setEncryptAppData($n->getBooleanValue()); },
-            'minimumRequiredPatchVersion' => function (self $o, ParseNode $n) { $o->setMinimumRequiredPatchVersion($n->getStringValue()); },
-            'minimumWarningPatchVersion' => function (self $o, ParseNode $n) { $o->setMinimumWarningPatchVersion($n->getStringValue()); },
-            'screenCaptureBlocked' => function (self $o, ParseNode $n) { $o->setScreenCaptureBlocked($n->getBooleanValue()); },
+            'apps' => function (ParseNode $n) use ($currentObject) { $currentObject->setApps($n->getCollectionOfObjectValues(ManagedMobileApp::class)); },
+            'customBrowserDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomBrowserDisplayName($n->getStringValue()); },
+            'customBrowserPackageId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCustomBrowserPackageId($n->getStringValue()); },
+            'deployedAppCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeployedAppCount($n->getIntegerValue()); },
+            'deploymentSummary' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeploymentSummary($n->getObjectValue(ManagedAppPolicyDeploymentSummary::class)); },
+            'disableAppEncryptionIfDeviceEncryptionIsEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisableAppEncryptionIfDeviceEncryptionIsEnabled($n->getBooleanValue()); },
+            'encryptAppData' => function (ParseNode $n) use ($currentObject) { $currentObject->setEncryptAppData($n->getBooleanValue()); },
+            'minimumRequiredPatchVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumRequiredPatchVersion($n->getStringValue()); },
+            'minimumWarningPatchVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setMinimumWarningPatchVersion($n->getStringValue()); },
+            'screenCaptureBlocked' => function (ParseNode $n) use ($currentObject) { $currentObject->setScreenCaptureBlocked($n->getBooleanValue()); },
         ]);
     }
 

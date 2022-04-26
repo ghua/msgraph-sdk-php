@@ -69,11 +69,12 @@ class RubricLevel implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getObjectValue(EducationItemBody::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'grading' => function (self $o, ParseNode $n) { $o->setGrading($n->getObjectValue(EducationAssignmentGradeType::class)); },
-            'levelId' => function (self $o, ParseNode $n) { $o->setLevelId($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getObjectValue(EducationItemBody::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'grading' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrading($n->getObjectValue(EducationAssignmentGradeType::class)); },
+            'levelId' => function (ParseNode $n) use ($currentObject) { $currentObject->setLevelId($n->getStringValue()); },
         ];
     }
 

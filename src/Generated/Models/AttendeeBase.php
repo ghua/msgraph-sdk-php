@@ -32,8 +32,9 @@ class AttendeeBase extends Recipient
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(AttendeeType::class)); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(AttendeeType::class)); },
         ]);
     }
 

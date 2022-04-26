@@ -56,16 +56,17 @@ class Invitation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'invitedUser' => function (self $o, ParseNode $n) { $o->setInvitedUser($n->getObjectValue(User::class)); },
-            'invitedUserDisplayName' => function (self $o, ParseNode $n) { $o->setInvitedUserDisplayName($n->getStringValue()); },
-            'invitedUserEmailAddress' => function (self $o, ParseNode $n) { $o->setInvitedUserEmailAddress($n->getStringValue()); },
-            'invitedUserMessageInfo' => function (self $o, ParseNode $n) { $o->setInvitedUserMessageInfo($n->getObjectValue(InvitedUserMessageInfo::class)); },
-            'invitedUserType' => function (self $o, ParseNode $n) { $o->setInvitedUserType($n->getStringValue()); },
-            'inviteRedeemUrl' => function (self $o, ParseNode $n) { $o->setInviteRedeemUrl($n->getStringValue()); },
-            'inviteRedirectUrl' => function (self $o, ParseNode $n) { $o->setInviteRedirectUrl($n->getStringValue()); },
-            'sendInvitationMessage' => function (self $o, ParseNode $n) { $o->setSendInvitationMessage($n->getBooleanValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
+            'invitedUser' => function (ParseNode $n) use ($currentObject) { $currentObject->setInvitedUser($n->getObjectValue(User::class)); },
+            'invitedUserDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setInvitedUserDisplayName($n->getStringValue()); },
+            'invitedUserEmailAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setInvitedUserEmailAddress($n->getStringValue()); },
+            'invitedUserMessageInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setInvitedUserMessageInfo($n->getObjectValue(InvitedUserMessageInfo::class)); },
+            'invitedUserType' => function (ParseNode $n) use ($currentObject) { $currentObject->setInvitedUserType($n->getStringValue()); },
+            'inviteRedeemUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setInviteRedeemUrl($n->getStringValue()); },
+            'inviteRedirectUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setInviteRedirectUrl($n->getStringValue()); },
+            'sendInvitationMessage' => function (ParseNode $n) use ($currentObject) { $currentObject->setSendInvitationMessage($n->getBooleanValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
         ]);
     }
 

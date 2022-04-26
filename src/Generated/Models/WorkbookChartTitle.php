@@ -41,11 +41,12 @@ class WorkbookChartTitle extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'format' => function (self $o, ParseNode $n) { $o->setFormat($n->getObjectValue(WorkbookChartTitleFormat::class)); },
-            'overlay' => function (self $o, ParseNode $n) { $o->setOverlay($n->getBooleanValue()); },
-            'text' => function (self $o, ParseNode $n) { $o->setText($n->getStringValue()); },
-            'visible' => function (self $o, ParseNode $n) { $o->setVisible($n->getBooleanValue()); },
+            'format' => function (ParseNode $n) use ($currentObject) { $currentObject->setFormat($n->getObjectValue(WorkbookChartTitleFormat::class)); },
+            'overlay' => function (ParseNode $n) use ($currentObject) { $currentObject->setOverlay($n->getBooleanValue()); },
+            'text' => function (ParseNode $n) use ($currentObject) { $currentObject->setText($n->getStringValue()); },
+            'visible' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisible($n->getBooleanValue()); },
         ]);
     }
 

@@ -56,12 +56,13 @@ class InformationalUrl implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'logoUrl' => function (self $o, ParseNode $n) { $o->setLogoUrl($n->getStringValue()); },
-            'marketingUrl' => function (self $o, ParseNode $n) { $o->setMarketingUrl($n->getStringValue()); },
-            'privacyStatementUrl' => function (self $o, ParseNode $n) { $o->setPrivacyStatementUrl($n->getStringValue()); },
-            'supportUrl' => function (self $o, ParseNode $n) { $o->setSupportUrl($n->getStringValue()); },
-            'termsOfServiceUrl' => function (self $o, ParseNode $n) { $o->setTermsOfServiceUrl($n->getStringValue()); },
+            'logoUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setLogoUrl($n->getStringValue()); },
+            'marketingUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setMarketingUrl($n->getStringValue()); },
+            'privacyStatementUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrivacyStatementUrl($n->getStringValue()); },
+            'supportUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setSupportUrl($n->getStringValue()); },
+            'termsOfServiceUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setTermsOfServiceUrl($n->getStringValue()); },
         ];
     }
 

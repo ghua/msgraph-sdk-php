@@ -44,8 +44,9 @@ class ExportPersonalDataRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'storageLocation' => function (self $o, ParseNode $n) { $o->setStorageLocation($n->getStringValue()); },
+            'storageLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setStorageLocation($n->getStringValue()); },
         ];
     }
 

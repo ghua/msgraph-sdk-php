@@ -50,10 +50,11 @@ class ObjectIdentity implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'issuer' => function (self $o, ParseNode $n) { $o->setIssuer($n->getStringValue()); },
-            'issuerAssignedId' => function (self $o, ParseNode $n) { $o->setIssuerAssignedId($n->getStringValue()); },
-            'signInType' => function (self $o, ParseNode $n) { $o->setSignInType($n->getStringValue()); },
+            'issuer' => function (ParseNode $n) use ($currentObject) { $currentObject->setIssuer($n->getStringValue()); },
+            'issuerAssignedId' => function (ParseNode $n) use ($currentObject) { $currentObject->setIssuerAssignedId($n->getStringValue()); },
+            'signInType' => function (ParseNode $n) use ($currentObject) { $currentObject->setSignInType($n->getStringValue()); },
         ];
     }
 

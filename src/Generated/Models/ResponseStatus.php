@@ -48,9 +48,10 @@ class ResponseStatus implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'response' => function (self $o, ParseNode $n) { $o->setResponse($n->getEnumValue(ResponseType::class)); },
-            'time' => function (self $o, ParseNode $n) { $o->setTime($n->getDateTimeValue()); },
+            'response' => function (ParseNode $n) use ($currentObject) { $currentObject->setResponse($n->getEnumValue(ResponseType::class)); },
+            'time' => function (ParseNode $n) use ($currentObject) { $currentObject->setTime($n->getDateTimeValue()); },
         ];
     }
 

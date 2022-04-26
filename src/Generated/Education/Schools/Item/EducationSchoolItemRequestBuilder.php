@@ -59,7 +59,7 @@ class EducationSchoolItemRequestBuilder
     */
     public function classesById(string $id): EducationClassItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationClass_id'] = $id;
+        $urlTplParams['educationClass%2Did'] = $id;
         return new EducationClassItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -69,7 +69,7 @@ class EducationSchoolItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/education/schools/{educationSchool_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/education/schools/{educationSchool%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -197,8 +197,19 @@ class EducationSchoolItemRequestBuilder
     */
     public function usersById(string $id): EducationUserItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['educationUser_id'] = $id;
+        $urlTplParams['educationUser%2Did'] = $id;
         return new EducationUserItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -32,8 +32,9 @@ class Todo extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'lists' => function (self $o, ParseNode $n) { $o->setLists($n->getCollectionOfObjectValues(TodoTaskList::class)); },
+            'lists' => function (ParseNode $n) use ($currentObject) { $currentObject->setLists($n->getCollectionOfObjectValues(TodoTaskList::class)); },
         ]);
     }
 

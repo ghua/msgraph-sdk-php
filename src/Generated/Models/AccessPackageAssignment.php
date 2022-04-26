@@ -75,14 +75,15 @@ class AccessPackageAssignment extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'accessPackage' => function (self $o, ParseNode $n) { $o->setAccessPackage($n->getObjectValue(AccessPackage::class)); },
-            'assignmentPolicy' => function (self $o, ParseNode $n) { $o->setAssignmentPolicy($n->getObjectValue(AccessPackageAssignmentPolicy::class)); },
-            'expiredDateTime' => function (self $o, ParseNode $n) { $o->setExpiredDateTime($n->getDateTimeValue()); },
-            'schedule' => function (self $o, ParseNode $n) { $o->setSchedule($n->getObjectValue(EntitlementManagementSchedule::class)); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getEnumValue(AccessPackageAssignmentState::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
-            'target' => function (self $o, ParseNode $n) { $o->setTarget($n->getObjectValue(AccessPackageSubject::class)); },
+            'accessPackage' => function (ParseNode $n) use ($currentObject) { $currentObject->setAccessPackage($n->getObjectValue(AccessPackage::class)); },
+            'assignmentPolicy' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignmentPolicy($n->getObjectValue(AccessPackageAssignmentPolicy::class)); },
+            'expiredDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpiredDateTime($n->getDateTimeValue()); },
+            'schedule' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchedule($n->getObjectValue(EntitlementManagementSchedule::class)); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getEnumValue(AccessPackageAssignmentState::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
+            'target' => function (ParseNode $n) use ($currentObject) { $currentObject->setTarget($n->getObjectValue(AccessPackageSubject::class)); },
         ]);
     }
 

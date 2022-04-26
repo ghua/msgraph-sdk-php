@@ -55,10 +55,11 @@ class ExternalItem extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'acl' => function (self $o, ParseNode $n) { $o->setAcl($n->getCollectionOfObjectValues(Acl::class)); },
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getObjectValue(ExternalItemContent::class)); },
-            'properties' => function (self $o, ParseNode $n) { $o->setProperties($n->getObjectValue(Properties::class)); },
+            'acl' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcl($n->getCollectionOfObjectValues(Acl::class)); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getObjectValue(ExternalItemContent::class)); },
+            'properties' => function (ParseNode $n) use ($currentObject) { $currentObject->setProperties($n->getObjectValue(Properties::class)); },
         ]);
     }
 

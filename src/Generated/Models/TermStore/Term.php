@@ -80,15 +80,16 @@ class Term extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'children' => function (self $o, ParseNode $n) { $o->setChildren($n->getCollectionOfObjectValues(Term::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'descriptions' => function (self $o, ParseNode $n) { $o->setDescriptions($n->getCollectionOfObjectValues(LocalizedDescription::class)); },
-            'labels' => function (self $o, ParseNode $n) { $o->setLabels($n->getCollectionOfObjectValues(LocalizedLabel::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'properties' => function (self $o, ParseNode $n) { $o->setProperties($n->getCollectionOfObjectValues(KeyValue::class)); },
-            'relations' => function (self $o, ParseNode $n) { $o->setRelations($n->getCollectionOfObjectValues(Relation::class)); },
-            'set' => function (self $o, ParseNode $n) { $o->setSet($n->getObjectValue(Set::class)); },
+            'children' => function (ParseNode $n) use ($currentObject) { $currentObject->setChildren($n->getCollectionOfObjectValues(Term::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'descriptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescriptions($n->getCollectionOfObjectValues(LocalizedDescription::class)); },
+            'labels' => function (ParseNode $n) use ($currentObject) { $currentObject->setLabels($n->getCollectionOfObjectValues(LocalizedLabel::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'properties' => function (ParseNode $n) use ($currentObject) { $currentObject->setProperties($n->getCollectionOfObjectValues(KeyValue::class)); },
+            'relations' => function (ParseNode $n) use ($currentObject) { $currentObject->setRelations($n->getCollectionOfObjectValues(Relation::class)); },
+            'set' => function (ParseNode $n) use ($currentObject) { $currentObject->setSet($n->getObjectValue(Set::class)); },
         ]);
     }
 

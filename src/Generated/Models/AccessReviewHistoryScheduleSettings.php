@@ -47,9 +47,10 @@ class AccessReviewHistoryScheduleSettings implements AdditionalDataHolder, Parsa
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'recurrence' => function (self $o, ParseNode $n) { $o->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
-            'reportRange' => function (self $o, ParseNode $n) { $o->setReportRange($n->getStringValue()); },
+            'recurrence' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecurrence($n->getObjectValue(PatternedRecurrence::class)); },
+            'reportRange' => function (ParseNode $n) use ($currentObject) { $currentObject->setReportRange($n->getStringValue()); },
         ];
     }
 

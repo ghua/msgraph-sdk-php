@@ -44,8 +44,9 @@ class SearchQuery implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'queryString' => function (self $o, ParseNode $n) { $o->setQueryString($n->getStringValue()); },
+            'queryString' => function (ParseNode $n) use ($currentObject) { $currentObject->setQueryString($n->getStringValue()); },
         ];
     }
 

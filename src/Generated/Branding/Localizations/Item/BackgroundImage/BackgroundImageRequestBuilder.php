@@ -32,7 +32,7 @@ class BackgroundImageRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/branding/localizations/{organizationalBrandingLocalization_id}/backgroundImage';
+        $this->urlTemplate = '{+baseurl}/branding/localizations/{organizationalBrandingLocalization%2Did}/backgroundImage';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

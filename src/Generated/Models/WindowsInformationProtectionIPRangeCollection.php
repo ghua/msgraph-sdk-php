@@ -55,9 +55,10 @@ class WindowsInformationProtectionIPRangeCollection implements AdditionalDataHol
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'ranges' => function (self $o, ParseNode $n) { $o->setRanges($n->getCollectionOfObjectValues(IpRange::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'ranges' => function (ParseNode $n) use ($currentObject) { $currentObject->setRanges($n->getCollectionOfObjectValues(IpRange::class)); },
         ];
     }
 

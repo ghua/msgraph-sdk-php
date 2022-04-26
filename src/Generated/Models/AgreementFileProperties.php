@@ -67,14 +67,15 @@ class AgreementFileProperties extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'fileData' => function (self $o, ParseNode $n) { $o->setFileData($n->getObjectValue(AgreementFileData::class)); },
-            'fileName' => function (self $o, ParseNode $n) { $o->setFileName($n->getStringValue()); },
-            'isDefault' => function (self $o, ParseNode $n) { $o->setIsDefault($n->getBooleanValue()); },
-            'isMajorVersion' => function (self $o, ParseNode $n) { $o->setIsMajorVersion($n->getBooleanValue()); },
-            'language' => function (self $o, ParseNode $n) { $o->setLanguage($n->getStringValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'fileData' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileData($n->getObjectValue(AgreementFileData::class)); },
+            'fileName' => function (ParseNode $n) use ($currentObject) { $currentObject->setFileName($n->getStringValue()); },
+            'isDefault' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsDefault($n->getBooleanValue()); },
+            'isMajorVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsMajorVersion($n->getBooleanValue()); },
+            'language' => function (ParseNode $n) use ($currentObject) { $currentObject->setLanguage($n->getStringValue()); },
         ]);
     }
 

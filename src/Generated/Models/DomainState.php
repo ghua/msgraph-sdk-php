@@ -51,10 +51,11 @@ class DomainState implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'lastActionDateTime' => function (self $o, ParseNode $n) { $o->setLastActionDateTime($n->getDateTimeValue()); },
-            'operation' => function (self $o, ParseNode $n) { $o->setOperation($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
+            'lastActionDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastActionDateTime($n->getDateTimeValue()); },
+            'operation' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperation($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
         ];
     }
 

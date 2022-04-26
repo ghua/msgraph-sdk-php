@@ -62,14 +62,15 @@ class GetCachedReportRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'groupBy' => function (self $o, ParseNode $n) { $o->setGroupBy($n->getCollectionOfPrimitiveValues()); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'orderBy' => function (self $o, ParseNode $n) { $o->setOrderBy($n->getCollectionOfPrimitiveValues()); },
-            'search' => function (self $o, ParseNode $n) { $o->setSearch($n->getStringValue()); },
-            'select' => function (self $o, ParseNode $n) { $o->setSelect($n->getCollectionOfPrimitiveValues()); },
-            'skip' => function (self $o, ParseNode $n) { $o->setSkip($n->getIntegerValue()); },
-            'top' => function (self $o, ParseNode $n) { $o->setTop($n->getIntegerValue()); },
+            'groupBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupBy($n->getCollectionOfPrimitiveValues()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'orderBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrderBy($n->getCollectionOfPrimitiveValues()); },
+            'search' => function (ParseNode $n) use ($currentObject) { $currentObject->setSearch($n->getStringValue()); },
+            'select' => function (ParseNode $n) use ($currentObject) { $currentObject->setSelect($n->getCollectionOfPrimitiveValues()); },
+            'skip' => function (ParseNode $n) use ($currentObject) { $currentObject->setSkip($n->getIntegerValue()); },
+            'top' => function (ParseNode $n) use ($currentObject) { $currentObject->setTop($n->getIntegerValue()); },
         ];
     }
 

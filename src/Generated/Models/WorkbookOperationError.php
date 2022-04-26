@@ -58,10 +58,11 @@ class WorkbookOperationError implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'code' => function (self $o, ParseNode $n) { $o->setCode($n->getStringValue()); },
-            'innerError' => function (self $o, ParseNode $n) { $o->setInnerError($n->getObjectValue(WorkbookOperationError::class)); },
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
+            'code' => function (ParseNode $n) use ($currentObject) { $currentObject->setCode($n->getStringValue()); },
+            'innerError' => function (ParseNode $n) use ($currentObject) { $currentObject->setInnerError($n->getObjectValue(WorkbookOperationError::class)); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
         ];
     }
 

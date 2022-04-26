@@ -61,11 +61,12 @@ class EducationRoot implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'classes' => function (self $o, ParseNode $n) { $o->setClasses($n->getCollectionOfObjectValues(EducationClass::class)); },
-            'me' => function (self $o, ParseNode $n) { $o->setMe($n->getObjectValue(EducationUser::class)); },
-            'schools' => function (self $o, ParseNode $n) { $o->setSchools($n->getCollectionOfObjectValues(EducationSchool::class)); },
-            'users' => function (self $o, ParseNode $n) { $o->setUsers($n->getCollectionOfObjectValues(EducationUser::class)); },
+            'classes' => function (ParseNode $n) use ($currentObject) { $currentObject->setClasses($n->getCollectionOfObjectValues(EducationClass::class)); },
+            'me' => function (ParseNode $n) use ($currentObject) { $currentObject->setMe($n->getObjectValue(EducationUser::class)); },
+            'schools' => function (ParseNode $n) use ($currentObject) { $currentObject->setSchools($n->getCollectionOfObjectValues(EducationSchool::class)); },
+            'users' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsers($n->getCollectionOfObjectValues(EducationUser::class)); },
         ];
     }
 

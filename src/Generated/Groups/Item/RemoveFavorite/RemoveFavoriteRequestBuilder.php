@@ -30,7 +30,7 @@ class RemoveFavoriteRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/microsoft.graph.removeFavorite';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/microsoft.graph.removeFavorite';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

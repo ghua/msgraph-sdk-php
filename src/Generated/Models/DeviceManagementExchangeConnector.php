@@ -89,16 +89,17 @@ class DeviceManagementExchangeConnector extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'connectorServerName' => function (self $o, ParseNode $n) { $o->setConnectorServerName($n->getStringValue()); },
-            'exchangeAlias' => function (self $o, ParseNode $n) { $o->setExchangeAlias($n->getStringValue()); },
-            'exchangeConnectorType' => function (self $o, ParseNode $n) { $o->setExchangeConnectorType($n->getEnumValue(DeviceManagementExchangeConnectorType::class)); },
-            'exchangeOrganization' => function (self $o, ParseNode $n) { $o->setExchangeOrganization($n->getStringValue()); },
-            'lastSyncDateTime' => function (self $o, ParseNode $n) { $o->setLastSyncDateTime($n->getDateTimeValue()); },
-            'primarySmtpAddress' => function (self $o, ParseNode $n) { $o->setPrimarySmtpAddress($n->getStringValue()); },
-            'serverName' => function (self $o, ParseNode $n) { $o->setServerName($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(DeviceManagementExchangeConnectorStatus::class)); },
-            'version' => function (self $o, ParseNode $n) { $o->setVersion($n->getStringValue()); },
+            'connectorServerName' => function (ParseNode $n) use ($currentObject) { $currentObject->setConnectorServerName($n->getStringValue()); },
+            'exchangeAlias' => function (ParseNode $n) use ($currentObject) { $currentObject->setExchangeAlias($n->getStringValue()); },
+            'exchangeConnectorType' => function (ParseNode $n) use ($currentObject) { $currentObject->setExchangeConnectorType($n->getEnumValue(DeviceManagementExchangeConnectorType::class)); },
+            'exchangeOrganization' => function (ParseNode $n) use ($currentObject) { $currentObject->setExchangeOrganization($n->getStringValue()); },
+            'lastSyncDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastSyncDateTime($n->getDateTimeValue()); },
+            'primarySmtpAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrimarySmtpAddress($n->getStringValue()); },
+            'serverName' => function (ParseNode $n) use ($currentObject) { $currentObject->setServerName($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(DeviceManagementExchangeConnectorStatus::class)); },
+            'version' => function (ParseNode $n) use ($currentObject) { $currentObject->setVersion($n->getStringValue()); },
         ]);
     }
 

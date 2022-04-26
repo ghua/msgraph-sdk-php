@@ -75,7 +75,7 @@ class DomainItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/domains/{domain_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/domains/{domain%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -169,7 +169,7 @@ class DomainItemRequestBuilder
     */
     public function domainNameReferencesById(string $id): DirectoryObjectItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryObject_id'] = $id;
+        $urlTplParams['directoryObject%2Did'] = $id;
         return new DirectoryObjectItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -214,7 +214,7 @@ class DomainItemRequestBuilder
     */
     public function serviceConfigurationRecordsById(string $id): MicrosoftGraphGeneratedDomainsItemServiceConfigurationRecordsItemDomainDnsRecordItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['domainDnsRecord_id'] = $id;
+        $urlTplParams['domainDnsRecord%2Did'] = $id;
         return new MicrosoftGraphGeneratedDomainsItemServiceConfigurationRecordsItemDomainDnsRecordItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -225,8 +225,19 @@ class DomainItemRequestBuilder
     */
     public function verificationDnsRecordsById(string $id): MicrosoftGraphGeneratedDomainsItemVerificationDnsRecordsItemDomainDnsRecordItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['domainDnsRecord_id'] = $id;
+        $urlTplParams['domainDnsRecord%2Did'] = $id;
         return new MicrosoftGraphGeneratedDomainsItemVerificationDnsRecordsItemDomainDnsRecordItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

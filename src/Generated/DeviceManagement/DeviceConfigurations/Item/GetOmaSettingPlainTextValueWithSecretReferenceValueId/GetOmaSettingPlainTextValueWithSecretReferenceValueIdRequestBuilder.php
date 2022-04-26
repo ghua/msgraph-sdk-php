@@ -31,7 +31,7 @@ class GetOmaSettingPlainTextValueWithSecretReferenceValueIdRequestBuilder
      * @param string|null $secretReferenceValueId Usage: secretReferenceValueId='{secretReferenceValueId}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $secretReferenceValueId = null) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceConfigurations/{deviceConfiguration_id}/microsoft.graph.getOmaSettingPlainTextValue(secretReferenceValueId=\'{secretReferenceValueId}\')';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceConfigurations/{deviceConfiguration%2Did}/microsoft.graph.getOmaSettingPlainTextValue(secretReferenceValueId=\'{secretReferenceValueId}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

@@ -78,18 +78,19 @@ class Drive extends BaseItem
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'bundles' => function (self $o, ParseNode $n) { $o->setBundles($n->getCollectionOfObjectValues(DriveItem::class)); },
-            'driveType' => function (self $o, ParseNode $n) { $o->setDriveType($n->getStringValue()); },
-            'list' => function (self $o, ParseNode $n) { $o->setEscapedList($n->getObjectValue(EscapedList::class)); },
-            'following' => function (self $o, ParseNode $n) { $o->setFollowing($n->getCollectionOfObjectValues(DriveItem::class)); },
-            'items' => function (self $o, ParseNode $n) { $o->setItems($n->getCollectionOfObjectValues(DriveItem::class)); },
-            'owner' => function (self $o, ParseNode $n) { $o->setOwner($n->getObjectValue(IdentitySet::class)); },
-            'quota' => function (self $o, ParseNode $n) { $o->setQuota($n->getObjectValue(Quota::class)); },
-            'root' => function (self $o, ParseNode $n) { $o->setRoot($n->getObjectValue(DriveItem::class)); },
-            'sharePointIds' => function (self $o, ParseNode $n) { $o->setSharePointIds($n->getObjectValue(SharepointIds::class)); },
-            'special' => function (self $o, ParseNode $n) { $o->setSpecial($n->getCollectionOfObjectValues(DriveItem::class)); },
-            'system' => function (self $o, ParseNode $n) { $o->setSystem($n->getObjectValue(SystemFacet::class)); },
+            'bundles' => function (ParseNode $n) use ($currentObject) { $currentObject->setBundles($n->getCollectionOfObjectValues(DriveItem::class)); },
+            'driveType' => function (ParseNode $n) use ($currentObject) { $currentObject->setDriveType($n->getStringValue()); },
+            'list' => function (ParseNode $n) use ($currentObject) { $currentObject->setEscapedList($n->getObjectValue(EscapedList::class)); },
+            'following' => function (ParseNode $n) use ($currentObject) { $currentObject->setFollowing($n->getCollectionOfObjectValues(DriveItem::class)); },
+            'items' => function (ParseNode $n) use ($currentObject) { $currentObject->setItems($n->getCollectionOfObjectValues(DriveItem::class)); },
+            'owner' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwner($n->getObjectValue(IdentitySet::class)); },
+            'quota' => function (ParseNode $n) use ($currentObject) { $currentObject->setQuota($n->getObjectValue(Quota::class)); },
+            'root' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoot($n->getObjectValue(DriveItem::class)); },
+            'sharePointIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharePointIds($n->getObjectValue(SharepointIds::class)); },
+            'special' => function (ParseNode $n) use ($currentObject) { $currentObject->setSpecial($n->getCollectionOfObjectValues(DriveItem::class)); },
+            'system' => function (ParseNode $n) use ($currentObject) { $currentObject->setSystem($n->getObjectValue(SystemFacet::class)); },
         ]);
     }
 

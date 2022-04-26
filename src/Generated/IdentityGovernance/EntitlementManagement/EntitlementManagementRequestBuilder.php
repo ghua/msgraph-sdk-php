@@ -104,7 +104,7 @@ class EntitlementManagementRequestBuilder
     */
     public function accessPackageAssignmentApprovalsById(string $id): ApprovalItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['approval_id'] = $id;
+        $urlTplParams['approval%2Did'] = $id;
         return new ApprovalItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -115,7 +115,7 @@ class EntitlementManagementRequestBuilder
     */
     public function accessPackagesById(string $id): AccessPackageItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['accessPackage_id'] = $id;
+        $urlTplParams['accessPackage%2Did'] = $id;
         return new AccessPackageItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -126,7 +126,7 @@ class EntitlementManagementRequestBuilder
     */
     public function assignmentPoliciesById(string $id): AccessPackageAssignmentPolicyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['accessPackageAssignmentPolicy_id'] = $id;
+        $urlTplParams['accessPackageAssignmentPolicy%2Did'] = $id;
         return new AccessPackageAssignmentPolicyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -137,7 +137,7 @@ class EntitlementManagementRequestBuilder
     */
     public function assignmentRequestsById(string $id): AccessPackageAssignmentRequestItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['accessPackageAssignmentRequest_id'] = $id;
+        $urlTplParams['accessPackageAssignmentRequest%2Did'] = $id;
         return new AccessPackageAssignmentRequestItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -148,7 +148,7 @@ class EntitlementManagementRequestBuilder
     */
     public function assignmentsById(string $id): AccessPackageAssignmentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['accessPackageAssignment_id'] = $id;
+        $urlTplParams['accessPackageAssignment%2Did'] = $id;
         return new AccessPackageAssignmentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -159,7 +159,7 @@ class EntitlementManagementRequestBuilder
     */
     public function catalogsById(string $id): AccessPackageCatalogItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['accessPackageCatalog_id'] = $id;
+        $urlTplParams['accessPackageCatalog%2Did'] = $id;
         return new AccessPackageCatalogItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -170,7 +170,7 @@ class EntitlementManagementRequestBuilder
     */
     public function connectedOrganizationsById(string $id): ConnectedOrganizationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['connectedOrganization_id'] = $id;
+        $urlTplParams['connectedOrganization%2Did'] = $id;
         return new ConnectedOrganizationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -180,7 +180,7 @@ class EntitlementManagementRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identityGovernance/entitlementManagement{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identityGovernance/entitlementManagement{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -301,4 +301,15 @@ class EntitlementManagementRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

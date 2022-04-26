@@ -43,9 +43,10 @@ class TargetedManagedAppProtection extends ManagedAppProtection
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getCollectionOfObjectValues(TargetedManagedAppPolicyAssignment::class)); },
-            'isAssigned' => function (self $o, ParseNode $n) { $o->setIsAssigned($n->getBooleanValue()); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getCollectionOfObjectValues(TargetedManagedAppPolicyAssignment::class)); },
+            'isAssigned' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAssigned($n->getBooleanValue()); },
         ]);
     }
 

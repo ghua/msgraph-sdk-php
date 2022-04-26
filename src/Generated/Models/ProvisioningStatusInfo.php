@@ -55,9 +55,10 @@ class ProvisioningStatusInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'errorInformation' => function (self $o, ParseNode $n) { $o->setErrorInformation($n->getObjectValue(ProvisioningErrorInfo::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ProvisioningResult::class)); },
+            'errorInformation' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorInformation($n->getObjectValue(ProvisioningErrorInfo::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ProvisioningResult::class)); },
         ];
     }
 

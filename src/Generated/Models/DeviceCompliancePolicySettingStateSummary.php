@@ -94,18 +94,19 @@ class DeviceCompliancePolicySettingStateSummary extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'compliantDeviceCount' => function (self $o, ParseNode $n) { $o->setCompliantDeviceCount($n->getIntegerValue()); },
-            'conflictDeviceCount' => function (self $o, ParseNode $n) { $o->setConflictDeviceCount($n->getIntegerValue()); },
-            'deviceComplianceSettingStates' => function (self $o, ParseNode $n) { $o->setDeviceComplianceSettingStates($n->getCollectionOfObjectValues(DeviceComplianceSettingState::class)); },
-            'errorDeviceCount' => function (self $o, ParseNode $n) { $o->setErrorDeviceCount($n->getIntegerValue()); },
-            'nonCompliantDeviceCount' => function (self $o, ParseNode $n) { $o->setNonCompliantDeviceCount($n->getIntegerValue()); },
-            'notApplicableDeviceCount' => function (self $o, ParseNode $n) { $o->setNotApplicableDeviceCount($n->getIntegerValue()); },
-            'platformType' => function (self $o, ParseNode $n) { $o->setPlatformType($n->getEnumValue(PolicyPlatformType::class)); },
-            'remediatedDeviceCount' => function (self $o, ParseNode $n) { $o->setRemediatedDeviceCount($n->getIntegerValue()); },
-            'setting' => function (self $o, ParseNode $n) { $o->setSetting($n->getStringValue()); },
-            'settingName' => function (self $o, ParseNode $n) { $o->setSettingName($n->getStringValue()); },
-            'unknownDeviceCount' => function (self $o, ParseNode $n) { $o->setUnknownDeviceCount($n->getIntegerValue()); },
+            'compliantDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompliantDeviceCount($n->getIntegerValue()); },
+            'conflictDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setConflictDeviceCount($n->getIntegerValue()); },
+            'deviceComplianceSettingStates' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceComplianceSettingStates($n->getCollectionOfObjectValues(DeviceComplianceSettingState::class)); },
+            'errorDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorDeviceCount($n->getIntegerValue()); },
+            'nonCompliantDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNonCompliantDeviceCount($n->getIntegerValue()); },
+            'notApplicableDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotApplicableDeviceCount($n->getIntegerValue()); },
+            'platformType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlatformType($n->getEnumValue(PolicyPlatformType::class)); },
+            'remediatedDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setRemediatedDeviceCount($n->getIntegerValue()); },
+            'setting' => function (ParseNode $n) use ($currentObject) { $currentObject->setSetting($n->getStringValue()); },
+            'settingName' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettingName($n->getStringValue()); },
+            'unknownDeviceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnknownDeviceCount($n->getIntegerValue()); },
         ]);
     }
 

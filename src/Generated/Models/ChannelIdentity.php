@@ -55,9 +55,10 @@ class ChannelIdentity implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'channelId' => function (self $o, ParseNode $n) { $o->setChannelId($n->getStringValue()); },
-            'teamId' => function (self $o, ParseNode $n) { $o->setTeamId($n->getStringValue()); },
+            'channelId' => function (ParseNode $n) use ($currentObject) { $currentObject->setChannelId($n->getStringValue()); },
+            'teamId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeamId($n->getStringValue()); },
         ];
     }
 

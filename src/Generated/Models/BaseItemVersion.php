@@ -39,10 +39,11 @@ class BaseItemVersion extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'lastModifiedBy' => function (self $o, ParseNode $n) { $o->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'publication' => function (self $o, ParseNode $n) { $o->setPublication($n->getObjectValue(PublicationFacet::class)); },
+            'lastModifiedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedBy($n->getObjectValue(IdentitySet::class)); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'publication' => function (ParseNode $n) use ($currentObject) { $currentObject->setPublication($n->getObjectValue(PublicationFacet::class)); },
         ]);
     }
 

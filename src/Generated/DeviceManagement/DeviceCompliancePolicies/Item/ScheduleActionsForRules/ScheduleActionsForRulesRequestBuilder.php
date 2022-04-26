@@ -30,7 +30,7 @@ class ScheduleActionsForRulesRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceCompliancePolicies/{deviceCompliancePolicy_id}/microsoft.graph.scheduleActionsForRules';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceCompliancePolicies/{deviceCompliancePolicy%2Did}/microsoft.graph.scheduleActionsForRules';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

@@ -71,18 +71,19 @@ class Permission extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'grantedTo' => function (self $o, ParseNode $n) { $o->setGrantedTo($n->getObjectValue(IdentitySet::class)); },
-            'grantedToIdentities' => function (self $o, ParseNode $n) { $o->setGrantedToIdentities($n->getCollectionOfObjectValues(IdentitySet::class)); },
-            'grantedToIdentitiesV2' => function (self $o, ParseNode $n) { $o->setGrantedToIdentitiesV2($n->getCollectionOfObjectValues(SharePointIdentitySet::class)); },
-            'grantedToV2' => function (self $o, ParseNode $n) { $o->setGrantedToV2($n->getObjectValue(SharePointIdentitySet::class)); },
-            'hasPassword' => function (self $o, ParseNode $n) { $o->setHasPassword($n->getBooleanValue()); },
-            'inheritedFrom' => function (self $o, ParseNode $n) { $o->setInheritedFrom($n->getObjectValue(ItemReference::class)); },
-            'invitation' => function (self $o, ParseNode $n) { $o->setInvitation($n->getObjectValue(SharingInvitation::class)); },
-            'link' => function (self $o, ParseNode $n) { $o->setLink($n->getObjectValue(SharingLink::class)); },
-            'roles' => function (self $o, ParseNode $n) { $o->setRoles($n->getCollectionOfPrimitiveValues()); },
-            'shareId' => function (self $o, ParseNode $n) { $o->setShareId($n->getStringValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'grantedTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrantedTo($n->getObjectValue(IdentitySet::class)); },
+            'grantedToIdentities' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrantedToIdentities($n->getCollectionOfObjectValues(IdentitySet::class)); },
+            'grantedToIdentitiesV2' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrantedToIdentitiesV2($n->getCollectionOfObjectValues(SharePointIdentitySet::class)); },
+            'grantedToV2' => function (ParseNode $n) use ($currentObject) { $currentObject->setGrantedToV2($n->getObjectValue(SharePointIdentitySet::class)); },
+            'hasPassword' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasPassword($n->getBooleanValue()); },
+            'inheritedFrom' => function (ParseNode $n) use ($currentObject) { $currentObject->setInheritedFrom($n->getObjectValue(ItemReference::class)); },
+            'invitation' => function (ParseNode $n) use ($currentObject) { $currentObject->setInvitation($n->getObjectValue(SharingInvitation::class)); },
+            'link' => function (ParseNode $n) use ($currentObject) { $currentObject->setLink($n->getObjectValue(SharingLink::class)); },
+            'roles' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoles($n->getCollectionOfPrimitiveValues()); },
+            'shareId' => function (ParseNode $n) use ($currentObject) { $currentObject->setShareId($n->getStringValue()); },
         ]);
     }
 

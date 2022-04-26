@@ -104,18 +104,19 @@ class ServiceUpdateMessage extends ServiceAnnouncementBase
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'actionRequiredByDateTime' => function (self $o, ParseNode $n) { $o->setActionRequiredByDateTime($n->getDateTimeValue()); },
-            'attachments' => function (self $o, ParseNode $n) { $o->setAttachments($n->getCollectionOfObjectValues(ServiceAnnouncementAttachment::class)); },
-            'attachmentsArchive' => function (self $o, ParseNode $n) { $o->setAttachmentsArchive($n->getBinaryContent()); },
-            'body' => function (self $o, ParseNode $n) { $o->setBody($n->getObjectValue(ItemBody::class)); },
-            'category' => function (self $o, ParseNode $n) { $o->setCategory($n->getEnumValue(ServiceUpdateCategory::class)); },
-            'hasAttachments' => function (self $o, ParseNode $n) { $o->setHasAttachments($n->getBooleanValue()); },
-            'isMajorChange' => function (self $o, ParseNode $n) { $o->setIsMajorChange($n->getBooleanValue()); },
-            'services' => function (self $o, ParseNode $n) { $o->setServices($n->getCollectionOfPrimitiveValues()); },
-            'severity' => function (self $o, ParseNode $n) { $o->setSeverity($n->getEnumValue(ServiceUpdateSeverity::class)); },
-            'tags' => function (self $o, ParseNode $n) { $o->setTags($n->getCollectionOfPrimitiveValues()); },
-            'viewPoint' => function (self $o, ParseNode $n) { $o->setViewPoint($n->getObjectValue(ServiceUpdateMessageViewpoint::class)); },
+            'actionRequiredByDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setActionRequiredByDateTime($n->getDateTimeValue()); },
+            'attachments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttachments($n->getCollectionOfObjectValues(ServiceAnnouncementAttachment::class)); },
+            'attachmentsArchive' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttachmentsArchive($n->getBinaryContent()); },
+            'body' => function (ParseNode $n) use ($currentObject) { $currentObject->setBody($n->getObjectValue(ItemBody::class)); },
+            'category' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory($n->getEnumValue(ServiceUpdateCategory::class)); },
+            'hasAttachments' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasAttachments($n->getBooleanValue()); },
+            'isMajorChange' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsMajorChange($n->getBooleanValue()); },
+            'services' => function (ParseNode $n) use ($currentObject) { $currentObject->setServices($n->getCollectionOfPrimitiveValues()); },
+            'severity' => function (ParseNode $n) use ($currentObject) { $currentObject->setSeverity($n->getEnumValue(ServiceUpdateSeverity::class)); },
+            'tags' => function (ParseNode $n) use ($currentObject) { $currentObject->setTags($n->getCollectionOfPrimitiveValues()); },
+            'viewPoint' => function (ParseNode $n) use ($currentObject) { $currentObject->setViewPoint($n->getObjectValue(ServiceUpdateMessageViewpoint::class)); },
         ]);
     }
 

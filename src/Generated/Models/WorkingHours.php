@@ -70,11 +70,12 @@ class WorkingHours implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'daysOfWeek' => function (self $o, ParseNode $n) { $o->setDaysOfWeek($n->getCollectionOfEnumValues(DayOfWeek::class)); },
-            'endTime' => function (self $o, ParseNode $n) { $o->setEndTime($n->getTimeValue()); },
-            'startTime' => function (self $o, ParseNode $n) { $o->setStartTime($n->getTimeValue()); },
-            'timeZone' => function (self $o, ParseNode $n) { $o->setTimeZone($n->getObjectValue(TimeZoneBase::class)); },
+            'daysOfWeek' => function (ParseNode $n) use ($currentObject) { $currentObject->setDaysOfWeek($n->getCollectionOfEnumValues(DayOfWeek::class)); },
+            'endTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndTime($n->getTimeValue()); },
+            'startTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartTime($n->getTimeValue()); },
+            'timeZone' => function (ParseNode $n) use ($currentObject) { $currentObject->setTimeZone($n->getObjectValue(TimeZoneBase::class)); },
         ];
     }
 

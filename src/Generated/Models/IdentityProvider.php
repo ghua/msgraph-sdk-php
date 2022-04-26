@@ -57,11 +57,12 @@ class IdentityProvider extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'clientId' => function (self $o, ParseNode $n) { $o->setClientId($n->getStringValue()); },
-            'clientSecret' => function (self $o, ParseNode $n) { $o->setClientSecret($n->getStringValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
+            'clientId' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientId($n->getStringValue()); },
+            'clientSecret' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientSecret($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
         ]);
     }
 

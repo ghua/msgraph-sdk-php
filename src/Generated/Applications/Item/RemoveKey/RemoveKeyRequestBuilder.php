@@ -30,7 +30,7 @@ class RemoveKeyRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/applications/{application_id}/microsoft.graph.removeKey';
+        $this->urlTemplate = '{+baseurl}/applications/{application%2Did}/microsoft.graph.removeKey';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

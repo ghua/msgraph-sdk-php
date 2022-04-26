@@ -61,12 +61,13 @@ class TermsAndConditionsAcceptanceStatus extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'acceptedDateTime' => function (self $o, ParseNode $n) { $o->setAcceptedDateTime($n->getDateTimeValue()); },
-            'acceptedVersion' => function (self $o, ParseNode $n) { $o->setAcceptedVersion($n->getIntegerValue()); },
-            'termsAndConditions' => function (self $o, ParseNode $n) { $o->setTermsAndConditions($n->getObjectValue(TermsAndConditions::class)); },
-            'userDisplayName' => function (self $o, ParseNode $n) { $o->setUserDisplayName($n->getStringValue()); },
-            'userPrincipalName' => function (self $o, ParseNode $n) { $o->setUserPrincipalName($n->getStringValue()); },
+            'acceptedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcceptedDateTime($n->getDateTimeValue()); },
+            'acceptedVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcceptedVersion($n->getIntegerValue()); },
+            'termsAndConditions' => function (ParseNode $n) use ($currentObject) { $currentObject->setTermsAndConditions($n->getObjectValue(TermsAndConditions::class)); },
+            'userDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserDisplayName($n->getStringValue()); },
+            'userPrincipalName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserPrincipalName($n->getStringValue()); },
         ]);
     }
 

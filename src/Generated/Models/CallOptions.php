@@ -44,8 +44,9 @@ class CallOptions implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'hideBotAfterEscalation' => function (self $o, ParseNode $n) { $o->setHideBotAfterEscalation($n->getBooleanValue()); },
+            'hideBotAfterEscalation' => function (ParseNode $n) use ($currentObject) { $currentObject->setHideBotAfterEscalation($n->getBooleanValue()); },
         ];
     }
 

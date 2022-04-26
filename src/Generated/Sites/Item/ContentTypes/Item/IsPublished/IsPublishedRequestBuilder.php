@@ -30,7 +30,7 @@ class IsPublishedRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/sites/{site_id}/contentTypes/{contentType_id}/microsoft.graph.isPublished()';
+        $this->urlTemplate = '{+baseurl}/sites/{site%2Did}/contentTypes/{contentType%2Did}/microsoft.graph.isPublished()';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

@@ -53,8 +53,9 @@ class AgreementFileData implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'data' => function (self $o, ParseNode $n) { $o->setData($n->getBinaryContent()); },
+            'data' => function (ParseNode $n) use ($currentObject) { $currentObject->setData($n->getBinaryContent()); },
         ];
     }
 

@@ -70,11 +70,12 @@ class DeviceActionResult implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'actionName' => function (self $o, ParseNode $n) { $o->setActionName($n->getStringValue()); },
-            'actionState' => function (self $o, ParseNode $n) { $o->setActionState($n->getEnumValue(ActionState::class)); },
-            'lastUpdatedDateTime' => function (self $o, ParseNode $n) { $o->setLastUpdatedDateTime($n->getDateTimeValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
+            'actionName' => function (ParseNode $n) use ($currentObject) { $currentObject->setActionName($n->getStringValue()); },
+            'actionState' => function (ParseNode $n) use ($currentObject) { $currentObject->setActionState($n->getEnumValue(ActionState::class)); },
+            'lastUpdatedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastUpdatedDateTime($n->getDateTimeValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
         ];
     }
 

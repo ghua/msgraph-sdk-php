@@ -131,21 +131,22 @@ class IntuneBrand implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'contactITEmailAddress' => function (self $o, ParseNode $n) { $o->setContactITEmailAddress($n->getStringValue()); },
-            'contactITName' => function (self $o, ParseNode $n) { $o->setContactITName($n->getStringValue()); },
-            'contactITNotes' => function (self $o, ParseNode $n) { $o->setContactITNotes($n->getStringValue()); },
-            'contactITPhoneNumber' => function (self $o, ParseNode $n) { $o->setContactITPhoneNumber($n->getStringValue()); },
-            'darkBackgroundLogo' => function (self $o, ParseNode $n) { $o->setDarkBackgroundLogo($n->getObjectValue(MimeContent::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lightBackgroundLogo' => function (self $o, ParseNode $n) { $o->setLightBackgroundLogo($n->getObjectValue(MimeContent::class)); },
-            'onlineSupportSiteName' => function (self $o, ParseNode $n) { $o->setOnlineSupportSiteName($n->getStringValue()); },
-            'onlineSupportSiteUrl' => function (self $o, ParseNode $n) { $o->setOnlineSupportSiteUrl($n->getStringValue()); },
-            'privacyUrl' => function (self $o, ParseNode $n) { $o->setPrivacyUrl($n->getStringValue()); },
-            'showDisplayNameNextToLogo' => function (self $o, ParseNode $n) { $o->setShowDisplayNameNextToLogo($n->getBooleanValue()); },
-            'showLogo' => function (self $o, ParseNode $n) { $o->setShowLogo($n->getBooleanValue()); },
-            'showNameNextToLogo' => function (self $o, ParseNode $n) { $o->setShowNameNextToLogo($n->getBooleanValue()); },
-            'themeColor' => function (self $o, ParseNode $n) { $o->setThemeColor($n->getObjectValue(RgbColor::class)); },
+            'contactITEmailAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setContactITEmailAddress($n->getStringValue()); },
+            'contactITName' => function (ParseNode $n) use ($currentObject) { $currentObject->setContactITName($n->getStringValue()); },
+            'contactITNotes' => function (ParseNode $n) use ($currentObject) { $currentObject->setContactITNotes($n->getStringValue()); },
+            'contactITPhoneNumber' => function (ParseNode $n) use ($currentObject) { $currentObject->setContactITPhoneNumber($n->getStringValue()); },
+            'darkBackgroundLogo' => function (ParseNode $n) use ($currentObject) { $currentObject->setDarkBackgroundLogo($n->getObjectValue(MimeContent::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lightBackgroundLogo' => function (ParseNode $n) use ($currentObject) { $currentObject->setLightBackgroundLogo($n->getObjectValue(MimeContent::class)); },
+            'onlineSupportSiteName' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnlineSupportSiteName($n->getStringValue()); },
+            'onlineSupportSiteUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnlineSupportSiteUrl($n->getStringValue()); },
+            'privacyUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrivacyUrl($n->getStringValue()); },
+            'showDisplayNameNextToLogo' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowDisplayNameNextToLogo($n->getBooleanValue()); },
+            'showLogo' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowLogo($n->getBooleanValue()); },
+            'showNameNextToLogo' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowNameNextToLogo($n->getBooleanValue()); },
+            'themeColor' => function (ParseNode $n) use ($currentObject) { $currentObject->setThemeColor($n->getObjectValue(RgbColor::class)); },
         ];
     }
 

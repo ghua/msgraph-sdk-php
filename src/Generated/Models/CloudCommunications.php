@@ -58,11 +58,12 @@ class CloudCommunications extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'callRecords' => function (self $o, ParseNode $n) { $o->setCallRecords($n->getCollectionOfObjectValues(CallRecord::class)); },
-            'calls' => function (self $o, ParseNode $n) { $o->setCalls($n->getCollectionOfObjectValues(Call::class)); },
-            'onlineMeetings' => function (self $o, ParseNode $n) { $o->setOnlineMeetings($n->getCollectionOfObjectValues(OnlineMeeting::class)); },
-            'presences' => function (self $o, ParseNode $n) { $o->setPresences($n->getCollectionOfObjectValues(Presence::class)); },
+            'callRecords' => function (ParseNode $n) use ($currentObject) { $currentObject->setCallRecords($n->getCollectionOfObjectValues(CallRecord::class)); },
+            'calls' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalls($n->getCollectionOfObjectValues(Call::class)); },
+            'onlineMeetings' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnlineMeetings($n->getCollectionOfObjectValues(OnlineMeeting::class)); },
+            'presences' => function (ParseNode $n) use ($currentObject) { $currentObject->setPresences($n->getCollectionOfObjectValues(Presence::class)); },
         ]);
     }
 

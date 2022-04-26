@@ -35,9 +35,10 @@ class ManagedEBookAssignment extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'installIntent' => function (self $o, ParseNode $n) { $o->setInstallIntent($n->getEnumValue(InstallIntent::class)); },
-            'target' => function (self $o, ParseNode $n) { $o->setTarget($n->getObjectValue(DeviceAndAppManagementAssignmentTarget::class)); },
+            'installIntent' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstallIntent($n->getEnumValue(InstallIntent::class)); },
+            'target' => function (ParseNode $n) use ($currentObject) { $currentObject->setTarget($n->getObjectValue(DeviceAndAppManagementAssignmentTarget::class)); },
         ]);
     }
 

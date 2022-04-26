@@ -106,15 +106,16 @@ class AccessPackageApprovalStage implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'durationBeforeAutomaticDenial' => function (self $o, ParseNode $n) { $o->setDurationBeforeAutomaticDenial($n->getDateIntervalValue()); },
-            'durationBeforeEscalation' => function (self $o, ParseNode $n) { $o->setDurationBeforeEscalation($n->getDateIntervalValue()); },
-            'escalationApprovers' => function (self $o, ParseNode $n) { $o->setEscalationApprovers($n->getCollectionOfObjectValues(SubjectSet::class)); },
-            'fallbackEscalationApprovers' => function (self $o, ParseNode $n) { $o->setFallbackEscalationApprovers($n->getCollectionOfObjectValues(SubjectSet::class)); },
-            'fallbackPrimaryApprovers' => function (self $o, ParseNode $n) { $o->setFallbackPrimaryApprovers($n->getCollectionOfObjectValues(SubjectSet::class)); },
-            'isApproverJustificationRequired' => function (self $o, ParseNode $n) { $o->setIsApproverJustificationRequired($n->getBooleanValue()); },
-            'isEscalationEnabled' => function (self $o, ParseNode $n) { $o->setIsEscalationEnabled($n->getBooleanValue()); },
-            'primaryApprovers' => function (self $o, ParseNode $n) { $o->setPrimaryApprovers($n->getCollectionOfObjectValues(SubjectSet::class)); },
+            'durationBeforeAutomaticDenial' => function (ParseNode $n) use ($currentObject) { $currentObject->setDurationBeforeAutomaticDenial($n->getDateIntervalValue()); },
+            'durationBeforeEscalation' => function (ParseNode $n) use ($currentObject) { $currentObject->setDurationBeforeEscalation($n->getDateIntervalValue()); },
+            'escalationApprovers' => function (ParseNode $n) use ($currentObject) { $currentObject->setEscalationApprovers($n->getCollectionOfObjectValues(SubjectSet::class)); },
+            'fallbackEscalationApprovers' => function (ParseNode $n) use ($currentObject) { $currentObject->setFallbackEscalationApprovers($n->getCollectionOfObjectValues(SubjectSet::class)); },
+            'fallbackPrimaryApprovers' => function (ParseNode $n) use ($currentObject) { $currentObject->setFallbackPrimaryApprovers($n->getCollectionOfObjectValues(SubjectSet::class)); },
+            'isApproverJustificationRequired' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsApproverJustificationRequired($n->getBooleanValue()); },
+            'isEscalationEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEscalationEnabled($n->getBooleanValue()); },
+            'primaryApprovers' => function (ParseNode $n) use ($currentObject) { $currentObject->setPrimaryApprovers($n->getCollectionOfObjectValues(SubjectSet::class)); },
         ];
     }
 

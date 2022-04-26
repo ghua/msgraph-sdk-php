@@ -71,13 +71,14 @@ class AdministrativeUnit extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'extensions' => function (self $o, ParseNode $n) { $o->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
-            'members' => function (self $o, ParseNode $n) { $o->setMembers($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'scopedRoleMembers' => function (self $o, ParseNode $n) { $o->setScopedRoleMembers($n->getCollectionOfObjectValues(ScopedRoleMembership::class)); },
-            'visibility' => function (self $o, ParseNode $n) { $o->setVisibility($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'extensions' => function (ParseNode $n) use ($currentObject) { $currentObject->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
+            'members' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembers($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'scopedRoleMembers' => function (ParseNode $n) use ($currentObject) { $currentObject->setScopedRoleMembers($n->getCollectionOfObjectValues(ScopedRoleMembership::class)); },
+            'visibility' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisibility($n->getStringValue()); },
         ]);
     }
 

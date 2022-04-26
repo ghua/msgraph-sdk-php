@@ -53,8 +53,9 @@ class ScheduleActionsForRulesRequestBody implements AdditionalDataHolder, Parsab
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'deviceComplianceScheduledActionForRules' => function (self $o, ParseNode $n) { $o->setDeviceComplianceScheduledActionForRules($n->getCollectionOfObjectValues(DeviceComplianceScheduledActionForRule::class)); },
+            'deviceComplianceScheduledActionForRules' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceComplianceScheduledActionForRules($n->getCollectionOfObjectValues(DeviceComplianceScheduledActionForRule::class)); },
         ];
     }
 

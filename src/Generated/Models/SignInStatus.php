@@ -74,10 +74,11 @@ class SignInStatus implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'additionalDetails' => function (self $o, ParseNode $n) { $o->setAdditionalDetails($n->getStringValue()); },
-            'errorCode' => function (self $o, ParseNode $n) { $o->setErrorCode($n->getIntegerValue()); },
-            'failureReason' => function (self $o, ParseNode $n) { $o->setFailureReason($n->getStringValue()); },
+            'additionalDetails' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdditionalDetails($n->getStringValue()); },
+            'errorCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorCode($n->getIntegerValue()); },
+            'failureReason' => function (ParseNode $n) use ($currentObject) { $currentObject->setFailureReason($n->getStringValue()); },
         ];
     }
 

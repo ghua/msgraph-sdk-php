@@ -96,7 +96,7 @@ class CalendarRequestBuilder
     */
     public function calendarPermissionsById(string $id): CalendarPermissionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['calendarPermission_id'] = $id;
+        $urlTplParams['calendarPermission%2Did'] = $id;
         return new CalendarPermissionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -107,7 +107,7 @@ class CalendarRequestBuilder
     */
     public function calendarViewById(string $id): MicrosoftGraphGeneratedUsersItemCalendarCalendarViewItemEventItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['event_id'] = $id;
+        $urlTplParams['event%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemCalendarCalendarViewItemEventItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -117,7 +117,7 @@ class CalendarRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/calendar{?select}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/calendar{?%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -211,7 +211,7 @@ class CalendarRequestBuilder
     */
     public function eventsById(string $id): MicrosoftGraphGeneratedUsersItemCalendarEventsItemEventItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['event_id'] = $id;
+        $urlTplParams['event%2Did'] = $id;
         return new MicrosoftGraphGeneratedUsersItemCalendarEventsItemEventItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -239,7 +239,7 @@ class CalendarRequestBuilder
     */
     public function multiValueExtendedPropertiesById(string $id): MultiValueLegacyExtendedPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['multiValueLegacyExtendedProperty_id'] = $id;
+        $urlTplParams['multiValueLegacyExtendedProperty%2Did'] = $id;
         return new MultiValueLegacyExtendedPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -267,8 +267,16 @@ class CalendarRequestBuilder
     */
     public function singleValueExtendedPropertiesById(string $id): SingleValueLegacyExtendedPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['singleValueLegacyExtendedProperty_id'] = $id;
+        $urlTplParams['singleValueLegacyExtendedProperty%2Did'] = $id;
         return new SingleValueLegacyExtendedPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -89,15 +89,16 @@ class ResourceVisualization implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'containerDisplayName' => function (self $o, ParseNode $n) { $o->setContainerDisplayName($n->getStringValue()); },
-            'containerType' => function (self $o, ParseNode $n) { $o->setContainerType($n->getStringValue()); },
-            'containerWebUrl' => function (self $o, ParseNode $n) { $o->setContainerWebUrl($n->getStringValue()); },
-            'mediaType' => function (self $o, ParseNode $n) { $o->setMediaType($n->getStringValue()); },
-            'previewImageUrl' => function (self $o, ParseNode $n) { $o->setPreviewImageUrl($n->getStringValue()); },
-            'previewText' => function (self $o, ParseNode $n) { $o->setPreviewText($n->getStringValue()); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
+            'containerDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setContainerDisplayName($n->getStringValue()); },
+            'containerType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContainerType($n->getStringValue()); },
+            'containerWebUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setContainerWebUrl($n->getStringValue()); },
+            'mediaType' => function (ParseNode $n) use ($currentObject) { $currentObject->setMediaType($n->getStringValue()); },
+            'previewImageUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreviewImageUrl($n->getStringValue()); },
+            'previewText' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreviewText($n->getStringValue()); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
         ];
     }
 

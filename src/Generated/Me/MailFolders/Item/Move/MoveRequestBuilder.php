@@ -31,7 +31,7 @@ class MoveRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/mailFolders/{mailFolder_id}/microsoft.graph.move';
+        $this->urlTemplate = '{+baseurl}/me/mailFolders/{mailFolder%2Did}/microsoft.graph.move';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

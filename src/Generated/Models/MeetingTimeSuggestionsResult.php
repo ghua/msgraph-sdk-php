@@ -55,9 +55,10 @@ class MeetingTimeSuggestionsResult implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'emptySuggestionsReason' => function (self $o, ParseNode $n) { $o->setEmptySuggestionsReason($n->getStringValue()); },
-            'meetingTimeSuggestions' => function (self $o, ParseNode $n) { $o->setMeetingTimeSuggestions($n->getCollectionOfObjectValues(MeetingTimeSuggestion::class)); },
+            'emptySuggestionsReason' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmptySuggestionsReason($n->getStringValue()); },
+            'meetingTimeSuggestions' => function (ParseNode $n) use ($currentObject) { $currentObject->setMeetingTimeSuggestions($n->getCollectionOfObjectValues(MeetingTimeSuggestion::class)); },
         ];
     }
 

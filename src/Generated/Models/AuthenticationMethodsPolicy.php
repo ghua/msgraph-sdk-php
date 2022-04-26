@@ -75,14 +75,15 @@ class AuthenticationMethodsPolicy extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'authenticationMethodConfigurations' => function (self $o, ParseNode $n) { $o->setAuthenticationMethodConfigurations($n->getCollectionOfObjectValues(AuthenticationMethodConfiguration::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'policyVersion' => function (self $o, ParseNode $n) { $o->setPolicyVersion($n->getStringValue()); },
-            'reconfirmationInDays' => function (self $o, ParseNode $n) { $o->setReconfirmationInDays($n->getIntegerValue()); },
-            'registrationEnforcement' => function (self $o, ParseNode $n) { $o->setRegistrationEnforcement($n->getObjectValue(RegistrationEnforcement::class)); },
+            'authenticationMethodConfigurations' => function (ParseNode $n) use ($currentObject) { $currentObject->setAuthenticationMethodConfigurations($n->getCollectionOfObjectValues(AuthenticationMethodConfiguration::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'policyVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setPolicyVersion($n->getStringValue()); },
+            'reconfirmationInDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setReconfirmationInDays($n->getIntegerValue()); },
+            'registrationEnforcement' => function (ParseNode $n) use ($currentObject) { $currentObject->setRegistrationEnforcement($n->getObjectValue(RegistrationEnforcement::class)); },
         ]);
     }
 

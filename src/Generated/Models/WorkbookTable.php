@@ -79,21 +79,22 @@ class WorkbookTable extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'columns' => function (self $o, ParseNode $n) { $o->setColumns($n->getCollectionOfObjectValues(WorkbookTableColumn::class)); },
-            'highlightFirstColumn' => function (self $o, ParseNode $n) { $o->setHighlightFirstColumn($n->getBooleanValue()); },
-            'highlightLastColumn' => function (self $o, ParseNode $n) { $o->setHighlightLastColumn($n->getBooleanValue()); },
-            'legacyId' => function (self $o, ParseNode $n) { $o->setLegacyId($n->getStringValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
-            'rows' => function (self $o, ParseNode $n) { $o->setRows($n->getCollectionOfObjectValues(WorkbookTableRow::class)); },
-            'showBandedColumns' => function (self $o, ParseNode $n) { $o->setShowBandedColumns($n->getBooleanValue()); },
-            'showBandedRows' => function (self $o, ParseNode $n) { $o->setShowBandedRows($n->getBooleanValue()); },
-            'showFilterButton' => function (self $o, ParseNode $n) { $o->setShowFilterButton($n->getBooleanValue()); },
-            'showHeaders' => function (self $o, ParseNode $n) { $o->setShowHeaders($n->getBooleanValue()); },
-            'showTotals' => function (self $o, ParseNode $n) { $o->setShowTotals($n->getBooleanValue()); },
-            'sort' => function (self $o, ParseNode $n) { $o->setSort($n->getObjectValue(WorkbookTableSort::class)); },
-            'style' => function (self $o, ParseNode $n) { $o->setStyle($n->getStringValue()); },
-            'worksheet' => function (self $o, ParseNode $n) { $o->setWorksheet($n->getObjectValue(WorkbookWorksheet::class)); },
+            'columns' => function (ParseNode $n) use ($currentObject) { $currentObject->setColumns($n->getCollectionOfObjectValues(WorkbookTableColumn::class)); },
+            'highlightFirstColumn' => function (ParseNode $n) use ($currentObject) { $currentObject->setHighlightFirstColumn($n->getBooleanValue()); },
+            'highlightLastColumn' => function (ParseNode $n) use ($currentObject) { $currentObject->setHighlightLastColumn($n->getBooleanValue()); },
+            'legacyId' => function (ParseNode $n) use ($currentObject) { $currentObject->setLegacyId($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
+            'rows' => function (ParseNode $n) use ($currentObject) { $currentObject->setRows($n->getCollectionOfObjectValues(WorkbookTableRow::class)); },
+            'showBandedColumns' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowBandedColumns($n->getBooleanValue()); },
+            'showBandedRows' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowBandedRows($n->getBooleanValue()); },
+            'showFilterButton' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowFilterButton($n->getBooleanValue()); },
+            'showHeaders' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowHeaders($n->getBooleanValue()); },
+            'showTotals' => function (ParseNode $n) use ($currentObject) { $currentObject->setShowTotals($n->getBooleanValue()); },
+            'sort' => function (ParseNode $n) use ($currentObject) { $currentObject->setSort($n->getObjectValue(WorkbookTableSort::class)); },
+            'style' => function (ParseNode $n) use ($currentObject) { $currentObject->setStyle($n->getStringValue()); },
+            'worksheet' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorksheet($n->getObjectValue(WorkbookWorksheet::class)); },
         ]);
     }
 

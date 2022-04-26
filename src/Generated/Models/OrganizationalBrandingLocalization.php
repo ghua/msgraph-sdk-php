@@ -29,6 +29,7 @@ class OrganizationalBrandingLocalization extends OrganizationalBrandingPropertie
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
         ]);
     }

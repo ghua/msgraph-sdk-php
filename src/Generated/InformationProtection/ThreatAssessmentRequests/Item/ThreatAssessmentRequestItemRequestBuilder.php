@@ -41,7 +41,7 @@ class ThreatAssessmentRequestItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/informationProtection/threatAssessmentRequests/{threatAssessmentRequest_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/informationProtection/threatAssessmentRequests/{threatAssessmentRequest%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -169,8 +169,19 @@ class ThreatAssessmentRequestItemRequestBuilder
     */
     public function resultsById(string $id): ThreatAssessmentResultItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['threatAssessmentResult_id'] = $id;
+        $urlTplParams['threatAssessmentResult%2Did'] = $id;
         return new ThreatAssessmentResultItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

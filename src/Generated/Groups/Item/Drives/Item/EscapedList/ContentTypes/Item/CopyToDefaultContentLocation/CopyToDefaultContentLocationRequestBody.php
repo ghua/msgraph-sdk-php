@@ -56,9 +56,10 @@ class CopyToDefaultContentLocationRequestBody implements AdditionalDataHolder, P
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'destinationFileName' => function (self $o, ParseNode $n) { $o->setDestinationFileName($n->getStringValue()); },
-            'sourceFile' => function (self $o, ParseNode $n) { $o->setSourceFile($n->getObjectValue(ItemReference::class)); },
+            'destinationFileName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDestinationFileName($n->getStringValue()); },
+            'sourceFile' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceFile($n->getObjectValue(ItemReference::class)); },
         ];
     }
 

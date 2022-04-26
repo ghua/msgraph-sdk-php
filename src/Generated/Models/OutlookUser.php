@@ -32,8 +32,9 @@ class OutlookUser extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'masterCategories' => function (self $o, ParseNode $n) { $o->setMasterCategories($n->getCollectionOfObjectValues(OutlookCategory::class)); },
+            'masterCategories' => function (ParseNode $n) use ($currentObject) { $currentObject->setMasterCategories($n->getCollectionOfObjectValues(OutlookCategory::class)); },
         ]);
     }
 

@@ -55,9 +55,10 @@ class UserAgent implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'applicationVersion' => function (self $o, ParseNode $n) { $o->setApplicationVersion($n->getStringValue()); },
-            'headerValue' => function (self $o, ParseNode $n) { $o->setHeaderValue($n->getStringValue()); },
+            'applicationVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplicationVersion($n->getStringValue()); },
+            'headerValue' => function (ParseNode $n) use ($currentObject) { $currentObject->setHeaderValue($n->getStringValue()); },
         ];
     }
 

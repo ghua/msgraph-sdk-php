@@ -77,11 +77,12 @@ class ControlScore implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'controlCategory' => function (self $o, ParseNode $n) { $o->setControlCategory($n->getStringValue()); },
-            'controlName' => function (self $o, ParseNode $n) { $o->setControlName($n->getStringValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'score' => function (self $o, ParseNode $n) { $o->setScore($n->getFloatValue()); },
+            'controlCategory' => function (ParseNode $n) use ($currentObject) { $currentObject->setControlCategory($n->getStringValue()); },
+            'controlName' => function (ParseNode $n) use ($currentObject) { $currentObject->setControlName($n->getStringValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'score' => function (ParseNode $n) use ($currentObject) { $currentObject->setScore($n->getFloatValue()); },
         ];
     }
 

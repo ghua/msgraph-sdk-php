@@ -183,7 +183,7 @@ class Group extends DirectoryObject
     /** @var array<Site>|null $sites The list of SharePoint sites in this group. Access the default site with /sites/root. */
     private ?array $sites = null;
     
-    /** @var Team|null $team The team property */
+    /** @var Team|null $team The team associated with this group. */
     private ?Team $team = null;
     
     /** @var string|null $theme Specifies a Microsoft 365 group's color theme. Possible values are Teal, Purple, Green, Blue, Pink, Orange or Red. Returned by default. */
@@ -377,72 +377,73 @@ class Group extends DirectoryObject
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'acceptedSenders' => function (self $o, ParseNode $n) { $o->setAcceptedSenders($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'allowExternalSenders' => function (self $o, ParseNode $n) { $o->setAllowExternalSenders($n->getBooleanValue()); },
-            'appRoleAssignments' => function (self $o, ParseNode $n) { $o->setAppRoleAssignments($n->getCollectionOfObjectValues(AppRoleAssignment::class)); },
-            'assignedLabels' => function (self $o, ParseNode $n) { $o->setAssignedLabels($n->getCollectionOfObjectValues(AssignedLabel::class)); },
-            'assignedLicenses' => function (self $o, ParseNode $n) { $o->setAssignedLicenses($n->getCollectionOfObjectValues(AssignedLicense::class)); },
-            'autoSubscribeNewMembers' => function (self $o, ParseNode $n) { $o->setAutoSubscribeNewMembers($n->getBooleanValue()); },
-            'calendar' => function (self $o, ParseNode $n) { $o->setCalendar($n->getObjectValue(Calendar::class)); },
-            'calendarView' => function (self $o, ParseNode $n) { $o->setCalendarView($n->getCollectionOfObjectValues(Event::class)); },
-            'classification' => function (self $o, ParseNode $n) { $o->setClassification($n->getStringValue()); },
-            'conversations' => function (self $o, ParseNode $n) { $o->setConversations($n->getCollectionOfObjectValues(Conversation::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'createdOnBehalfOf' => function (self $o, ParseNode $n) { $o->setCreatedOnBehalfOf($n->getObjectValue(DirectoryObject::class)); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'drive' => function (self $o, ParseNode $n) { $o->setDrive($n->getObjectValue(Drive::class)); },
-            'drives' => function (self $o, ParseNode $n) { $o->setDrives($n->getCollectionOfObjectValues(Drive::class)); },
-            'events' => function (self $o, ParseNode $n) { $o->setEvents($n->getCollectionOfObjectValues(Event::class)); },
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'extensions' => function (self $o, ParseNode $n) { $o->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
-            'groupLifecyclePolicies' => function (self $o, ParseNode $n) { $o->setGroupLifecyclePolicies($n->getCollectionOfObjectValues(GroupLifecyclePolicy::class)); },
-            'groupTypes' => function (self $o, ParseNode $n) { $o->setGroupTypes($n->getCollectionOfPrimitiveValues()); },
-            'hasMembersWithLicenseErrors' => function (self $o, ParseNode $n) { $o->setHasMembersWithLicenseErrors($n->getBooleanValue()); },
-            'hideFromAddressLists' => function (self $o, ParseNode $n) { $o->setHideFromAddressLists($n->getBooleanValue()); },
-            'hideFromOutlookClients' => function (self $o, ParseNode $n) { $o->setHideFromOutlookClients($n->getBooleanValue()); },
-            'isArchived' => function (self $o, ParseNode $n) { $o->setIsArchived($n->getBooleanValue()); },
-            'isAssignableToRole' => function (self $o, ParseNode $n) { $o->setIsAssignableToRole($n->getBooleanValue()); },
-            'isSubscribedByMail' => function (self $o, ParseNode $n) { $o->setIsSubscribedByMail($n->getBooleanValue()); },
-            'licenseProcessingState' => function (self $o, ParseNode $n) { $o->setLicenseProcessingState($n->getObjectValue(LicenseProcessingState::class)); },
-            'mail' => function (self $o, ParseNode $n) { $o->setMail($n->getStringValue()); },
-            'mailEnabled' => function (self $o, ParseNode $n) { $o->setMailEnabled($n->getBooleanValue()); },
-            'mailNickname' => function (self $o, ParseNode $n) { $o->setMailNickname($n->getStringValue()); },
-            'memberOf' => function (self $o, ParseNode $n) { $o->setMemberOf($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'members' => function (self $o, ParseNode $n) { $o->setMembers($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'membershipRule' => function (self $o, ParseNode $n) { $o->setMembershipRule($n->getStringValue()); },
-            'membershipRuleProcessingState' => function (self $o, ParseNode $n) { $o->setMembershipRuleProcessingState($n->getStringValue()); },
-            'membersWithLicenseErrors' => function (self $o, ParseNode $n) { $o->setMembersWithLicenseErrors($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'onenote' => function (self $o, ParseNode $n) { $o->setOnenote($n->getObjectValue(Onenote::class)); },
-            'onPremisesDomainName' => function (self $o, ParseNode $n) { $o->setOnPremisesDomainName($n->getStringValue()); },
-            'onPremisesLastSyncDateTime' => function (self $o, ParseNode $n) { $o->setOnPremisesLastSyncDateTime($n->getDateTimeValue()); },
-            'onPremisesNetBiosName' => function (self $o, ParseNode $n) { $o->setOnPremisesNetBiosName($n->getStringValue()); },
-            'onPremisesProvisioningErrors' => function (self $o, ParseNode $n) { $o->setOnPremisesProvisioningErrors($n->getCollectionOfObjectValues(OnPremisesProvisioningError::class)); },
-            'onPremisesSamAccountName' => function (self $o, ParseNode $n) { $o->setOnPremisesSamAccountName($n->getStringValue()); },
-            'onPremisesSecurityIdentifier' => function (self $o, ParseNode $n) { $o->setOnPremisesSecurityIdentifier($n->getStringValue()); },
-            'onPremisesSyncEnabled' => function (self $o, ParseNode $n) { $o->setOnPremisesSyncEnabled($n->getBooleanValue()); },
-            'owners' => function (self $o, ParseNode $n) { $o->setOwners($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'permissionGrants' => function (self $o, ParseNode $n) { $o->setPermissionGrants($n->getCollectionOfObjectValues(ResourceSpecificPermissionGrant::class)); },
-            'photo' => function (self $o, ParseNode $n) { $o->setPhoto($n->getObjectValue(ProfilePhoto::class)); },
-            'photos' => function (self $o, ParseNode $n) { $o->setPhotos($n->getCollectionOfObjectValues(ProfilePhoto::class)); },
-            'planner' => function (self $o, ParseNode $n) { $o->setPlanner($n->getObjectValue(PlannerGroup::class)); },
-            'preferredDataLocation' => function (self $o, ParseNode $n) { $o->setPreferredDataLocation($n->getStringValue()); },
-            'preferredLanguage' => function (self $o, ParseNode $n) { $o->setPreferredLanguage($n->getStringValue()); },
-            'proxyAddresses' => function (self $o, ParseNode $n) { $o->setProxyAddresses($n->getCollectionOfPrimitiveValues()); },
-            'rejectedSenders' => function (self $o, ParseNode $n) { $o->setRejectedSenders($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'renewedDateTime' => function (self $o, ParseNode $n) { $o->setRenewedDateTime($n->getDateTimeValue()); },
-            'securityEnabled' => function (self $o, ParseNode $n) { $o->setSecurityEnabled($n->getBooleanValue()); },
-            'securityIdentifier' => function (self $o, ParseNode $n) { $o->setSecurityIdentifier($n->getStringValue()); },
-            'settings' => function (self $o, ParseNode $n) { $o->setSettings($n->getCollectionOfObjectValues(GroupSetting::class)); },
-            'sites' => function (self $o, ParseNode $n) { $o->setSites($n->getCollectionOfObjectValues(Site::class)); },
-            'team' => function (self $o, ParseNode $n) { $o->setTeam($n->getObjectValue(Team::class)); },
-            'theme' => function (self $o, ParseNode $n) { $o->setTheme($n->getStringValue()); },
-            'threads' => function (self $o, ParseNode $n) { $o->setThreads($n->getCollectionOfObjectValues(ConversationThread::class)); },
-            'transitiveMemberOf' => function (self $o, ParseNode $n) { $o->setTransitiveMemberOf($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'transitiveMembers' => function (self $o, ParseNode $n) { $o->setTransitiveMembers($n->getCollectionOfObjectValues(DirectoryObject::class)); },
-            'unseenCount' => function (self $o, ParseNode $n) { $o->setUnseenCount($n->getIntegerValue()); },
-            'visibility' => function (self $o, ParseNode $n) { $o->setVisibility($n->getStringValue()); },
+            'acceptedSenders' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcceptedSenders($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'allowExternalSenders' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowExternalSenders($n->getBooleanValue()); },
+            'appRoleAssignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppRoleAssignments($n->getCollectionOfObjectValues(AppRoleAssignment::class)); },
+            'assignedLabels' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedLabels($n->getCollectionOfObjectValues(AssignedLabel::class)); },
+            'assignedLicenses' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedLicenses($n->getCollectionOfObjectValues(AssignedLicense::class)); },
+            'autoSubscribeNewMembers' => function (ParseNode $n) use ($currentObject) { $currentObject->setAutoSubscribeNewMembers($n->getBooleanValue()); },
+            'calendar' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalendar($n->getObjectValue(Calendar::class)); },
+            'calendarView' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalendarView($n->getCollectionOfObjectValues(Event::class)); },
+            'classification' => function (ParseNode $n) use ($currentObject) { $currentObject->setClassification($n->getStringValue()); },
+            'conversations' => function (ParseNode $n) use ($currentObject) { $currentObject->setConversations($n->getCollectionOfObjectValues(Conversation::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'createdOnBehalfOf' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedOnBehalfOf($n->getObjectValue(DirectoryObject::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'drive' => function (ParseNode $n) use ($currentObject) { $currentObject->setDrive($n->getObjectValue(Drive::class)); },
+            'drives' => function (ParseNode $n) use ($currentObject) { $currentObject->setDrives($n->getCollectionOfObjectValues(Drive::class)); },
+            'events' => function (ParseNode $n) use ($currentObject) { $currentObject->setEvents($n->getCollectionOfObjectValues(Event::class)); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'extensions' => function (ParseNode $n) use ($currentObject) { $currentObject->setExtensions($n->getCollectionOfObjectValues(Extension::class)); },
+            'groupLifecyclePolicies' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupLifecyclePolicies($n->getCollectionOfObjectValues(GroupLifecyclePolicy::class)); },
+            'groupTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupTypes($n->getCollectionOfPrimitiveValues()); },
+            'hasMembersWithLicenseErrors' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasMembersWithLicenseErrors($n->getBooleanValue()); },
+            'hideFromAddressLists' => function (ParseNode $n) use ($currentObject) { $currentObject->setHideFromAddressLists($n->getBooleanValue()); },
+            'hideFromOutlookClients' => function (ParseNode $n) use ($currentObject) { $currentObject->setHideFromOutlookClients($n->getBooleanValue()); },
+            'isArchived' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsArchived($n->getBooleanValue()); },
+            'isAssignableToRole' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAssignableToRole($n->getBooleanValue()); },
+            'isSubscribedByMail' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsSubscribedByMail($n->getBooleanValue()); },
+            'licenseProcessingState' => function (ParseNode $n) use ($currentObject) { $currentObject->setLicenseProcessingState($n->getObjectValue(LicenseProcessingState::class)); },
+            'mail' => function (ParseNode $n) use ($currentObject) { $currentObject->setMail($n->getStringValue()); },
+            'mailEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailEnabled($n->getBooleanValue()); },
+            'mailNickname' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailNickname($n->getStringValue()); },
+            'memberOf' => function (ParseNode $n) use ($currentObject) { $currentObject->setMemberOf($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'members' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembers($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'membershipRule' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembershipRule($n->getStringValue()); },
+            'membershipRuleProcessingState' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembershipRuleProcessingState($n->getStringValue()); },
+            'membersWithLicenseErrors' => function (ParseNode $n) use ($currentObject) { $currentObject->setMembersWithLicenseErrors($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'onenote' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnenote($n->getObjectValue(Onenote::class)); },
+            'onPremisesDomainName' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesDomainName($n->getStringValue()); },
+            'onPremisesLastSyncDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesLastSyncDateTime($n->getDateTimeValue()); },
+            'onPremisesNetBiosName' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesNetBiosName($n->getStringValue()); },
+            'onPremisesProvisioningErrors' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesProvisioningErrors($n->getCollectionOfObjectValues(OnPremisesProvisioningError::class)); },
+            'onPremisesSamAccountName' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesSamAccountName($n->getStringValue()); },
+            'onPremisesSecurityIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesSecurityIdentifier($n->getStringValue()); },
+            'onPremisesSyncEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnPremisesSyncEnabled($n->getBooleanValue()); },
+            'owners' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwners($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'permissionGrants' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermissionGrants($n->getCollectionOfObjectValues(ResourceSpecificPermissionGrant::class)); },
+            'photo' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhoto($n->getObjectValue(ProfilePhoto::class)); },
+            'photos' => function (ParseNode $n) use ($currentObject) { $currentObject->setPhotos($n->getCollectionOfObjectValues(ProfilePhoto::class)); },
+            'planner' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlanner($n->getObjectValue(PlannerGroup::class)); },
+            'preferredDataLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreferredDataLocation($n->getStringValue()); },
+            'preferredLanguage' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreferredLanguage($n->getStringValue()); },
+            'proxyAddresses' => function (ParseNode $n) use ($currentObject) { $currentObject->setProxyAddresses($n->getCollectionOfPrimitiveValues()); },
+            'rejectedSenders' => function (ParseNode $n) use ($currentObject) { $currentObject->setRejectedSenders($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'renewedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setRenewedDateTime($n->getDateTimeValue()); },
+            'securityEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setSecurityEnabled($n->getBooleanValue()); },
+            'securityIdentifier' => function (ParseNode $n) use ($currentObject) { $currentObject->setSecurityIdentifier($n->getStringValue()); },
+            'settings' => function (ParseNode $n) use ($currentObject) { $currentObject->setSettings($n->getCollectionOfObjectValues(GroupSetting::class)); },
+            'sites' => function (ParseNode $n) use ($currentObject) { $currentObject->setSites($n->getCollectionOfObjectValues(Site::class)); },
+            'team' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeam($n->getObjectValue(Team::class)); },
+            'theme' => function (ParseNode $n) use ($currentObject) { $currentObject->setTheme($n->getStringValue()); },
+            'threads' => function (ParseNode $n) use ($currentObject) { $currentObject->setThreads($n->getCollectionOfObjectValues(ConversationThread::class)); },
+            'transitiveMemberOf' => function (ParseNode $n) use ($currentObject) { $currentObject->setTransitiveMemberOf($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'transitiveMembers' => function (ParseNode $n) use ($currentObject) { $currentObject->setTransitiveMembers($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'unseenCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setUnseenCount($n->getIntegerValue()); },
+            'visibility' => function (ParseNode $n) use ($currentObject) { $currentObject->setVisibility($n->getStringValue()); },
         ]);
     }
 
@@ -759,7 +760,7 @@ class Group extends DirectoryObject
     }
 
     /**
-     * Gets the team property value. The team property
+     * Gets the team property value. The team associated with this group.
      * @return Team|null
     */
     public function getTeam(): ?Team {
@@ -1352,7 +1353,7 @@ class Group extends DirectoryObject
     }
 
     /**
-     * Sets the team property value. The team property
+     * Sets the team property value. The team associated with this group.
      *  @param Team|null $value Value to set for the team property.
     */
     public function setTeam(?Team $value ): void {

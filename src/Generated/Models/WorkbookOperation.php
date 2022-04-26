@@ -46,10 +46,11 @@ class WorkbookOperation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'error' => function (self $o, ParseNode $n) { $o->setError($n->getObjectValue(WorkbookOperationError::class)); },
-            'resourceLocation' => function (self $o, ParseNode $n) { $o->setResourceLocation($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(WorkbookOperationStatus::class)); },
+            'error' => function (ParseNode $n) use ($currentObject) { $currentObject->setError($n->getObjectValue(WorkbookOperationError::class)); },
+            'resourceLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceLocation($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(WorkbookOperationStatus::class)); },
         ]);
     }
 

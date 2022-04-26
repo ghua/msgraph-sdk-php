@@ -42,7 +42,7 @@ class ChildFoldersRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/mailFolders/{mailFolder_id}/childFolders{?top,skip,filter,count,orderby,select,expand}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/mailFolders/{mailFolder%2Did}/childFolders{?%24top,%24skip,%24filter,%24count,%24orderby,%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -135,4 +135,30 @@ class ChildFoldersRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var bool|null $count Include count of items */
+        public ?bool $count = null;
+        
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var string|null $filter Filter items by property values */
+        public ?string $filter = null;
+        
+        /** @var array<string>|null $orderby Order items by property values */
+        public ?array $orderby = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+        /** @var int|null $skip Skip the first n items */
+        public ?int $skip = null;
+        
+        /** @var int|null $top Show only the first n items */
+        public ?int $top = null;
+        
+    }
 }

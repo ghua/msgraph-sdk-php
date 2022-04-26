@@ -100,16 +100,17 @@ class ConditionalAccessConditionSet implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'applications' => function (self $o, ParseNode $n) { $o->setApplications($n->getObjectValue(ConditionalAccessApplications::class)); },
-            'clientApplications' => function (self $o, ParseNode $n) { $o->setClientApplications($n->getObjectValue(ConditionalAccessClientApplications::class)); },
-            'clientAppTypes' => function (self $o, ParseNode $n) { $o->setClientAppTypes($n->getCollectionOfEnumValues(ConditionalAccessClientApp::class)); },
-            'devices' => function (self $o, ParseNode $n) { $o->setDevices($n->getObjectValue(ConditionalAccessDevices::class)); },
-            'locations' => function (self $o, ParseNode $n) { $o->setLocations($n->getObjectValue(ConditionalAccessLocations::class)); },
-            'platforms' => function (self $o, ParseNode $n) { $o->setPlatforms($n->getObjectValue(ConditionalAccessPlatforms::class)); },
-            'signInRiskLevels' => function (self $o, ParseNode $n) { $o->setSignInRiskLevels($n->getCollectionOfEnumValues(RiskLevel::class)); },
-            'userRiskLevels' => function (self $o, ParseNode $n) { $o->setUserRiskLevels($n->getCollectionOfEnumValues(RiskLevel::class)); },
-            'users' => function (self $o, ParseNode $n) { $o->setUsers($n->getObjectValue(ConditionalAccessUsers::class)); },
+            'applications' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplications($n->getObjectValue(ConditionalAccessApplications::class)); },
+            'clientApplications' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientApplications($n->getObjectValue(ConditionalAccessClientApplications::class)); },
+            'clientAppTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientAppTypes($n->getCollectionOfEnumValues(ConditionalAccessClientApp::class)); },
+            'devices' => function (ParseNode $n) use ($currentObject) { $currentObject->setDevices($n->getObjectValue(ConditionalAccessDevices::class)); },
+            'locations' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocations($n->getObjectValue(ConditionalAccessLocations::class)); },
+            'platforms' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlatforms($n->getObjectValue(ConditionalAccessPlatforms::class)); },
+            'signInRiskLevels' => function (ParseNode $n) use ($currentObject) { $currentObject->setSignInRiskLevels($n->getCollectionOfEnumValues(RiskLevel::class)); },
+            'userRiskLevels' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserRiskLevels($n->getCollectionOfEnumValues(RiskLevel::class)); },
+            'users' => function (ParseNode $n) use ($currentObject) { $currentObject->setUsers($n->getObjectValue(ConditionalAccessUsers::class)); },
         ];
     }
 

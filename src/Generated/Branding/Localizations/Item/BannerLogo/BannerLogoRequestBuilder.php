@@ -32,7 +32,7 @@ class BannerLogoRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/branding/localizations/{organizationalBrandingLocalization_id}/bannerLogo';
+        $this->urlTemplate = '{+baseurl}/branding/localizations/{organizationalBrandingLocalization%2Did}/bannerLogo';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

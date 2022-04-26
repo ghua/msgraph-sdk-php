@@ -84,16 +84,17 @@ class PermissionScope implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'adminConsentDescription' => function (self $o, ParseNode $n) { $o->setAdminConsentDescription($n->getStringValue()); },
-            'adminConsentDisplayName' => function (self $o, ParseNode $n) { $o->setAdminConsentDisplayName($n->getStringValue()); },
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'isEnabled' => function (self $o, ParseNode $n) { $o->setIsEnabled($n->getBooleanValue()); },
-            'origin' => function (self $o, ParseNode $n) { $o->setOrigin($n->getStringValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
-            'userConsentDescription' => function (self $o, ParseNode $n) { $o->setUserConsentDescription($n->getStringValue()); },
-            'userConsentDisplayName' => function (self $o, ParseNode $n) { $o->setUserConsentDisplayName($n->getStringValue()); },
-            'value' => function (self $o, ParseNode $n) { $o->setValue($n->getStringValue()); },
+            'adminConsentDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdminConsentDescription($n->getStringValue()); },
+            'adminConsentDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdminConsentDisplayName($n->getStringValue()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'isEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsEnabled($n->getBooleanValue()); },
+            'origin' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrigin($n->getStringValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
+            'userConsentDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserConsentDescription($n->getStringValue()); },
+            'userConsentDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserConsentDisplayName($n->getStringValue()); },
+            'value' => function (ParseNode $n) use ($currentObject) { $currentObject->setValue($n->getStringValue()); },
         ];
     }
 

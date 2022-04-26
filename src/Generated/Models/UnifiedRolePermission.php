@@ -74,10 +74,11 @@ class UnifiedRolePermission implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowedResourceActions' => function (self $o, ParseNode $n) { $o->setAllowedResourceActions($n->getCollectionOfPrimitiveValues()); },
-            'condition' => function (self $o, ParseNode $n) { $o->setCondition($n->getStringValue()); },
-            'excludedResourceActions' => function (self $o, ParseNode $n) { $o->setExcludedResourceActions($n->getCollectionOfPrimitiveValues()); },
+            'allowedResourceActions' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowedResourceActions($n->getCollectionOfPrimitiveValues()); },
+            'condition' => function (ParseNode $n) use ($currentObject) { $currentObject->setCondition($n->getStringValue()); },
+            'excludedResourceActions' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludedResourceActions($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

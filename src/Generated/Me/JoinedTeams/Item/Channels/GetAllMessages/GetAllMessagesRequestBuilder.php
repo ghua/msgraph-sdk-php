@@ -30,7 +30,7 @@ class GetAllMessagesRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team_id}/channels/microsoft.graph.getAllMessages()';
+        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team%2Did}/channels/microsoft.graph.getAllMessages()';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

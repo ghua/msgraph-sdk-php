@@ -44,8 +44,9 @@ class GetAvailableExtensionPropertiesRequestBody implements AdditionalDataHolder
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'isSyncedFromOnPremises' => function (self $o, ParseNode $n) { $o->setIsSyncedFromOnPremises($n->getBooleanValue()); },
+            'isSyncedFromOnPremises' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsSyncedFromOnPremises($n->getBooleanValue()); },
         ];
     }
 

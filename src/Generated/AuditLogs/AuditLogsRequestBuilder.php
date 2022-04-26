@@ -68,7 +68,7 @@ class AuditLogsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/auditLogs{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/auditLogs{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -126,7 +126,7 @@ class AuditLogsRequestBuilder
     */
     public function directoryAuditsById(string $id): DirectoryAuditItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['directoryAudit_id'] = $id;
+        $urlTplParams['directoryAudit%2Did'] = $id;
         return new DirectoryAuditItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -171,7 +171,7 @@ class AuditLogsRequestBuilder
     */
     public function provisioningById(string $id): ProvisioningObjectSummaryItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['provisioningObjectSummary_id'] = $id;
+        $urlTplParams['provisioningObjectSummary%2Did'] = $id;
         return new ProvisioningObjectSummaryItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -182,7 +182,7 @@ class AuditLogsRequestBuilder
     */
     public function restrictedSignInsById(string $id): RestrictedSignInItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['restrictedSignIn_id'] = $id;
+        $urlTplParams['restrictedSignIn%2Did'] = $id;
         return new RestrictedSignInItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -193,8 +193,19 @@ class AuditLogsRequestBuilder
     */
     public function signInsById(string $id): SignInItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['signIn_id'] = $id;
+        $urlTplParams['signIn%2Did'] = $id;
         return new SignInItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -68,10 +68,11 @@ class ExpirationPattern implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'duration' => function (self $o, ParseNode $n) { $o->setDuration($n->getDateIntervalValue()); },
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getEnumValue(ExpirationPatternType::class)); },
+            'duration' => function (ParseNode $n) use ($currentObject) { $currentObject->setDuration($n->getDateIntervalValue()); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getEnumValue(ExpirationPatternType::class)); },
         ];
     }
 

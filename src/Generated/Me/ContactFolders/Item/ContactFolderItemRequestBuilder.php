@@ -68,7 +68,7 @@ class ContactFolderItemRequestBuilder
     */
     public function childFoldersById(string $id): ContactFolderItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['contactFolder_id1'] = $id;
+        $urlTplParams['contactFolder%2Did1'] = $id;
         return new ContactFolderItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -78,7 +78,7 @@ class ContactFolderItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/contactFolders/{contactFolder_id}{?select}';
+        $this->urlTemplate = '{+baseurl}/me/contactFolders/{contactFolder%2Did}{?%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -90,7 +90,7 @@ class ContactFolderItemRequestBuilder
     */
     public function contactsById(string $id): ContactItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['contact_id'] = $id;
+        $urlTplParams['contact%2Did'] = $id;
         return new ContactItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -200,7 +200,7 @@ class ContactFolderItemRequestBuilder
     */
     public function multiValueExtendedPropertiesById(string $id): MultiValueLegacyExtendedPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['multiValueLegacyExtendedProperty_id'] = $id;
+        $urlTplParams['multiValueLegacyExtendedProperty%2Did'] = $id;
         return new MultiValueLegacyExtendedPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -228,8 +228,16 @@ class ContactFolderItemRequestBuilder
     */
     public function singleValueExtendedPropertiesById(string $id): SingleValueLegacyExtendedPropertyItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['singleValueLegacyExtendedProperty_id'] = $id;
+        $urlTplParams['singleValueLegacyExtendedProperty%2Did'] = $id;
         return new SingleValueLegacyExtendedPropertyItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

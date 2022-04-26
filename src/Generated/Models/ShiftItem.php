@@ -54,10 +54,11 @@ class ShiftItem extends ScheduleEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activities' => function (self $o, ParseNode $n) { $o->setActivities($n->getCollectionOfObjectValues(ShiftActivity::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'notes' => function (self $o, ParseNode $n) { $o->setNotes($n->getStringValue()); },
+            'activities' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivities($n->getCollectionOfObjectValues(ShiftActivity::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'notes' => function (ParseNode $n) use ($currentObject) { $currentObject->setNotes($n->getStringValue()); },
         ]);
     }
 

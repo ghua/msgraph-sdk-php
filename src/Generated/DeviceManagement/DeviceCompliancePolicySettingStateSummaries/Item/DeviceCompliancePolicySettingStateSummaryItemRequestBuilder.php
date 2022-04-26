@@ -41,7 +41,7 @@ class DeviceCompliancePolicySettingStateSummaryItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceCompliancePolicySettingStateSummaries/{deviceCompliancePolicySettingStateSummary_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/deviceCompliancePolicySettingStateSummaries/{deviceCompliancePolicySettingStateSummary%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -135,7 +135,7 @@ class DeviceCompliancePolicySettingStateSummaryItemRequestBuilder
     */
     public function deviceComplianceSettingStatesById(string $id): DeviceComplianceSettingStateItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['deviceComplianceSettingState_id'] = $id;
+        $urlTplParams['deviceComplianceSettingState%2Did'] = $id;
         return new DeviceComplianceSettingStateItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -173,4 +173,15 @@ class DeviceCompliancePolicySettingStateSummaryItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

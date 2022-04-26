@@ -31,7 +31,7 @@ class AddTokenSigningCertificateRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/servicePrincipals/{servicePrincipal_id}/microsoft.graph.addTokenSigningCertificate';
+        $this->urlTemplate = '{+baseurl}/servicePrincipals/{servicePrincipal%2Did}/microsoft.graph.addTokenSigningCertificate';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

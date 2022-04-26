@@ -52,10 +52,11 @@ class KeyCredentialRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'keyCredential' => function (self $o, ParseNode $n) { $o->setKeyCredential($n->getObjectValue(KeyCredential::class)); },
-            'passwordCredential' => function (self $o, ParseNode $n) { $o->setPasswordCredential($n->getObjectValue(PasswordCredential::class)); },
-            'proof' => function (self $o, ParseNode $n) { $o->setProof($n->getStringValue()); },
+            'keyCredential' => function (ParseNode $n) use ($currentObject) { $currentObject->setKeyCredential($n->getObjectValue(KeyCredential::class)); },
+            'passwordCredential' => function (ParseNode $n) use ($currentObject) { $currentObject->setPasswordCredential($n->getObjectValue(PasswordCredential::class)); },
+            'proof' => function (ParseNode $n) use ($currentObject) { $currentObject->setProof($n->getStringValue()); },
         ];
     }
 

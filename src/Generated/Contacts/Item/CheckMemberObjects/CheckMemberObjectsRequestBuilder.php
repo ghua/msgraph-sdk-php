@@ -30,7 +30,7 @@ class CheckMemberObjectsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/contacts/{orgContact_id}/microsoft.graph.checkMemberObjects';
+        $this->urlTemplate = '{+baseurl}/contacts/{orgContact%2Did}/microsoft.graph.checkMemberObjects';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

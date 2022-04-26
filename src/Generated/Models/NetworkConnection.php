@@ -166,27 +166,28 @@ class NetworkConnection implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'applicationName' => function (self $o, ParseNode $n) { $o->setApplicationName($n->getStringValue()); },
-            'destinationAddress' => function (self $o, ParseNode $n) { $o->setDestinationAddress($n->getStringValue()); },
-            'destinationDomain' => function (self $o, ParseNode $n) { $o->setDestinationDomain($n->getStringValue()); },
-            'destinationLocation' => function (self $o, ParseNode $n) { $o->setDestinationLocation($n->getStringValue()); },
-            'destinationPort' => function (self $o, ParseNode $n) { $o->setDestinationPort($n->getStringValue()); },
-            'destinationUrl' => function (self $o, ParseNode $n) { $o->setDestinationUrl($n->getStringValue()); },
-            'direction' => function (self $o, ParseNode $n) { $o->setDirection($n->getEnumValue(ConnectionDirection::class)); },
-            'domainRegisteredDateTime' => function (self $o, ParseNode $n) { $o->setDomainRegisteredDateTime($n->getDateTimeValue()); },
-            'localDnsName' => function (self $o, ParseNode $n) { $o->setLocalDnsName($n->getStringValue()); },
-            'natDestinationAddress' => function (self $o, ParseNode $n) { $o->setNatDestinationAddress($n->getStringValue()); },
-            'natDestinationPort' => function (self $o, ParseNode $n) { $o->setNatDestinationPort($n->getStringValue()); },
-            'natSourceAddress' => function (self $o, ParseNode $n) { $o->setNatSourceAddress($n->getStringValue()); },
-            'natSourcePort' => function (self $o, ParseNode $n) { $o->setNatSourcePort($n->getStringValue()); },
-            'protocol' => function (self $o, ParseNode $n) { $o->setProtocol($n->getEnumValue(SecurityNetworkProtocol::class)); },
-            'riskScore' => function (self $o, ParseNode $n) { $o->setRiskScore($n->getStringValue()); },
-            'sourceAddress' => function (self $o, ParseNode $n) { $o->setSourceAddress($n->getStringValue()); },
-            'sourceLocation' => function (self $o, ParseNode $n) { $o->setSourceLocation($n->getStringValue()); },
-            'sourcePort' => function (self $o, ParseNode $n) { $o->setSourcePort($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(ConnectionStatus::class)); },
-            'urlParameters' => function (self $o, ParseNode $n) { $o->setUrlParameters($n->getStringValue()); },
+            'applicationName' => function (ParseNode $n) use ($currentObject) { $currentObject->setApplicationName($n->getStringValue()); },
+            'destinationAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setDestinationAddress($n->getStringValue()); },
+            'destinationDomain' => function (ParseNode $n) use ($currentObject) { $currentObject->setDestinationDomain($n->getStringValue()); },
+            'destinationLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setDestinationLocation($n->getStringValue()); },
+            'destinationPort' => function (ParseNode $n) use ($currentObject) { $currentObject->setDestinationPort($n->getStringValue()); },
+            'destinationUrl' => function (ParseNode $n) use ($currentObject) { $currentObject->setDestinationUrl($n->getStringValue()); },
+            'direction' => function (ParseNode $n) use ($currentObject) { $currentObject->setDirection($n->getEnumValue(ConnectionDirection::class)); },
+            'domainRegisteredDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setDomainRegisteredDateTime($n->getDateTimeValue()); },
+            'localDnsName' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocalDnsName($n->getStringValue()); },
+            'natDestinationAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setNatDestinationAddress($n->getStringValue()); },
+            'natDestinationPort' => function (ParseNode $n) use ($currentObject) { $currentObject->setNatDestinationPort($n->getStringValue()); },
+            'natSourceAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setNatSourceAddress($n->getStringValue()); },
+            'natSourcePort' => function (ParseNode $n) use ($currentObject) { $currentObject->setNatSourcePort($n->getStringValue()); },
+            'protocol' => function (ParseNode $n) use ($currentObject) { $currentObject->setProtocol($n->getEnumValue(SecurityNetworkProtocol::class)); },
+            'riskScore' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskScore($n->getStringValue()); },
+            'sourceAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceAddress($n->getStringValue()); },
+            'sourceLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourceLocation($n->getStringValue()); },
+            'sourcePort' => function (ParseNode $n) use ($currentObject) { $currentObject->setSourcePort($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(ConnectionStatus::class)); },
+            'urlParameters' => function (ParseNode $n) use ($currentObject) { $currentObject->setUrlParameters($n->getStringValue()); },
         ];
     }
 

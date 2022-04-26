@@ -38,10 +38,11 @@ class ServiceAnnouncement extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'healthOverviews' => function (self $o, ParseNode $n) { $o->setHealthOverviews($n->getCollectionOfObjectValues(ServiceHealth::class)); },
-            'issues' => function (self $o, ParseNode $n) { $o->setIssues($n->getCollectionOfObjectValues(ServiceHealthIssue::class)); },
-            'messages' => function (self $o, ParseNode $n) { $o->setMessages($n->getCollectionOfObjectValues(ServiceUpdateMessage::class)); },
+            'healthOverviews' => function (ParseNode $n) use ($currentObject) { $currentObject->setHealthOverviews($n->getCollectionOfObjectValues(ServiceHealth::class)); },
+            'issues' => function (ParseNode $n) use ($currentObject) { $currentObject->setIssues($n->getCollectionOfObjectValues(ServiceHealthIssue::class)); },
+            'messages' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessages($n->getCollectionOfObjectValues(ServiceUpdateMessage::class)); },
         ]);
     }
 

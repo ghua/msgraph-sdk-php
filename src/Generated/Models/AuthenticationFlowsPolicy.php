@@ -54,10 +54,11 @@ class AuthenticationFlowsPolicy extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getStringValue()); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'selfServiceSignUp' => function (self $o, ParseNode $n) { $o->setSelfServiceSignUp($n->getObjectValue(SelfServiceSignUpAuthenticationFlowConfiguration::class)); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'selfServiceSignUp' => function (ParseNode $n) use ($currentObject) { $currentObject->setSelfServiceSignUp($n->getObjectValue(SelfServiceSignUpAuthenticationFlowConfiguration::class)); },
         ]);
     }
 

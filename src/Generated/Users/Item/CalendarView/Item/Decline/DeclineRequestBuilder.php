@@ -30,7 +30,7 @@ class DeclineRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/calendarView/{event_id}/microsoft.graph.decline';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/calendarView/{event%2Did}/microsoft.graph.decline';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

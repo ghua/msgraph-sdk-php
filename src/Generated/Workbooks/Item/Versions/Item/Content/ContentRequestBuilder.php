@@ -32,7 +32,7 @@ class ContentRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/workbooks/{driveItem_id}/versions/{driveItemVersion_id}/content';
+        $this->urlTemplate = '{+baseurl}/workbooks/{driveItem%2Did}/versions/{driveItemVersion%2Did}/content';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

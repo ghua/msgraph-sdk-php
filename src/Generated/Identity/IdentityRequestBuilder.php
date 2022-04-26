@@ -77,7 +77,7 @@ class IdentityRequestBuilder
     */
     public function apiConnectorsById(string $id): IdentityApiConnectorItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['identityApiConnector_id'] = $id;
+        $urlTplParams['identityApiConnector%2Did'] = $id;
         return new IdentityApiConnectorItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -88,7 +88,7 @@ class IdentityRequestBuilder
     */
     public function b2xUserFlowsById(string $id): B2xIdentityUserFlowItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['b2xIdentityUserFlow_id'] = $id;
+        $urlTplParams['b2xIdentityUserFlow%2Did'] = $id;
         return new B2xIdentityUserFlowItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -98,7 +98,7 @@ class IdentityRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/identity{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/identity{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -173,7 +173,7 @@ class IdentityRequestBuilder
     */
     public function identityProvidersById(string $id): IdentityProviderBaseItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['identityProviderBase_id'] = $id;
+        $urlTplParams['identityProviderBase%2Did'] = $id;
         return new IdentityProviderBaseItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -201,8 +201,19 @@ class IdentityRequestBuilder
     */
     public function userFlowAttributesById(string $id): IdentityUserFlowAttributeItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['identityUserFlowAttribute_id'] = $id;
+        $urlTplParams['identityUserFlowAttribute%2Did'] = $id;
         return new IdentityUserFlowAttributeItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

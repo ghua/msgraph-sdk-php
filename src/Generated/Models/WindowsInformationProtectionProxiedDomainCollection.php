@@ -55,9 +55,10 @@ class WindowsInformationProtectionProxiedDomainCollection implements AdditionalD
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'proxiedDomains' => function (self $o, ParseNode $n) { $o->setProxiedDomains($n->getCollectionOfObjectValues(ProxiedDomain::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'proxiedDomains' => function (ParseNode $n) use ($currentObject) { $currentObject->setProxiedDomains($n->getCollectionOfObjectValues(ProxiedDomain::class)); },
         ];
     }
 

@@ -35,9 +35,10 @@ class WorkbookChartAxisFormat extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'font' => function (self $o, ParseNode $n) { $o->setFont($n->getObjectValue(WorkbookChartFont::class)); },
-            'line' => function (self $o, ParseNode $n) { $o->setLine($n->getObjectValue(WorkbookChartLineFormat::class)); },
+            'font' => function (ParseNode $n) use ($currentObject) { $currentObject->setFont($n->getObjectValue(WorkbookChartFont::class)); },
+            'line' => function (ParseNode $n) use ($currentObject) { $currentObject->setLine($n->getObjectValue(WorkbookChartLineFormat::class)); },
         ]);
     }
 

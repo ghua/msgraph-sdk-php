@@ -47,9 +47,10 @@ class IdentityProtectionRoot implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'riskDetections' => function (self $o, ParseNode $n) { $o->setRiskDetections($n->getCollectionOfObjectValues(RiskDetection::class)); },
-            'riskyUsers' => function (self $o, ParseNode $n) { $o->setRiskyUsers($n->getCollectionOfObjectValues(RiskyUser::class)); },
+            'riskDetections' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskDetections($n->getCollectionOfObjectValues(RiskDetection::class)); },
+            'riskyUsers' => function (ParseNode $n) use ($currentObject) { $currentObject->setRiskyUsers($n->getCollectionOfObjectValues(RiskyUser::class)); },
         ];
     }
 

@@ -54,11 +54,12 @@ class Shared implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'owner' => function (self $o, ParseNode $n) { $o->setOwner($n->getObjectValue(IdentitySet::class)); },
-            'scope' => function (self $o, ParseNode $n) { $o->setScope($n->getStringValue()); },
-            'sharedBy' => function (self $o, ParseNode $n) { $o->setSharedBy($n->getObjectValue(IdentitySet::class)); },
-            'sharedDateTime' => function (self $o, ParseNode $n) { $o->setSharedDateTime($n->getDateTimeValue()); },
+            'owner' => function (ParseNode $n) use ($currentObject) { $currentObject->setOwner($n->getObjectValue(IdentitySet::class)); },
+            'scope' => function (ParseNode $n) use ($currentObject) { $currentObject->setScope($n->getStringValue()); },
+            'sharedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedBy($n->getObjectValue(IdentitySet::class)); },
+            'sharedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharedDateTime($n->getDateTimeValue()); },
         ];
     }
 

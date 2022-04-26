@@ -78,15 +78,16 @@ class TeamsAsyncOperation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'attemptsCount' => function (self $o, ParseNode $n) { $o->setAttemptsCount($n->getIntegerValue()); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'error' => function (self $o, ParseNode $n) { $o->setError($n->getObjectValue(OperationError::class)); },
-            'lastActionDateTime' => function (self $o, ParseNode $n) { $o->setLastActionDateTime($n->getDateTimeValue()); },
-            'operationType' => function (self $o, ParseNode $n) { $o->setOperationType($n->getEnumValue(TeamsAsyncOperationType::class)); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(TeamsAsyncOperationStatus::class)); },
-            'targetResourceId' => function (self $o, ParseNode $n) { $o->setTargetResourceId($n->getStringValue()); },
-            'targetResourceLocation' => function (self $o, ParseNode $n) { $o->setTargetResourceLocation($n->getStringValue()); },
+            'attemptsCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setAttemptsCount($n->getIntegerValue()); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'error' => function (ParseNode $n) use ($currentObject) { $currentObject->setError($n->getObjectValue(OperationError::class)); },
+            'lastActionDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastActionDateTime($n->getDateTimeValue()); },
+            'operationType' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperationType($n->getEnumValue(TeamsAsyncOperationType::class)); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(TeamsAsyncOperationStatus::class)); },
+            'targetResourceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetResourceId($n->getStringValue()); },
+            'targetResourceLocation' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetResourceLocation($n->getStringValue()); },
         ]);
     }
 

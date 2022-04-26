@@ -46,10 +46,11 @@ class SchedulingGroup extends ChangeTrackedEntity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isActive' => function (self $o, ParseNode $n) { $o->setIsActive($n->getBooleanValue()); },
-            'userIds' => function (self $o, ParseNode $n) { $o->setUserIds($n->getCollectionOfPrimitiveValues()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isActive' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsActive($n->getBooleanValue()); },
+            'userIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserIds($n->getCollectionOfPrimitiveValues()); },
         ]);
     }
 

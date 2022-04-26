@@ -31,7 +31,7 @@ class GetApplicableContentTypesForListWithListIdRequestBuilder
      * @param string|null $listId Usage: listId='{listId}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $listId = null) {
-        $this->urlTemplate = '{+baseurl}/sites/{site_id}/microsoft.graph.getApplicableContentTypesForList(listId=\'{listId}\')';
+        $this->urlTemplate = '{+baseurl}/sites/{site%2Did}/microsoft.graph.getApplicableContentTypesForList(listId=\'{listId}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

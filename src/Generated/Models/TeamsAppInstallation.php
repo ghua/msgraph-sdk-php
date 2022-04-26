@@ -35,9 +35,10 @@ class TeamsAppInstallation extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'teamsApp' => function (self $o, ParseNode $n) { $o->setTeamsApp($n->getObjectValue(TeamsApp::class)); },
-            'teamsAppDefinition' => function (self $o, ParseNode $n) { $o->setTeamsAppDefinition($n->getObjectValue(TeamsAppDefinition::class)); },
+            'teamsApp' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeamsApp($n->getObjectValue(TeamsApp::class)); },
+            'teamsAppDefinition' => function (ParseNode $n) use ($currentObject) { $currentObject->setTeamsAppDefinition($n->getObjectValue(TeamsAppDefinition::class)); },
         ]);
     }
 

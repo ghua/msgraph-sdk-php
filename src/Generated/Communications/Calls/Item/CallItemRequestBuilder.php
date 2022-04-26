@@ -164,7 +164,7 @@ class CallItemRequestBuilder
     */
     public function audioRoutingGroupsById(string $id): AudioRoutingGroupItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['audioRoutingGroup_id'] = $id;
+        $urlTplParams['audioRoutingGroup%2Did'] = $id;
         return new AudioRoutingGroupItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -174,7 +174,7 @@ class CallItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/communications/calls/{call_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/communications/calls/{call%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -285,7 +285,7 @@ class CallItemRequestBuilder
     */
     public function operationsById(string $id): CommsOperationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['commsOperation_id'] = $id;
+        $urlTplParams['commsOperation%2Did'] = $id;
         return new CommsOperationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -296,7 +296,7 @@ class CallItemRequestBuilder
     */
     public function participantsById(string $id): ParticipantItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['participant_id'] = $id;
+        $urlTplParams['participant%2Did'] = $id;
         return new ParticipantItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -317,4 +317,15 @@ class CallItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

@@ -77,7 +77,7 @@ class CommunicationsRequestBuilder
     */
     public function callRecordsById(string $id): CallRecordItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['callRecord_id'] = $id;
+        $urlTplParams['callRecord%2Did'] = $id;
         return new CallRecordItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -88,7 +88,7 @@ class CommunicationsRequestBuilder
     */
     public function callsById(string $id): CallItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['call_id'] = $id;
+        $urlTplParams['call%2Did'] = $id;
         return new CallItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -98,7 +98,7 @@ class CommunicationsRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/communications{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/communications{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -173,7 +173,7 @@ class CommunicationsRequestBuilder
     */
     public function onlineMeetingsById(string $id): OnlineMeetingItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['onlineMeeting_id'] = $id;
+        $urlTplParams['onlineMeeting%2Did'] = $id;
         return new OnlineMeetingItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -201,8 +201,19 @@ class CommunicationsRequestBuilder
     */
     public function presencesById(string $id): PresenceItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['presence_id'] = $id;
+        $urlTplParams['presence%2Did'] = $id;
         return new PresenceItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

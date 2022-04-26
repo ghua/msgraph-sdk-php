@@ -60,7 +60,7 @@ class SetItemRequestBuilder
     */
     public function childrenById(string $id): MicrosoftGraphGeneratedGroupsItemSitesItemTermStoreSetsItemParentGroupSetsItemChildrenItemTermItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['term_id'] = $id;
+        $urlTplParams['term%2Did'] = $id;
         return new MicrosoftGraphGeneratedGroupsItemSitesItemTermStoreSetsItemParentGroupSetsItemChildrenItemTermItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -70,7 +70,7 @@ class SetItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/sites/{site_id}/termStore/sets/{set_id}/parentGroup/sets/{set_id1}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/sites/{site%2Did}/termStore/sets/{set%2Did}/parentGroup/sets/{set%2Did1}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -198,7 +198,7 @@ class SetItemRequestBuilder
     */
     public function relationsById(string $id): RelationItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['relation_id'] = $id;
+        $urlTplParams['relation%2Did'] = $id;
         return new RelationItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -209,8 +209,19 @@ class SetItemRequestBuilder
     */
     public function termsById(string $id): MicrosoftGraphGeneratedGroupsItemSitesItemTermStoreSetsItemParentGroupSetsItemTermsItemTermItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['term_id'] = $id;
+        $urlTplParams['term%2Did'] = $id;
         return new MicrosoftGraphGeneratedGroupsItemSitesItemTermStoreSetsItemParentGroupSetsItemTermsItemTermItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

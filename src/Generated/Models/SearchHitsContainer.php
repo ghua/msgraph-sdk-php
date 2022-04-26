@@ -61,11 +61,12 @@ class SearchHitsContainer implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'aggregations' => function (self $o, ParseNode $n) { $o->setAggregations($n->getCollectionOfObjectValues(SearchAggregation::class)); },
-            'hits' => function (self $o, ParseNode $n) { $o->setHits($n->getCollectionOfObjectValues(SearchHit::class)); },
-            'moreResultsAvailable' => function (self $o, ParseNode $n) { $o->setMoreResultsAvailable($n->getBooleanValue()); },
-            'total' => function (self $o, ParseNode $n) { $o->setTotal($n->getIntegerValue()); },
+            'aggregations' => function (ParseNode $n) use ($currentObject) { $currentObject->setAggregations($n->getCollectionOfObjectValues(SearchAggregation::class)); },
+            'hits' => function (ParseNode $n) use ($currentObject) { $currentObject->setHits($n->getCollectionOfObjectValues(SearchHit::class)); },
+            'moreResultsAvailable' => function (ParseNode $n) use ($currentObject) { $currentObject->setMoreResultsAvailable($n->getBooleanValue()); },
+            'total' => function (ParseNode $n) use ($currentObject) { $currentObject->setTotal($n->getIntegerValue()); },
         ];
     }
 

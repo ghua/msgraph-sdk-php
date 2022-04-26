@@ -33,7 +33,7 @@ class GetActivitiesByIntervalWithStartDateTimeWithEndDateTimeWithIntervalRequest
      * @param string|null $startDateTime Usage: startDateTime='{startDateTime}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $endDateTime = null, ?string $interval = null, ?string $startDateTime = null) {
-        $this->urlTemplate = '{+baseurl}/drives/{drive_id}/list/items/{listItem_id}/microsoft.graph.getActivitiesByInterval(startDateTime=\'{startDateTime}\',endDateTime=\'{endDateTime}\',interval=\'{interval}\')';
+        $this->urlTemplate = '{+baseurl}/drives/{drive%2Did}/list/items/{listItem%2Did}/microsoft.graph.getActivitiesByInterval(startDateTime=\'{startDateTime}\',endDateTime=\'{endDateTime}\',interval=\'{interval}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

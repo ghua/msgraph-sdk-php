@@ -88,16 +88,17 @@ class EscapedList extends BaseItem
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'columns' => function (self $o, ParseNode $n) { $o->setColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
-            'contentTypes' => function (self $o, ParseNode $n) { $o->setContentTypes($n->getCollectionOfObjectValues(ContentType::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'drive' => function (self $o, ParseNode $n) { $o->setDrive($n->getObjectValue(Drive::class)); },
-            'list' => function (self $o, ParseNode $n) { $o->setEscapedList($n->getObjectValue(ListInfo::class)); },
-            'items' => function (self $o, ParseNode $n) { $o->setItems($n->getCollectionOfObjectValues(ListItem::class)); },
-            'sharepointIds' => function (self $o, ParseNode $n) { $o->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
-            'subscriptions' => function (self $o, ParseNode $n) { $o->setSubscriptions($n->getCollectionOfObjectValues(Subscription::class)); },
-            'system' => function (self $o, ParseNode $n) { $o->setSystem($n->getObjectValue(SystemFacet::class)); },
+            'columns' => function (ParseNode $n) use ($currentObject) { $currentObject->setColumns($n->getCollectionOfObjectValues(ColumnDefinition::class)); },
+            'contentTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentTypes($n->getCollectionOfObjectValues(ContentType::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'drive' => function (ParseNode $n) use ($currentObject) { $currentObject->setDrive($n->getObjectValue(Drive::class)); },
+            'list' => function (ParseNode $n) use ($currentObject) { $currentObject->setEscapedList($n->getObjectValue(ListInfo::class)); },
+            'items' => function (ParseNode $n) use ($currentObject) { $currentObject->setItems($n->getCollectionOfObjectValues(ListItem::class)); },
+            'sharepointIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setSharepointIds($n->getObjectValue(SharepointIds::class)); },
+            'subscriptions' => function (ParseNode $n) use ($currentObject) { $currentObject->setSubscriptions($n->getCollectionOfObjectValues(Subscription::class)); },
+            'system' => function (ParseNode $n) use ($currentObject) { $currentObject->setSystem($n->getObjectValue(SystemFacet::class)); },
         ]);
     }
 

@@ -86,15 +86,16 @@ class AccessReviewInstance extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'contactedReviewers' => function (self $o, ParseNode $n) { $o->setContactedReviewers($n->getCollectionOfObjectValues(AccessReviewReviewer::class)); },
-            'decisions' => function (self $o, ParseNode $n) { $o->setDecisions($n->getCollectionOfObjectValues(AccessReviewInstanceDecisionItem::class)); },
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'fallbackReviewers' => function (self $o, ParseNode $n) { $o->setFallbackReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
-            'reviewers' => function (self $o, ParseNode $n) { $o->setReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
-            'scope' => function (self $o, ParseNode $n) { $o->setScope($n->getObjectValue(AccessReviewScope::class)); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getStringValue()); },
+            'contactedReviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setContactedReviewers($n->getCollectionOfObjectValues(AccessReviewReviewer::class)); },
+            'decisions' => function (ParseNode $n) use ($currentObject) { $currentObject->setDecisions($n->getCollectionOfObjectValues(AccessReviewInstanceDecisionItem::class)); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'fallbackReviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setFallbackReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
+            'reviewers' => function (ParseNode $n) use ($currentObject) { $currentObject->setReviewers($n->getCollectionOfObjectValues(AccessReviewReviewerScope::class)); },
+            'scope' => function (ParseNode $n) use ($currentObject) { $currentObject->setScope($n->getObjectValue(AccessReviewScope::class)); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getStringValue()); },
         ]);
     }
 

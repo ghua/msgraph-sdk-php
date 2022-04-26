@@ -72,12 +72,13 @@ class TextColumn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'allowMultipleLines' => function (self $o, ParseNode $n) { $o->setAllowMultipleLines($n->getBooleanValue()); },
-            'appendChangesToExistingText' => function (self $o, ParseNode $n) { $o->setAppendChangesToExistingText($n->getBooleanValue()); },
-            'linesForEditing' => function (self $o, ParseNode $n) { $o->setLinesForEditing($n->getIntegerValue()); },
-            'maxLength' => function (self $o, ParseNode $n) { $o->setMaxLength($n->getIntegerValue()); },
-            'textType' => function (self $o, ParseNode $n) { $o->setTextType($n->getStringValue()); },
+            'allowMultipleLines' => function (ParseNode $n) use ($currentObject) { $currentObject->setAllowMultipleLines($n->getBooleanValue()); },
+            'appendChangesToExistingText' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppendChangesToExistingText($n->getBooleanValue()); },
+            'linesForEditing' => function (ParseNode $n) use ($currentObject) { $currentObject->setLinesForEditing($n->getIntegerValue()); },
+            'maxLength' => function (ParseNode $n) use ($currentObject) { $currentObject->setMaxLength($n->getIntegerValue()); },
+            'textType' => function (ParseNode $n) use ($currentObject) { $currentObject->setTextType($n->getStringValue()); },
         ];
     }
 

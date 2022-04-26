@@ -50,10 +50,11 @@ class AccessReviewReviewerScope implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'query' => function (self $o, ParseNode $n) { $o->setQuery($n->getStringValue()); },
-            'queryRoot' => function (self $o, ParseNode $n) { $o->setQueryRoot($n->getStringValue()); },
-            'queryType' => function (self $o, ParseNode $n) { $o->setQueryType($n->getStringValue()); },
+            'query' => function (ParseNode $n) use ($currentObject) { $currentObject->setQuery($n->getStringValue()); },
+            'queryRoot' => function (ParseNode $n) use ($currentObject) { $currentObject->setQueryRoot($n->getStringValue()); },
+            'queryType' => function (ParseNode $n) use ($currentObject) { $currentObject->setQueryType($n->getStringValue()); },
         ];
     }
 

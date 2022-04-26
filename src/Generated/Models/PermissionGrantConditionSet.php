@@ -85,15 +85,16 @@ class PermissionGrantConditionSet extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'clientApplicationIds' => function (self $o, ParseNode $n) { $o->setClientApplicationIds($n->getCollectionOfPrimitiveValues()); },
-            'clientApplicationPublisherIds' => function (self $o, ParseNode $n) { $o->setClientApplicationPublisherIds($n->getCollectionOfPrimitiveValues()); },
-            'clientApplicationsFromVerifiedPublisherOnly' => function (self $o, ParseNode $n) { $o->setClientApplicationsFromVerifiedPublisherOnly($n->getBooleanValue()); },
-            'clientApplicationTenantIds' => function (self $o, ParseNode $n) { $o->setClientApplicationTenantIds($n->getCollectionOfPrimitiveValues()); },
-            'permissionClassification' => function (self $o, ParseNode $n) { $o->setPermissionClassification($n->getStringValue()); },
-            'permissions' => function (self $o, ParseNode $n) { $o->setPermissions($n->getCollectionOfPrimitiveValues()); },
-            'permissionType' => function (self $o, ParseNode $n) { $o->setPermissionType($n->getEnumValue(PermissionType::class)); },
-            'resourceApplication' => function (self $o, ParseNode $n) { $o->setResourceApplication($n->getStringValue()); },
+            'clientApplicationIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientApplicationIds($n->getCollectionOfPrimitiveValues()); },
+            'clientApplicationPublisherIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientApplicationPublisherIds($n->getCollectionOfPrimitiveValues()); },
+            'clientApplicationsFromVerifiedPublisherOnly' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientApplicationsFromVerifiedPublisherOnly($n->getBooleanValue()); },
+            'clientApplicationTenantIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setClientApplicationTenantIds($n->getCollectionOfPrimitiveValues()); },
+            'permissionClassification' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermissionClassification($n->getStringValue()); },
+            'permissions' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermissions($n->getCollectionOfPrimitiveValues()); },
+            'permissionType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPermissionType($n->getEnumValue(PermissionType::class)); },
+            'resourceApplication' => function (ParseNode $n) use ($currentObject) { $currentObject->setResourceApplication($n->getStringValue()); },
         ]);
     }
 

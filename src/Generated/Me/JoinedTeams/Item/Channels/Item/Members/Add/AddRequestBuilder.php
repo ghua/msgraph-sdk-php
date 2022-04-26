@@ -30,7 +30,7 @@ class AddRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team_id}/channels/{channel_id}/members/microsoft.graph.add';
+        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team%2Did}/channels/{channel%2Did}/members/microsoft.graph.add';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

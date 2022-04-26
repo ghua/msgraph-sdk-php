@@ -46,10 +46,11 @@ class GroupLifecyclePolicy extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'alternateNotificationEmails' => function (self $o, ParseNode $n) { $o->setAlternateNotificationEmails($n->getStringValue()); },
-            'groupLifetimeInDays' => function (self $o, ParseNode $n) { $o->setGroupLifetimeInDays($n->getIntegerValue()); },
-            'managedGroupTypes' => function (self $o, ParseNode $n) { $o->setManagedGroupTypes($n->getStringValue()); },
+            'alternateNotificationEmails' => function (ParseNode $n) use ($currentObject) { $currentObject->setAlternateNotificationEmails($n->getStringValue()); },
+            'groupLifetimeInDays' => function (ParseNode $n) use ($currentObject) { $currentObject->setGroupLifetimeInDays($n->getIntegerValue()); },
+            'managedGroupTypes' => function (ParseNode $n) use ($currentObject) { $currentObject->setManagedGroupTypes($n->getStringValue()); },
         ]);
     }
 

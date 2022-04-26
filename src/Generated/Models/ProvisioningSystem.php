@@ -40,8 +40,9 @@ class ProvisioningSystem extends Identity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'details' => function (self $o, ParseNode $n) { $o->setDetails($n->getObjectValue(DetailsInfo::class)); },
+            'details' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetails($n->getObjectValue(DetailsInfo::class)); },
         ]);
     }
 

@@ -30,7 +30,7 @@ class RebootNowRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/managedDevices/{managedDevice_id}/microsoft.graph.rebootNow';
+        $this->urlTemplate = '{+baseurl}/me/managedDevices/{managedDevice%2Did}/microsoft.graph.rebootNow';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

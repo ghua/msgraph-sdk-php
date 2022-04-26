@@ -55,9 +55,10 @@ class WindowsInformationProtectionResourceCollection implements AdditionalDataHo
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'resources' => function (self $o, ParseNode $n) { $o->setResources($n->getCollectionOfPrimitiveValues()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'resources' => function (ParseNode $n) use ($currentObject) { $currentObject->setResources($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

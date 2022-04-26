@@ -31,7 +31,7 @@ class RecordResponseRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/communications/calls/{call_id}/microsoft.graph.recordResponse';
+        $this->urlTemplate = '{+baseurl}/communications/calls/{call%2Did}/microsoft.graph.recordResponse';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

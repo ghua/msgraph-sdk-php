@@ -44,8 +44,9 @@ class SetVerifiedPublisherRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'verifiedPublisherId' => function (self $o, ParseNode $n) { $o->setVerifiedPublisherId($n->getStringValue()); },
+            'verifiedPublisherId' => function (ParseNode $n) use ($currentObject) { $currentObject->setVerifiedPublisherId($n->getStringValue()); },
         ];
     }
 

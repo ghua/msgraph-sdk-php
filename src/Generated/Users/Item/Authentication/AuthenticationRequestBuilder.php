@@ -68,7 +68,7 @@ class AuthenticationRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/users/{user_id}/authentication{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/users/{user%2Did}/authentication{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -162,7 +162,7 @@ class AuthenticationRequestBuilder
     */
     public function fido2MethodsById(string $id): Fido2AuthenticationMethodItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['fido2AuthenticationMethod_id'] = $id;
+        $urlTplParams['fido2AuthenticationMethod%2Did'] = $id;
         return new Fido2AuthenticationMethodItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -190,7 +190,7 @@ class AuthenticationRequestBuilder
     */
     public function methodsById(string $id): AuthenticationMethodItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['authenticationMethod_id'] = $id;
+        $urlTplParams['authenticationMethod%2Did'] = $id;
         return new AuthenticationMethodItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -201,7 +201,7 @@ class AuthenticationRequestBuilder
     */
     public function microsoftAuthenticatorMethodsById(string $id): MicrosoftAuthenticatorAuthenticationMethodItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['microsoftAuthenticatorAuthenticationMethod_id'] = $id;
+        $urlTplParams['microsoftAuthenticatorAuthenticationMethod%2Did'] = $id;
         return new MicrosoftAuthenticatorAuthenticationMethodItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -229,8 +229,19 @@ class AuthenticationRequestBuilder
     */
     public function windowsHelloForBusinessMethodsById(string $id): WindowsHelloForBusinessAuthenticationMethodItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['windowsHelloForBusinessAuthenticationMethod_id'] = $id;
+        $urlTplParams['windowsHelloForBusinessAuthenticationMethod%2Did'] = $id;
         return new WindowsHelloForBusinessAuthenticationMethodItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

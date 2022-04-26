@@ -74,15 +74,16 @@ class InviteRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getStringValue()); },
-            'message' => function (self $o, ParseNode $n) { $o->setMessage($n->getStringValue()); },
-            'password' => function (self $o, ParseNode $n) { $o->setPassword($n->getStringValue()); },
-            'recipients' => function (self $o, ParseNode $n) { $o->setRecipients($n->getCollectionOfObjectValues(DriveRecipient::class)); },
-            'requireSignIn' => function (self $o, ParseNode $n) { $o->setRequireSignIn($n->getBooleanValue()); },
-            'retainInheritedPermissions' => function (self $o, ParseNode $n) { $o->setRetainInheritedPermissions($n->getBooleanValue()); },
-            'roles' => function (self $o, ParseNode $n) { $o->setRoles($n->getCollectionOfPrimitiveValues()); },
-            'sendInvitation' => function (self $o, ParseNode $n) { $o->setSendInvitation($n->getBooleanValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getStringValue()); },
+            'message' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessage($n->getStringValue()); },
+            'password' => function (ParseNode $n) use ($currentObject) { $currentObject->setPassword($n->getStringValue()); },
+            'recipients' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecipients($n->getCollectionOfObjectValues(DriveRecipient::class)); },
+            'requireSignIn' => function (ParseNode $n) use ($currentObject) { $currentObject->setRequireSignIn($n->getBooleanValue()); },
+            'retainInheritedPermissions' => function (ParseNode $n) use ($currentObject) { $currentObject->setRetainInheritedPermissions($n->getBooleanValue()); },
+            'roles' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoles($n->getCollectionOfPrimitiveValues()); },
+            'sendInvitation' => function (ParseNode $n) use ($currentObject) { $currentObject->setSendInvitation($n->getBooleanValue()); },
         ];
     }
 

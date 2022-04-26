@@ -67,10 +67,11 @@ class ServiceHealthIssuePost implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'description' => function (self $o, ParseNode $n) { $o->setDescription($n->getObjectValue(ItemBody::class)); },
-            'postType' => function (self $o, ParseNode $n) { $o->setPostType($n->getEnumValue(PostType::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'description' => function (ParseNode $n) use ($currentObject) { $currentObject->setDescription($n->getObjectValue(ItemBody::class)); },
+            'postType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPostType($n->getEnumValue(PostType::class)); },
         ];
     }
 

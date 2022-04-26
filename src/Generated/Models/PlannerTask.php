@@ -69,6 +69,9 @@ class PlannerTask extends Entity
     /** @var PlannerPreviewType|null $previewType This sets the type of preview that shows up on the task. The possible values are: automatic, noPreview, checklist, description, reference. */
     private ?PlannerPreviewType $previewType = null;
     
+    /** @var int|null $priority Priority of the task. Valid range of values is between 0 and 10 (inclusive), with increasing value being lower priority (0 has the highest priority and 10 has the lowest priority).  Currently, Planner interprets values 0 and 1 as 'urgent', 2 and 3 and 4 as 'important', 5, 6, and 7 as 'medium', and 8, 9, and 10 as 'low'.  Currently, Planner sets the value 1 for 'urgent', 3 for 'important', 5 for 'medium', and 9 for 'low'. */
+    private ?int $priority = null;
+    
     /** @var PlannerProgressTaskBoardTaskFormat|null $progressTaskBoardFormat Read-only. Nullable. Used to render the task correctly in the task board view when grouped by progress. */
     private ?PlannerProgressTaskBoardTaskFormat $progressTaskBoardFormat = null;
     
@@ -222,31 +225,33 @@ class PlannerTask extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activeChecklistItemCount' => function (self $o, ParseNode $n) { $o->setActiveChecklistItemCount($n->getIntegerValue()); },
-            'appliedCategories' => function (self $o, ParseNode $n) { $o->setAppliedCategories($n->getObjectValue(PlannerAppliedCategories::class)); },
-            'assignedToTaskBoardFormat' => function (self $o, ParseNode $n) { $o->setAssignedToTaskBoardFormat($n->getObjectValue(PlannerAssignedToTaskBoardTaskFormat::class)); },
-            'assigneePriority' => function (self $o, ParseNode $n) { $o->setAssigneePriority($n->getStringValue()); },
-            'assignments' => function (self $o, ParseNode $n) { $o->setAssignments($n->getObjectValue(PlannerAssignments::class)); },
-            'bucketId' => function (self $o, ParseNode $n) { $o->setBucketId($n->getStringValue()); },
-            'bucketTaskBoardFormat' => function (self $o, ParseNode $n) { $o->setBucketTaskBoardFormat($n->getObjectValue(PlannerBucketTaskBoardTaskFormat::class)); },
-            'checklistItemCount' => function (self $o, ParseNode $n) { $o->setChecklistItemCount($n->getIntegerValue()); },
-            'completedBy' => function (self $o, ParseNode $n) { $o->setCompletedBy($n->getObjectValue(IdentitySet::class)); },
-            'completedDateTime' => function (self $o, ParseNode $n) { $o->setCompletedDateTime($n->getDateTimeValue()); },
-            'conversationThreadId' => function (self $o, ParseNode $n) { $o->setConversationThreadId($n->getStringValue()); },
-            'createdBy' => function (self $o, ParseNode $n) { $o->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'details' => function (self $o, ParseNode $n) { $o->setDetails($n->getObjectValue(PlannerTaskDetails::class)); },
-            'dueDateTime' => function (self $o, ParseNode $n) { $o->setDueDateTime($n->getDateTimeValue()); },
-            'hasDescription' => function (self $o, ParseNode $n) { $o->setHasDescription($n->getBooleanValue()); },
-            'orderHint' => function (self $o, ParseNode $n) { $o->setOrderHint($n->getStringValue()); },
-            'percentComplete' => function (self $o, ParseNode $n) { $o->setPercentComplete($n->getIntegerValue()); },
-            'planId' => function (self $o, ParseNode $n) { $o->setPlanId($n->getStringValue()); },
-            'previewType' => function (self $o, ParseNode $n) { $o->setPreviewType($n->getEnumValue(PlannerPreviewType::class)); },
-            'progressTaskBoardFormat' => function (self $o, ParseNode $n) { $o->setProgressTaskBoardFormat($n->getObjectValue(PlannerProgressTaskBoardTaskFormat::class)); },
-            'referenceCount' => function (self $o, ParseNode $n) { $o->setReferenceCount($n->getIntegerValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
-            'title' => function (self $o, ParseNode $n) { $o->setTitle($n->getStringValue()); },
+            'activeChecklistItemCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setActiveChecklistItemCount($n->getIntegerValue()); },
+            'appliedCategories' => function (ParseNode $n) use ($currentObject) { $currentObject->setAppliedCategories($n->getObjectValue(PlannerAppliedCategories::class)); },
+            'assignedToTaskBoardFormat' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedToTaskBoardFormat($n->getObjectValue(PlannerAssignedToTaskBoardTaskFormat::class)); },
+            'assigneePriority' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssigneePriority($n->getStringValue()); },
+            'assignments' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignments($n->getObjectValue(PlannerAssignments::class)); },
+            'bucketId' => function (ParseNode $n) use ($currentObject) { $currentObject->setBucketId($n->getStringValue()); },
+            'bucketTaskBoardFormat' => function (ParseNode $n) use ($currentObject) { $currentObject->setBucketTaskBoardFormat($n->getObjectValue(PlannerBucketTaskBoardTaskFormat::class)); },
+            'checklistItemCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setChecklistItemCount($n->getIntegerValue()); },
+            'completedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedBy($n->getObjectValue(IdentitySet::class)); },
+            'completedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCompletedDateTime($n->getDateTimeValue()); },
+            'conversationThreadId' => function (ParseNode $n) use ($currentObject) { $currentObject->setConversationThreadId($n->getStringValue()); },
+            'createdBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedBy($n->getObjectValue(IdentitySet::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'details' => function (ParseNode $n) use ($currentObject) { $currentObject->setDetails($n->getObjectValue(PlannerTaskDetails::class)); },
+            'dueDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setDueDateTime($n->getDateTimeValue()); },
+            'hasDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setHasDescription($n->getBooleanValue()); },
+            'orderHint' => function (ParseNode $n) use ($currentObject) { $currentObject->setOrderHint($n->getStringValue()); },
+            'percentComplete' => function (ParseNode $n) use ($currentObject) { $currentObject->setPercentComplete($n->getIntegerValue()); },
+            'planId' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlanId($n->getStringValue()); },
+            'previewType' => function (ParseNode $n) use ($currentObject) { $currentObject->setPreviewType($n->getEnumValue(PlannerPreviewType::class)); },
+            'priority' => function (ParseNode $n) use ($currentObject) { $currentObject->setPriority($n->getIntegerValue()); },
+            'progressTaskBoardFormat' => function (ParseNode $n) use ($currentObject) { $currentObject->setProgressTaskBoardFormat($n->getObjectValue(PlannerProgressTaskBoardTaskFormat::class)); },
+            'referenceCount' => function (ParseNode $n) use ($currentObject) { $currentObject->setReferenceCount($n->getIntegerValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
+            'title' => function (ParseNode $n) use ($currentObject) { $currentObject->setTitle($n->getStringValue()); },
         ]);
     }
 
@@ -288,6 +293,14 @@ class PlannerTask extends Entity
     */
     public function getPreviewType(): ?PlannerPreviewType {
         return $this->previewType;
+    }
+
+    /**
+     * Gets the priority property value. Priority of the task. Valid range of values is between 0 and 10 (inclusive), with increasing value being lower priority (0 has the highest priority and 10 has the lowest priority).  Currently, Planner interprets values 0 and 1 as 'urgent', 2 and 3 and 4 as 'important', 5, 6, and 7 as 'medium', and 8, 9, and 10 as 'low'.  Currently, Planner sets the value 1 for 'urgent', 3 for 'important', 5 for 'medium', and 9 for 'low'.
+     * @return int|null
+    */
+    public function getPriority(): ?int {
+        return $this->priority;
     }
 
     /**
@@ -348,6 +361,7 @@ class PlannerTask extends Entity
         $writer->writeIntegerValue('percentComplete', $this->percentComplete);
         $writer->writeStringValue('planId', $this->planId);
         $writer->writeEnumValue('previewType', $this->previewType);
+        $writer->writeIntegerValue('priority', $this->priority);
         $writer->writeObjectValue('progressTaskBoardFormat', $this->progressTaskBoardFormat);
         $writer->writeIntegerValue('referenceCount', $this->referenceCount);
         $writer->writeDateTimeValue('startDateTime', $this->startDateTime);
@@ -512,6 +526,14 @@ class PlannerTask extends Entity
     */
     public function setPreviewType(?PlannerPreviewType $value ): void {
         $this->previewType = $value;
+    }
+
+    /**
+     * Sets the priority property value. Priority of the task. Valid range of values is between 0 and 10 (inclusive), with increasing value being lower priority (0 has the highest priority and 10 has the lowest priority).  Currently, Planner interprets values 0 and 1 as 'urgent', 2 and 3 and 4 as 'important', 5, 6, and 7 as 'medium', and 8, 9, and 10 as 'low'.  Currently, Planner sets the value 1 for 'urgent', 3 for 'important', 5 for 'medium', and 9 for 'low'.
+     *  @param int|null $value Value to set for the priority property.
+    */
+    public function setPriority(?int $value ): void {
+        $this->priority = $value;
     }
 
     /**

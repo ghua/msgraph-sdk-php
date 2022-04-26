@@ -50,10 +50,11 @@ class AddIn implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'id' => function (self $o, ParseNode $n) { $o->setId($n->getStringValue()); },
-            'properties' => function (self $o, ParseNode $n) { $o->setProperties($n->getCollectionOfObjectValues(KeyValue::class)); },
-            'type' => function (self $o, ParseNode $n) { $o->setType($n->getStringValue()); },
+            'id' => function (ParseNode $n) use ($currentObject) { $currentObject->setId($n->getStringValue()); },
+            'properties' => function (ParseNode $n) use ($currentObject) { $currentObject->setProperties($n->getCollectionOfObjectValues(KeyValue::class)); },
+            'type' => function (ParseNode $n) use ($currentObject) { $currentObject->setType($n->getStringValue()); },
         ];
     }
 

@@ -65,11 +65,12 @@ class CalendarGroup extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'calendars' => function (self $o, ParseNode $n) { $o->setCalendars($n->getCollectionOfObjectValues(Calendar::class)); },
-            'changeKey' => function (self $o, ParseNode $n) { $o->setChangeKey($n->getStringValue()); },
-            'classId' => function (self $o, ParseNode $n) { $o->setClassId($n->getStringValue()); },
-            'name' => function (self $o, ParseNode $n) { $o->setName($n->getStringValue()); },
+            'calendars' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalendars($n->getCollectionOfObjectValues(Calendar::class)); },
+            'changeKey' => function (ParseNode $n) use ($currentObject) { $currentObject->setChangeKey($n->getStringValue()); },
+            'classId' => function (ParseNode $n) use ($currentObject) { $currentObject->setClassId($n->getStringValue()); },
+            'name' => function (ParseNode $n) use ($currentObject) { $currentObject->setName($n->getStringValue()); },
         ]);
     }
 

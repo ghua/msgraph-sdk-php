@@ -44,8 +44,9 @@ class FavoriteRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'messageIds' => function (self $o, ParseNode $n) { $o->setMessageIds($n->getCollectionOfPrimitiveValues()); },
+            'messageIds' => function (ParseNode $n) use ($currentObject) { $currentObject->setMessageIds($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

@@ -55,9 +55,10 @@ class ChangePasswordRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'currentPassword' => function (self $o, ParseNode $n) { $o->setCurrentPassword($n->getStringValue()); },
-            'newPassword' => function (self $o, ParseNode $n) { $o->setNewPassword($n->getStringValue()); },
+            'currentPassword' => function (ParseNode $n) use ($currentObject) { $currentObject->setCurrentPassword($n->getStringValue()); },
+            'newPassword' => function (ParseNode $n) use ($currentObject) { $currentObject->setNewPassword($n->getStringValue()); },
         ];
     }
 

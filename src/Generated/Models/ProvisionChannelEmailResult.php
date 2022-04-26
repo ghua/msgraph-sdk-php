@@ -52,8 +52,9 @@ class ProvisionChannelEmailResult implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'email' => function (self $o, ParseNode $n) { $o->setEmail($n->getStringValue()); },
+            'email' => function (ParseNode $n) use ($currentObject) { $currentObject->setEmail($n->getStringValue()); },
         ];
     }
 

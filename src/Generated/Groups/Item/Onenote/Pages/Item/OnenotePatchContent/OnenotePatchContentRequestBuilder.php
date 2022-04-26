@@ -30,7 +30,7 @@ class OnenotePatchContentRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/onenote/pages/{onenotePage_id}/microsoft.graph.onenotePatchContent';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/onenote/pages/{onenotePage%2Did}/microsoft.graph.onenotePatchContent';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

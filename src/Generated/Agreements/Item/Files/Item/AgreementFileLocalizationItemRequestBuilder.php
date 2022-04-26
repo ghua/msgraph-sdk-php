@@ -41,7 +41,7 @@ class AgreementFileLocalizationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/agreements/{agreement_id}/files/{agreementFileLocalization_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/agreements/{agreement%2Did}/files/{agreementFileLocalization%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -169,8 +169,19 @@ class AgreementFileLocalizationItemRequestBuilder
     */
     public function versionsById(string $id): AgreementFileVersionItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['agreementFileVersion_id'] = $id;
+        $urlTplParams['agreementFileVersion%2Did'] = $id;
         return new AgreementFileVersionItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

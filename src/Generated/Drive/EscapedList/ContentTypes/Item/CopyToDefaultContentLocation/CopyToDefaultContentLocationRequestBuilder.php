@@ -30,7 +30,7 @@ class CopyToDefaultContentLocationRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/drive/list/contentTypes/{contentType_id}/microsoft.graph.copyToDefaultContentLocation';
+        $this->urlTemplate = '{+baseurl}/drive/list/contentTypes/{contentType%2Did}/microsoft.graph.copyToDefaultContentLocation';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

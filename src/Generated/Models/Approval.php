@@ -32,8 +32,9 @@ class Approval extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'stages' => function (self $o, ParseNode $n) { $o->setStages($n->getCollectionOfObjectValues(ApprovalStage::class)); },
+            'stages' => function (ParseNode $n) use ($currentObject) { $currentObject->setStages($n->getCollectionOfObjectValues(ApprovalStage::class)); },
         ]);
     }
 

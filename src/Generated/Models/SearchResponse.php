@@ -53,11 +53,12 @@ class SearchResponse implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'hitsContainers' => function (self $o, ParseNode $n) { $o->setHitsContainers($n->getCollectionOfObjectValues(SearchHitsContainer::class)); },
-            'queryAlterationResponse' => function (self $o, ParseNode $n) { $o->setQueryAlterationResponse($n->getObjectValue(AlterationResponse::class)); },
-            'resultTemplates' => function (self $o, ParseNode $n) { $o->setResultTemplates($n->getObjectValue(ResultTemplateDictionary::class)); },
-            'searchTerms' => function (self $o, ParseNode $n) { $o->setSearchTerms($n->getCollectionOfPrimitiveValues()); },
+            'hitsContainers' => function (ParseNode $n) use ($currentObject) { $currentObject->setHitsContainers($n->getCollectionOfObjectValues(SearchHitsContainer::class)); },
+            'queryAlterationResponse' => function (ParseNode $n) use ($currentObject) { $currentObject->setQueryAlterationResponse($n->getObjectValue(AlterationResponse::class)); },
+            'resultTemplates' => function (ParseNode $n) use ($currentObject) { $currentObject->setResultTemplates($n->getObjectValue(ResultTemplateDictionary::class)); },
+            'searchTerms' => function (ParseNode $n) use ($currentObject) { $currentObject->setSearchTerms($n->getCollectionOfPrimitiveValues()); },
         ];
     }
 

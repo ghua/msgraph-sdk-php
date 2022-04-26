@@ -51,9 +51,10 @@ class WorkbookCommentReply extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'content' => function (self $o, ParseNode $n) { $o->setContent($n->getStringValue()); },
-            'contentType' => function (self $o, ParseNode $n) { $o->setContentType($n->getStringValue()); },
+            'content' => function (ParseNode $n) use ($currentObject) { $currentObject->setContent($n->getStringValue()); },
+            'contentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentType($n->getStringValue()); },
         ]);
     }
 

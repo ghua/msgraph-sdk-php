@@ -46,10 +46,11 @@ class ScopedRoleMembership extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'administrativeUnitId' => function (self $o, ParseNode $n) { $o->setAdministrativeUnitId($n->getStringValue()); },
-            'roleId' => function (self $o, ParseNode $n) { $o->setRoleId($n->getStringValue()); },
-            'roleMemberInfo' => function (self $o, ParseNode $n) { $o->setRoleMemberInfo($n->getObjectValue(Identity::class)); },
+            'administrativeUnitId' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdministrativeUnitId($n->getStringValue()); },
+            'roleId' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoleId($n->getStringValue()); },
+            'roleMemberInfo' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoleMemberInfo($n->getObjectValue(Identity::class)); },
         ]);
     }
 

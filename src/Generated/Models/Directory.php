@@ -51,9 +51,10 @@ class Directory extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'administrativeUnits' => function (self $o, ParseNode $n) { $o->setAdministrativeUnits($n->getCollectionOfObjectValues(AdministrativeUnit::class)); },
-            'deletedItems' => function (self $o, ParseNode $n) { $o->setDeletedItems($n->getCollectionOfObjectValues(DirectoryObject::class)); },
+            'administrativeUnits' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdministrativeUnits($n->getCollectionOfObjectValues(AdministrativeUnit::class)); },
+            'deletedItems' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeletedItems($n->getCollectionOfObjectValues(DirectoryObject::class)); },
         ]);
     }
 

@@ -43,9 +43,10 @@ class PermissionGrantPolicy extends PolicyBase
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'excludes' => function (self $o, ParseNode $n) { $o->setExcludes($n->getCollectionOfObjectValues(PermissionGrantConditionSet::class)); },
-            'includes' => function (self $o, ParseNode $n) { $o->setIncludes($n->getCollectionOfObjectValues(PermissionGrantConditionSet::class)); },
+            'excludes' => function (ParseNode $n) use ($currentObject) { $currentObject->setExcludes($n->getCollectionOfObjectValues(PermissionGrantConditionSet::class)); },
+            'includes' => function (ParseNode $n) use ($currentObject) { $currentObject->setIncludes($n->getCollectionOfObjectValues(PermissionGrantConditionSet::class)); },
         ]);
     }
 

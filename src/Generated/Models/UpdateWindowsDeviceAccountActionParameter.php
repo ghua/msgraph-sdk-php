@@ -91,13 +91,14 @@ class UpdateWindowsDeviceAccountActionParameter implements AdditionalDataHolder,
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'calendarSyncEnabled' => function (self $o, ParseNode $n) { $o->setCalendarSyncEnabled($n->getBooleanValue()); },
-            'deviceAccount' => function (self $o, ParseNode $n) { $o->setDeviceAccount($n->getObjectValue(WindowsDeviceAccount::class)); },
-            'deviceAccountEmail' => function (self $o, ParseNode $n) { $o->setDeviceAccountEmail($n->getStringValue()); },
-            'exchangeServer' => function (self $o, ParseNode $n) { $o->setExchangeServer($n->getStringValue()); },
-            'passwordRotationEnabled' => function (self $o, ParseNode $n) { $o->setPasswordRotationEnabled($n->getBooleanValue()); },
-            'sessionInitiationProtocalAddress' => function (self $o, ParseNode $n) { $o->setSessionInitiationProtocalAddress($n->getStringValue()); },
+            'calendarSyncEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setCalendarSyncEnabled($n->getBooleanValue()); },
+            'deviceAccount' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceAccount($n->getObjectValue(WindowsDeviceAccount::class)); },
+            'deviceAccountEmail' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceAccountEmail($n->getStringValue()); },
+            'exchangeServer' => function (ParseNode $n) use ($currentObject) { $currentObject->setExchangeServer($n->getStringValue()); },
+            'passwordRotationEnabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setPasswordRotationEnabled($n->getBooleanValue()); },
+            'sessionInitiationProtocalAddress' => function (ParseNode $n) use ($currentObject) { $currentObject->setSessionInitiationProtocalAddress($n->getStringValue()); },
         ];
     }
 

@@ -58,10 +58,11 @@ class SiteCollection implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'dataLocationCode' => function (self $o, ParseNode $n) { $o->setDataLocationCode($n->getStringValue()); },
-            'hostname' => function (self $o, ParseNode $n) { $o->setHostname($n->getStringValue()); },
-            'root' => function (self $o, ParseNode $n) { $o->setRoot($n->getObjectValue(Root::class)); },
+            'dataLocationCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setDataLocationCode($n->getStringValue()); },
+            'hostname' => function (ParseNode $n) use ($currentObject) { $currentObject->setHostname($n->getStringValue()); },
+            'root' => function (ParseNode $n) use ($currentObject) { $currentObject->setRoot($n->getObjectValue(Root::class)); },
         ];
     }
 

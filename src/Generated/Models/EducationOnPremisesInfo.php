@@ -44,8 +44,9 @@ class EducationOnPremisesInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'immutableId' => function (self $o, ParseNode $n) { $o->setImmutableId($n->getStringValue()); },
+            'immutableId' => function (ParseNode $n) use ($currentObject) { $currentObject->setImmutableId($n->getStringValue()); },
         ];
     }
 

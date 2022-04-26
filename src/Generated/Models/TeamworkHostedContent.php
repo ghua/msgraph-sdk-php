@@ -52,9 +52,10 @@ class TeamworkHostedContent extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'contentBytes' => function (self $o, ParseNode $n) { $o->setContentBytes($n->getBinaryContent()); },
-            'contentType' => function (self $o, ParseNode $n) { $o->setContentType($n->getStringValue()); },
+            'contentBytes' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentBytes($n->getBinaryContent()); },
+            'contentType' => function (ParseNode $n) use ($currentObject) { $currentObject->setContentType($n->getStringValue()); },
         ]);
     }
 

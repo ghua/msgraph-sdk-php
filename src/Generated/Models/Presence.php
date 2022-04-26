@@ -51,9 +51,10 @@ class Presence extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activity' => function (self $o, ParseNode $n) { $o->setActivity($n->getStringValue()); },
-            'availability' => function (self $o, ParseNode $n) { $o->setAvailability($n->getStringValue()); },
+            'activity' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivity($n->getStringValue()); },
+            'availability' => function (ParseNode $n) use ($currentObject) { $currentObject->setAvailability($n->getStringValue()); },
         ]);
     }
 

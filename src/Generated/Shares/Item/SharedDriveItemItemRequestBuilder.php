@@ -89,7 +89,7 @@ class SharedDriveItemItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/shares/{sharedDriveItem_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/shares/{sharedDriveItem%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -200,7 +200,7 @@ class SharedDriveItemItemRequestBuilder
     */
     public function itemsById(string $id): DriveItemItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['driveItem_id'] = $id;
+        $urlTplParams['driveItem%2Did'] = $id;
         return new DriveItemItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -221,4 +221,15 @@ class SharedDriveItemItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

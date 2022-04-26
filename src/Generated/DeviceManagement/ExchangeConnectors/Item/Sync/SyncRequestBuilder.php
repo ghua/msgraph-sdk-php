@@ -30,7 +30,7 @@ class SyncRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/deviceManagement/exchangeConnectors/{deviceManagementExchangeConnector_id}/microsoft.graph.sync';
+        $this->urlTemplate = '{+baseurl}/deviceManagement/exchangeConnectors/{deviceManagementExchangeConnector%2Did}/microsoft.graph.sync';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

@@ -59,10 +59,11 @@ class ScheduleEntity implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'endDateTime' => function (self $o, ParseNode $n) { $o->setEndDateTime($n->getDateTimeValue()); },
-            'startDateTime' => function (self $o, ParseNode $n) { $o->setStartDateTime($n->getDateTimeValue()); },
-            'theme' => function (self $o, ParseNode $n) { $o->setTheme($n->getEnumValue(ScheduleEntityTheme::class)); },
+            'endDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setEndDateTime($n->getDateTimeValue()); },
+            'startDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartDateTime($n->getDateTimeValue()); },
+            'theme' => function (ParseNode $n) use ($currentObject) { $currentObject->setTheme($n->getEnumValue(ScheduleEntityTheme::class)); },
         ];
     }
 

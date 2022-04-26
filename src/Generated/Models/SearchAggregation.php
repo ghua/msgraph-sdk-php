@@ -63,9 +63,10 @@ class SearchAggregation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'buckets' => function (self $o, ParseNode $n) { $o->setBuckets($n->getCollectionOfObjectValues(SearchBucket::class)); },
-            'field' => function (self $o, ParseNode $n) { $o->setField($n->getStringValue()); },
+            'buckets' => function (ParseNode $n) use ($currentObject) { $currentObject->setBuckets($n->getCollectionOfObjectValues(SearchBucket::class)); },
+            'field' => function (ParseNode $n) use ($currentObject) { $currentObject->setField($n->getStringValue()); },
         ];
     }
 

@@ -49,7 +49,7 @@ class ChatMessageItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team_id}/channels/{channel_id}/messages/{chatMessage_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/me/joinedTeams/{team%2Did}/channels/{channel%2Did}/messages/{chatMessage%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -160,7 +160,7 @@ class ChatMessageItemRequestBuilder
     */
     public function hostedContentsById(string $id): ChatMessageHostedContentItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['chatMessageHostedContent_id'] = $id;
+        $urlTplParams['chatMessageHostedContent%2Did'] = $id;
         return new ChatMessageHostedContentItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -188,8 +188,19 @@ class ChatMessageItemRequestBuilder
     */
     public function repliesById(string $id): ChatMessageItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['chatMessage_id1'] = $id;
+        $urlTplParams['chatMessage%2Did1'] = $id;
         return new ChatMessageItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

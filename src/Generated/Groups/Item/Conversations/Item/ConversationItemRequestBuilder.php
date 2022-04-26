@@ -41,7 +41,7 @@ class ConversationItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/conversations/{conversation_id}{?select}';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/conversations/{conversation%2Did}{?%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -169,8 +169,16 @@ class ConversationItemRequestBuilder
     */
     public function threadsById(string $id): ConversationThreadItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['conversationThread_id'] = $id;
+        $urlTplParams['conversationThread%2Did'] = $id;
         return new ConversationThreadItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

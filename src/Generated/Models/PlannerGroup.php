@@ -32,8 +32,9 @@ class PlannerGroup extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'plans' => function (self $o, ParseNode $n) { $o->setPlans($n->getCollectionOfObjectValues(PlannerPlan::class)); },
+            'plans' => function (ParseNode $n) use ($currentObject) { $currentObject->setPlans($n->getCollectionOfObjectValues(PlannerPlan::class)); },
         ]);
     }
 

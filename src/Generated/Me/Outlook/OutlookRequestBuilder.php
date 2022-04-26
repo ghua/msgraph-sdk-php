@@ -44,7 +44,7 @@ class OutlookRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/me/outlook{?select}';
+        $this->urlTemplate = '{+baseurl}/me/outlook{?%24select}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -155,7 +155,7 @@ class OutlookRequestBuilder
     */
     public function masterCategoriesById(string $id): OutlookCategoryItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['outlookCategory_id'] = $id;
+        $urlTplParams['outlookCategory%2Did'] = $id;
         return new OutlookCategoryItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -201,4 +201,12 @@ class OutlookRequestBuilder
         return new SupportedTimeZonesWithTimeZoneStandardRequestBuilder($this->pathParameters, $this->requestAdapter, $timeZoneStandard);
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

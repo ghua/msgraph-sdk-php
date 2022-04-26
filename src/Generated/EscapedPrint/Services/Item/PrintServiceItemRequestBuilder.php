@@ -41,7 +41,7 @@ class PrintServiceItemRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/print/services/{printService_id}{?select,expand}';
+        $this->urlTemplate = '{+baseurl}/print/services/{printService%2Did}{?%24select,%24expand}';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }
@@ -135,7 +135,7 @@ class PrintServiceItemRequestBuilder
     */
     public function endpointsById(string $id): PrintServiceEndpointItemRequestBuilder {
         $urlTplParams = $this->pathParameters;
-        $urlTplParams['printServiceEndpoint_id'] = $id;
+        $urlTplParams['printServiceEndpoint%2Did'] = $id;
         return new PrintServiceEndpointItemRequestBuilder($urlTplParams, $this->requestAdapter);
     }
 
@@ -173,4 +173,15 @@ class PrintServiceItemRequestBuilder
         }
     }
 
+    <?php
+    
+    class GetQueryParameters 
+    {
+        /** @var array<string>|null $expand Expand related entities */
+        public ?array $expand = null;
+        
+        /** @var array<string>|null $select Select properties to be returned */
+        public ?array $select = null;
+        
+    }
 }

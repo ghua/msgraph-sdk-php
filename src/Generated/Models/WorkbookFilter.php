@@ -40,8 +40,9 @@ class WorkbookFilter extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'criteria' => function (self $o, ParseNode $n) { $o->setCriteria($n->getObjectValue(WorkbookFilterCriteria::class)); },
+            'criteria' => function (ParseNode $n) use ($currentObject) { $currentObject->setCriteria($n->getObjectValue(WorkbookFilterCriteria::class)); },
         ]);
     }
 

@@ -63,9 +63,10 @@ class ComplianceInformation implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'certificationControls' => function (self $o, ParseNode $n) { $o->setCertificationControls($n->getCollectionOfObjectValues(CertificationControl::class)); },
-            'certificationName' => function (self $o, ParseNode $n) { $o->setCertificationName($n->getStringValue()); },
+            'certificationControls' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificationControls($n->getCollectionOfObjectValues(CertificationControl::class)); },
+            'certificationName' => function (ParseNode $n) use ($currentObject) { $currentObject->setCertificationName($n->getStringValue()); },
         ];
     }
 

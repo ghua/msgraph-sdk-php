@@ -35,9 +35,10 @@ class ConditionalAccessRoot extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'namedLocations' => function (self $o, ParseNode $n) { $o->setNamedLocations($n->getCollectionOfObjectValues(NamedLocation::class)); },
-            'policies' => function (self $o, ParseNode $n) { $o->setPolicies($n->getCollectionOfObjectValues(ConditionalAccessPolicy::class)); },
+            'namedLocations' => function (ParseNode $n) use ($currentObject) { $currentObject->setNamedLocations($n->getCollectionOfObjectValues(NamedLocation::class)); },
+            'policies' => function (ParseNode $n) use ($currentObject) { $currentObject->setPolicies($n->getCollectionOfObjectValues(ConditionalAccessPolicy::class)); },
         ]);
     }
 

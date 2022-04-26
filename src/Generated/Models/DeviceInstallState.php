@@ -78,15 +78,16 @@ class DeviceInstallState extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'deviceId' => function (self $o, ParseNode $n) { $o->setDeviceId($n->getStringValue()); },
-            'deviceName' => function (self $o, ParseNode $n) { $o->setDeviceName($n->getStringValue()); },
-            'errorCode' => function (self $o, ParseNode $n) { $o->setErrorCode($n->getStringValue()); },
-            'installState' => function (self $o, ParseNode $n) { $o->setInstallState($n->getEnumValue(InstallState::class)); },
-            'lastSyncDateTime' => function (self $o, ParseNode $n) { $o->setLastSyncDateTime($n->getDateTimeValue()); },
-            'osDescription' => function (self $o, ParseNode $n) { $o->setOsDescription($n->getStringValue()); },
-            'osVersion' => function (self $o, ParseNode $n) { $o->setOsVersion($n->getStringValue()); },
-            'userName' => function (self $o, ParseNode $n) { $o->setUserName($n->getStringValue()); },
+            'deviceId' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceId($n->getStringValue()); },
+            'deviceName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDeviceName($n->getStringValue()); },
+            'errorCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorCode($n->getStringValue()); },
+            'installState' => function (ParseNode $n) use ($currentObject) { $currentObject->setInstallState($n->getEnumValue(InstallState::class)); },
+            'lastSyncDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastSyncDateTime($n->getDateTimeValue()); },
+            'osDescription' => function (ParseNode $n) use ($currentObject) { $currentObject->setOsDescription($n->getStringValue()); },
+            'osVersion' => function (ParseNode $n) use ($currentObject) { $currentObject->setOsVersion($n->getStringValue()); },
+            'userName' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserName($n->getStringValue()); },
         ]);
     }
 

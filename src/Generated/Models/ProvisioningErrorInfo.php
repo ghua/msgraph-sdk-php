@@ -80,12 +80,13 @@ class ProvisioningErrorInfo implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'additionalDetails' => function (self $o, ParseNode $n) { $o->setAdditionalDetails($n->getStringValue()); },
-            'errorCategory' => function (self $o, ParseNode $n) { $o->setErrorCategory($n->getEnumValue(ProvisioningStatusErrorCategory::class)); },
-            'errorCode' => function (self $o, ParseNode $n) { $o->setErrorCode($n->getStringValue()); },
-            'reason' => function (self $o, ParseNode $n) { $o->setReason($n->getStringValue()); },
-            'recommendedAction' => function (self $o, ParseNode $n) { $o->setRecommendedAction($n->getStringValue()); },
+            'additionalDetails' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdditionalDetails($n->getStringValue()); },
+            'errorCategory' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorCategory($n->getEnumValue(ProvisioningStatusErrorCategory::class)); },
+            'errorCode' => function (ParseNode $n) use ($currentObject) { $currentObject->setErrorCode($n->getStringValue()); },
+            'reason' => function (ParseNode $n) use ($currentObject) { $currentObject->setReason($n->getStringValue()); },
+            'recommendedAction' => function (ParseNode $n) use ($currentObject) { $currentObject->setRecommendedAction($n->getStringValue()); },
         ];
     }
 

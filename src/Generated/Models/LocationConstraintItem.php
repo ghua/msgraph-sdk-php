@@ -32,8 +32,9 @@ class LocationConstraintItem extends Location
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'resolveAvailability' => function (self $o, ParseNode $n) { $o->setResolveAvailability($n->getBooleanValue()); },
+            'resolveAvailability' => function (ParseNode $n) use ($currentObject) { $currentObject->setResolveAvailability($n->getBooleanValue()); },
         ]);
     }
 

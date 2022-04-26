@@ -30,7 +30,7 @@ class AddGroupRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter) {
-        $this->urlTemplate = '{+baseurl}/groupLifecyclePolicies/{groupLifecyclePolicy_id}/microsoft.graph.addGroup';
+        $this->urlTemplate = '{+baseurl}/groupLifecyclePolicies/{groupLifecyclePolicy%2Did}/microsoft.graph.addGroup';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
     }

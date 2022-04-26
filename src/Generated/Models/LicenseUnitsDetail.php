@@ -58,10 +58,11 @@ class LicenseUnitsDetail implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'enabled' => function (self $o, ParseNode $n) { $o->setEnabled($n->getIntegerValue()); },
-            'suspended' => function (self $o, ParseNode $n) { $o->setSuspended($n->getIntegerValue()); },
-            'warning' => function (self $o, ParseNode $n) { $o->setWarning($n->getIntegerValue()); },
+            'enabled' => function (ParseNode $n) use ($currentObject) { $currentObject->setEnabled($n->getIntegerValue()); },
+            'suspended' => function (ParseNode $n) use ($currentObject) { $currentObject->setSuspended($n->getIntegerValue()); },
+            'warning' => function (ParseNode $n) use ($currentObject) { $currentObject->setWarning($n->getIntegerValue()); },
         ];
     }
 

@@ -89,16 +89,17 @@ class ActivityHistoryItem extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activeDurationSeconds' => function (self $o, ParseNode $n) { $o->setActiveDurationSeconds($n->getIntegerValue()); },
-            'activity' => function (self $o, ParseNode $n) { $o->setActivity($n->getObjectValue(UserActivity::class)); },
-            'createdDateTime' => function (self $o, ParseNode $n) { $o->setCreatedDateTime($n->getDateTimeValue()); },
-            'expirationDateTime' => function (self $o, ParseNode $n) { $o->setExpirationDateTime($n->getDateTimeValue()); },
-            'lastActiveDateTime' => function (self $o, ParseNode $n) { $o->setLastActiveDateTime($n->getDateTimeValue()); },
-            'lastModifiedDateTime' => function (self $o, ParseNode $n) { $o->setLastModifiedDateTime($n->getDateTimeValue()); },
-            'startedDateTime' => function (self $o, ParseNode $n) { $o->setStartedDateTime($n->getDateTimeValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getEnumValue(Status::class)); },
-            'userTimezone' => function (self $o, ParseNode $n) { $o->setUserTimezone($n->getStringValue()); },
+            'activeDurationSeconds' => function (ParseNode $n) use ($currentObject) { $currentObject->setActiveDurationSeconds($n->getIntegerValue()); },
+            'activity' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivity($n->getObjectValue(UserActivity::class)); },
+            'createdDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setCreatedDateTime($n->getDateTimeValue()); },
+            'expirationDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setExpirationDateTime($n->getDateTimeValue()); },
+            'lastActiveDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastActiveDateTime($n->getDateTimeValue()); },
+            'lastModifiedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setLastModifiedDateTime($n->getDateTimeValue()); },
+            'startedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setStartedDateTime($n->getDateTimeValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getEnumValue(Status::class)); },
+            'userTimezone' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserTimezone($n->getStringValue()); },
         ]);
     }
 

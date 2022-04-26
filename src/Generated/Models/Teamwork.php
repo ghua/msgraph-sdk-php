@@ -32,8 +32,9 @@ class Teamwork extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'workforceIntegrations' => function (self $o, ParseNode $n) { $o->setWorkforceIntegrations($n->getCollectionOfObjectValues(WorkforceIntegration::class)); },
+            'workforceIntegrations' => function (ParseNode $n) use ($currentObject) { $currentObject->setWorkforceIntegrations($n->getCollectionOfObjectValues(WorkforceIntegration::class)); },
         ]);
     }
 

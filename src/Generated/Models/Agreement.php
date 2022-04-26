@@ -70,15 +70,16 @@ class Agreement extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'acceptances' => function (self $o, ParseNode $n) { $o->setAcceptances($n->getCollectionOfObjectValues(AgreementAcceptance::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'file' => function (self $o, ParseNode $n) { $o->setFile($n->getObjectValue(AgreementFile::class)); },
-            'files' => function (self $o, ParseNode $n) { $o->setFiles($n->getCollectionOfObjectValues(AgreementFileLocalization::class)); },
-            'isPerDeviceAcceptanceRequired' => function (self $o, ParseNode $n) { $o->setIsPerDeviceAcceptanceRequired($n->getBooleanValue()); },
-            'isViewingBeforeAcceptanceRequired' => function (self $o, ParseNode $n) { $o->setIsViewingBeforeAcceptanceRequired($n->getBooleanValue()); },
-            'termsExpiration' => function (self $o, ParseNode $n) { $o->setTermsExpiration($n->getObjectValue(TermsExpiration::class)); },
-            'userReacceptRequiredFrequency' => function (self $o, ParseNode $n) { $o->setUserReacceptRequiredFrequency($n->getDateIntervalValue()); },
+            'acceptances' => function (ParseNode $n) use ($currentObject) { $currentObject->setAcceptances($n->getCollectionOfObjectValues(AgreementAcceptance::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'file' => function (ParseNode $n) use ($currentObject) { $currentObject->setFile($n->getObjectValue(AgreementFile::class)); },
+            'files' => function (ParseNode $n) use ($currentObject) { $currentObject->setFiles($n->getCollectionOfObjectValues(AgreementFileLocalization::class)); },
+            'isPerDeviceAcceptanceRequired' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsPerDeviceAcceptanceRequired($n->getBooleanValue()); },
+            'isViewingBeforeAcceptanceRequired' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsViewingBeforeAcceptanceRequired($n->getBooleanValue()); },
+            'termsExpiration' => function (ParseNode $n) use ($currentObject) { $currentObject->setTermsExpiration($n->getObjectValue(TermsExpiration::class)); },
+            'userReacceptRequiredFrequency' => function (ParseNode $n) use ($currentObject) { $currentObject->setUserReacceptRequiredFrequency($n->getDateIntervalValue()); },
         ]);
     }
 

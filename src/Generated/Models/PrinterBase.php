@@ -80,16 +80,17 @@ class PrinterBase extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'capabilities' => function (self $o, ParseNode $n) { $o->setCapabilities($n->getObjectValue(PrinterCapabilities::class)); },
-            'defaults' => function (self $o, ParseNode $n) { $o->setDefaults($n->getObjectValue(PrinterDefaults::class)); },
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'isAcceptingJobs' => function (self $o, ParseNode $n) { $o->setIsAcceptingJobs($n->getBooleanValue()); },
-            'jobs' => function (self $o, ParseNode $n) { $o->setJobs($n->getCollectionOfObjectValues(PrintJob::class)); },
-            'location' => function (self $o, ParseNode $n) { $o->setLocation($n->getObjectValue(PrinterLocation::class)); },
-            'manufacturer' => function (self $o, ParseNode $n) { $o->setManufacturer($n->getStringValue()); },
-            'model' => function (self $o, ParseNode $n) { $o->setModel($n->getStringValue()); },
-            'status' => function (self $o, ParseNode $n) { $o->setStatus($n->getObjectValue(PrinterStatus::class)); },
+            'capabilities' => function (ParseNode $n) use ($currentObject) { $currentObject->setCapabilities($n->getObjectValue(PrinterCapabilities::class)); },
+            'defaults' => function (ParseNode $n) use ($currentObject) { $currentObject->setDefaults($n->getObjectValue(PrinterDefaults::class)); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'isAcceptingJobs' => function (ParseNode $n) use ($currentObject) { $currentObject->setIsAcceptingJobs($n->getBooleanValue()); },
+            'jobs' => function (ParseNode $n) use ($currentObject) { $currentObject->setJobs($n->getCollectionOfObjectValues(PrintJob::class)); },
+            'location' => function (ParseNode $n) use ($currentObject) { $currentObject->setLocation($n->getObjectValue(PrinterLocation::class)); },
+            'manufacturer' => function (ParseNode $n) use ($currentObject) { $currentObject->setManufacturer($n->getStringValue()); },
+            'model' => function (ParseNode $n) use ($currentObject) { $currentObject->setModel($n->getStringValue()); },
+            'status' => function (ParseNode $n) use ($currentObject) { $currentObject->setStatus($n->getObjectValue(PrinterStatus::class)); },
         ]);
     }
 

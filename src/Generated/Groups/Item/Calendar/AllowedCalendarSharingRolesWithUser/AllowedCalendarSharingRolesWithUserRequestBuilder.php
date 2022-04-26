@@ -31,7 +31,7 @@ class AllowedCalendarSharingRolesWithUserRequestBuilder
      * @param string|null $user Usage: User='{User}'
     */
     public function __construct(array $pathParameters, RequestAdapter $requestAdapter, ?string $user = null) {
-        $this->urlTemplate = '{+baseurl}/groups/{group_id}/calendar/microsoft.graph.allowedCalendarSharingRoles(User=\'{User}\')';
+        $this->urlTemplate = '{+baseurl}/groups/{group%2Did}/calendar/microsoft.graph.allowedCalendarSharingRoles(User=\'{User}\')';
         $this->requestAdapter = $requestAdapter;
         $this->pathParameters = $pathParameters;
         $urlTplParams = $pathParameters;

@@ -69,11 +69,12 @@ class ValidatePropertiesRequestBody implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'displayName' => function (self $o, ParseNode $n) { $o->setDisplayName($n->getStringValue()); },
-            'entityType' => function (self $o, ParseNode $n) { $o->setEntityType($n->getStringValue()); },
-            'mailNickname' => function (self $o, ParseNode $n) { $o->setMailNickname($n->getStringValue()); },
-            'onBehalfOfUserId' => function (self $o, ParseNode $n) { $o->setOnBehalfOfUserId($n->getStringValue()); },
+            'displayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setDisplayName($n->getStringValue()); },
+            'entityType' => function (ParseNode $n) use ($currentObject) { $currentObject->setEntityType($n->getStringValue()); },
+            'mailNickname' => function (ParseNode $n) use ($currentObject) { $currentObject->setMailNickname($n->getStringValue()); },
+            'onBehalfOfUserId' => function (ParseNode $n) use ($currentObject) { $currentObject->setOnBehalfOfUserId($n->getStringValue()); },
         ];
     }
 

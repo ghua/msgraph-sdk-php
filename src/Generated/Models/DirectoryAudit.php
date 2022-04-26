@@ -30,7 +30,7 @@ class DirectoryAudit extends Entity
     /** @var string|null $loggedByService Indicates information on which service initiated the activity (For example: Self-service Password Management, Core Directory, B2C, Invited Users, Microsoft Identity Manager, Privileged Identity Management. */
     private ?string $loggedByService = null;
     
-    /** @var string|null $operationType The operationType property */
+    /** @var string|null $operationType Indicates the type of operation that was performed. The possible values include but are not limited to the following: Add, Assign, Update, Unassign, and Delete. */
     private ?string $operationType = null;
     
     /** @var OperationResult|null $result Indicates the result of the activity. Possible values are: success, failure, timeout, unknownFutureValue. */
@@ -103,18 +103,19 @@ class DirectoryAudit extends Entity
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return array_merge(parent::getFieldDeserializers(), [
-            'activityDateTime' => function (self $o, ParseNode $n) { $o->setActivityDateTime($n->getDateTimeValue()); },
-            'activityDisplayName' => function (self $o, ParseNode $n) { $o->setActivityDisplayName($n->getStringValue()); },
-            'additionalDetails' => function (self $o, ParseNode $n) { $o->setAdditionalDetails($n->getCollectionOfObjectValues(KeyValue::class)); },
-            'category' => function (self $o, ParseNode $n) { $o->setCategory($n->getStringValue()); },
-            'correlationId' => function (self $o, ParseNode $n) { $o->setCorrelationId($n->getStringValue()); },
-            'initiatedBy' => function (self $o, ParseNode $n) { $o->setInitiatedBy($n->getObjectValue(AuditActivityInitiator::class)); },
-            'loggedByService' => function (self $o, ParseNode $n) { $o->setLoggedByService($n->getStringValue()); },
-            'operationType' => function (self $o, ParseNode $n) { $o->setOperationType($n->getStringValue()); },
-            'result' => function (self $o, ParseNode $n) { $o->setResult($n->getEnumValue(OperationResult::class)); },
-            'resultReason' => function (self $o, ParseNode $n) { $o->setResultReason($n->getStringValue()); },
-            'targetResources' => function (self $o, ParseNode $n) { $o->setTargetResources($n->getCollectionOfObjectValues(TargetResource::class)); },
+            'activityDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivityDateTime($n->getDateTimeValue()); },
+            'activityDisplayName' => function (ParseNode $n) use ($currentObject) { $currentObject->setActivityDisplayName($n->getStringValue()); },
+            'additionalDetails' => function (ParseNode $n) use ($currentObject) { $currentObject->setAdditionalDetails($n->getCollectionOfObjectValues(KeyValue::class)); },
+            'category' => function (ParseNode $n) use ($currentObject) { $currentObject->setCategory($n->getStringValue()); },
+            'correlationId' => function (ParseNode $n) use ($currentObject) { $currentObject->setCorrelationId($n->getStringValue()); },
+            'initiatedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setInitiatedBy($n->getObjectValue(AuditActivityInitiator::class)); },
+            'loggedByService' => function (ParseNode $n) use ($currentObject) { $currentObject->setLoggedByService($n->getStringValue()); },
+            'operationType' => function (ParseNode $n) use ($currentObject) { $currentObject->setOperationType($n->getStringValue()); },
+            'result' => function (ParseNode $n) use ($currentObject) { $currentObject->setResult($n->getEnumValue(OperationResult::class)); },
+            'resultReason' => function (ParseNode $n) use ($currentObject) { $currentObject->setResultReason($n->getStringValue()); },
+            'targetResources' => function (ParseNode $n) use ($currentObject) { $currentObject->setTargetResources($n->getCollectionOfObjectValues(TargetResource::class)); },
         ]);
     }
 
@@ -135,7 +136,7 @@ class DirectoryAudit extends Entity
     }
 
     /**
-     * Gets the operationType property value. The operationType property
+     * Gets the operationType property value. Indicates the type of operation that was performed. The possible values include but are not limited to the following: Add, Assign, Update, Unassign, and Delete.
      * @return string|null
     */
     public function getOperationType(): ?string {
@@ -242,7 +243,7 @@ class DirectoryAudit extends Entity
     }
 
     /**
-     * Sets the operationType property value. The operationType property
+     * Sets the operationType property value. Indicates the type of operation that was performed. The possible values include but are not limited to the following: Add, Assign, Update, Unassign, and Delete.
      *  @param string|null $value Value to set for the operationType property.
     */
     public function setOperationType(?string $value ): void {

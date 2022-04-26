@@ -73,12 +73,13 @@ class SecureScoreControlStateUpdate implements AdditionalDataHolder, Parsable
      * @return array<string, callable>
     */
     public function getFieldDeserializers(): array {
+        $currentObject = $this;
         return  [
-            'assignedTo' => function (self $o, ParseNode $n) { $o->setAssignedTo($n->getStringValue()); },
-            'comment' => function (self $o, ParseNode $n) { $o->setComment($n->getStringValue()); },
-            'state' => function (self $o, ParseNode $n) { $o->setState($n->getStringValue()); },
-            'updatedBy' => function (self $o, ParseNode $n) { $o->setUpdatedBy($n->getStringValue()); },
-            'updatedDateTime' => function (self $o, ParseNode $n) { $o->setUpdatedDateTime($n->getDateTimeValue()); },
+            'assignedTo' => function (ParseNode $n) use ($currentObject) { $currentObject->setAssignedTo($n->getStringValue()); },
+            'comment' => function (ParseNode $n) use ($currentObject) { $currentObject->setComment($n->getStringValue()); },
+            'state' => function (ParseNode $n) use ($currentObject) { $currentObject->setState($n->getStringValue()); },
+            'updatedBy' => function (ParseNode $n) use ($currentObject) { $currentObject->setUpdatedBy($n->getStringValue()); },
+            'updatedDateTime' => function (ParseNode $n) use ($currentObject) { $currentObject->setUpdatedDateTime($n->getDateTimeValue()); },
         ];
     }
 
