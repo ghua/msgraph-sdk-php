@@ -1,7 +1,7 @@
 <?php
 /**
 * Copyright (c) Microsoft Corporation.  All Rights Reserved.  Licensed under the MIT License.  See License in the project root for license information.
-* 
+*
 * RecurrencePattern File
 * PHP version 7
 *
@@ -56,18 +56,22 @@ class RecurrencePattern extends Entity
     * Gets the daysOfWeek
     * A collection of the days of the week on which the event occurs. The possible values are: sunday, monday, tuesday, wednesday, thursday, friday, saturday. If type is relativeMonthly or relativeYearly, and daysOfWeek specifies more than one day, the event falls on the first day that satisfies the pattern.  Required if type is weekly, relativeMonthly, or relativeYearly.
     *
-    * @return DayOfWeek|null The daysOfWeek
+    * @return DayOfWeek[]|null The daysOfWeek
     */
     public function getDaysOfWeek()
     {
-        if (array_key_exists("daysOfWeek", $this->_propDict)) {
-            if (is_a($this->_propDict["daysOfWeek"], "\Microsoft\Graph\Model\DayOfWeek") || is_null($this->_propDict["daysOfWeek"])) {
-                return $this->_propDict["daysOfWeek"];
-            } else {
-                $this->_propDict["daysOfWeek"] = new DayOfWeek($this->_propDict["daysOfWeek"]);
-                return $this->_propDict["daysOfWeek"];
+        if (array_key_exists("daysOfWeek", $this->_propDict) && !is_null($this->_propDict["daysOfWeek"])) {
+
+            if (count($this->_propDict['daysOfWeek']) > 0 && is_a($this->_propDict['daysOfWeek'][0], 'DayOfWeek')) {
+                return $this->_propDict['daysOfWeek'];
             }
-        }
+            $daysOfWeek = [];
+            foreach ($this->_propDict['daysOfWeek'] as $singleValue) {
+                $daysOfWeek []= new DayOfWeek($singleValue);
+            }
+            $this->_propDict['daysOfWeek'] = $daysOfWeek;
+            return $this->_propDict['daysOfWeek'];
+            }
         return null;
     }
 
@@ -75,7 +79,7 @@ class RecurrencePattern extends Entity
     * Sets the daysOfWeek
     * A collection of the days of the week on which the event occurs. The possible values are: sunday, monday, tuesday, wednesday, thursday, friday, saturday. If type is relativeMonthly or relativeYearly, and daysOfWeek specifies more than one day, the event falls on the first day that satisfies the pattern.  Required if type is weekly, relativeMonthly, or relativeYearly.
     *
-    * @param DayOfWeek $val The value to assign to the daysOfWeek
+    * @param DayOfWeek[] $val The value to assign to the daysOfWeek
     *
     * @return RecurrencePattern The RecurrencePattern
     */
