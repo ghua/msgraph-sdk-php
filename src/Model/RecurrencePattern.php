@@ -62,7 +62,7 @@ class RecurrencePattern extends Entity
     {
         if (array_key_exists("daysOfWeek", $this->_propDict) && !is_null($this->_propDict["daysOfWeek"])) {
 
-            if (count($this->_propDict['daysOfWeek']) > 0 && is_a($this->_propDict['daysOfWeek'][0], 'DayOfWeek')) {
+            if (count($this->_propDict['daysOfWeek']) > 0 && is_a($this->_propDict['daysOfWeek'][0], '\Microsoft\Graph\Model\DayOfWeek')) {
                 return $this->_propDict['daysOfWeek'];
             }
             $daysOfWeek = [];
